@@ -20,6 +20,18 @@
             top: 14px;
             right: 10px;
         }
+        span.form-control{
+            border: none;
+            background-color: transparent;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+        input[type="checkbox"]{
+            width: 20px;
+            height: 20px;
+            position: relative;
+            left: -10px;
+        }
     </style>
 </asp:Content>
 
