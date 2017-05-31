@@ -1,0 +1,68 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="layout.master.cs" Inherits="GestioneCantieri.layout" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <asp:ContentPlaceHolder ID="title" runat="server">
+    </asp:ContentPlaceHolder>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link type="text/css" href="Css/style.css" rel="stylesheet" />
+    <link href="Css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="Css/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="Scripts/FilterToggle.js"></script>
+    <script src="Scripts/DynamicActiveMenuLink.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="Default.aspx">Gestione Cantieri</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="Default.aspx">Home</a></li>
+                    <li><a href="DDT-Mef.aspx">DDT Mef</a></li>
+                    <li><a href="Listino.aspx">Listino</a></li>
+                    <li><a href="GestisciGruppiFrutti.aspx">Gestisci Gruppi Frutti</a></li>
+                    <li><a href="GestisciFrutti.aspx">Gestisci Frutti</a></li>
+                    <li><a href="OrdineFrutti.aspx">Ordine Frutti</a></li>
+                    <li><a href="StampaOrdFrutCantExcel.aspx">Stampa Ord Frut Cant Excel</a></li>
+                    <li><a href="StampaOrdFrutLocale.aspx">Stampa Ord Frut Loc</a></li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                </button>
+                <span style="padding-left:154px;"></span>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="StampaFruttiGruppi.aspx">Stampa Frutti Gruppi</a></li>
+                    <li><a href="InserimentoDati.aspx">Inserimento Dati</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <form id="frmGestioneCantieri" runat="server">
+        <asp:ContentPlaceHolder ID="body" runat="server">
+        </asp:ContentPlaceHolder>
+    </form>
+</body>
+</html>
