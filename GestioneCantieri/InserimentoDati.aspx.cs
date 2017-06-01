@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Reflection;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -37,11 +34,13 @@ namespace GestioneCantieri
         }
         protected void btnShowInsFornitori_Click(object sender, EventArgs e)
         {
+            BindGridFornitori();
             lblTitoloInserimento.Text = "Inserimento Fornitori";
             MostraPannello(false, true, false, false);
         }
         protected void btnShowInsOperai_Click(object sender, EventArgs e)
         {
+            BindGridOperai();
             lblTitoloInserimento.Text = "Inserimento Operai";
             MostraPannello(false, false, true, false);
         }
@@ -80,6 +79,56 @@ namespace GestioneCantieri
             {
                 lblIsClienteInserito.Text = "Il campo 'Ragione Sociale' deve essere compilato";
                 lblIsClienteInserito.ForeColor = Color.Red;
+            }
+        }
+        protected void btnInsFornit_Click(object sender, EventArgs e)
+        {
+            if (txtRagSocFornit.Text != "")
+            {
+                bool isInserito = InserimentoDatiDAO.InserisciFornitore(txtRagSocFornit.Text, txtCittaFornit.Text, txtIndirFornit.Text, txtCapFornit.Text, txtTelFornit.Text, txtCelFornit.Text, txtCodFiscFornit.Text, txtPartIvaFornit.Text, txtAbbrevFornit.Text);
+                if (isInserito)
+                {
+                    lblIsFornitoreInserito.Text = "Fornitore '" + txtRagSocFornit.Text + "' inserito correttamente";
+                    lblIsFornitoreInserito.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsFornitoreInserito.Text = "Errore durante l'inserimento del cliente '" + txtRagSocFornit.Text + "'";
+                    lblIsFornitoreInserito.ForeColor = Color.Red;
+                }
+                SvuotaTxtBox(pnlInsFornitori);
+                BindGridFornitori();
+            }
+            else
+            {
+                lblIsFornitoreInserito.Text = "Il campo 'Ragione Sociale Fornitore' deve essere compilato";
+                lblIsFornitoreInserito.ForeColor = Color.Red;
+            }
+        }
+        protected void btnInsOper_Click(object sender, EventArgs e)
+        {
+            if (txtNomeOper.Text != "")
+            {
+                bool isInserito = InserimentoDatiDAO.InserisciOperaio(txtNomeOper.Text, txtDescrOper.Text, txtSuffOper.Text, txtOperaio.Text);
+
+                if (isInserito)
+                {
+                    lblIsOperaioInserito.Text = "Operaio '" + txtNomeOper.Text + "' inserito con successo";
+                    lblIsOperaioInserito.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsOperaioInserito.Text = "Errore durante l'inserimento dell'operaio '" + txtNomeOper.Text + "'";
+                    lblIsOperaioInserito.ForeColor = Color.Red;
+                }
+
+                BindGridOperai();
+                SvuotaTxtBox(pnlInsOperai);
+            }
+            else
+            {
+                lblIsOperaioInserito.Text = "Il campo 'Nome Operaio' deve essere compilato";
+                lblIsOperaioInserito.ForeColor = Color.Red;
             }
         }
         protected void btnInsCantiere_Click(object sender, EventArgs e)
@@ -134,6 +183,18 @@ namespace GestioneCantieri
             grdClienti.DataSource = dt;
             grdClienti.DataBind();
         }
+        protected void BindGridFornitori()
+        {
+            DataTable dt = InserimentoDatiDAO.GetAllFornitori();
+            grdFornitori.DataSource = dt;
+            grdFornitori.DataBind();
+        }
+        protected void BindGridOperai()
+        {
+            DataTable dt = InserimentoDatiDAO.GetAllOperai();
+            grdOperai.DataSource = dt;
+            grdOperai.DataBind();
+        }
         protected void BindGridCantieri()
         {
             DataTable dt = InserimentoDatiDAO.GetAllCantieri();
@@ -174,7 +235,7 @@ namespace GestioneCantieri
                 else
                     ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "No";
 
-                if(Convert.ToBoolean(dr["Riscosso"]))
+                if (Convert.ToBoolean(dr["Riscosso"]))
                     ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "Si";
                 else
                     ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "No";
