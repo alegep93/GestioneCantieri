@@ -125,7 +125,8 @@ namespace GestioneCantieri
             FillDdlGruppi();
             MostraListaGruppiInseriti();
             txtModNomeGruppo.Text = txtModDescrGruppo.Text = "";
-            ddlModScegliGruppo.SelectedIndex = -1;
+            btnSaveModGruppo.Visible = false;
+            btnRiapriGruppo.Visible = false;
         }
         protected void btnDelGruppo_Click(object sender, EventArgs e)
         {
@@ -157,8 +158,11 @@ namespace GestioneCantieri
                 lblIsDelCompGruppo.Text = "Impossibile eliminare il componente del gruppo '" + ddlDelCompGrup.SelectedItem.Text + "'";
                 lblIsDelCompGruppo.ForeColor = Color.Red;
             }
+
+            fillDdlCompGruppo();
             compList = GestisciGruppiFruttiDAO.getCompGruppo(Convert.ToInt32(ddlDelNomeGruppo.SelectedItem.Value));
-            ddlDelCompGrup.SelectedItem.Text = "";
+            ddlDelCompGrup.SelectedIndex = 0;
+            btnDelCompGruppo.Visible = false;
         }
         protected void btnCompletaGruppo_Click(object sender, EventArgs e)
         {
@@ -183,6 +187,7 @@ namespace GestioneCantieri
             {
                 lblSaveModGruppo.Text = "Gruppo '" + ddlModScegliGruppo.SelectedItem.Text + "' aperto con successo";
                 lblSaveModGruppo.ForeColor = Color.Blue;
+                btnRiapriGruppo.Visible = false;
             }
             else
             {
@@ -253,13 +258,11 @@ namespace GestioneCantieri
         protected void ddlDelGruppo_TextChanged(object sender, EventArgs e)
         {
             if (ddlDelGruppo.SelectedItem.Text != "")
-            {
                 btnDelGruppo.Visible = true;
-            }
             else
-            {
                 btnDelGruppo.Visible = false;
-            }
+
+            compList = GestisciGruppiFruttiDAO.getCompGruppo(Convert.ToInt32(ddlDelNomeGruppo.SelectedItem.Value));
         }
         protected void ddlDelCompGrup_TextChanged(object sender, EventArgs e)
         {
@@ -267,6 +270,8 @@ namespace GestioneCantieri
                 btnDelCompGruppo.Visible = true;
             else
                 btnDelCompGruppo.Visible = false;
+
+            compList = GestisciGruppiFruttiDAO.getCompGruppo(Convert.ToInt32(ddlDelNomeGruppo.SelectedItem.Value));
         }
 
         /* HELPERS */
