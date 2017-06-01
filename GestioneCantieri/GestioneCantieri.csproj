@@ -148,11 +148,13 @@
     <Compile Include="Data\Clienti.cs" />
     <Compile Include="Data\CompGruppoFrut.cs" />
     <Compile Include="Data\DDTMef.cs" />
+    <Compile Include="Data\Fornitori.cs" />
     <Compile Include="Data\Frutti.cs" />
     <Compile Include="Data\GruppiFrutti.cs" />
     <Compile Include="Data\Locali.cs" />
     <Compile Include="Data\Mamg0.cs" />
     <Compile Include="Data\MatOrdFrut.cs" />
+    <Compile Include="Data\Operai.cs" />
     <Compile Include="Data\StampaFruttiPerGruppi.cs" />
     <Compile Include="Data\StampaOrdFrutCantLoc.cs" />
     <Compile Include="Data\StampaOrdFrutCant.cs" />

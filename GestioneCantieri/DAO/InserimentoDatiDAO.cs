@@ -111,6 +111,131 @@ namespace GestioneCantieri.DAO
         }
         /* Fine Clienti */
 
+        /* Fornitori */
+        public static DataTable GetAllFornitori()
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "SELECT IdFornitori,RagSocForni,Indirizzo,cap, " +
+                      "Città,Tel1,Cell1,PartitaIva,CodFiscale,Abbreviato " +
+                      "FROM TblForitori " +
+                      "ORDER BY RagSocForni ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei fornitori", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static bool InserisciFornitore(string ragSoc, string citta, string indir,
+            string cap, string tel, string cel, string codFisc, string pIva, string abbrev)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "INSERT INTO TblForitori " +
+                      "(RagSocForni,Indirizzo,cap,Città,Tel1,Cell1, " +
+                      "PartitaIva,CodFiscale,Abbreviato) " +
+                      "VALUES (@pRagSoc, @pIndir, @pCap, @pCitta, @pTel, @pCel, @pPIva, @pCodFisc, @pAbbrev) ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pRagSoc", ragSoc));
+                cmd.Parameters.Add(new SqlParameter("pIndir", indir));
+                cmd.Parameters.Add(new SqlParameter("pCap", cap));
+                cmd.Parameters.Add(new SqlParameter("pCitta", citta));
+                cmd.Parameters.Add(new SqlParameter("pTel", tel));
+                cmd.Parameters.Add(new SqlParameter("pCel", cel));
+                cmd.Parameters.Add(new SqlParameter("pPIva", pIva));
+                cmd.Parameters.Add(new SqlParameter("pCodFisc", codFisc));
+                cmd.Parameters.Add(new SqlParameter("pAbbrev", abbrev));
+                int ret = cmd.ExecuteNonQuery();
+
+                if (ret > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'inserimento di un nuovo Fornitore", ex);
+            }
+            finally { cn.Close(); }
+        }
+        /* Fine Fornitori */
+
+        /* Operai */
+        public static DataTable GetAllOperai()
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "SELECT IdOperaio,NomeOp,DescrOP,Suffisso,Operaio " +
+                      "FROM TblOperaio " +
+                      "ORDER BY NomeOp ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero degli operai", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static bool InserisciOperaio(string nome,string descr,string suff,string operaio)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "INSERT INTO TblOperaio " +
+                      "(NomeOp, DescrOP, Suffisso, Operaio) " +
+                      "VALUES (@pNome,@pDescr,@pSuff,@pOperaio) ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@pNome", nome));
+                cmd.Parameters.Add(new SqlParameter("@pDescr", descr));
+                cmd.Parameters.Add(new SqlParameter("@pSuff", suff));
+                cmd.Parameters.Add(new SqlParameter("@pOperaio", operaio));
+
+                int ret = cmd.ExecuteNonQuery();
+
+                if (ret > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'inserimento di un nuovo operaio", ex);
+            }
+            finally { cn.Close(); }
+        }
+        /* Fine Operai */
+
         /* Cantieri */
         public static DataTable GetAllCantieri()
         {

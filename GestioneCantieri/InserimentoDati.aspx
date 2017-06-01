@@ -140,11 +140,106 @@
 
             <!-- Pannello inserimento Fornitori -->
             <asp:Panel ID="pnlInsFornitori" CssClass="panel-container col-md-12" runat="server">
+                <div class="col-md-4 form-group">
+                    <asp:Label ID="lblRagSocFornit" runat="server" Text="Ragione Sociale Fornitore" />
+                    <asp:TextBox ID="txtRagSocFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-4 form-group">
+                    <asp:Label ID="lblCittaFornit" runat="server" Text="Citta" />
+                    <asp:TextBox ID="txtCittaFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-4 form-group">
+                    <asp:Label ID="lblIndirFornit" runat="server" Text="Indirizzo" />
+                    <asp:TextBox ID="txtIndirFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <asp:Label ID="lblCapFornit" runat="server" Text="Cap" />
+                    <asp:TextBox ID="txtCapFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-4 form-group">
+                    <asp:Label ID="lblTelFornit" runat="server" Text="Telefono" />
+                    <asp:TextBox ID="txtTelFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-4 form-group">
+                    <asp:Label ID="lblCelFornit" runat="server" Text="Cellulare" />
+                    <asp:TextBox ID="txtCelFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+
+                <div class="col-md-4 form-group">
+                    <asp:Label ID="lblCodFiscFornit" runat="server" Text="Codice Fiscale" />
+                    <asp:TextBox ID="txtCodFiscFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-4 form-group">
+                    <asp:Label ID="lblPartIvaFornit" runat="server" Text="Partita Iva" />
+                    <asp:TextBox ID="txtPartIvaFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-4 form-group">
+                    <asp:Label ID="lblAbbrevFornit" runat="server" Text="Abbreviato" />
+                    <asp:TextBox ID="txtAbbrevFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <asp:Button ID="btnInsFornit" OnClick="btnInsFornit_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Fornitore" />
+                    <asp:Label ID="lblIsFornitoreInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
+                </div>
+
+                <!-- Griglia di visualizzazione record -->
+                <div class="col-md-12 table-container">
+                    <asp:GridView ID="grdFornitori" AutoGenerateColumns="false"
+                        ItemType="GestioneCantieri.Data.Fornitori" runat="server" CssClass="table table-striped table-responsive text-center">
+                        <Columns>
+                            <asp:BoundField HeaderText="Ragione Sociale" DataField="RagSocForni" />
+                            <asp:BoundField HeaderText="Città" DataField="Città" />
+                            <asp:BoundField HeaderText="Indirizzo" DataField="Indirizzo" />
+                            <asp:BoundField HeaderText="Cap" DataField="cap" />
+                            <asp:BoundField HeaderText="Telefono" DataField="Tel1" />
+                            <asp:BoundField HeaderText="Cellulare" DataField="Cell1" />
+                            <asp:BoundField HeaderText="Codice Fiscale" DataField="CodFiscale" />
+                            <asp:BoundField HeaderText="Partita Iva" DataField="PartitaIva" />
+                            <asp:BoundField HeaderText="Abbreviato" DataField="Abbreviato" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
             </asp:Panel>
             <!-- Fine Pannello inserimento Fornitori -->
 
             <!-- Pannello inserimento Operai -->
             <asp:Panel ID="pnlInsOperai" CssClass="panel-container col-md-12" runat="server">
+                <div class="col-md-3 form-group">
+                    <asp:Label ID="lblNomeOper" runat="server" Text="Nome Operaio" />
+                    <asp:TextBox ID="txtNomeOper" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-3 form-group">
+                    <asp:Label ID="lblDescrOper" runat="server" Text="Descrizione" />
+                    <asp:TextBox ID="txtDescrOper" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-3 form-group">
+                    <asp:Label ID="lblSuffOper" runat="server" Text="Suffisso" />
+                    <asp:TextBox ID="txtSuffOper" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-3 form-group">
+                    <asp:Label ID="lblOperaio" runat="server" Text="Operaio" />
+                    <asp:TextBox ID="txtOperaio" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+
+                <div class="col-md-12 form-group">
+                    <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Operaio" />
+                    <asp:Label ID="lblIsOperaioInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
+                </div>
+
+                <!-- Griglia di visualizzazione record -->
+                <div class="col-md-12 table-container">
+                    <asp:GridView ID="grdOperai" AutoGenerateColumns="false"
+                        ItemType="GestioneCantieri.Data.Operai" runat="server" CssClass="table table-striped table-responsive text-center">
+                        <Columns>
+                            <asp:BoundField HeaderText="Nome" DataField="NomeOp" />
+                            <asp:BoundField HeaderText="Descrizione" DataField="DescrOp" />
+                            <asp:BoundField HeaderText="Suffisso" DataField="Suffisso" />
+                            <asp:BoundField HeaderText="Operaio" DataField="Operaio" />
+                        </Columns>
+                    </asp:GridView>
+                </div>
             </asp:Panel>
             <!-- Fine Pannello inserimento Operai -->
 
@@ -266,7 +361,6 @@
                                     <asp:Label runat="server" ID="lblPreventivoYesNo"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField HeaderText="Fascia Cantiere" DataField="FasciaTblCantieri" />
                             <asp:TemplateField HeaderText="Da Dividere">
                                 <ItemTemplate>
                                     <asp:Label runat="server" ID="lblDaDividereYesNo"></asp:Label>
@@ -282,6 +376,7 @@
                                     <asp:Label runat="server" ID="lblFatturatoYesNo"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:BoundField HeaderText="Fascia Cantiere" DataField="FasciaTblCantieri" />
                         </Columns>
                     </asp:GridView>
                 </div>
