@@ -227,39 +227,54 @@ namespace GestioneCantieri
         /* Mostro Si/No invece di True/False sulla GrdView */
         protected void grdCantieri_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                DataRow dr = ((DataRowView)e.Row.DataItem).Row;
-                if (Convert.ToBoolean(dr["Chiuso"]))
-                    ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "No";
+            //if (e.Row.RowType == DataControlRowType.DataRow)
+            //{
+            //    DataRow dr = ((DataRowView)e.Row.DataItem).Row;
+            //    if (Convert.ToBoolean(dr["Chiuso"]))
+            //        ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "Si";
+            //    else
+            //        ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "No";
 
-                if (Convert.ToBoolean(dr["Riscosso"]))
-                    ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "No";
+            //    if (Convert.ToBoolean(dr["Riscosso"]))
+            //        ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "Si";
+            //    else
+            //        ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "No";
 
-                if (Convert.ToBoolean(dr["Preventivo"]))
-                    ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "No";
+            //    if (Convert.ToBoolean(dr["Preventivo"]))
+            //        ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "Si";
+            //    else
+            //        ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "No";
 
-                if (Convert.ToBoolean(dr["DaDividere"]))
-                    ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "No";
+            //    if (Convert.ToBoolean(dr["DaDividere"]))
+            //        ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "Si";
+            //    else
+            //        ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "No";
 
-                if (Convert.ToBoolean(dr["Diviso"]))
-                    ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "No";
+            //    if (Convert.ToBoolean(dr["Diviso"]))
+            //        ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "Si";
+            //    else
+            //        ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "No";
 
-                if (Convert.ToBoolean(dr["Fatturato"]))
-                    ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "No";
-            }
+            //    if (Convert.ToBoolean(dr["Fatturato"]))
+            //        ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "Si";
+            //    else
+            //        ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "No";
+            //}
+        }
+
+        protected void btnModCant_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnVisualCant_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnElimCant_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

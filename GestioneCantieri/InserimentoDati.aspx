@@ -32,6 +32,11 @@
             position: relative;
             left: -10px;
         }
+        .table-container{
+            max-height: 500px;
+            overflow: hidden;
+            overflow-y: auto;
+        }
     </style>
 </asp:Content>
 
@@ -334,11 +339,26 @@
                     <asp:GridView ID="grdCantieri" AutoGenerateColumns="false" OnRowDataBound="grdCantieri_RowDataBound"
                         ItemType="GestioneCantieri.Data.Cantieri" runat="server" CssClass="table table-striped table-responsive text-center">
                         <Columns>
-                            <asp:BoundField HeaderText="Cliente" DataField="RagSocCli" />
-                            <asp:BoundField HeaderText="Data Inserimento" DataField="Data" DataFormatString="{0:d}" />
                             <asp:BoundField HeaderText="Codice Cantiere" DataField="CodCant" />
                             <asp:BoundField HeaderText="Descrizione Cantiere" DataField="DescriCodCant" />
-                            <asp:BoundField HeaderText="Indirizzo" DataField="Indirizzo" />
+                            <asp:BoundField HeaderText="Cliente" DataField="RagSocCli" />
+                            <asp:BoundField HeaderText="Data Inserimento" DataField="Data" DataFormatString="{0:d}" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualCant" OnClick="btnVisualCant_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModCant" OnClick="btnModCant_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimCant" OnClick="btnElimCant_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <%--<asp:BoundField HeaderText="Indirizzo" DataField="Indirizzo" />
                             <asp:BoundField HeaderText="Città" DataField="Città" />
                             <asp:BoundField HeaderText="Ricarico" DataField="Ricarico" />
                             <asp:BoundField HeaderText="Prezzo Manodopera" DataField="PzzoManodopera" />
@@ -376,7 +396,7 @@
                                     <asp:Label runat="server" ID="lblFatturatoYesNo"></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:BoundField HeaderText="Fascia Cantiere" DataField="FasciaTblCantieri" />
+                            <asp:BoundField HeaderText="Fascia Cantiere" DataField="FasciaTblCantieri" />--%>
                         </Columns>
                     </asp:GridView>
                 </div>
