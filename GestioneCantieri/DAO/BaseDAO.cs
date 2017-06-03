@@ -1,10 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace GestioneCantieri.DAO
 {
@@ -14,6 +10,7 @@ namespace GestioneCantieri.DAO
         {
             RegistryView registryView = Environment.Is64BitOperatingSystem ? RegistryView.Registry64 : RegistryView.Registry32;
             string instanceName = "";
+
             using (RegistryKey hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, registryView))
             {
                 RegistryKey instanceKey = hklm.OpenSubKey(@"SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL", false);
@@ -21,7 +18,7 @@ namespace GestioneCantieri.DAO
                 {
                     string[] instances = instanceKey.GetValueNames();
                     if (instances.Length == 1)
-                        instanceName = instanceKey.GetValueNames()[instances.Length];
+                        instanceName = instanceKey.GetValueNames()[0];
                     else
                     {
                         foreach (string instance in instances)
@@ -34,11 +31,17 @@ namespace GestioneCantieri.DAO
                     }
                 }
             }
+            
+            if (instanceName != "MSSQLSERVER")
+                instanceName = "\\" + instanceName;
+            else
+                instanceName = "";
+
             return instanceName;
         }
         private static string ConfigureConnectionString()
         {
-            string dataSource = Environment.MachineName + "\\" + GetInstanceName();
+            string dataSource = Environment.MachineName + GetInstanceName();
             string dbName = "GestioneCantieri";
             string connectionString = "Data Source=" + dataSource + ";Initial Catalog=" + dbName + ";Integrated Security=True";
 
