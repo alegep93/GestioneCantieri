@@ -2,6 +2,12 @@
 
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
     <title>Ordine Frutti</title>
+    <style>
+        #body_lblIsGruppoInserito{
+            margin-bottom: 30px;
+            text-align: right;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
