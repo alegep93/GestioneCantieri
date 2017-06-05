@@ -37,8 +37,8 @@
 
         .table-container {
             max-height: 500px;
-            overflow: scroll;
-            /*overflow-y: auto;*/
+            overflow: hidden;
+            overflow-y: auto;
         }
     </style>
 </asp:Content>
