@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Reflection;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -18,7 +19,7 @@ namespace GestioneCantieri
                 MostraPannello(true, false, false, false);
                 lblTitoloInserimento.Text = "Inserimento Clienti";
                 BindGridClienti();
-                PopolaDataInserimento();
+                btnModCantiere.Visible = false;
             }
         }
 
@@ -30,7 +31,6 @@ namespace GestioneCantieri
             lblIsClienteInserito.Text = "";
             MostraPannello(true, false, false, false);
             BindGridClienti();
-            PopolaDataInserimento();
         }
         protected void btnShowInsFornitori_Click(object sender, EventArgs e)
         {
@@ -51,7 +51,9 @@ namespace GestioneCantieri
             lblIsCantInserito.Text = "";
             BindGridCantieri();
             FillDdlClienti();
-            PopolaDataInserimento();
+            SvuotaTxtBox(pnlTxtBoxCantContainer);
+            btnModCantiere.Visible = false;
+            btnInsCantiere.Visible = true;
         }
 
         /* Click dei bottoni di inserimento */
@@ -59,7 +61,7 @@ namespace GestioneCantieri
         {
             if (txtRagSocCli.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciCliente(txtRagSocCli.Text, txtIndirizzo.Text, txtCap.Text, txtCitta.Text, txtProvincia.Text, txtTelefono.Text, txtCellulare.Text, txtPartitaIva.Text, txtCodiceFiscale.Text, DateTime.Now.ToString("yyyy-MM-dd"), txtNote.Text);
+                bool isInserito = InserimentoDatiDAO.InserisciCliente(txtRagSocCli.Text, txtIndirizzo.Text, txtCap.Text, txtCitta.Text, txtProvincia.Text, txtTelefono.Text, txtCellulare.Text, txtPartitaIva.Text, txtCodiceFiscale.Text, txtDataInserimento.Text, txtNote.Text);
 
                 if (isInserito)
                 {
@@ -142,7 +144,7 @@ namespace GestioneCantieri
                 string diviso = Convert.ToInt32(chkDiviso.Checked).ToString();
                 string fatturato = Convert.ToInt32(chkFatturato.Checked).ToString();
 
-                bool isInserito = InserimentoDatiDAO.InserisciCantiere(ddlScegliClientePerCantiere.SelectedValue, DateTime.Now.ToString("yyyy-MM-dd"),
+                bool isInserito = InserimentoDatiDAO.InserisciCantiere(ddlScegliClientePerCantiere.SelectedValue, txtDataInserCant.Text,
                     txtCodCant.Text, txtDescrCodCant.Text, txtIndirizzoCant.Text, txtCittaCant.Text,
                     txtRicaricoCant.Text, txtPzzoManodopCant.Text, chiuso, riscosso,
                     txtNumeroCant.Text, txtValPrevCant.Text, txtIvaCant.Text, txtAnnoCant.Text,
@@ -167,6 +169,50 @@ namespace GestioneCantieri
                 lblIsCantInserito.Text = "Devi scegliere un cliente da associare al nuovo cantiere";
                 lblIsCantInserito.ForeColor = Color.Red;
             }
+        }
+        protected void btnFiltraCant_Click(object sender, EventArgs e)
+        {
+            if (!(txtFiltroAnno.Text == "" && txtFiltroCodCant.Text == "" && txtFiltroDescr.Text == "" && txtFiltroCliente.Text == "" && chkFiltroChiuso.Checked == false && chkFiltroRiscosso.Checked == false))
+                BindGridCantieriWithSearch();
+            else
+                BindGridCantieri();
+        }
+        protected void btnSvuotaFiltri_Click(object sender, EventArgs e)
+        {
+            SvuotaTxtBox(pnlFiltriCant);
+            chkFiltroChiuso.Checked = chkFiltroRiscosso.Checked = false;
+            BindGridCantieri();
+        }
+        protected void btnModCantiere_Click(object sender, EventArgs e)
+        {
+            string chiuso = Convert.ToInt32(chkCantChiuso.Checked).ToString();
+            string riscosso = Convert.ToInt32(chkCantRiscosso.Checked).ToString();
+            string preventivo = Convert.ToInt32(chkPreventivo.Checked).ToString();
+            string daDividere = Convert.ToInt32(chkDaDividere.Checked).ToString();
+            string diviso = Convert.ToInt32(chkDiviso.Checked).ToString();
+            string fatturato = Convert.ToInt32(chkFatturato.Checked).ToString();
+
+            bool isUpdated = InserimentoDatiDAO.UpdateCantiere(hidIdCant.Value, ddlScegliClientePerCantiere.SelectedValue, txtDataInserCant.Text,
+                    txtCodCant.Text, txtDescrCodCant.Text, txtIndirizzoCant.Text, txtCittaCant.Text,
+                    txtRicaricoCant.Text, txtPzzoManodopCant.Text, chiuso, riscosso,
+                    txtNumeroCant.Text, txtValPrevCant.Text, txtIvaCant.Text, txtAnnoCant.Text,
+                    preventivo, daDividere, diviso, fatturato, txtFasciaCant.Text);
+
+            if (isUpdated)
+            {
+                lblIsCantInserito.Text = "Cantiere '" + txtDescrCodCant.Text + "' modificato con successo";
+                lblIsCantInserito.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsCantInserito.Text = "Errore durante la modifica del cantiere '" + txtDescrCodCant.Text + "'";
+                lblIsCantInserito.ForeColor = Color.Red;
+            }
+
+            if (!(txtFiltroAnno.Text == "" && txtFiltroCodCant.Text == "" && txtFiltroDescr.Text == "" && txtFiltroCliente.Text == "" && chkFiltroChiuso.Checked == false && chkFiltroRiscosso.Checked == false))
+                BindGridCantieriWithSearch();
+            else
+                BindGridCantieri();
         }
 
         /* HELPERS */
@@ -198,7 +244,15 @@ namespace GestioneCantieri
         protected void BindGridCantieri()
         {
             DataTable dt = InserimentoDatiDAO.GetAllCantieri();
-            grdCantieri.DataSource = dt;
+            List<Cantieri> cantList = dt.DataTableToList<Cantieri>();
+            grdCantieri.DataSource = cantList;
+            grdCantieri.DataBind();
+        }
+        protected void BindGridCantieriWithSearch()
+        {
+            DataTable dt = InserimentoDatiDAO.FiltraCantieri(txtFiltroAnno.Text, txtFiltroCodCant.Text, txtFiltroDescr.Text, txtFiltroCliente.Text, chkFiltroChiuso.Checked, chkFiltroRiscosso.Checked);
+            List<Cantieri> cantList = dt.DataTableToList<Cantieri>();
+            grdCantieri.DataSource = cantList;
             grdCantieri.DataBind();
         }
         protected void SvuotaTxtBox(Control container)
@@ -219,62 +273,148 @@ namespace GestioneCantieri
             foreach (Clienti c in listClienti)
                 ddlScegliClientePerCantiere.Items.Add(new ListItem(c.RagSocCli, c.Id.ToString()));
         }
-        protected void PopolaDataInserimento()
+        protected void VisualizzaDatiCant(int idCant)
         {
-            txtDataInserimento.Text = txtDataInserCant.Text = DateTime.Now.ToString().Split(' ')[0];
+            PopolaCampiCantiere(idCant, false);
+            btnInsCantiere.Visible = false;
+        }
+        protected void ModificaDatiCant(int idCant)
+        {
+            btnModCantiere.Visible = true;
+            btnInsCantiere.Visible = false;
+            PopolaCampiCantiere(idCant, true);
+            hidIdCant.Value = idCant.ToString();
+        }
+        protected void EliminaCantiere(int idCant)
+        {
+            bool isEliminato = InserimentoDatiDAO.EliminaCantiere(idCant);
+            if (isEliminato)
+            {
+                lblIsCantInserito.Text = "Cantiere eliminato con successo";
+                lblIsCantInserito.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsCantInserito.Text = "Errore durante l'eliminazione del cantiere";
+                lblIsCantInserito.ForeColor = Color.Red;
+            }
+
+            if (!(txtFiltroAnno.Text == "" && txtFiltroCodCant.Text == "" && txtFiltroDescr.Text == "" && txtFiltroCliente.Text == "" && chkFiltroChiuso.Checked == false && chkFiltroRiscosso.Checked == false))
+                BindGridCantieriWithSearch();
+            else
+                BindGridCantieri();
+
+            SvuotaTxtBox(pnlTxtBoxCantContainer);
+            btnModCantiere.Visible = false;
+            btnInsCantiere.Visible = true;
+        }
+        protected void PopolaCampiCantiere(int idCant, bool isControlEnabled)
+        {
+            Cantieri cant = InserimentoDatiDAO.GetSingleCantiere(idCant);
+            ListItem selectedListItem = ddlScegliClientePerCantiere.Items.FindByText(cant.RagSocCli);
+
+            //Rendo i textbox disabilitati
+            foreach (Control c in pnlTxtBoxCantContainer.Controls)
+            {
+                if (c is TextBox)
+                    ((TextBox)c).Enabled = isControlEnabled;
+                else if (c is DropDownList)
+                    ((DropDownList)c).Enabled = isControlEnabled;
+                else if (c is CheckBox)
+                    ((CheckBox)c).Enabled = isControlEnabled;
+            }
+
+            //Deseleziono tutti gli elementi della dropdownlist
+            foreach (ListItem item in ddlScegliClientePerCantiere.Items)
+                item.Selected = false;
+
+            //Seleziono solamente l'item che mi interessa dalla DDL
+            if (selectedListItem != null)
+                selectedListItem.Selected = true;
+
+            //Popolo i textbox
+            txtDataInserCant.Text = cant.Data.ToString("dd-MM-yyyy");
+            txtCodCant.Text = cant.CodCant;
+            txtDescrCodCant.Text = cant.DescriCodCAnt;
+            txtIndirizzoCant.Text = cant.Indirizzo;
+            txtCittaCant.Text = cant.Città;
+            txtRicaricoCant.Text = cant.Ricarico.ToString();
+            txtPzzoManodopCant.Text = cant.PzzoManodopera.ToString();
+            txtNumeroCant.Text = cant.Numero;
+            txtValPrevCant.Text = cant.ValorePreventivo.ToString();
+            txtIvaCant.Text = cant.Iva.ToString();
+            txtAnnoCant.Text = cant.Anno.ToString();
+            txtFasciaCant.Text = cant.FasciaTblCantieri.ToString();
+
+            //Spunto i checkbox se necessario
+            if (cant.Chiuso)
+                chkCantChiuso.Checked = true;
+            if (cant.Riscosso)
+                chkCantRiscosso.Checked = true;
+            if (cant.Preventivo)
+                chkPreventivo.Checked = true;
+            if (cant.DaDividere)
+                chkDaDividere.Checked = true;
+            if (cant.Diviso)
+                chkDiviso.Checked = true;
+            if (cant.Fatturato)
+                chkFatturato.Checked = true;
         }
 
-        /* Mostro Si/No invece di True/False sulla GrdView */
+        /* In base al pulsante premuto e alla riga corrispondente eseguo azioni diversificate */
+        protected void grdCantieri_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int idCant = Convert.ToInt32(e.CommandArgument.ToString());
+
+            if (e.CommandName == "VisualCant")
+                VisualizzaDatiCant(idCant);
+            else if (e.CommandName == "ModCant")
+                ModificaDatiCant(idCant);
+            else if (e.CommandName == "ElimCant")
+                EliminaCantiere(idCant);
+        }
+
+        //Non in uso al momento
         protected void grdCantieri_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            //if (e.Row.RowType == DataControlRowType.DataRow)
-            //{
-            //    DataRow dr = ((DataRowView)e.Row.DataItem).Row;
-            //    if (Convert.ToBoolean(dr["Chiuso"]))
-            //        ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "Si";
-            //    else
-            //        ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "No";
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                /*DataRow dr = ((DataRowView)e.Row.DataItem).Row;
+                if (Convert.ToBoolean(dr["Chiuso"]))
+                    ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "Si";
+                else
+                    ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "No";
 
-            //    if (Convert.ToBoolean(dr["Riscosso"]))
-            //        ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "Si";
-            //    else
-            //        ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "No";
+                if (Convert.ToBoolean(dr["Riscosso"]))
+                    ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "Si";
+                else
+                    ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "No";
 
-            //    if (Convert.ToBoolean(dr["Preventivo"]))
-            //        ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "Si";
-            //    else
-            //        ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "No";
+                if (Convert.ToBoolean(dr["Preventivo"]))
+                    ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "Si";
+                else
+                    ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "No";
 
-            //    if (Convert.ToBoolean(dr["DaDividere"]))
-            //        ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "Si";
-            //    else
-            //        ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "No";
+                if (Convert.ToBoolean(dr["DaDividere"]))
+                    ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "Si";
+                else
+                    ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "No";
 
-            //    if (Convert.ToBoolean(dr["Diviso"]))
-            //        ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "Si";
-            //    else
-            //        ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "No";
+                if (Convert.ToBoolean(dr["Diviso"]))
+                    ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "Si";
+                else
+                    ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "No";
 
-            //    if (Convert.ToBoolean(dr["Fatturato"]))
-            //        ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "Si";
-            //    else
-            //        ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "No";
-            //}
+                if (Convert.ToBoolean(dr["Fatturato"]))
+                    ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "Si";
+                else
+                    ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "No";*/
+
+            }
         }
-
-        protected void btnModCant_Click(object sender, EventArgs e)
+        protected void PopolaDataInserimento()
         {
-
-        }
-
-        protected void btnVisualCant_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnElimCant_Click(object sender, EventArgs e)
-        {
-
+            //txtDataInserimento.Text = txtDataInserCant.Text = DateTime.Now.ToString().Split(' ')[0];
         }
     }
 }

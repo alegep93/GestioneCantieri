@@ -46,8 +46,8 @@ namespace GestioneCantieri
 
             foreach (Cantieri c in listCantieri)
             {
-                string cantiere = c.CodCantiere + " - " + c.DescrCantiere;
-                ddlScegliCantiere.Items.Add(new ListItem(cantiere, c.IdCantiere.ToString())); //new ListItem(valore, chiave);
+                string cantiere = c.CodCant + " - " + c.DescriCodCAnt;
+                ddlScegliCantiere.Items.Add(new ListItem(cantiere, c.IdCantieri.ToString())); //new ListItem(valore, chiave);
             }
         }
         protected void GroupGridViewCells()

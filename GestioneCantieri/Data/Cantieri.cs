@@ -7,66 +7,69 @@ namespace GestioneCantieri.Data
 {
     public class Cantieri
     {
-        int idCantiere, idCliente, ricarico, iva, anno, fasciaCantiere;
-        string codCantiere, descrCantiere, indirizzo, citta, numero;
-        decimal prezzoManodopera, valorePreventivo;
+        int idCantieri, idtblClienti, ricarico, iva, anno, fasciaTblCantieri;
+        string codCant, descriCodCAnt, indirizzo, città, numero, ragSocCli;
+        decimal pzzoManodopera, valorePreventivo;
         bool chiuso, riscosso, preventivo, daDividere, diviso, fatturato;
         DateTime data;
 
         public Cantieri()
         {
-            this.IdCantiere = -1;
-            this.CodCantiere = this.DescrCantiere = "";
+            this.idCantieri = this.idtblClienti = this.ricarico = this.iva = this.anno = this.fasciaTblCantieri = -1;
+            this.codCant = this.descriCodCAnt = this.indirizzo = this.città = this.numero = this.ragSocCli = "";
+            this.pzzoManodopera = this.valorePreventivo = -1m;
+            this.chiuso = this.riscosso = this.preventivo = this.daDividere = this.diviso = this.fatturato = false;
+            this.data = new DateTime();
         }
 
-        public Cantieri(int idCantiere, string codCantiere, string descrCantiere)
+        public Cantieri(int idCantieri, int idtblClienti, int ricarico, int iva, int anno, int fasciaTblCantieri, string codCant, string descriCodCAnt, string indirizzo, string città, string numero, string ragSocCli, decimal pzzoManodopera, decimal valorePreventivo, bool chiuso, bool riscosso, bool preventivo, bool daDividere, bool diviso, bool fatturato, DateTime data)
         {
-            this.IdCantiere = -1;
-            this.CodCantiere = codCantiere;
-            this.DescrCantiere = descrCantiere;
+            this.idCantieri = idCantieri;
+            this.idtblClienti = idtblClienti;
+            this.ricarico = ricarico;
+            this.iva = iva;
+            this.anno = anno;
+            this.fasciaTblCantieri = fasciaTblCantieri;
+            this.codCant = codCant;
+            this.descriCodCAnt = descriCodCAnt;
+            this.indirizzo = indirizzo;
+            this.città = città;
+            this.numero = numero;
+            this.ragSocCli = ragSocCli;
+            this.pzzoManodopera = pzzoManodopera;
+            this.valorePreventivo = valorePreventivo;
+            this.chiuso = chiuso;
+            this.riscosso = riscosso;
+            this.preventivo = preventivo;
+            this.daDividere = daDividere;
+            this.diviso = diviso;
+            this.fatturato = fatturato;
+            this.data = data;
         }
 
-        public Cantieri(decimal prezzoManodopera, decimal valorePreventivo, bool chiuso, bool riscosso, bool preventivo, bool daDividere, bool diviso, bool fatturato, DateTime data)
-        {
-            this.PrezzoManodopera = prezzoManodopera;
-            this.ValorePreventivo = valorePreventivo;
-            this.Chiuso = chiuso;
-            this.Riscosso = riscosso;
-            this.Preventivo = preventivo;
-            this.DaDividere = daDividere;
-            this.Diviso = diviso;
-            this.Fatturato = fatturato;
-            this.Data = data;
-        }
-
-        public int IdCantiere
-        {
-            get { return idCantiere; }
-            set { idCantiere = value; }
-        }
-
-        public string CodCantiere
-        {
-            get { return codCantiere; }
-            set { codCantiere = value; }
-        }
-
-        public string DescrCantiere
-        {
-            get { return descrCantiere; }
-            set { descrCantiere = value; }
-        }
-
-        public int IdCliente
+        public int IdCantieri
         {
             get
             {
-                return IdCliente1;
+                return idCantieri;
             }
 
             set
             {
-                IdCliente1 = value;
+                idCantieri = value;
+            }
+        }
+
+        public int IdtblClienti
+        {
+            get
+            {
+                return idtblClienti;
+            }
+
+            set
+            {
+                idtblClienti = value;
             }
         }
 
@@ -74,12 +77,12 @@ namespace GestioneCantieri.Data
         {
             get
             {
-                return Ricarico1;
+                return ricarico;
             }
 
             set
             {
-                Ricarico1 = value;
+                ricarico = value;
             }
         }
 
@@ -87,12 +90,12 @@ namespace GestioneCantieri.Data
         {
             get
             {
-                return Iva1;
+                return iva;
             }
 
             set
             {
-                Iva1 = value;
+                iva = value;
             }
         }
 
@@ -100,25 +103,51 @@ namespace GestioneCantieri.Data
         {
             get
             {
-                return Anno1;
+                return anno;
             }
 
             set
             {
-                Anno1 = value;
+                anno = value;
             }
         }
 
-        public int FasciaCantiere
+        public int FasciaTblCantieri
         {
             get
             {
-                return FasciaCantiere1;
+                return fasciaTblCantieri;
             }
 
             set
             {
-                FasciaCantiere1 = value;
+                fasciaTblCantieri = value;
+            }
+        }
+
+        public string CodCant
+        {
+            get
+            {
+                return codCant;
+            }
+
+            set
+            {
+                codCant = value;
+            }
+        }
+
+        public string DescriCodCAnt
+        {
+            get
+            {
+                return descriCodCAnt;
+            }
+
+            set
+            {
+                descriCodCAnt = value;
             }
         }
 
@@ -126,25 +155,25 @@ namespace GestioneCantieri.Data
         {
             get
             {
-                return Indirizzo1;
+                return indirizzo;
             }
 
             set
             {
-                Indirizzo1 = value;
+                indirizzo = value;
             }
         }
 
-        public string Citta
+        public string Città
         {
             get
             {
-                return Citta1;
+                return città;
             }
 
             set
             {
-                Citta1 = value;
+                città = value;
             }
         }
 
@@ -152,25 +181,38 @@ namespace GestioneCantieri.Data
         {
             get
             {
-                return Numero1;
+                return numero;
             }
 
             set
             {
-                Numero1 = value;
+                numero = value;
             }
         }
 
-        public decimal PrezzoManodopera
+        public string RagSocCli
         {
             get
             {
-                return prezzoManodopera;
+                return ragSocCli;
             }
 
             set
             {
-                prezzoManodopera = value;
+                ragSocCli = value;
+            }
+        }
+
+        public decimal PzzoManodopera
+        {
+            get
+            {
+                return pzzoManodopera;
+            }
+
+            set
+            {
+                pzzoManodopera = value;
             }
         }
 
@@ -275,110 +317,6 @@ namespace GestioneCantieri.Data
             set
             {
                 data = value;
-            }
-        }
-
-        public string Indirizzo1
-        {
-            get
-            {
-                return indirizzo;
-            }
-
-            set
-            {
-                indirizzo = value;
-            }
-        }
-
-        public string Citta1
-        {
-            get
-            {
-                return citta;
-            }
-
-            set
-            {
-                citta = value;
-            }
-        }
-
-        public string Numero1
-        {
-            get
-            {
-                return numero;
-            }
-
-            set
-            {
-                numero = value;
-            }
-        }
-
-        public int Ricarico1
-        {
-            get
-            {
-                return ricarico;
-            }
-
-            set
-            {
-                ricarico = value;
-            }
-        }
-
-        public int Iva1
-        {
-            get
-            {
-                return iva;
-            }
-
-            set
-            {
-                iva = value;
-            }
-        }
-
-        public int Anno1
-        {
-            get
-            {
-                return anno;
-            }
-
-            set
-            {
-                anno = value;
-            }
-        }
-
-        public int FasciaCantiere1
-        {
-            get
-            {
-                return fasciaCantiere;
-            }
-
-            set
-            {
-                fasciaCantiere = value;
-            }
-        }
-
-        public int IdCliente1
-        {
-            get
-            {
-                return idCliente;
-            }
-
-            set
-            {
-                idCliente = value;
             }
         }
     }

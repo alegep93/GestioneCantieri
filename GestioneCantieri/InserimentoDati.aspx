@@ -20,22 +20,25 @@
             top: 14px;
             right: 10px;
         }
-        span.form-control{
+
+        span.form-control {
             border: none;
             background-color: transparent;
             box-shadow: none;
             -webkit-box-shadow: none;
         }
-        input[type="checkbox"]{
+
+        input[type="checkbox"] {
             width: 20px;
             height: 20px;
             position: relative;
             left: -10px;
         }
-        .table-container{
+
+        .table-container {
             max-height: 500px;
-            overflow: hidden;
-            overflow-y: auto;
+            overflow: scroll;
+            /*overflow-y: auto;*/
         }
     </style>
 </asp:Content>
@@ -108,7 +111,7 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblDataInserimento" runat="server" Text="Data Inserimento" />
-                    <asp:TextBox ID="txtDataInserimento" Enabled="false" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtDataInserimento" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-6 form-group">
                     <asp:Label ID="lblNote" runat="server" Text="Note" />
@@ -250,112 +253,149 @@
 
             <!-- Pannello inserimento Cantieri -->
             <asp:Panel ID="pnlInsCantieri" CssClass="panel-container col-md-12" runat="server">
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblScegliCliente" runat="server" Text="Scegli Cliente" />
-                    <asp:DropDownList ID="ddlScegliClientePerCantiere" CssClass="form-control" runat="server"></asp:DropDownList>
-                </div>
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblDataInserimentoCantiere" runat="server" Text="Data Inserimento" />
-                    <asp:TextBox ID="txtDataInserCant" Enabled="false" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblCodCant" runat="server" Text="Codice Cantiere" />
-                    <asp:TextBox ID="txtCodCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblDescrCodCant" runat="server" Text="Descrizione Cantiere" />
-                    <asp:TextBox ID="txtDescrCodCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblIndirizzoCant" runat="server" Text="Indirizzo" />
-                    <asp:TextBox ID="txtIndirizzoCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblCittaCant" runat="server" Text="Città" />
-                    <asp:TextBox ID="txtCittaCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
+                <asp:Panel ID="pnlTxtBoxCantContainer" CssClass="col-md-12" runat="server">
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblScegliCliente" runat="server" Text="Scegli Cliente" />
+                        <asp:DropDownList ID="ddlScegliClientePerCantiere" CssClass="form-control" runat="server"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblDataInserimentoCantiere" runat="server" Text="Data Inserimento" />
+                        <asp:TextBox ID="txtDataInserCant" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblCodCant" runat="server" Text="Codice Cantiere" />
+                        <asp:TextBox ID="txtCodCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblDescrCodCant" runat="server" Text="Descrizione Cantiere" />
+                        <asp:TextBox ID="txtDescrCodCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblIndirizzoCant" runat="server" Text="Indirizzo" />
+                        <asp:TextBox ID="txtIndirizzoCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblCittaCant" runat="server" Text="Città" />
+                        <asp:TextBox ID="txtCittaCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
 
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblRicaricoCant" runat="server" Text="Ricarico" />
-                    <asp:TextBox ID="txtRicaricoCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblPzzoManodopCant" runat="server" Text="Prezzo Manodopera" />
-                    <asp:TextBox ID="txtPzzoManodopCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-1 form-group">
-                    <asp:Label ID="lblCantChiuso" runat="server" Text="Chiuso" />
-                    <asp:CheckBox ID="chkCantChiuso" CssClass="form-control" Checked="false" runat="server" />
-                </div>
-                <div class="col-md-1 form-group">
-                    <asp:Label ID="lblCantRiscosso" runat="server" Text="Riscosso" />
-                    <asp:CheckBox ID="chkCantRiscosso" CssClass="form-control" Checked="false" runat="server" />
-                </div>
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblNumeroCant" runat="server" Text="Numero" />
-                    <asp:TextBox ID="txtNumeroCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblValPrevCant" runat="server" Text="Valore Preventivo Cantiere" />
-                    <asp:TextBox ID="txtValPrevCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-2 form-group">
-                    <asp:Label ID="lblIvaCant" runat="server" Text="Iva" />
-                    <asp:TextBox ID="txtIvaCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblRicaricoCant" runat="server" Text="Ricarico" />
+                        <asp:TextBox ID="txtRicaricoCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblPzzoManodopCant" runat="server" Text="Prezzo Manodopera" />
+                        <asp:TextBox ID="txtPzzoManodopCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-1 form-group">
+                        <asp:Label ID="lblCantChiuso" runat="server" Text="Chiuso" />
+                        <asp:CheckBox ID="chkCantChiuso" CssClass="form-control" Checked="false" runat="server" />
+                    </div>
+                    <div class="col-md-1 form-group">
+                        <asp:Label ID="lblCantRiscosso" runat="server" Text="Riscosso" />
+                        <asp:CheckBox ID="chkCantRiscosso" CssClass="form-control" Checked="false" runat="server" />
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblNumeroCant" runat="server" Text="Numero" />
+                        <asp:TextBox ID="txtNumeroCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblValPrevCant" runat="server" Text="Valore Preventivo Cantiere" />
+                        <asp:TextBox ID="txtValPrevCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <asp:Label ID="lblIvaCant" runat="server" Text="Iva" />
+                        <asp:TextBox ID="txtIvaCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
 
-                <div class="col-md-4 form-group">
-                    <asp:Label ID="lblAnnoCant" runat="server" Text="Anno" />
-                    <asp:TextBox ID="txtAnnoCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-1 form-group">
-                    <asp:Label ID="lblPrevCant" runat="server" Text="Preventivo" />
-                    <asp:CheckBox ID="chkPreventivo" CssClass="form-control" Checked="false" runat="server" />
-                </div>
-                <div class="col-md-1 form-group">
-                    <asp:Label ID="lblDaDividere" runat="server" Text="Da Dividere" />
-                    <asp:CheckBox ID="chkDaDividere" CssClass="form-control" Checked="false" runat="server" />
-                </div>
-                <div class="col-md-1 form-group">
-                    <asp:Label ID="lblDiviso" runat="server" Text="Diviso" />
-                    <asp:CheckBox ID="chkDiviso" CssClass="form-control" Checked="false" runat="server" />
-                </div>
-                <div class="col-md-1 form-group">
-                    <asp:Label ID="lblFatturato" runat="server" Text="Fatturato" />
-                    <asp:CheckBox ID="chkFatturato" CssClass="form-control" Checked="false" runat="server" />
-                </div>
-                <div class="col-md-4 form-group">
-                    <asp:Label ID="lblFasciaCant" runat="server" Text="Fascia Cantiere" />
-                    <asp:TextBox ID="txtFasciaCant" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
+                    <div class="col-md-4 form-group">
+                        <asp:Label ID="lblAnnoCant" runat="server" Text="Anno" />
+                        <asp:TextBox ID="txtAnnoCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-1 form-group">
+                        <asp:Label ID="lblPrevCant" runat="server" Text="Preventivo" />
+                        <asp:CheckBox ID="chkPreventivo" CssClass="form-control" Checked="false" runat="server" />
+                    </div>
+                    <div class="col-md-1 form-group">
+                        <asp:Label ID="lblDaDividere" runat="server" Text="Da Dividere" />
+                        <asp:CheckBox ID="chkDaDividere" CssClass="form-control" Checked="false" runat="server" />
+                    </div>
+                    <div class="col-md-1 form-group">
+                        <asp:Label ID="lblDiviso" runat="server" Text="Diviso" />
+                        <asp:CheckBox ID="chkDiviso" CssClass="form-control" Checked="false" runat="server" />
+                    </div>
+                    <div class="col-md-1 form-group">
+                        <asp:Label ID="lblFatturato" runat="server" Text="Fatturato" />
+                        <asp:CheckBox ID="chkFatturato" CssClass="form-control" Checked="false" runat="server" />
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <asp:Label ID="lblFasciaCant" runat="server" Text="Fascia Cantiere" />
+                        <asp:TextBox ID="txtFasciaCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
 
-                <div class="col-md-12 form-group">
-                    <asp:Button ID="btnInsCantiere" OnClick="btnInsCantiere_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Cantiere" />
-                    <asp:Label ID="lblIsCantInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
-                </div>
+                    <asp:HiddenField ID="hidIdCant" runat="server" />
+
+                    <div class="col-md-12 form-group">
+                        <asp:Button ID="btnInsCantiere" OnClick="btnInsCantiere_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Cantiere" />
+                        <asp:Button ID="btnModCantiere" OnClick="btnModCantiere_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Cantiere" />
+                        <asp:Label ID="lblIsCantInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
+                    </div>
+                </asp:Panel>
+
+                <asp:Panel ID="pnlFiltriCant" CssClass="col-md-12" runat="server" Style="margin-top: 20px;">
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltroAnno" runat="server" Text="Anno"></asp:Label>
+                        <asp:TextBox ID="txtFiltroAnno" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltroCodCant" runat="server" Text="Codice Cantiere"></asp:Label>
+                        <asp:TextBox ID="txtFiltroCodCant" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltroDescr" runat="server" Text="Descrizione"></asp:Label>
+                        <asp:TextBox ID="txtFiltroDescr" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltroCliente" runat="server" Text="Cliente"></asp:Label>
+                        <asp:TextBox ID="txtFiltroCliente" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-1">
+                        <asp:Label ID="lblFiltroChiuso" runat="server" Text="Chiuso"></asp:Label>
+                        <asp:CheckBox ID="chkFiltroChiuso" CssClass="form-control" Checked="false" runat="server" />
+                    </div>
+                    <div class="col-md-1">
+                        <asp:Label ID="lblFiltroRiscosso" runat="server" Text="Riscosso"></asp:Label>
+                        <asp:CheckBox ID="chkFiltroRiscosso" CssClass="form-control" Checked="false" runat="server" />
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Button ID="btnFiltraCant" OnClick="btnFiltraCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra" />
+                        <asp:Button ID="btnSvuotaFiltri" OnClick="btnSvuotaFiltri_Click" CssClass="btn btn-default pull-right" runat="server" Text="Svuota" Style="margin-right: 5px;" />
+                    </div>
+                </asp:Panel>
 
                 <!-- Griglia di visualizzazione record -->
                 <div class="col-md-12 table-container">
-                    <asp:GridView ID="grdCantieri" AutoGenerateColumns="false" OnRowDataBound="grdCantieri_RowDataBound"
+                    <asp:GridView ID="grdCantieri" OnRowCommand="grdCantieri_RowCommand" AutoGenerateColumns="false" OnRowDataBound="grdCantieri_RowDataBound"
                         ItemType="GestioneCantieri.Data.Cantieri" runat="server" CssClass="table table-striped table-responsive text-center">
                         <Columns>
                             <asp:BoundField HeaderText="Codice Cantiere" DataField="CodCant" />
-                            <asp:BoundField HeaderText="Descrizione Cantiere" DataField="DescriCodCant" />
+                            <asp:BoundField HeaderText="Descrizione Cantiere" DataField="DescriCodCAnt" />
                             <asp:BoundField HeaderText="Cliente" DataField="RagSocCli" />
                             <asp:BoundField HeaderText="Data Inserimento" DataField="Data" DataFormatString="{0:d}" />
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="btnVisualCant" OnClick="btnVisualCant_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                    <asp:Button ID="btnVisualCant" CommandName="VisualCant" CommandArgument="<%# BindItem.IdCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="btnModCant" OnClick="btnModCant_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                    <asp:Button ID="btnModCant" CommandName="ModCant" CommandArgument="<%# BindItem.IdCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <asp:TemplateField>
                                 <ItemTemplate>
-                                    <asp:Button ID="btnElimCant" OnClick="btnElimCant_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" />
+                                    <asp:Button ID="btnElimCant" CommandName="ElimCant" CommandArgument="<%# BindItem.IdCantieri %>"
+                                                CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo cantiere?');"/>
                                 </ItemTemplate>
                             </asp:TemplateField>
                             <%--<asp:BoundField HeaderText="Indirizzo" DataField="Indirizzo" />
