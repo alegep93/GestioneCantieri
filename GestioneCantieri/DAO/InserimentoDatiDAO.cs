@@ -204,7 +204,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool InserisciOperaio(string nome,string descr,string suff,string operaio)
+        public static bool InserisciOperaio(string nome, string descr, string suff, string operaio)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -244,7 +244,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT Cli.RagSocCli, Cant.CodCant, Cant.DescriCodCAnt, " +
+                sql = "SELECT Cant.IdCantieri, Cli.RagSocCli, Cant.CodCant, Cant.DescriCodCAnt, " +
                       "Cant.Data, Cant.Indirizzo, Cant.Città, Cant.Ricarico, " +
                       "Cant.PzzoManodopera, Cant.Chiuso, Cant.Riscosso, Cant.Numero, " +
                       "Cant.ValorePreventivo, Cant.IVA, Cant.Anno, Cant.Preventivo, " +
@@ -267,6 +267,61 @@ namespace GestioneCantieri.DAO
                 throw new Exception("Errore durante il recupero dei cantieri", ex);
             }
             finally { cn.Close(); }
+        }
+        public static Cantieri GetSingleCantiere(int idCant)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            Cantieri c = new Cantieri();
+            string sql = "";
+
+            try
+            {
+                sql = "SELECT Cant.IdCantieri, Cli.RagSocCli, Cant.CodCant, Cant.DescriCodCAnt, " +
+                      "Cant.Data, Cant.Indirizzo, Cant.Città, Cant.Ricarico, " +
+                      "Cant.PzzoManodopera, Cant.Chiuso, Cant.Riscosso, Cant.Numero, " +
+                      "Cant.ValorePreventivo, Cant.IVA, Cant.Anno, Cant.Preventivo, " +
+                      "Cant.FasciaTblCantieri, Cant.DaDividere, Cant.Diviso, Cant.Fatturato " +
+                      "FROM TblCantieri AS Cant " +
+                      "JOIN TblClienti AS Cli ON(Cant.IdTblClienti = Cli.IdCliente) " +
+                      "WHERE Cant.IdCantieri = @pIdCant " +
+                      "ORDER BY Cli.RagSocCli ASC, Cant.CodCant ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    c.IdCantieri = dr.GetInt32(0);
+                    c.RagSocCli = (dr.IsDBNull(1) ? null : dr.GetString(1));
+                    c.CodCant = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    c.DescriCodCAnt = (dr.IsDBNull(3) ? null : dr.GetString(3));
+                    c.Data = (dr.IsDBNull(4) ? new DateTime() : dr.GetDateTime(4));
+                    c.Indirizzo = (dr.IsDBNull(5) ? null : dr.GetString(5));
+                    c.Città = (dr.IsDBNull(6) ? null : dr.GetString(6));
+                    c.Ricarico = (dr.IsDBNull(7) ? -1 : dr.GetInt32(7));
+                    c.PzzoManodopera = (dr.IsDBNull(8) ? -1m : dr.GetDecimal(8));
+                    c.Chiuso = (dr.IsDBNull(9) ? false : dr.GetBoolean(9));
+                    c.Riscosso = (dr.IsDBNull(10) ? false : dr.GetBoolean(10));
+                    c.Numero = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    c.ValorePreventivo = (dr.IsDBNull(12) ? -1m : dr.GetDecimal(12));
+                    c.Iva = (dr.IsDBNull(13) ? -1 : dr.GetInt32(13));
+                    c.Anno = (dr.IsDBNull(14) ? -1 : dr.GetInt32(14));
+                    c.Preventivo = (dr.IsDBNull(15) ? false : dr.GetBoolean(15));
+                    c.FasciaTblCantieri = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
+                    c.DaDividere = (dr.IsDBNull(17) ? false : dr.GetBoolean(17));
+                    c.Diviso = (dr.IsDBNull(18) ? false : dr.GetBoolean(18));
+                    c.Fatturato = (dr.IsDBNull(19) ? false : dr.GetBoolean(19));
+                }
+
+                return c;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero di un singolo cantiere", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
         }
         public static bool InserisciCantiere(string idCliente, string data, string codCant,
             string descrCodCant, string indirizzo, string citta, string ricarico, string pzzoManodop,
@@ -317,6 +372,137 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'inserimento di un nuovo cantiere", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static DataTable FiltraCantieri(string anno, string codCant, string descr, string cliente,
+            bool chiuso, bool riscosso)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            anno = "%" + anno + "%";
+            codCant = "%" + codCant + "%";
+            descr = "%" + descr + "%";
+            cliente = "%" + cliente + "%";
+            /*chiuso = "%" + chiuso + "%";
+            riscosso = "%" + riscosso + "%";*/
+
+            try
+            {
+                sql = "SELECT Cant.IdCantieri, Cli.RagSocCli, Cant.CodCant, Cant.DescriCodCAnt, " +
+                      "Cant.Data, Cant.Indirizzo, Cant.Città, Cant.Ricarico, " +
+                      "Cant.PzzoManodopera, Cant.Chiuso, Cant.Riscosso, Cant.Numero, " +
+                      "Cant.ValorePreventivo, Cant.IVA, Cant.Anno, Cant.Preventivo, " +
+                      "Cant.FasciaTblCantieri, Cant.DaDividere, Cant.Diviso, Cant.Fatturato " +
+                      "FROM TblCantieri AS Cant " +
+                      "JOIN TblClienti AS Cli ON(Cant.IdTblClienti = Cli.IdCliente) " +
+                      "WHERE Anno LIKE @pAnno AND CodCant LIKE @pCodCant AND DescriCodCAnt LIKE @pDescr AND Cli.RagSocCli LIKE @pRagSocCli " +
+                      "AND Chiuso LIKE @pChiuso AND Riscosso LIKE @pRiscosso " +
+                      "ORDER BY Cli.RagSocCli ASC, Cant.CodCant ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pAnno", anno));
+                cmd.Parameters.Add(new SqlParameter("pCodCant", codCant));
+                cmd.Parameters.Add(new SqlParameter("pDescr", descr));
+                cmd.Parameters.Add(new SqlParameter("pRagSocCli", cliente));
+                cmd.Parameters.Add(new SqlParameter("pChiuso", chiuso));
+                cmd.Parameters.Add(new SqlParameter("pRiscosso", riscosso));
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'applicazione dei filtri sui cantieri", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static bool UpdateCantiere(string idCant, string idCliente, string data, string codCant,
+            string descrCodCant, string indirizzo, string citta, string ricarico, string pzzoManodop,
+            string chiuso, string riscosso, string numeroCant, string valPrev, string iva, string anno,
+            string preventivo, string daDividere, string diviso, string fatturato, string fasciaCantiere)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "UPDATE TblCantieri " +
+                      "SET IdTblClienti = @pIdClienti, Data = @pData, " +
+                      "CodCant = @pCodCant, DescriCodCAnt = @pDescrCant, " +
+                      "Indirizzo = @pIndir, Città = @pCitta, " +
+                      "Ricarico = @pRicarico, PzzoManodopera = @pPrezzoManodop, " +
+                      "Chiuso = @pChiuso, Riscosso = @pRiscosso, " +
+                      "Numero = @pNumero, ValorePreventivo = @pValPrev, " +
+                      "IVA = @pIva, Anno = @pAnno, " +
+                      "Preventivo = @pPrev, FasciaTblCantieri = @pFascia, " +
+                      "DaDividere = @pDaDividere, Diviso = @pDiviso, " +
+                      "Fatturato = @pFatturato " +
+                      "WHERE IdCantieri = @pId ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdClienti", idCliente));
+                cmd.Parameters.Add(new SqlParameter("pData", data));
+                cmd.Parameters.Add(new SqlParameter("pCodCant", codCant));
+                cmd.Parameters.Add(new SqlParameter("pDescrCant", descrCodCant));
+                cmd.Parameters.Add(new SqlParameter("pIndir", indirizzo));
+                cmd.Parameters.Add(new SqlParameter("pCitta", citta));
+                cmd.Parameters.Add(new SqlParameter("pRicarico", ricarico));
+                cmd.Parameters.Add(new SqlParameter("pPrezzoManodop", pzzoManodop));
+                cmd.Parameters.Add(new SqlParameter("pChiuso", chiuso));
+                cmd.Parameters.Add(new SqlParameter("pRiscosso", riscosso));
+                cmd.Parameters.Add(new SqlParameter("pNumero", numeroCant));
+                cmd.Parameters.Add(new SqlParameter("pValPrev", valPrev));
+                cmd.Parameters.Add(new SqlParameter("pIva", iva));
+                cmd.Parameters.Add(new SqlParameter("pAnno", anno));
+                cmd.Parameters.Add(new SqlParameter("pPrev", preventivo));
+                cmd.Parameters.Add(new SqlParameter("pFascia", fasciaCantiere));
+                cmd.Parameters.Add(new SqlParameter("pDaDividere", daDividere));
+                cmd.Parameters.Add(new SqlParameter("pDiviso", diviso));
+                cmd.Parameters.Add(new SqlParameter("pFatturato", fatturato));
+                cmd.Parameters.Add(new SqlParameter("pId", idCant));
+
+                int row = cmd.ExecuteNonQuery();
+
+                if (row > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'eliminazione del cantiere", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static bool EliminaCantiere(int idCant)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "DELETE FROM TblCantieri " +
+                      "WHERE IdCantieri = @pId ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pId", idCant));
+
+                int row = cmd.ExecuteNonQuery();
+
+                if (row > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'eliminazione del cantiere", ex);
             }
             finally { cn.Close(); }
         }

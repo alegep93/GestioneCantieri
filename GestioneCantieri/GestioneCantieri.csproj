@@ -144,6 +144,7 @@
     <Compile Include="DAO\StampaFruttiPerGruppiDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantLocDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantDAO.cs" />
+    <Compile Include="DataTableToListHelper.cs" />
     <Compile Include="Data\Cantieri.cs" />
     <Compile Include="Data\Clienti.cs" />
     <Compile Include="Data\CompGruppoFrut.cs" />

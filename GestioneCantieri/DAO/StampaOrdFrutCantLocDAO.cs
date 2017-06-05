@@ -108,9 +108,9 @@ namespace GestioneCantieri.DAO
                 {
                     Cantieri c = new Cantieri()
                     {
-                        IdCantiere = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0)),
-                        CodCantiere = (dr.IsDBNull(1) ? null : dr.GetString(1)),
-                        DescrCantiere = (dr.IsDBNull(2) ? null : dr.GetString(2))
+                        IdCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0)),
+                        CodCant = (dr.IsDBNull(1) ? null : dr.GetString(1)),
+                        DescriCodCAnt = (dr.IsDBNull(2) ? null : dr.GetString(2))
                     };
                     cantieriList.Add(c);
                 }
