@@ -47,8 +47,5 @@ namespace GestioneCantieri.Data
             this.Qta = qta;
             this.DescrFrutto = descrFrutto;
         }
-
-        /*public int Qta { get => qta; set => qta = value; }
-        public string DescrFrutto { get => descrFrutto; set => descrFrutto = value; }*/
     }
 }

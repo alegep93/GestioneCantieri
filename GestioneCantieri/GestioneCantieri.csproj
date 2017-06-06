@@ -103,7 +103,6 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\DynamicActiveMenuLink.js" />
     <Content Include="Scripts\DynamicStampaOrdFrutStyle.js" />
     <Content Include="Scripts\FilterToggle.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />

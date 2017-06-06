@@ -7,13 +7,15 @@
     <asp:ContentPlaceHolder ID="title" runat="server">
     </asp:ContentPlaceHolder>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/FilterToggle.js"></script>
+
     <link type="text/css" href="Css/style.css" rel="stylesheet" />
     <link href="Css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="Css/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-    <script src="Scripts/FilterToggle.js"></script>
-    <script src="Scripts/DynamicActiveMenuLink.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -35,12 +37,22 @@
                     <li><a href="Default.aspx">Home</a></li>
                     <li><a href="DDT-Mef.aspx">DDT Mef</a></li>
                     <li><a href="Listino.aspx">Listino</a></li>
-                    <li><a href="GestisciGruppiFrutti.aspx">Gestisci Gruppi Frutti</a></li>
-                    <li><a href="GestisciFrutti.aspx">Gestisci Frutti</a></li>
-                    <li><a href="OrdineFrutti.aspx">Ordine Frutti</a></li>
-                    <li><a href="StampaOrdFrutCantExcel.aspx">Stampa Ord Frut Cant Excel</a></li>
-                    <li><a href="StampaOrdFrutLocale.aspx">Stampa Ord Frut Loc</a></li>
-                    <li><a href="StampaFruttiGruppi.aspx">Stampa Frutti Gruppi</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestione Gruppi e Frutti<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="GestisciGruppiFrutti.aspx">Gestisci Gruppi Frutti</a></li>
+                            <li><a href="GestisciFrutti.aspx">Gestisci Frutti</a></li>
+                            <li><a href="OrdineFrutti.aspx">Ordine Frutti</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stampa Gruppi e Frutti<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="StampaOrdFrutCantExcel.aspx">Stampa Ord Frut Cant Excel</a></li>
+                            <li><a href="StampaOrdFrutLocale.aspx">Stampa Ord Frut Loc</a></li>
+                            <li><a href="StampaFruttiGruppi.aspx">Stampa Frutti Gruppi</a></li>
+                        </ul>
+                    </li>
                     <li><a href="InserimentoDati.aspx">Inserimento Dati</a></li>
                 </ul>
             </div>
