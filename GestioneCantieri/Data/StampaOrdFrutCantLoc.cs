@@ -47,10 +47,5 @@ namespace GestioneCantieri.Data
             this.NomeLocale = nomeLocale;
             this.NomeGruppo = nomeGruppo;
         }
-
-        //public int Qta { get => qta; set => qta = value; }
-        //public string DescrFrutto { get => descrFrutto; set => descrFrutto = value; }
-        //public string NomeLocale { get => nomeLocale; set => nomeLocale = value; }
-        //public string NomeGruppo { get => nomeGruppo; set => nomeGruppo = value; }
     }
 }

@@ -133,14 +133,5 @@ namespace GestioneCantieri.Data
             this.NomeGruppo = nomeGruppo;
             this.Descrizione = descrizione;
         }
-
-        /*public int Id { get => id; set => id = value; }
-        public int IdCantiere { get => idCantiere; set => idCantiere = value; }
-        public int IdGruppiFrutti { get => idGruppiFrutti; set => idGruppiFrutti = value; }
-        public int IdLocali { get => idLocali; set => idLocali = value; }
-        public DateTime DataOrdine { get => dataOrdine; set => dataOrdine = value; }
-        public string Appartamento { get => appartamento; set => appartamento = value; }
-        public string NomeGruppo { get => nomeGruppo; set => nomeGruppo = value; }
-        public string Descrizione { get => descrizione; set => descrizione = value; }*/
     }
 }
