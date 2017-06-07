@@ -81,7 +81,7 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblCap" runat="server" Text="Cap" />
-                    <asp:TextBox ID="txtCap" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtCap" CssClass="form-control" MaxLength="5" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblCitta" runat="server" Text="Città" />
@@ -90,7 +90,7 @@
 
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblProvincia" runat="server" Text="Provincia" />
-                    <asp:TextBox ID="txtProvincia" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtProvincia" CssClass="form-control" MaxLength="4" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblTelefono" runat="server" Text="Telefono" />
@@ -102,12 +102,12 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblPartitaIva" runat="server" Text="Partita Iva" />
-                    <asp:TextBox ID="txtPartitaIva" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtPartitaIva" CssClass="form-control" MaxLength="11" runat="server"></asp:TextBox>
                 </div>
 
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblCodiceFiscale" runat="server" Text="Codice Fiscale" />
-                    <asp:TextBox ID="txtCodiceFiscale" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtCodiceFiscale" CssClass="form-control" MaxLength="16" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblDataInserimento" runat="server" Text="Data Inserimento" />
@@ -163,7 +163,7 @@
 
                 <div class="col-md-4 form-group">
                     <asp:Label ID="lblCapFornit" runat="server" Text="Cap" />
-                    <asp:TextBox ID="txtCapFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtCapFornit" CssClass="form-control" MaxLength="5" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-4 form-group">
                     <asp:Label ID="lblTelFornit" runat="server" Text="Telefono" />
@@ -176,7 +176,7 @@
 
                 <div class="col-md-4 form-group">
                     <asp:Label ID="lblCodFiscFornit" runat="server" Text="Codice Fiscale" />
-                    <asp:TextBox ID="txtCodFiscFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtCodFiscFornit" CssClass="form-control" MaxLength="16" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-4 form-group">
                     <asp:Label ID="lblPartIvaFornit" runat="server" Text="Partita Iva" />
@@ -184,7 +184,7 @@
                 </div>
                 <div class="col-md-4 form-group">
                     <asp:Label ID="lblAbbrevFornit" runat="server" Text="Abbreviato" />
-                    <asp:TextBox ID="txtAbbrevFornit" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtAbbrevFornit" CssClass="form-control" MaxLength="3" runat="server"></asp:TextBox>
                 </div>
 
                 <div class="col-md-12 form-group">
@@ -224,15 +224,15 @@
                 </div>
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblSuffOper" runat="server" Text="Suffisso" />
-                    <asp:TextBox ID="txtSuffOper" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtSuffOper" CssClass="form-control" MaxLength="4" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblOperaio" runat="server" Text="Operaio" />
-                    <asp:TextBox ID="txtOperaio" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtOperaio" CssClass="form-control" MaxLength="4" runat="server"></asp:TextBox>
                 </div>
 
                 <div class="col-md-12 form-group">
-                    <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Operaio" />
+                    <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primar-y pull-right" runat="server" Text="Inserisci Operaio" />
                     <asp:Label ID="lblIsOperaioInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
                 </div>
 
@@ -264,7 +264,7 @@
                     </div>
                     <div class="col-md-2 form-group">
                         <asp:Label ID="lblCodCant" runat="server" Text="Codice Cantiere" />
-                        <asp:TextBox ID="txtCodCant" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtCodCant" CssClass="form-control" MaxLength="10" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2 form-group">
                         <asp:Label ID="lblDescrCodCant" runat="server" Text="Descrizione Cantiere" />
@@ -297,7 +297,7 @@
                     </div>
                     <div class="col-md-2 form-group">
                         <asp:Label ID="lblNumeroCant" runat="server" Text="Numero" />
-                        <asp:TextBox ID="txtNumeroCant" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtNumeroCant" CssClass="form-control" MaxLength="5" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2 form-group">
                         <asp:Label ID="lblValPrevCant" runat="server" Text="Valore Preventivo Cantiere" />
