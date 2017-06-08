@@ -7,105 +7,188 @@ namespace GestioneCantieri.Data
 {
     public class Clienti
     {
-        int id, telefono, cellulare;
-        string ragSocCli, indirizzo, cap, citta, pIva, codFisc, prov, note;
-        DateTime dataInserimento;
+        int idCliente, tel1, cell1;
+        string ragSocCli, indirizzo, cap, città, partitaIva, codFiscale, provincia, note;
+        DateTime data;
 
         public Clienti()
         {
-            this.id = this.telefono = this.cellulare = -1;
-            this.ragSocCli = this.indirizzo = this.cap = "";
-            this.citta = this.pIva = this.codFisc = this.prov = "";
-            this.note = "";
-            this.dataInserimento = new DateTime();
+            this.idCliente = this.tel1 = this.cell1 = -1;
+            this.ragSocCli = this.indirizzo = this.cap = this.città = this.partitaIva = "";
+            this.codFiscale = this.provincia = this.note = "";
+            this.data = new DateTime();
         }
 
-        public Clienti(int id, int telefono, int cellulare, string ragSocCli, string indirizzo, string cap, string citta, string pIva, string codFisc, string prov, string note, DateTime dataInserimento)
+        public Clienti(int idCliente, int tel1, int cell1, string ragSocCli, string indirizzo, string cap, string città, string partitaIva, string codFiscale, string provincia, string note, DateTime data)
         {
-            this.id = id;
-            this.telefono = telefono;
-            this.cellulare = cellulare;
+            this.idCliente = idCliente;
+            this.tel1 = tel1;
+            this.cell1 = cell1;
             this.ragSocCli = ragSocCli;
             this.indirizzo = indirizzo;
             this.cap = cap;
-            this.citta = citta;
-            this.pIva = pIva;
-            this.codFisc = codFisc;
-            this.prov = prov;
+            this.città = città;
+            this.partitaIva = partitaIva;
+            this.codFiscale = codFiscale;
+            this.provincia = provincia;
             this.note = note;
-            this.dataInserimento = dataInserimento;
+            this.data = data;
         }
 
-        public int Id
+        public int IdCliente
         {
-            get { return id; }
-            set { id = value; }
+            get
+            {
+                return idCliente;
+            }
+
+            set
+            {
+                idCliente = value;
+            }
         }
 
-        public int Telefono
+        public int Tel1
         {
-            get { return telefono; }
-            set { telefono = value; }
+            get
+            {
+                return tel1;
+            }
+
+            set
+            {
+                tel1 = value;
+            }
         }
 
-        public int Cellulare
+        public int Cell1
         {
-            get { return cellulare; }
-            set { cellulare = value; }
+            get
+            {
+                return cell1;
+            }
+
+            set
+            {
+                cell1 = value;
+            }
         }
 
         public string RagSocCli
         {
-            get { return ragSocCli; }
-            set { ragSocCli = value; }
+            get
+            {
+                return ragSocCli;
+            }
+
+            set
+            {
+                ragSocCli = value;
+            }
         }
 
         public string Indirizzo
         {
-            get { return indirizzo; }
-            set { indirizzo = value; }
+            get
+            {
+                return indirizzo;
+            }
+
+            set
+            {
+                indirizzo = value;
+            }
         }
 
         public string Cap
         {
-            get { return cap; }
-            set { cap = value; }
+            get
+            {
+                return cap;
+            }
+
+            set
+            {
+                cap = value;
+            }
         }
 
-        public string Citta
+        public string Città
         {
-            get { return citta; }
-            set { citta = value; }
+            get
+            {
+                return città;
+            }
+
+            set
+            {
+                città = value;
+            }
         }
 
-        public string PIva
+        public string PartitaIva
         {
-            get { return pIva; }
-            set { pIva = value; }
+            get
+            {
+                return partitaIva;
+            }
+
+            set
+            {
+                partitaIva = value;
+            }
         }
 
-        public string CodFisc
+        public string CodFiscale
         {
-            get { return codFisc; }
-            set { codFisc = value; }
+            get
+            {
+                return codFiscale;
+            }
+
+            set
+            {
+                codFiscale = value;
+            }
         }
 
-        public string Prov
+        public string Provincia
         {
-            get { return prov; }
-            set { prov = value; }
+            get
+            {
+                return provincia;
+            }
+
+            set
+            {
+                provincia = value;
+            }
         }
 
         public string Note
         {
-            get { return note; }
-            set { note = value; }
+            get
+            {
+                return note;
+            }
+
+            set
+            {
+                note = value;
+            }
         }
 
-        public DateTime DataInserimento
+        public DateTime Data
         {
-            get { return dataInserimento; }
-            set { dataInserimento = value; }
+            get
+            {
+                return data;
+            }
+
+            set
+            {
+                data = value;
+            }
         }
     }
 }

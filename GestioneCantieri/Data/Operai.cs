@@ -7,61 +7,60 @@ namespace GestioneCantieri.Data
 {
     public class Operai
     {
-        int id;
-        string nome, descr, suffisso, operaio;
+        int idOperaio;
+        string nomeOp, descrOp, suffisso, operaio;
 
         public Operai()
         {
-            this.id = -1;
-            this.nome = this.descr = "";
-            this.suffisso = this.operaio = "";
+            this.idOperaio = -1;
+            this.nomeOp = this.descrOp = this.suffisso = this.operaio = "";
         }
 
-        public Operai(int id, string nome, string descr, string suffisso, string operaio)
+        public Operai(int idOperaio, string nomeOp, string descrOp, string suffisso, string operaio)
         {
-            this.id = id;
-            this.nome = nome;
-            this.descr = descr;
+            this.idOperaio = idOperaio;
+            this.nomeOp = nomeOp;
+            this.descrOp = descrOp;
             this.suffisso = suffisso;
             this.operaio = operaio;
         }
 
-        public string Descr
+        public string DescrOp
         {
             get
             {
-                return descr;
+                return descrOp;
             }
 
             set
             {
-                descr = value;
+                descrOp = value;
             }
         }
 
-        public int Id
+        public int IdOperaio
         {
             get
             {
-                return id;
+                return idOperaio;
             }
 
             set
             {
-                id = value;
+                idOperaio = value;
             }
         }
 
-        public string Nome
+        public string NomeOp
         {
             get
             {
-                return nome;
+                return nomeOp;
             }
 
             set
             {
-                nome = value;
+                nomeOp = value;
             }
         }
 

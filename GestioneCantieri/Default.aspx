@@ -104,7 +104,7 @@
                         <h3 class="panel-title"><a href="InserimentoDati.aspx">Inserimento Dati</a></h3>
                     </div>
                     <div class="panel-body">
-                        Consente l'inserimento e la visualizzazione di Clienti / Fornitori / Operai / Cantieri.
+                        Consente l'inserimento, la modifica, l'eliminazione e la visualizzazione di Clienti / Fornitori / Operai / Cantieri.
                     </div>
                 </div>
             </div>

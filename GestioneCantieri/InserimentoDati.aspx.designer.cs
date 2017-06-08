@@ -265,6 +265,24 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtNote;
         
         /// <summary>
+        /// hidIdClienti control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidIdClienti;
+        
+        /// <summary>
+        /// btnModCliente control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModCliente;
+        
+        /// <summary>
         /// btnInsCliente control.
         /// </summary>
         /// <remarks>
@@ -463,6 +481,24 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtAbbrevFornit;
         
         /// <summary>
+        /// hidIdFornit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidIdFornit;
+        
+        /// <summary>
+        /// btnModFornit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModFornit;
+        
+        /// <summary>
         /// btnInsFornit control.
         /// </summary>
         /// <remarks>
@@ -569,6 +605,24 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtOperaio;
+        
+        /// <summary>
+        /// hidIdOper control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidIdOper;
+        
+        /// <summary>
+        /// btnModOper control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModOper;
         
         /// <summary>
         /// btnInsOper control.
