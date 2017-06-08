@@ -37,7 +37,7 @@
 
         .table-container {
             max-height: 500px;
-            overflow: hidden;
+            overflow: scroll;
             overflow-y: auto;
         }
     </style>
@@ -118,14 +118,17 @@
                     <asp:TextBox ID="txtNote" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
 
+                <asp:HiddenField ID="hidIdClienti" runat="server" />
+
                 <div class="col-md-12 form-group">
+                    <asp:Button ID="btnModCliente" OnClick="btnModCliente_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Cliente" />
                     <asp:Button ID="btnInsCliente" OnClick="btnInsCliente_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Cliente" />
                     <asp:Label ID="lblIsClienteInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
                 </div>
 
                 <!-- Griglia di visualizzazione record -->
                 <div class="col-md-12 table-container">
-                    <asp:GridView ID="grdClienti" AutoGenerateColumns="false"
+                    <asp:GridView ID="grdClienti" OnRowCommand="grdClienti_RowCommand" AutoGenerateColumns="false"
                         ItemType="GestioneCantieri.Data.Clienti" runat="server" CssClass="table table-striped table-responsive text-center">
                         <Columns>
                             <asp:BoundField HeaderText="Ragione Sociale" DataField="RagSocCli" />
@@ -139,6 +142,22 @@
                             <asp:BoundField HeaderText="Codice Fiscale" DataField="CodFiscale" />
                             <asp:BoundField HeaderText="Data Inserimento" DataField="Data" DataFormatString="{0:d}" />
                             <asp:BoundField HeaderText="Note" DataField="Note" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualCli" CommandName="VisualCli" CommandArgument="<%# BindItem.IdCliente %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModCli" CommandName="ModCli" CommandArgument="<%# BindItem.IdCliente %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimCli" CommandName="ElimCli" CommandArgument="<%# BindItem.IdCliente %>"
+                                                CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo cliente?');"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                 </div>
@@ -187,14 +206,17 @@
                     <asp:TextBox ID="txtAbbrevFornit" CssClass="form-control" MaxLength="3" runat="server"></asp:TextBox>
                 </div>
 
+                <asp:HiddenField ID="hidIdFornit" runat="server" />
+
                 <div class="col-md-12 form-group">
+                    <asp:Button ID="btnModFornit" OnClick="btnModFornit_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Fornitore" />
                     <asp:Button ID="btnInsFornit" OnClick="btnInsFornit_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Fornitore" />
                     <asp:Label ID="lblIsFornitoreInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
                 </div>
 
                 <!-- Griglia di visualizzazione record -->
                 <div class="col-md-12 table-container">
-                    <asp:GridView ID="grdFornitori" AutoGenerateColumns="false"
+                    <asp:GridView ID="grdFornitori" OnRowCommand="grdFornitori_RowCommand" AutoGenerateColumns="false"
                         ItemType="GestioneCantieri.Data.Fornitori" runat="server" CssClass="table table-striped table-responsive text-center">
                         <Columns>
                             <asp:BoundField HeaderText="Ragione Sociale" DataField="RagSocForni" />
@@ -206,6 +228,22 @@
                             <asp:BoundField HeaderText="Codice Fiscale" DataField="CodFiscale" />
                             <asp:BoundField HeaderText="Partita Iva" DataField="PartitaIva" />
                             <asp:BoundField HeaderText="Abbreviato" DataField="Abbreviato" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualFornit" CommandName="VisualFornit" CommandArgument="<%# BindItem.IdFornitori %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModFornit" CommandName="ModFornit" CommandArgument="<%# BindItem.IdFornitori %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimFornit" CommandName="ElimFornit" CommandArgument="<%# BindItem.IdFornitori %>"
+                                                CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo fornitore?');"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                 </div>
@@ -231,20 +269,39 @@
                     <asp:TextBox ID="txtOperaio" CssClass="form-control" MaxLength="4" runat="server"></asp:TextBox>
                 </div>
 
+                <asp:HiddenField ID="hidIdOper" runat="server" />
+
                 <div class="col-md-12 form-group">
-                    <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primar-y pull-right" runat="server" Text="Inserisci Operaio" />
+                    <asp:Button ID="btnModOper" OnClick="btnModOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Operaio" />
+                    <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Operaio" />
                     <asp:Label ID="lblIsOperaioInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
                 </div>
 
                 <!-- Griglia di visualizzazione record -->
                 <div class="col-md-12 table-container">
                     <asp:GridView ID="grdOperai" AutoGenerateColumns="false"
-                        ItemType="GestioneCantieri.Data.Operai" runat="server" CssClass="table table-striped table-responsive text-center">
+                        ItemType="GestioneCantieri.Data.Operai" OnRowCommand="grdOperai_RowCommand" runat="server" CssClass="table table-striped table-responsive text-center">
                         <Columns>
                             <asp:BoundField HeaderText="Nome" DataField="NomeOp" />
                             <asp:BoundField HeaderText="Descrizione" DataField="DescrOp" />
                             <asp:BoundField HeaderText="Suffisso" DataField="Suffisso" />
                             <asp:BoundField HeaderText="Operaio" DataField="Operaio" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualOper" CommandName="VisualOper" CommandArgument="<%# BindItem.IdOperaio %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModOper" CommandName="ModOper" CommandArgument="<%# BindItem.IdOperaio %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimOper" CommandName="ElimOper" CommandArgument="<%# BindItem.IdOperaio %>"
+                                                CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo operaio?');"/>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
                 </div>
@@ -375,7 +432,7 @@
 
                 <!-- Griglia di visualizzazione record -->
                 <div class="col-md-12 table-container">
-                    <asp:GridView ID="grdCantieri" OnRowCommand="grdCantieri_RowCommand" AutoGenerateColumns="false" OnRowDataBound="grdCantieri_RowDataBound"
+                    <asp:GridView ID="grdCantieri" OnRowCommand="grdCantieri_RowCommand" AutoGenerateColumns="false"
                         ItemType="GestioneCantieri.Data.Cantieri" runat="server" CssClass="table table-striped table-responsive text-center">
                         <Columns>
                             <asp:BoundField HeaderText="Codice Cantiere" DataField="CodCant" />

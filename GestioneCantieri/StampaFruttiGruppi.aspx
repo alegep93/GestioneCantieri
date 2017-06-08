@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/layout.Master" CodeBehind="StampaFruttiGruppi.aspx.cs" Inherits="GestioneCantieri.StampaFruttiGruppi" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
-    <title>Stampa Excel</title>
+    <title>Stampa Frutti Gruppi</title>
     <script src="Scripts/jquery-1.9.1.min.js"></script>
     <script type="text/javascript">
         $(function () {

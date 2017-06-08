@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Reflection;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -19,7 +18,8 @@ namespace GestioneCantieri
                 MostraPannello(true, false, false, false);
                 lblTitoloInserimento.Text = "Inserimento Clienti";
                 BindGridClienti();
-                btnModCantiere.Visible = false;
+                btnModCliente.Visible = btnModFornit.Visible = false;
+                btnModOper.Visible = btnModCantiere.Visible = false;
             }
         }
 
@@ -31,18 +31,29 @@ namespace GestioneCantieri
             lblIsClienteInserito.Text = "";
             MostraPannello(true, false, false, false);
             BindGridClienti();
+            ResettaCampi(pnlInsClienti);
+            btnInsCliente.Visible = true;
+            btnModCliente.Visible = false;
         }
         protected void btnShowInsFornitori_Click(object sender, EventArgs e)
         {
             BindGridFornitori();
             lblTitoloInserimento.Text = "Inserimento Fornitori";
+            lblIsFornitoreInserito.Text = "";
             MostraPannello(false, true, false, false);
+            ResettaCampi(pnlInsFornitori);
+            btnInsFornit.Visible = true;
+            btnModFornit.Visible = false;
         }
         protected void btnShowInsOperai_Click(object sender, EventArgs e)
         {
             BindGridOperai();
             lblTitoloInserimento.Text = "Inserimento Operai";
+            lblIsOperaioInserito.Text = "";
             MostraPannello(false, false, true, false);
+            ResettaCampi(pnlInsOperai);
+            btnInsOper.Visible = true;
+            btnModOper.Visible = false;
         }
         protected void btnShowInsCantieri_Click(object sender, EventArgs e)
         {
@@ -51,17 +62,21 @@ namespace GestioneCantieri
             lblIsCantInserito.Text = "";
             BindGridCantieri();
             FillDdlClienti();
-            SvuotaTxtBox(pnlTxtBoxCantContainer);
+            ResettaCampi(pnlTxtBoxCantContainer);
             btnModCantiere.Visible = false;
             btnInsCantiere.Visible = true;
         }
 
-        /* Click dei bottoni di inserimento */
+        /* Click dei bottoni di inserimento/modifica */
+        //Clienti
         protected void btnInsCliente_Click(object sender, EventArgs e)
         {
             if (txtRagSocCli.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciCliente(txtRagSocCli.Text, txtIndirizzo.Text, txtCap.Text, txtCitta.Text, txtProvincia.Text, txtTelefono.Text, txtCellulare.Text, txtPartitaIva.Text, txtCodiceFiscale.Text, txtDataInserimento.Text, txtNote.Text);
+                bool isInserito = InserimentoDatiDAO.InserisciCliente(txtRagSocCli.Text, 
+                    txtIndirizzo.Text, txtCap.Text, txtCitta.Text, txtProvincia.Text, 
+                    txtTelefono.Text, txtCellulare.Text, txtPartitaIva.Text, 
+                    txtCodiceFiscale.Text, txtDataInserimento.Text, txtNote.Text);
 
                 if (isInserito)
                 {
@@ -74,7 +89,7 @@ namespace GestioneCantieri
                     lblIsClienteInserito.ForeColor = Color.Red;
                 }
 
-                SvuotaTxtBox(pnlInsClienti);
+                ResettaCampi(pnlInsClienti);
                 BindGridClienti();
             }
             else
@@ -83,11 +98,34 @@ namespace GestioneCantieri
                 lblIsClienteInserito.ForeColor = Color.Red;
             }
         }
+        protected void btnModCliente_Click(object sender, EventArgs e)
+        {
+            bool isUpdated = InserimentoDatiDAO.UpdateCliente(hidIdClienti.Value, txtRagSocCli.Text,
+                    txtIndirizzo.Text, txtCap.Text, txtCitta.Text, txtProvincia.Text,
+                    txtTelefono.Text, txtCellulare.Text, txtPartitaIva.Text,
+                    txtCodiceFiscale.Text, txtDataInserimento.Text, txtNote.Text);
+
+            if (isUpdated)
+            {
+                lblIsClienteInserito.Text = "Cliente '" + txtRagSocCli.Text + "' modificato con successo";
+                lblIsClienteInserito.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsClienteInserito.Text = "Errore durante la modifica del cliente '" + txtRagSocCli.Text + "'";
+                lblIsClienteInserito.ForeColor = Color.Red;
+            }
+
+            BindGridClienti();
+        }
+        //Fornitori
         protected void btnInsFornit_Click(object sender, EventArgs e)
         {
             if (txtRagSocFornit.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciFornitore(txtRagSocFornit.Text, txtCittaFornit.Text, txtIndirFornit.Text, txtCapFornit.Text, txtTelFornit.Text, txtCelFornit.Text, txtCodFiscFornit.Text, txtPartIvaFornit.Text, txtAbbrevFornit.Text);
+                bool isInserito = InserimentoDatiDAO.InserisciFornitore(txtRagSocFornit.Text, 
+                    txtCittaFornit.Text, txtIndirFornit.Text, txtCapFornit.Text, txtTelFornit.Text, 
+                    txtCelFornit.Text, txtCodFiscFornit.Text, txtPartIvaFornit.Text, txtAbbrevFornit.Text);
                 if (isInserito)
                 {
                     lblIsFornitoreInserito.Text = "Fornitore '" + txtRagSocFornit.Text + "' inserito correttamente";
@@ -98,7 +136,7 @@ namespace GestioneCantieri
                     lblIsFornitoreInserito.Text = "Errore durante l'inserimento del cliente '" + txtRagSocFornit.Text + "'";
                     lblIsFornitoreInserito.ForeColor = Color.Red;
                 }
-                SvuotaTxtBox(pnlInsFornitori);
+                ResettaCampi(pnlInsFornitori);
                 BindGridFornitori();
             }
             else
@@ -107,6 +145,26 @@ namespace GestioneCantieri
                 lblIsFornitoreInserito.ForeColor = Color.Red;
             }
         }
+        protected void btnModFornit_Click(object sender, EventArgs e)
+        {
+            bool isUpdated = InserimentoDatiDAO.UpdateFornitore(hidIdFornit.Value, txtRagSocFornit.Text,
+                    txtCittaFornit.Text, txtIndirFornit.Text, txtCapFornit.Text, txtTelFornit.Text,
+                    txtCelFornit.Text, txtCodFiscFornit.Text, txtPartIvaFornit.Text, txtAbbrevFornit.Text);
+
+            if (isUpdated)
+            {
+                lblIsFornitoreInserito.Text = "Fornitore '" + txtRagSocFornit.Text + "' modificato con successo";
+                lblIsFornitoreInserito.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsFornitoreInserito.Text = "Errore durante la modifica del fornitore '" + txtRagSocFornit.Text + "'";
+                lblIsFornitoreInserito.ForeColor = Color.Red;
+            }
+
+            BindGridFornitori();
+        }
+        //Operai
         protected void btnInsOper_Click(object sender, EventArgs e)
         {
             if (txtNomeOper.Text != "")
@@ -125,7 +183,7 @@ namespace GestioneCantieri
                 }
 
                 BindGridOperai();
-                SvuotaTxtBox(pnlInsOperai);
+                ResettaCampi(pnlInsOperai);
             }
             else
             {
@@ -133,6 +191,25 @@ namespace GestioneCantieri
                 lblIsOperaioInserito.ForeColor = Color.Red;
             }
         }
+        protected void btnModOper_Click(object sender, EventArgs e)
+        {
+            bool isUpdated = InserimentoDatiDAO.UpdateOperaio(hidIdOper.Value, txtNomeOper.Text,
+                txtDescrOper.Text, txtSuffOper.Text, txtOperaio.Text);
+
+            if (isUpdated)
+            {
+                lblIsOperaioInserito.Text = "Operaio '" + txtDescrOper.Text + "' modificato con successo";
+                lblIsOperaioInserito.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsOperaioInserito.Text = "Errore durante la modifica dell'operaio '" + txtDescrOper.Text + "'";
+                lblIsOperaioInserito.ForeColor = Color.Red;
+            }
+
+            BindGridOperai();
+        }
+        //Cantieri
         protected void btnInsCantiere_Click(object sender, EventArgs e)
         {
             if (ddlScegliClientePerCantiere.SelectedIndex != 0)
@@ -162,26 +239,13 @@ namespace GestioneCantieri
                 }
 
                 BindGridCantieri();
-                SvuotaTxtBox(pnlInsCantieri);
+                ResettaCampi(pnlInsCantieri);
             }
             else
             {
                 lblIsCantInserito.Text = "Devi scegliere un cliente da associare al nuovo cantiere";
                 lblIsCantInserito.ForeColor = Color.Red;
             }
-        }
-        protected void btnFiltraCant_Click(object sender, EventArgs e)
-        {
-            if (!(txtFiltroAnno.Text == "" && txtFiltroCodCant.Text == "" && txtFiltroDescr.Text == "" && txtFiltroCliente.Text == "" && chkFiltroChiuso.Checked == false && chkFiltroRiscosso.Checked == false))
-                BindGridCantieriWithSearch();
-            else
-                BindGridCantieri();
-        }
-        protected void btnSvuotaFiltri_Click(object sender, EventArgs e)
-        {
-            SvuotaTxtBox(pnlFiltriCant);
-            chkFiltroChiuso.Checked = chkFiltroRiscosso.Checked = false;
-            BindGridCantieri();
         }
         protected void btnModCantiere_Click(object sender, EventArgs e)
         {
@@ -214,6 +278,19 @@ namespace GestioneCantieri
             else
                 BindGridCantieri();
         }
+        protected void btnFiltraCant_Click(object sender, EventArgs e)
+        {
+            if (!(txtFiltroAnno.Text == "" && txtFiltroCodCant.Text == "" && txtFiltroDescr.Text == "" && txtFiltroCliente.Text == "" && chkFiltroChiuso.Checked == false && chkFiltroRiscosso.Checked == false))
+                BindGridCantieriWithSearch();
+            else
+                BindGridCantieri();
+        }
+        protected void btnSvuotaFiltri_Click(object sender, EventArgs e)
+        {
+            ResettaCampi(pnlFiltriCant);
+            chkFiltroChiuso.Checked = chkFiltroRiscosso.Checked = false;
+            BindGridCantieri();
+        }
 
         /* HELPERS */
         protected void MostraPannello(bool pnlClienti, bool pnlFornitori, bool pnlOperai, bool pnlCantieri)
@@ -223,24 +300,220 @@ namespace GestioneCantieri
             pnlInsOperai.Visible = pnlOperai;
             pnlInsCantieri.Visible = pnlCantieri;
         }
+        protected void ResettaCampi(Control container)
+        {
+            foreach (var control in container.Controls)
+            {
+                if (control is TextBox) { 
+                    ((TextBox)control).Text = string.Empty;
+                    ((TextBox)control).Enabled = true;
+                }
+                if (control is CheckBox)
+                {
+                    ((CheckBox)control).Checked = false;
+                    ((CheckBox)control).Enabled = true;
+                }
+            }
+        }
+        //Clienti
         protected void BindGridClienti()
         {
             DataTable dt = InserimentoDatiDAO.GetAllClienti();
-            grdClienti.DataSource = dt;
+            List<Clienti> clientiList = dt.DataTableToList<Clienti>();
+            grdClienti.DataSource = clientiList;
             grdClienti.DataBind();
         }
+        protected void VisualizzaDatiCliente(int idCli)
+        {
+            lblTitoloInserimento.Text = "Visualizza Cliente";
+            lblIsClienteInserito.Text = "";
+            PopolaCampiCliente(idCli, false);
+            btnInsCliente.Visible = btnModCliente.Visible = false;
+        }
+        protected void ModificaDatiCliente(int idCli)
+        {
+            lblTitoloInserimento.Text = "Modifica Cliente";
+            lblIsClienteInserito.Text = "";
+            btnModCliente.Visible = true;
+            btnInsCliente.Visible = false;
+            PopolaCampiCliente(idCli, true);
+            hidIdClienti.Value = idCli.ToString();
+        }
+        protected void EliminaCliente(int idCli)
+        {
+            bool isEliminato = InserimentoDatiDAO.EliminaCliente(idCli);
+            if (isEliminato)
+            {
+                lblIsClienteInserito.Text = "Cliente eliminato con successo";
+                lblIsClienteInserito.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsClienteInserito.Text = "Errore durante l'eliminazione del cliente, potrebbe avere delle referenze in altre tabelle";
+                lblIsClienteInserito.ForeColor = Color.Red;
+            }
+
+            BindGridClienti();
+
+            ResettaCampi(pnlInsClienti);
+            btnModCliente.Visible = false;
+            btnInsCliente.Visible = true;
+            lblTitoloInserimento.Text = "Inserimento Clienti";
+        }
+        protected void PopolaCampiCliente(int idCli, bool isControlEnabled)
+        {
+            Clienti cli = InserimentoDatiDAO.GetSingleCliente(idCli);
+
+            //Rendo i textbox disabilitati
+            foreach (Control c in pnlInsClienti.Controls)
+            {
+                if (c is TextBox)
+                    ((TextBox)c).Enabled = isControlEnabled;
+            }
+
+            //Popolo i textbox
+            txtRagSocCli.Text = cli.RagSocCli;
+            txtIndirizzo.Text = cli.Indirizzo;
+            txtCap.Text = cli.Cap;
+            txtCitta.Text = cli.Città;
+            txtTelefono.Text = cli.Tel1.ToString();
+            txtCellulare.Text = cli.Cell1.ToString();
+            txtPartitaIva.Text = cli.PartitaIva;
+            txtCodiceFiscale.Text = cli.CodFiscale;
+            txtDataInserimento.Text = cli.Data.ToString();
+            txtProvincia.Text = cli.Provincia;
+            txtNote.Text = cli.Note;
+        }
+        //Fornitori
         protected void BindGridFornitori()
         {
             DataTable dt = InserimentoDatiDAO.GetAllFornitori();
-            grdFornitori.DataSource = dt;
+            List<Fornitori> fornitList = dt.DataTableToList<Fornitori>();
+            grdFornitori.DataSource = fornitList;
             grdFornitori.DataBind();
         }
+        protected void VisualizzaDatiFornitore(int idFornitore)
+        {
+            lblTitoloInserimento.Text = "Visualizza Fornitore";
+            lblIsFornitoreInserito.Text = "";
+            PopolaCampiFornitore(idFornitore, false);
+            btnInsFornit.Visible = btnModFornit.Visible = false;
+        }
+        protected void ModificaDatiFornitore(int idFornitore)
+        {
+            lblTitoloInserimento.Text = "Modifica Fornitore";
+            lblIsFornitoreInserito.Text = "";
+            btnModFornit.Visible = true;
+            btnInsFornit.Visible = false;
+            PopolaCampiFornitore(idFornitore, true);
+            hidIdFornit.Value = idFornitore.ToString();
+        }
+        protected void EliminaFornitore(int idFornitore)
+        {
+            bool isEliminato = InserimentoDatiDAO.EliminaFornitore(idFornitore);
+            if (isEliminato)
+            {
+                lblIsFornitoreInserito.Text = "Fornitore eliminato con successo";
+                lblIsFornitoreInserito.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsFornitoreInserito.Text = "Errore durante l'eliminazione del fornitore";
+                lblIsFornitoreInserito.ForeColor = Color.Red;
+            }
+
+            BindGridFornitori();
+
+            ResettaCampi(pnlInsFornitori);
+            btnModFornit.Visible = false;
+            btnInsFornit.Visible = true;
+            lblTitoloInserimento.Text = "Inserimento Fornitori";
+        }
+        protected void PopolaCampiFornitore(int idFornitore, bool isControlEnabled)
+        {
+            Fornitori fornitore = InserimentoDatiDAO.GetSingleFornitore(idFornitore);
+
+            //Rendo i textbox disabilitati
+            foreach (Control c in pnlInsFornitori.Controls)
+            {
+                if (c is TextBox)
+                    ((TextBox)c).Enabled = isControlEnabled;
+            }
+
+            //Popolo i textbox
+            txtRagSocFornit.Text = fornitore.RagSocForni;
+            txtIndirFornit.Text = fornitore.Indirizzo;
+            txtCapFornit.Text = fornitore.Cap;
+            txtCittaFornit.Text = fornitore.Città;
+            txtTelFornit.Text = fornitore.Tel1.ToString();
+            txtCelFornit.Text = fornitore.Cell1.ToString();
+            txtPartIvaFornit.Text = fornitore.PartitaIva.ToString();
+            txtCodFiscFornit.Text = fornitore.CodFiscale;
+            txtAbbrevFornit.Text = fornitore.Abbreviato;
+        }
+        //Operai
         protected void BindGridOperai()
         {
             DataTable dt = InserimentoDatiDAO.GetAllOperai();
-            grdOperai.DataSource = dt;
+            List<Operai> opList = dt.DataTableToList<Operai>();
+            grdOperai.DataSource = opList;
             grdOperai.DataBind();
         }
+        protected void VisualizzaDatiOperaio(int idOperaio)
+        {
+            lblTitoloInserimento.Text = "Visualizza Operaio";
+            lblIsOperaioInserito.Text = "";
+            PopolaCampiOperaio(idOperaio, false);
+            btnInsOper.Visible = btnModOper.Visible = false;
+        }
+        protected void ModificaDatiOperaio(int idOperaio)
+        {
+            lblTitoloInserimento.Text = "Modifica Operaio";
+            lblIsOperaioInserito.Text = "";
+            btnModOper.Visible = true;
+            btnInsOper.Visible = false;
+            PopolaCampiOperaio(idOperaio, true);
+            hidIdOper.Value = idOperaio.ToString();
+        }
+        protected void EliminaOperaio(int idOperaio)
+        {
+            bool isEliminato = InserimentoDatiDAO.EliminaOperaio(idOperaio);
+            if (isEliminato)
+            {
+                lblIsOperaioInserito.Text = "Operaio eliminato con successo";
+                lblIsOperaioInserito.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsOperaioInserito.Text = "Errore durante l'eliminazione dell'operaio";
+                lblIsOperaioInserito.ForeColor = Color.Red;
+            }
+
+            BindGridOperai();
+
+            ResettaCampi(pnlInsOperai);
+            btnModOper.Visible = false;
+            btnInsOper.Visible = true;
+            lblTitoloInserimento.Text = "Inserimento Operai";
+        }
+        protected void PopolaCampiOperaio(int idOperaio, bool isControlEnabled)
+        {
+            Operai operaio = InserimentoDatiDAO.GetSingleOperaio(idOperaio);
+
+            //Rendo i textbox disabilitati
+            foreach (Control c in pnlInsOperai.Controls)
+            {
+                if (c is TextBox)
+                    ((TextBox)c).Enabled = isControlEnabled;
+            }
+
+            //Popolo i textbox
+            txtNomeOper.Text = operaio.NomeOp;
+            txtDescrOper.Text = operaio.DescrOp;
+            txtSuffOper.Text = operaio.Suffisso;
+            txtOperaio.Text = operaio.Operaio;
+        }
+        //Cantieri
         protected void BindGridCantieri()
         {
             DataTable dt = InserimentoDatiDAO.GetAllCantieri();
@@ -255,14 +528,6 @@ namespace GestioneCantieri
             grdCantieri.DataSource = cantList;
             grdCantieri.DataBind();
         }
-        protected void SvuotaTxtBox(Control container)
-        {
-            foreach (var control in container.Controls)
-            {
-                if (control is TextBox)
-                    ((TextBox)control).Text = string.Empty;
-            }
-        }
         protected void FillDdlClienti()
         {
             List<Clienti> listClienti = InserimentoDatiDAO.GetClientiIdAndName();
@@ -271,15 +536,19 @@ namespace GestioneCantieri
             ddlScegliClientePerCantiere.Items.Add(new ListItem("", "-1"));
 
             foreach (Clienti c in listClienti)
-                ddlScegliClientePerCantiere.Items.Add(new ListItem(c.RagSocCli, c.Id.ToString()));
+                ddlScegliClientePerCantiere.Items.Add(new ListItem(c.RagSocCli, c.IdCliente.ToString()));
         }
         protected void VisualizzaDatiCant(int idCant)
         {
+            lblTitoloInserimento.Text = "Visualizza Cantiere";
+            lblIsCantInserito.Text = "";
             PopolaCampiCantiere(idCant, false);
-            btnInsCantiere.Visible = false;
+            btnInsCantiere.Visible = btnModCantiere.Visible = false;
         }
         protected void ModificaDatiCant(int idCant)
         {
+            lblTitoloInserimento.Text = "Modifica Cantiere";
+            lblIsCantInserito.Text = "";
             btnModCantiere.Visible = true;
             btnInsCantiere.Visible = false;
             PopolaCampiCantiere(idCant, true);
@@ -304,9 +573,10 @@ namespace GestioneCantieri
             else
                 BindGridCantieri();
 
-            SvuotaTxtBox(pnlTxtBoxCantContainer);
+            ResettaCampi(pnlTxtBoxCantContainer);
             btnModCantiere.Visible = false;
             btnInsCantiere.Visible = true;
+            lblTitoloInserimento.Text = "Inserimento Cantieri";
         }
         protected void PopolaCampiCantiere(int idCant, bool isControlEnabled)
         {
@@ -361,7 +631,41 @@ namespace GestioneCantieri
                 chkFatturato.Checked = true;
         }
 
-        /* In base al pulsante premuto e alla riga corrispondente eseguo azioni diversificate */
+        /* EVENTI ROW-COMMAND */
+        /* In base al pulsante premuto eseguo azioni diversificate sul record selezionato */
+        protected void grdClienti_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int idCli = Convert.ToInt32(e.CommandArgument.ToString());
+
+            if (e.CommandName == "VisualCli")
+                VisualizzaDatiCliente(idCli);
+            else if (e.CommandName == "ModCli")
+                ModificaDatiCliente(idCli);
+            else if (e.CommandName == "ElimCli")
+                EliminaCliente(idCli);
+        }
+        protected void grdFornitori_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int idFornitore = Convert.ToInt32(e.CommandArgument.ToString());
+
+            if (e.CommandName == "VisualFornit")
+                VisualizzaDatiFornitore(idFornitore);
+            else if (e.CommandName == "ModFornit")
+                ModificaDatiFornitore(idFornitore);
+            else if (e.CommandName == "ElimFornit")
+                EliminaFornitore(idFornitore);
+        }
+        protected void grdOperai_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int idOperaio = Convert.ToInt32(e.CommandArgument.ToString());
+
+            if (e.CommandName == "VisualOper")
+                VisualizzaDatiOperaio(idOperaio);
+            else if (e.CommandName == "ModOper")
+                ModificaDatiOperaio(idOperaio);
+            else if (e.CommandName == "ElimOper")
+                EliminaOperaio(idOperaio);
+        }
         protected void grdCantieri_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int idCant = Convert.ToInt32(e.CommandArgument.ToString());
@@ -372,49 +676,6 @@ namespace GestioneCantieri
                 ModificaDatiCant(idCant);
             else if (e.CommandName == "ElimCant")
                 EliminaCantiere(idCant);
-        }
-
-        //Non in uso al momento
-        protected void grdCantieri_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                /*DataRow dr = ((DataRowView)e.Row.DataItem).Row;
-                if (Convert.ToBoolean(dr["Chiuso"]))
-                    ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblChiusoYesNo")).Text = "No";
-
-                if (Convert.ToBoolean(dr["Riscosso"]))
-                    ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblRiscossoYesNo")).Text = "No";
-
-                if (Convert.ToBoolean(dr["Preventivo"]))
-                    ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblPreventivoYesNo")).Text = "No";
-
-                if (Convert.ToBoolean(dr["DaDividere"]))
-                    ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblDaDividereYesNo")).Text = "No";
-
-                if (Convert.ToBoolean(dr["Diviso"]))
-                    ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblDivisoYesNo")).Text = "No";
-
-                if (Convert.ToBoolean(dr["Fatturato"]))
-                    ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "Si";
-                else
-                    ((Label)e.Row.FindControl("lblFatturatoYesNo")).Text = "No";*/
-
-            }
-        }
-        protected void PopolaDataInserimento()
-        {
-            //txtDataInserimento.Text = txtDataInserCant.Text = DateTime.Now.ToString().Split(' ')[0];
         }
     }
 }

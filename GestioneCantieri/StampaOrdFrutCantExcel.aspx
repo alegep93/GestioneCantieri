@@ -1,9 +1,16 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/layout.Master" CodeBehind="StampaOrdFrutCantExcel.aspx.cs" Inherits="GestioneCantieri.StampaExcell" EnableEventValidation="false" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
-    <title>Stampa Excel</title>
+    <title>Stampa Ord Frut Cant Excel</title>
     <script src="Scripts/jquery-1.9.1.min.js"></script>
     <script src="Scripts/DynamicStampaOrdFrutStyle.js"></script>
+    <style>
+        .table-container{
+            max-height: 500px;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
@@ -15,7 +22,7 @@
                 <asp:DropDownList ID="ddlScegliCantiere" CssClass="form-control" OnTextChanged="ddlScegliCantiere_TextChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
                 <asp:Button ID="btnPrint" CssClass="btn btn-primary btn-lg pull-right" OnClick="btnPrint_Click" runat="server" Text="Stampa" />
             </div>
-            <div class="col-md-6" style="position:relative; top:10px;">
+            <div class="col-md-6 table-container" style="position:relative; top:10px;">
                 <asp:GridView ID="grdGruppi" AutoGenerateColumns="false" ItemType="GestioneCantieri.Data.StampaCantiere" runat="server" CssClass="table table-striped table-responsive">
                     <Columns>
                         <asp:BoundField HeaderText="Descrizione Frutto" DataField="DescrFrutto" />

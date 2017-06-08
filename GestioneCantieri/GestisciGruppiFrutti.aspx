@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/layout.Master" CodeBehind="GestisciGruppiFrutti.aspx.cs" Inherits="GestioneCantieri.DistintaBase" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
-    <title>Distinta Base</title>
+    <title>Gestisci Gruppi Frutti</title>
 </asp:Content>
 
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">

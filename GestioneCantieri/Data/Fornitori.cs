@@ -7,29 +7,29 @@ namespace GestioneCantieri.Data
 {
     public class Fornitori
     {
-        int id, tel, cel;
-        float pIva;
-        string ragSoc, indirizzo, cap, citta, codFisc, abbreviato;
+        int idFornitori, tel1, cell1;
+        double partitaIva;
+        string ragSocForni, indirizzo, cap, città, codFiscale, abbreviato;
 
         public Fornitori()
         {
-            this.id = this.tel = this.cel = -1;
-            this.pIva = -1f;
-            this.ragSoc = this.indirizzo = this.cap = "";
-            this.citta = this.codFisc = this.abbreviato = "";
+            this.idFornitori = this.tel1 = this.cell1 = -1;
+            this.partitaIva = -1f;
+            this.ragSocForni = this.indirizzo = this.cap = this.città = "";
+            this.codFiscale = this.abbreviato = "";
         }
 
-        public Fornitori(int id, int tel, int cel, float pIva, string ragSoc, string indirizzo, string cap, string citta, string codFisc, string abbreviato)
+        public Fornitori(int idFornitori, int tel1, int cell1, double partitaIva, string ragSocForni, string indirizzo, string cap, string città, string codFiscale, string abbreviato)
         {
-            this.id = id;
-            this.tel = tel;
-            this.cel = cel;
-            this.pIva = pIva;
-            this.ragSoc = ragSoc;
+            this.idFornitori = idFornitori;
+            this.tel1 = tel1;
+            this.cell1 = cell1;
+            this.partitaIva = partitaIva;
+            this.ragSocForni = ragSocForni;
             this.indirizzo = indirizzo;
             this.cap = cap;
-            this.citta = citta;
-            this.codFisc = codFisc;
+            this.città = città;
+            this.codFiscale = codFiscale;
             this.abbreviato = abbreviato;
         }
 
@@ -59,55 +59,55 @@ namespace GestioneCantieri.Data
             }
         }
 
-        public int Cel
+        public int Cell1
         {
             get
             {
-                return cel;
+                return cell1;
             }
 
             set
             {
-                cel = value;
+                cell1 = value;
             }
         }
 
-        public string Citta
+        public string Città
         {
             get
             {
-                return citta;
+                return città;
             }
 
             set
             {
-                citta = value;
+                città = value;
             }
         }
 
-        public string CodFisc
+        public string CodFiscale
         {
             get
             {
-                return codFisc;
+                return codFiscale;
             }
 
             set
             {
-                codFisc = value;
+                codFiscale = value;
             }
         }
 
-        public int Id
+        public int IdFornitori
         {
             get
             {
-                return id;
+                return idFornitori;
             }
 
             set
             {
-                id = value;
+                idFornitori = value;
             }
         }
 
@@ -124,42 +124,42 @@ namespace GestioneCantieri.Data
             }
         }
 
-        public float PIva
+        public double PartitaIva
         {
             get
             {
-                return pIva;
+                return partitaIva;
             }
 
             set
             {
-                pIva = value;
+                partitaIva = value;
             }
         }
 
-        public string RagSoc
+        public string RagSocForni
         {
             get
             {
-                return ragSoc;
+                return ragSocForni;
             }
 
             set
             {
-                ragSoc = value;
+                ragSocForni = value;
             }
         }
 
-        public int Tel
+        public int Tel1
         {
             get
             {
-                return tel;
+                return tel1;
             }
 
             set
             {
-                tel = value;
+                tel1 = value;
             }
         }
     }
