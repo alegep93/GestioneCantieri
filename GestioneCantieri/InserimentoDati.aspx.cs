@@ -313,6 +313,8 @@ namespace GestioneCantieri
                     ((CheckBox)control).Checked = false;
                     ((CheckBox)control).Enabled = true;
                 }
+                if (control is DropDownList)
+                    ((DropDownList)control).Enabled = true;
             }
         }
         //Clienti

@@ -574,7 +574,7 @@ namespace GestioneCantieri.DAO
                       "Cant.FasciaTblCantieri, Cant.DaDividere, Cant.Diviso, Cant.Fatturato " +
                       "FROM TblCantieri AS Cant " +
                       "JOIN TblClienti AS Cli ON(Cant.IdTblClienti = Cli.IdCliente) " +
-                      "ORDER BY Cli.RagSocCli ASC, Cant.CodCant ASC ";
+                      "ORDER BY Cant.CodCant ASC ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -708,8 +708,6 @@ namespace GestioneCantieri.DAO
             codCant = "%" + codCant + "%";
             descr = "%" + descr + "%";
             cliente = "%" + cliente + "%";
-            /*chiuso = "%" + chiuso + "%";
-            riscosso = "%" + riscosso + "%";*/
 
             try
             {
@@ -722,7 +720,7 @@ namespace GestioneCantieri.DAO
                       "JOIN TblClienti AS Cli ON(Cant.IdTblClienti = Cli.IdCliente) " +
                       "WHERE Anno LIKE @pAnno AND CodCant LIKE @pCodCant AND DescriCodCAnt LIKE @pDescr AND Cli.RagSocCli LIKE @pRagSocCli " +
                       "AND Chiuso LIKE @pChiuso AND Riscosso LIKE @pRiscosso " +
-                      "ORDER BY Cli.RagSocCli ASC, Cant.CodCant ASC ";
+                      "ORDER BY Cant.CodCant ASC ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pAnno", anno));
