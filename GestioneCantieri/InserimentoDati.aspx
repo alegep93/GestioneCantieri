@@ -135,13 +135,13 @@
                             <asp:BoundField HeaderText="Indirizzo" DataField="Indirizzo" />
                             <asp:BoundField HeaderText="Cap" DataField="Cap" />
                             <asp:BoundField HeaderText="Città" DataField="Città" />
-                            <asp:BoundField HeaderText="Provincia" DataField="Provincia" />
+                            <%--<asp:BoundField HeaderText="Provincia" DataField="Provincia" />
                             <asp:BoundField HeaderText="Telefono" DataField="Tel1" />
-                            <asp:BoundField HeaderText="Cellulare" DataField="Cell1" />
+                            <asp:BoundField HeaderText="Cellulare" DataField="Cell1" />--%>
                             <asp:BoundField HeaderText="Partita Iva" DataField="PartitaIva" />
                             <asp:BoundField HeaderText="Codice Fiscale" DataField="CodFiscale" />
-                            <asp:BoundField HeaderText="Data Inserimento" DataField="Data" DataFormatString="{0:d}" />
-                            <asp:BoundField HeaderText="Note" DataField="Note" />
+                            <%--<asp:BoundField HeaderText="Data Inserimento" DataField="Data" DataFormatString="{0:d}" />
+                            <asp:BoundField HeaderText="Note" DataField="Note" />--%>
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:Button ID="btnVisualCli" CommandName="VisualCli" CommandArgument="<%# BindItem.IdCliente %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
