@@ -63,6 +63,9 @@ namespace GestioneCantieri
             BindGridCantieri();
             FillDdlClienti();
             ResettaCampi(pnlTxtBoxCantContainer);
+            txtAnnoCant.Text = DateTime.Now.Year.ToString();
+            PopolaCodCantAnnoNumero();
+            txtCodCant.Enabled = false;
             btnModCantiere.Visible = false;
             btnInsCantiere.Visible = true;
         }
@@ -116,6 +119,18 @@ namespace GestioneCantieri
                 lblIsClienteInserito.ForeColor = Color.Red;
             }
 
+            BindGridClienti();
+        }
+        protected void btnFiltraClienti_Click(object sender, EventArgs e)
+        {
+            if (!(txtFiltroRagSocCli.Text == ""))
+                BindGridClientiWithSearch();
+            else
+                BindGridClienti();
+        }
+        protected void btnSvuotaFiltriClienti_Click(object sender, EventArgs e)
+        {
+            ResettaCampi(pnlFiltriCliente);
             BindGridClienti();
         }
         //Fornitori
@@ -220,12 +235,13 @@ namespace GestioneCantieri
                 string daDividere = Convert.ToInt32(chkDaDividere.Checked).ToString();
                 string diviso = Convert.ToInt32(chkDiviso.Checked).ToString();
                 string fatturato = Convert.ToInt32(chkFatturato.Checked).ToString();
+                string codRiferCant = CostruisceCodRiferCant();
 
                 bool isInserito = InserimentoDatiDAO.InserisciCantiere(ddlScegliClientePerCantiere.SelectedValue, txtDataInserCant.Text,
                     txtCodCant.Text, txtDescrCodCant.Text, txtIndirizzoCant.Text, txtCittaCant.Text,
                     txtRicaricoCant.Text, txtPzzoManodopCant.Text, chiuso, riscosso,
                     txtNumeroCant.Text, txtValPrevCant.Text, txtIvaCant.Text, txtAnnoCant.Text,
-                    preventivo, daDividere, diviso, fatturato, txtFasciaCant.Text);
+                    preventivo, daDividere, diviso, fatturato, txtFasciaCant.Text, codRiferCant);
 
                 if (isInserito)
                 {
@@ -240,6 +256,7 @@ namespace GestioneCantieri
 
                 BindGridCantieri();
                 ResettaCampi(pnlInsCantieri);
+                PopolaCodCantAnnoNumero();
             }
             else
             {
@@ -321,6 +338,13 @@ namespace GestioneCantieri
         protected void BindGridClienti()
         {
             DataTable dt = InserimentoDatiDAO.GetAllClienti();
+            List<Clienti> clientiList = dt.DataTableToList<Clienti>();
+            grdClienti.DataSource = clientiList;
+            grdClienti.DataBind();
+        }
+        protected void BindGridClientiWithSearch()
+        {
+            DataTable dt = InserimentoDatiDAO.FiltraClienti(txtFiltroRagSocCli.Text);
             List<Clienti> clientiList = dt.DataTableToList<Clienti>();
             grdClienti.DataSource = clientiList;
             grdClienti.DataBind();
@@ -576,6 +600,7 @@ namespace GestioneCantieri
                 BindGridCantieri();
 
             ResettaCampi(pnlTxtBoxCantContainer);
+            txtCodCant.Enabled = false;
             btnModCantiere.Visible = false;
             btnInsCantiere.Visible = true;
             lblTitoloInserimento.Text = "Inserimento Cantieri";
@@ -632,6 +657,43 @@ namespace GestioneCantieri
             if (cant.Fatturato)
                 chkFatturato.Checked = true;
         }
+        protected void PopolaCodCantAnnoNumero(string num = "")
+        {
+            string numCant = "";
+            if (num == "") { 
+                txtNumeroCant.Text = InserimentoDatiDAO.GetLastNumCantForYear(txtAnnoCant.Text);
+                numCant = txtNumeroCant.Text;
+            }
+            else
+               numCant = num;
+
+            DateTime date = DateTime.Now;
+            string year = date.ToString("yy");
+            string suffisso = "Ma";
+            if(numCant.Length == 1)
+                txtCodCant.Text = year + "00" + numCant + suffisso;
+            else if(numCant.Length == 2)
+                txtCodCant.Text = year + "0" + numCant + suffisso;
+            else if (numCant.Length == 3)
+                txtCodCant.Text = year + numCant + suffisso;
+        }
+        protected string CostruisceCodRiferCant()
+        {
+            DateTime date = DateTime.Now;
+
+            int numCant = Convert.ToInt32(InserimentoDatiDAO.GetNumCantPerAnno(txtAnnoCant.Text));
+            int descrLength = txtDescrCodCant.Text.Trim().Length;
+            char firstDescrLetter = txtDescrCodCant.Text[0];
+            string lastYearDigits = date.ToString("yy");
+            int ddlLength = ddlScegliClientePerCantiere.SelectedItem.Text.Length;
+            char lastRagSocLetter = ddlScegliClientePerCantiere.SelectedItem.Text[ddlLength-1];
+            string dayOfYear = date.DayOfYear.ToString();
+
+            string codRiferCant = Convert.ToString(numCant + descrLength) +
+                firstDescrLetter + lastYearDigits + lastRagSocLetter + dayOfYear;
+
+            return codRiferCant;
+        }
 
         /* EVENTI ROW-COMMAND */
         /* In base al pulsante premuto eseguo azioni diversificate sul record selezionato */
@@ -678,6 +740,16 @@ namespace GestioneCantieri
                 ModificaDatiCant(idCant);
             else if (e.CommandName == "ElimCant")
                 EliminaCantiere(idCant);
+        }
+
+        /* EVENTI TEXT-CHANGED */
+        protected void txtNumeroCant_TextChanged(object sender, EventArgs e)
+        {
+            PopolaCodCantAnnoNumero(txtNumeroCant.Text);
+        }
+        protected void txtAnnoCant_TextChanged(object sender, EventArgs e)
+        {
+            PopolaCodCantAnnoNumero();
         }
     }
 }
