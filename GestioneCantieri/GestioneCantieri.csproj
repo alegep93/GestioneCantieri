@@ -80,6 +80,7 @@
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Default.aspx" />
+    <Content Include="GestioneCantieri.aspx" />
     <Content Include="GestisciFrutti.aspx" />
     <Content Include="GestisciGruppiFrutti.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -135,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="DAO\GestioneCantieriDAO.cs" />
     <Compile Include="DAO\InserimentoDatiDAO.cs" />
     <Compile Include="DAO\Mamg0DAO.cs" />
     <Compile Include="DAO\OrdineFruttiDAO.cs" />
@@ -143,6 +145,16 @@
     <Compile Include="DAO\StampaFruttiPerGruppiDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantLocDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantDAO.cs" />
+    <Compile Include="Data\MaterialiCantieri.cs" />
+    <Compile Include="Data\Pagamenti.cs" />
+    <Compile Include="Data\TipDatCant.cs" />
+    <Compile Include="GestioneCantieri.aspx.cs">
+      <DependentUpon>GestioneCantieri.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestioneCantieri.aspx.designer.cs">
+      <DependentUpon>GestioneCantieri.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Utils\DataTableToListHelper.cs" />
     <Compile Include="Data\Cantieri.cs" />
     <Compile Include="Data\Clienti.cs" />
@@ -269,7 +281,9 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49703</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49564/</IISUrl>
+          <IISUrl>http://localhost:50200/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:50200</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

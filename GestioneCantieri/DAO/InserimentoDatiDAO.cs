@@ -36,6 +36,37 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+        public static DataTable FiltraClienti(string ragSoc)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            ragSoc = "%" + ragSoc + "%";
+
+            try
+            {
+                sql = "SELECT IdCliente, RagSocCli, Indirizzo, cap, Città, Tel1, " +
+                      "Cell1, PartitaIva, CodFiscale, Data, Provincia, Note " +
+                      "FROM TblClienti " +
+                      "WHERE RagSocCli LIKE @pRagSoc " +
+                      "ORDER BY RagSocCli ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@pRagSoc", ragSoc));
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il filtro dei clienti", ex);
+            }
+            finally { cn.Close(); }
+        }
         public static Clienti GetSingleCliente(int idCliente)
         {
             SqlConnection cn = GetConnection();
@@ -604,7 +635,7 @@ namespace GestioneCantieri.DAO
                       "Cant.Data, Cant.Indirizzo, Cant.Città, Cant.Ricarico, " +
                       "Cant.PzzoManodopera, Cant.Chiuso, Cant.Riscosso, Cant.Numero, " +
                       "Cant.ValorePreventivo, Cant.IVA, Cant.Anno, Cant.Preventivo, " +
-                      "Cant.FasciaTblCantieri, Cant.DaDividere, Cant.Diviso, Cant.Fatturato " +
+                      "Cant.FasciaTblCantieri, Cant.DaDividere, Cant.Diviso, Cant.Fatturato, Cant.CodRiferCant " +
                       "FROM TblCantieri AS Cant " +
                       "JOIN TblClienti AS Cli ON(Cant.IdTblClienti = Cli.IdCliente) " +
                       "WHERE Cant.IdCantieri = @pIdCant " +
@@ -636,6 +667,7 @@ namespace GestioneCantieri.DAO
                     c.DaDividere = (dr.IsDBNull(17) ? false : dr.GetBoolean(17));
                     c.Diviso = (dr.IsDBNull(18) ? false : dr.GetBoolean(18));
                     c.Fatturato = (dr.IsDBNull(19) ? false : dr.GetBoolean(19));
+                    c.CodRiferCant = (dr.IsDBNull(20) ? null : dr.GetString(20));
                 }
 
                 return c;
@@ -646,10 +678,68 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
+        public static string GetLastNumCantForYear(string anno)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            string sql = "";
+            int num = 0;
+            string ret = "";
+
+            try
+            {
+                sql = "SELECT (MAX(Numero)+1) FROM TblCantieri WHERE Anno = @pAnno ";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@pAnno", anno));
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    num = (dr.IsDBNull(0) ? 1 : dr.GetInt32(0));
+                }
+
+                ret = num.ToString();
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recuper dell'ultimo numero cantiere", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
+        public static string GetNumCantPerAnno(string anno)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            string sql = "";
+            int num = 0;
+            string ret = "";
+
+            try
+            {
+                sql = "SELECT COUNT(*) FROM TblCantieri WHERE Anno = @pAnno ";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@pAnno", anno));
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                    num = (dr.IsDBNull(0) ? 1 : dr.GetInt32(0));
+
+                ret = num.ToString();
+
+                return ret;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recuper dell'ultimo numero cantiere", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
         public static bool InserisciCantiere(string idCliente, string data, string codCant,
             string descrCodCant, string indirizzo, string citta, string ricarico, string pzzoManodop,
             string chiuso, string riscosso, string numeroCant, string valPrev, string iva, string anno,
-            string preventivo, string daDividere, string diviso, string fatturato, string fasciaCantiere)
+            string preventivo, string daDividere, string diviso, string fatturato, string fasciaCantiere, string codRiferCant)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -659,10 +749,10 @@ namespace GestioneCantieri.DAO
                 sql = "INSERT INTO TblCantieri " +
                       "(IdTblClienti,Data,CodCant,DescriCodCAnt,Indirizzo,Città,Ricarico, " +
                       "PzzoManodopera,Chiuso,Riscosso,Numero,ValorePreventivo,IVA,Anno,Preventivo, " +
-                      "FasciaTblCantieri,DaDividere,Diviso,Fatturato) " +
+                      "FasciaTblCantieri,DaDividere,Diviso,Fatturato,CodRiferCant) " +
                       "VALUES (@pIdTblClienti,@pData,@pCodCant,@pDescCodCant,@pIndir,@pCitta,@pRicar, " +
                       "@pPzzoManod,@pChiuso,@pRiscosso,@pNumero,@pValPrev,@pIva,@pAnno,@pPrev,@pFasciaCant, " +
-                      "@pDaDividere,@pDiviso,@pFatturato) ";
+                      "@pDaDividere,@pDiviso,@pFatturato,@pCodRiferCant) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdTblClienti", idCliente));
@@ -684,6 +774,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pDaDividere", daDividere));
                 cmd.Parameters.Add(new SqlParameter("pDiviso", diviso));
                 cmd.Parameters.Add(new SqlParameter("pFatturato", fatturato));
+                cmd.Parameters.Add(new SqlParameter("pCodRiferCant", codRiferCant));
 
                 int ret = cmd.ExecuteNonQuery();
 

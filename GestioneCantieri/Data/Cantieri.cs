@@ -8,7 +8,7 @@ namespace GestioneCantieri.Data
     public class Cantieri
     {
         int idCantieri, idtblClienti, ricarico, iva, anno, fasciaTblCantieri;
-        string codCant, descriCodCAnt, indirizzo, città, numero, ragSocCli;
+        string codCant, descriCodCAnt, indirizzo, città, numero, ragSocCli, codRiferCant;
         decimal pzzoManodopera, valorePreventivo;
         bool chiuso, riscosso, preventivo, daDividere, diviso, fatturato;
         DateTime data;
@@ -16,13 +16,13 @@ namespace GestioneCantieri.Data
         public Cantieri()
         {
             this.idCantieri = this.idtblClienti = this.ricarico = this.iva = this.anno = this.fasciaTblCantieri = -1;
-            this.codCant = this.descriCodCAnt = this.indirizzo = this.città = this.numero = this.ragSocCli = "";
+            this.codCant = this.descriCodCAnt = this.indirizzo = this.città = this.numero = this.ragSocCli = this.CodRiferCant = "";
             this.pzzoManodopera = this.valorePreventivo = -1m;
             this.chiuso = this.riscosso = this.preventivo = this.daDividere = this.diviso = this.fatturato = false;
             this.data = new DateTime();
         }
 
-        public Cantieri(int idCantieri, int idtblClienti, int ricarico, int iva, int anno, int fasciaTblCantieri, string codCant, string descriCodCAnt, string indirizzo, string città, string numero, string ragSocCli, decimal pzzoManodopera, decimal valorePreventivo, bool chiuso, bool riscosso, bool preventivo, bool daDividere, bool diviso, bool fatturato, DateTime data)
+        public Cantieri(int idCantieri, int idtblClienti, int ricarico, int iva, int anno, int fasciaTblCantieri, string codCant, string descriCodCAnt, string indirizzo, string città, string numero, string ragSocCli, string codRiferCant, decimal pzzoManodopera, decimal valorePreventivo, bool chiuso, bool riscosso, bool preventivo, bool daDividere, bool diviso, bool fatturato, DateTime data)
         {
             this.idCantieri = idCantieri;
             this.idtblClienti = idtblClienti;
@@ -36,6 +36,7 @@ namespace GestioneCantieri.Data
             this.città = città;
             this.numero = numero;
             this.ragSocCli = ragSocCli;
+            this.CodRiferCant = codRiferCant;
             this.pzzoManodopera = pzzoManodopera;
             this.valorePreventivo = valorePreventivo;
             this.chiuso = chiuso;
@@ -317,6 +318,19 @@ namespace GestioneCantieri.Data
             set
             {
                 data = value;
+            }
+        }
+
+        public string CodRiferCant
+        {
+            get
+            {
+                return codRiferCant;
+            }
+
+            set
+            {
+                codRiferCant = value;
             }
         }
     }

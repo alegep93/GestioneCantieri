@@ -126,6 +126,17 @@
                     <asp:Label ID="lblIsClienteInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
                 </div>
 
+                <asp:Panel ID="pnlFiltriCliente" CssClass="col-md-12" runat="server" Style="margin-top: 20px;">
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltroRagSocCli" runat="server" Text="Ragione Sociale Cliente"></asp:Label>
+                        <asp:TextBox ID="txtFiltroRagSocCli" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Button ID="btnFiltraClienti" OnClick="btnFiltraClienti_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra" />
+                        <asp:Button ID="btnSvuotaFiltriClienti" OnClick="btnSvuotaFiltriClienti_Click" CssClass="btn btn-default pull-right" runat="server" Text="Svuota" Style="margin-right: 5px;" />
+                    </div>
+                </asp:Panel>
+
                 <!-- Griglia di visualizzazione record -->
                 <div class="col-md-12 table-container">
                     <asp:GridView ID="grdClienti" OnRowCommand="grdClienti_RowCommand" AutoGenerateColumns="false"
@@ -354,7 +365,7 @@
                     </div>
                     <div class="col-md-2 form-group">
                         <asp:Label ID="lblNumeroCant" runat="server" Text="Numero" />
-                        <asp:TextBox ID="txtNumeroCant" CssClass="form-control" MaxLength="5" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtNumeroCant" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtNumeroCant_TextChanged" MaxLength="5" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2 form-group">
                         <asp:Label ID="lblValPrevCant" runat="server" Text="Valore Preventivo Cantiere" />
@@ -367,7 +378,7 @@
 
                     <div class="col-md-4 form-group">
                         <asp:Label ID="lblAnnoCant" runat="server" Text="Anno" />
-                        <asp:TextBox ID="txtAnnoCant" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtAnnoCant" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtAnnoCant_TextChanged" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-1 form-group">
                         <asp:Label ID="lblPrevCant" runat="server" Text="Preventivo" />
