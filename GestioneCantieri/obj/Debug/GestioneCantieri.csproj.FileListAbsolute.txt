@@ -32,6 +32,5 @@ C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\
 C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.pdb
 C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\bin\AjaxControlToolkit.dll
 C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\bin\AjaxMin.dll
-C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csprojResolveAssemblyReference.cache
 C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.dll
 C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
