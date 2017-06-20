@@ -92,7 +92,7 @@
                         <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
                         <asp:BoundField DataField="N_ddt" HeaderText="N_DDT" />
                         <asp:BoundField DataField="CodArt" HeaderText="Codice Articolo" />
-                        <asp:BoundField DataField="DescrCodArt" HeaderText="Descrizione Codice Articolo" />
+                        <asp:BoundField DataField="DescriCodArt" HeaderText="Descrizione Codice Articolo" />
                         <asp:BoundField DataField="Qta" HeaderText="Quantità" />
                         <asp:BoundField DataField="Importo" HeaderText="Importo" DataFormatString="{0:0.00}" />
                         <asp:BoundField DataField="Acquirente" HeaderText="Acquirente" />

@@ -9,14 +9,14 @@ namespace GestioneCantieri.Data
     {
         int id, anno, n_ddt, qta, annoN_ddt;
         DateTime data;
-        string codArt, descrCodArt, acquirente;
+        string codArt, descriCodArt, acquirente;
         decimal importo, prezzoUnitario;
 
         public DDTMef()
         {
             id = anno = n_ddt = qta = annoN_ddt = 0;
             data = new DateTime();
-            codArt = descrCodArt = acquirente = null;
+            codArt = descriCodArt = acquirente = null;
             importo = prezzoUnitario = 0m;
         }
 
@@ -29,7 +29,7 @@ namespace GestioneCantieri.Data
             this.annoN_ddt = annoN_ddt;
             this.data = data;
             this.codArt = codArt;
-            this.descrCodArt = descrCodArt;
+            this.descriCodArt = descrCodArt;
             this.acquirente = acquirente;
             this.importo = importo;
             this.prezzoUnitario = prezzoUnitario;
@@ -77,10 +77,10 @@ namespace GestioneCantieri.Data
             set { codArt = value; }
         }
 
-        public string DescrCodArt
+        public string DescriCodArt
         {
-            get { return descrCodArt; }
-            set { descrCodArt = value; }
+            get { return descriCodArt; }
+            set { descriCodArt = value; }
         }
 
         public string Acquirente
