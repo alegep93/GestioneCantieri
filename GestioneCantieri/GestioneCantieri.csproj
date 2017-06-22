@@ -102,6 +102,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="RientroMateriale.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DynamicStampaOrdFrutStyle.js" />
@@ -142,6 +143,7 @@
     <Compile Include="DAO\OrdineFruttiDAO.cs" />
     <Compile Include="DAO\DDTMefDAO.cs" />
     <Compile Include="DAO\GestisciGruppiFruttiDAO.cs" />
+    <Compile Include="DAO\RientroMaterialeDAO.cs" />
     <Compile Include="DAO\StampaFruttiPerGruppiDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantLocDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantDAO.cs" />
@@ -154,6 +156,13 @@
     </Compile>
     <Compile Include="GestioneCantieri.aspx.designer.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RientroMateriale.aspx.cs">
+      <DependentUpon>RientroMateriale.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RientroMateriale.aspx.designer.cs">
+      <DependentUpon>RientroMateriale.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utils\DataTableToListHelper.cs" />
     <Compile Include="Data\Cantieri.cs" />
