@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/layout.Master" CodeBehind="GestioneCantieri.aspx.cs" Inherits="GestioneCantieri.GestioneCantieri" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/layout.Master" CodeBehind="RientroMateriale.aspx.cs" Inherits="GestioneCantieri.RientroMateriale" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
     <title>Gestione Cantieri</title>
@@ -77,17 +77,17 @@
                         <div class="col-md-4">
                             <div class="col-md-12">
                                 <div class="col-md-6">
-                                    <asp:Label ID="lblFiltroAnnoDDT" Text="Filtro Anno DDT" runat="server" />
-                                    <asp:TextBox ID="txtFiltroAnnoDDT" AutoPostBack="true" OnTextChanged="txtFiltroAnnoDDT_TextChanged" placeholder="Filtro Anno DDT" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:Label ID="lblFiltroCodArt" Text="Filtro Anno DDT" runat="server" />
+                                    <asp:TextBox ID="txtFiltroCodArt" AutoPostBack="true" OnTextChanged="txtFiltroCodArt_TextChanged" placeholder="Filtro Anno DDT" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                                 <div class="col-md-6">
-                                    <asp:Label ID="lblFiltroN_DDT" Text="Filtro N_DDT" runat="server" />
-                                    <asp:TextBox ID="txtFiltroN_DDT" AutoPostBack="true" OnTextChanged="txtFiltroN_DDT_TextChanged" placeholder="Filtro N_DDT" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:Label ID="lblFiltroDescriCodArt" Text="Filtro N_DDT" runat="server" />
+                                    <asp:TextBox ID="txtFiltroDescriCodArt" AutoPostBack="true" OnTextChanged="txtFiltroDescriCodArt_TextChanged" placeholder="Filtro N_DDT" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <asp:Label ID="lblScegliDDTMef" Text="Scegli DDT" runat="server" />
-                                <asp:DropDownList ID="ddlScegliDDTMef" AutoPostBack="true" OnTextChanged="ddlScegliDDTMef_TextChanged" CssClass="form-control" runat="server" />
+                                <asp:Label ID="lblScegliMatCant" Text="Scegli DDT" runat="server" />
+                                <asp:DropDownList ID="ddlScegliMatCant" AutoPostBack="true" OnTextChanged="ddlScegliMatCant_TextChanged" CssClass="form-control" runat="server" />
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -113,7 +113,7 @@
                     </div>
                 </asp:Panel>
                                 
-                <asp:Panel ID="pnlMascheraGestCant" runat="server">
+                <asp:Panel ID="pnlRientroMatCant" runat="server">
                     <div class="row">
                         <div class="col-md-offset-3 col-md-8">
                             <div class="col-md-4">
@@ -193,3 +193,4 @@
         </div>
     </div>
 </asp:Content>
+
