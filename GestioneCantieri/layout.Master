@@ -60,6 +60,8 @@
                             <li><a href="GestioneCantieri.aspx">Gestione Cantieri</a></li>
                             <li><a href="RientroMateriale.aspx">Rientro Materiale</a></li>
                             <li><a href="Manodopera.aspx">Manodopera</a></li>
+                            <li><a href="GestioneOperaio.aspx">Gestione Operaio</a></li>
+                            <li><a href="GestioneArrotondamento.aspx">Gestione Arrotondamento</a></li>
                         </ul>
                     </li>
                 </ul>

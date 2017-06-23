@@ -80,7 +80,9 @@
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Default.aspx" />
+    <Content Include="GestioneArrotondamento.aspx" />
     <Content Include="GestioneCantieri.aspx" />
+    <Content Include="GestioneOperaio.aspx" />
     <Content Include="GestisciFrutti.aspx" />
     <Content Include="GestisciGruppiFrutti.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -138,7 +140,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="DAO\GestioneArrotondamentoDAO.cs" />
     <Compile Include="DAO\GestioneCantieriDAO.cs" />
+    <Compile Include="DAO\GestioneOperaioDAO.cs" />
     <Compile Include="DAO\InserimentoDatiDAO.cs" />
     <Compile Include="DAO\Mamg0DAO.cs" />
     <Compile Include="DAO\ManodoperaDAO.cs" />
@@ -152,12 +156,26 @@
     <Compile Include="Data\MaterialiCantieri.cs" />
     <Compile Include="Data\Pagamenti.cs" />
     <Compile Include="Data\TipDatCant.cs" />
+    <Compile Include="GestioneArrotondamento.aspx.cs">
+      <DependentUpon>GestioneArrotondamento.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestioneArrotondamento.aspx.designer.cs">
+      <DependentUpon>GestioneArrotondamento.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GestioneCantieri.aspx.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="GestioneCantieri.aspx.designer.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestioneOperaio.aspx.cs">
+      <DependentUpon>GestioneOperaio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestioneOperaio.aspx.designer.cs">
+      <DependentUpon>GestioneOperaio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manodopera.aspx.cs">
       <DependentUpon>Manodopera.aspx</DependentUpon>
