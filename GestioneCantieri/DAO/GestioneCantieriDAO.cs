@@ -217,6 +217,8 @@ namespace GestioneCantieri.DAO
             finally { cn.Close(); }
         }
 
+
+
         //INSERT
         public static bool InserisciMaterialeCantiere(string idCant, string descrMate, string qta, bool visibile, bool ricalcolo, bool ricarico, string data, string pzzoUni,
             string rientro, string codArt, string descriCodArt, string unitMis, string zOldNumBolla, string mate, string fascia, string pzzoTemp, string acquirente,
@@ -258,14 +260,14 @@ namespace GestioneCantieri.DAO
 
                 int row = cmd.ExecuteNonQuery();
 
-                if(row > 0)
+                if (row > 0)
                     return true;
 
                 return false;
             }
             catch (Exception ex)
             {
-                throw new Exception("Errore durante l'inserimento di un materiale cantiere",ex);
+                throw new Exception("Errore durante l'inserimento di un materiale cantiere", ex);
             }
             finally { cn.Close(); }
         }

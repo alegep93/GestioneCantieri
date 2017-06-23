@@ -87,6 +87,7 @@
     <Content Include="InserimentoDati.aspx" />
     <Content Include="layout.Master" />
     <Content Include="Listino.aspx" />
+    <Content Include="Manodopera.aspx" />
     <Content Include="OrdineFrutti.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -140,6 +141,7 @@
     <Compile Include="DAO\GestioneCantieriDAO.cs" />
     <Compile Include="DAO\InserimentoDatiDAO.cs" />
     <Compile Include="DAO\Mamg0DAO.cs" />
+    <Compile Include="DAO\ManodoperaDAO.cs" />
     <Compile Include="DAO\OrdineFruttiDAO.cs" />
     <Compile Include="DAO\DDTMefDAO.cs" />
     <Compile Include="DAO\GestisciGruppiFruttiDAO.cs" />
@@ -156,6 +158,13 @@
     </Compile>
     <Compile Include="GestioneCantieri.aspx.designer.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Manodopera.aspx.cs">
+      <DependentUpon>Manodopera.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manodopera.aspx.designer.cs">
+      <DependentUpon>Manodopera.aspx</DependentUpon>
     </Compile>
     <Compile Include="RientroMateriale.aspx.cs">
       <DependentUpon>RientroMateriale.aspx</DependentUpon>

@@ -15,7 +15,11 @@ namespace GestioneCantieri
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                FillAllDdl();
+                pnlSubIntestazione.Visible = pnlRientroMatCant.Visible = false;
+            }
         }
 
         /* HELPERS */
@@ -36,6 +40,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlScegliAcquirente()
         {
+            int i = 0;
             DataTable dt = RientroMaterialeDAO.GetOperai();
             List<Operai> listOperai = dt.DataTableToList<Operai>();
 
@@ -46,6 +51,12 @@ namespace GestioneCantieri
             {
                 string show = op.NomeOp + " - " + op.DescrOp;
                 ddlScegliAcquirente.Items.Add(new ListItem(show, op.IdOperaio.ToString()));
+
+                i++;
+                if (op.NomeOp == "Maurizio" || op.NomeOp == "Mau" || op.NomeOp == "MAU")
+                {
+                    ddlScegliAcquirente.SelectedIndex = i;
+                }
             }
         }
         protected void FillDdlScegliFornit()
@@ -76,7 +87,7 @@ namespace GestioneCantieri
                 ddlTipDatCant.Items.Add(new ListItem(show, t.IdTipologia.ToString()));
             }
         }
-        protected void FillDddlScegliListino()
+        protected void FillDdlScegliListino()
         {
             List<Mamg0> listMamg0 = RientroMaterialeDAO.GetListino(txtFiltroCodFSS.Text, txtFiltroAA_Des.Text);
 
@@ -89,19 +100,28 @@ namespace GestioneCantieri
                 ddlScegliListino.Items.Add(new ListItem(show, mmg.CodArt.ToString()));
             }
         }
-        protected void FillDddlScegliMatCant()
+        protected void FillDdlScegliMatCant()
         {
             string idCant = ddlScegliCant.SelectedItem.Value;
-            DataTable dt = RientroMaterialeDAO.GetMaterialeCant(idCant, txtFiltroCodArt.Text, txtFiltroDescriCodArt.Text);
-            List<MaterialiCantieri> listMatCant = dt.DataTableToList<MaterialiCantieri>();
+            List<MaterialiCantieri> listMatCant = RientroMaterialeDAO.GetMaterialeCant(idCant, txtFiltroCodArt.Text, txtFiltroDescriCodArt.Text);
 
             ddlScegliMatCant.Items.Clear();
             ddlScegliMatCant.Items.Add(new ListItem("", "-1"));
 
             foreach (MaterialiCantieri mc in listMatCant)
             {
-                string show = mc.CodArt + " - " + mc.DescriCodArt + " - " + mc.Qta + " - " + mc.PzzoUniCantiere+ " - " + mc.Data;
+                string data = ((mc.Data).ToString()).Split(' ')[0];
+                string show = mc.CodArt + " - " + mc.DescriCodArt + " - " + mc.Qta + " - " + mc.PzzoUniCantiere + " - " + data;
                 ddlScegliMatCant.Items.Add(new ListItem(show, mc.IdMaterialiCantieri.ToString()));
+            }
+        }
+        protected void FillDdlQta(int qta)
+        {
+            ddlQta.Items.Clear();
+            ddlQta.Items.Add(new ListItem("", "-1"));
+            for (int i = 1; i <= qta; i++)
+            {
+                ddlQta.Items.Add(new ListItem(i.ToString(), i.ToString()));
             }
         }
         //Ogni Helper "Fill" va aggiunto qua dentro per funzionare
@@ -126,6 +146,7 @@ namespace GestioneCantieri
             if (ddlScegliCant.SelectedIndex != 0)
             {
                 pnlSubIntestazione.Visible = true;
+                FillDdlScegliMatCant();
             }
             else
             {
@@ -135,12 +156,12 @@ namespace GestioneCantieri
 
         protected void txtFiltroCodFSS_TextChanged(object sender, EventArgs e)
         {
-            FillDddlScegliListino();
+            FillDdlScegliListino();
         }
 
         protected void txtFiltroAA_Des_TextChanged(object sender, EventArgs e)
         {
-            FillDddlScegliListino();
+            FillDdlScegliListino();
         }
 
         protected void ddlScegliListino_TextChanged(object sender, EventArgs e)
@@ -170,10 +191,11 @@ namespace GestioneCantieri
             string idCant = ddlScegliCant.SelectedItem.Value;
             string acquirente = ddlScegliAcquirente.SelectedItem.Value;
             string fornitore = ddlScegliFornit.SelectedItem.Value;
+            string qta = ddlQta.SelectedItem.Value;
 
-            if (Convert.ToInt32(txtQta.Text) > 0 && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
+            if (Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
-                bool isInserito = RientroMaterialeDAO.InserisciMaterialeCantiere(idCant, txtDescrMat.Text, txtQta.Text, chkVisibile.Checked, chkRicalcolo.Checked,
+                bool isInserito = RientroMaterialeDAO.InserisciMaterialeCantiere(idCant, txtDescrMat.Text, qta, chkVisibile.Checked, chkRicalcolo.Checked,
                     chkRicarico.Checked, txtDataDDT.Text, txtPzzoUnit.Text, "", txtCodArt.Text, txtDescriCodArt.Text, "", "", "", "", "",
                     acquirente, fornitore, txtNumBolla.Text, txtProtocollo.Text, txtNote.Text);
 
@@ -192,18 +214,23 @@ namespace GestioneCantieri
 
         protected void txtFiltroDescriCodArt_TextChanged(object sender, EventArgs e)
         {
-            FillDddlScegliMatCant();
+            FillDdlScegliMatCant();
         }
 
         protected void txtFiltroCodArt_TextChanged(object sender, EventArgs e)
         {
-            FillDddlScegliMatCant();
+            FillDdlScegliMatCant();
         }
 
         protected void ddlScegliMatCant_TextChanged(object sender, EventArgs e)
         {
             if (ddlScegliMatCant.SelectedIndex != 0)
+            {
                 pnlRientroMatCant.Visible = true;
+                string[] partiMateriale = (ddlScegliMatCant.SelectedItem.Text).Split('-');
+                int qta = Convert.ToInt32(partiMateriale[2]);
+                FillDdlQta(qta);
+            }
             else
                 pnlRientroMatCant.Visible = false;
         }

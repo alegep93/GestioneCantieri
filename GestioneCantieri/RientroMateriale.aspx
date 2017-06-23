@@ -25,7 +25,7 @@
 </asp:Content>
 
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
-    <h1>Matieriali Di Cantiere</h1>
+    <h1>Rientro Matieriale</h1>
     <div class="container-fluid">
         <div class="row">
             <asp:Panel ID="pnlIntestazione" CssClass="col-md-12" runat="server">
@@ -77,17 +77,17 @@
                         <div class="col-md-4">
                             <div class="col-md-12">
                                 <div class="col-md-6">
-                                    <asp:Label ID="lblFiltroCodArt" Text="Filtro Anno DDT" runat="server" />
+                                    <asp:Label ID="lblFiltroCodArt" Text="Filtro Anno CodArt" runat="server" />
                                     <asp:TextBox ID="txtFiltroCodArt" AutoPostBack="true" OnTextChanged="txtFiltroCodArt_TextChanged" placeholder="Filtro Anno DDT" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                                 <div class="col-md-6">
-                                    <asp:Label ID="lblFiltroDescriCodArt" Text="Filtro N_DDT" runat="server" />
+                                    <asp:Label ID="lblFiltroDescriCodArt" Text="Filtro DescriCodArt" runat="server" />
                                     <asp:TextBox ID="txtFiltroDescriCodArt" AutoPostBack="true" OnTextChanged="txtFiltroDescriCodArt_TextChanged" placeholder="Filtro N_DDT" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <asp:Label ID="lblScegliMatCant" Text="Scegli DDT" runat="server" />
-                                <asp:DropDownList ID="ddlScegliMatCant" AutoPostBack="true" OnTextChanged="ddlScegliMatCant_TextChanged" CssClass="form-control" runat="server" />
+                                <asp:Label ID="lblScegliMatCant" Text="Scegli Materiale Cantiere" runat="server" />
+                                <asp:DropDownList ID="ddlScegliMatCant" AppendDataBoundItems="true" AutoPostBack="true" OnTextChanged="ddlScegliMatCant_TextChanged" CssClass="form-control" runat="server" />
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -151,7 +151,7 @@
                     <div class="row">
                         <div class="col-md-2">
                             <asp:Label ID="lblQta" Text="Quantità" runat="server" />
-                            <asp:TextBox ID="txtQta" Text="0" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:DropDownList ID="ddlQta" CssClass="form-control" runat="server"></asp:DropDownList>
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblPzzoNettoMef" Text="Prezzo Netto Mef" runat="server" />
