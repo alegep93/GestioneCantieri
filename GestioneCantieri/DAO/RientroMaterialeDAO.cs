@@ -53,9 +53,11 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static DataTable GetMaterialeCant(string idCant, string codArt, string descrCodArt)
+        public static List<MaterialiCantieri> GetMaterialeCant(string idCant, string codArt, string descrCodArt)
         {
             SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            List<MaterialiCantieri> matList = new List<MaterialiCantieri>();
             string sql = "";
 
             codArt = "%" + codArt + "%";
@@ -63,9 +65,9 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT IdMaterialiCantiere,IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo,Data,PzzoUniCantiere, " +
-                      "Rientro,CodArt,DescriCodArt,UnitàDiMisura,ZOldNumeroBolla,Mate,Fascia,pzzoTemp,Acquirente,Fornitore, " +
-                      "NumeroBolla,ProtocolloInterno,Note,PzzoFinaleCli " +
+                sql = "SELECT IdMaterialiCantiere,IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo, "+
+                      "A.Data,PzzoUniCantiere,Rientro,CodArt,DescriCodArt,UnitàDiMisura,ZOldNumeroBolla,Mate,Fascia, "+
+                      "pzzoTemp,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,PzzoFinaleCli " +
                       "FROM TblMaterialiCantieri AS A " +
                       "JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
                       "WHERE CodArt LIKE @pCodArt AND DescriCodArt LIKE @pDescCodArt AND IdTblCantieri = @pIdCant " +
@@ -76,13 +78,37 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pDescCodArt", descrCodArt));
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
 
+                dr = cmd.ExecuteReader();
 
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable table = new DataTable();
-                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                adapter.Fill(table);
-
-                return table;
+                while (dr.Read())
+                {
+                    MaterialiCantieri mc = new MaterialiCantieri();
+                    mc.IdMaterialiCantieri = dr.GetInt32(0);
+                    mc.IdTblCantieri = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.Qta = (dr.IsDBNull(3) ? -1d : dr.GetDouble(3));
+                    mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
+                    mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
+                    mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
+                    mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
+                    mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1m : dr.GetDecimal(8));
+                    mc.Rientro = (dr.IsDBNull(9) ? false : dr.GetBoolean(9));
+                    mc.CodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
+                    mc.DescriCodArt = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.UnitàDiMisura = (dr.IsDBNull(12) ? null : dr.GetString(12));
+                    mc.ZOldNumeroBolla = (dr.IsDBNull(13) ? null : dr.GetString(13));
+                    mc.Mate = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.Fascia = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.PzzoTemp = (dr.IsDBNull(16) ? -1m : dr.GetDecimal(16));
+                    mc.Acquirente = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.Fornitore = (dr.IsDBNull(18) ? null : dr.GetString(18));
+                    mc.NumeroBolla = (dr.IsDBNull(19) ? -1 : dr.GetInt32(19));
+                    mc.ProtocolloInterno = (dr.IsDBNull(20) ? -1 : dr.GetInt32(20));
+                    mc.Note = (dr.IsDBNull(21) ? null : dr.GetString(21));
+                    mc.PzzoFinCli = (dr.IsDBNull(22) ? null : dr.GetString(22));
+                    matList.Add(mc);
+                }
+                return matList;
             }
             catch (Exception ex)
             {

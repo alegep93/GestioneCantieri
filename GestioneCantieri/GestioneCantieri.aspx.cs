@@ -40,6 +40,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlScegliAcquirente()
         {
+            int i = 0;
             DataTable dt = GestioneCantieriDAO.GetOperai();
             List<Operai> listOperai = dt.DataTableToList<Operai>();
 
@@ -50,6 +51,12 @@ namespace GestioneCantieri
             {
                 string show = op.NomeOp + " - " + op.DescrOp;
                 ddlScegliAcquirente.Items.Add(new ListItem(show, op.IdOperaio.ToString()));
+
+                i++;
+                if (op.NomeOp == "Maurizio" || op.NomeOp == "Mau" || op.NomeOp == "MAU")
+                {
+                    ddlScegliAcquirente.SelectedIndex = i;
+                }
             }
         }
         protected void FillDdlScegliFornit()
@@ -114,7 +121,6 @@ namespace GestioneCantieri
             FillDdlScegliAcquirente();
             FillDdlScegliFornit();
             FillDdlTipDatCant();
-            //FillDdlScegliDdtMef();
         }
 
         /* EVENTI CLICK */

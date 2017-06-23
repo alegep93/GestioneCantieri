@@ -58,6 +58,8 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Gestione Cantieri<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="GestioneCantieri.aspx">Gestione Cantieri</a></li>
+                            <li><a href="RientroMateriale.aspx">Rientro Materiale</a></li>
+                            <li><a href="Manodopera.aspx">Manodopera</a></li>
                         </ul>
                     </li>
                 </ul>
