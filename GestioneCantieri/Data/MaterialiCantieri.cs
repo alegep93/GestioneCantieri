@@ -8,24 +8,24 @@ namespace GestioneCantieri.Data
     public class MaterialiCantieri
     {
         int idMaterialiCantieri, idTblCantieri, fascia, numeroBolla, protocolloInterno;
-        string descriMateriali, codArt, descriCodArt, unitàDiMisura, zOldNumeroBolla, mate, acquirente, fornitore, note, pzzoFinCli;
+        string descriMateriali, codArt, descriCodArt, tipologia, acquirente, fornitore, note;
         double qta;
-        decimal pzzoUniCantiere, pzzoTemp;
+        decimal pzzoUniCantiere, pzzoFinCli;
         bool visibile, ricalcolo, ricaricoSiNo, rientro;
         DateTime data;
 
         public MaterialiCantieri()
         {
             this.idMaterialiCantieri = this.idTblCantieri = this.fascia = this.numeroBolla = this.protocolloInterno = -1;
-            this.descriMateriali = this.codArt = this.descriCodArt = this.unitàDiMisura = this.zOldNumeroBolla = this.mate = "";
-            this.acquirente = this.fornitore = this.note = this.PzzoFinCli = "";
+            this.descriMateriali = this.codArt = this.descriCodArt = this.tipologia = "";
+            this.acquirente = this.fornitore = this.note = "";
             this.qta = -1d;
-            this.pzzoUniCantiere = this.pzzoTemp = -1m;
+            this.pzzoUniCantiere = this.PzzoFinCli = - 1m;
             this.visibile = this.ricalcolo = this.ricaricoSiNo = this.rientro = false;
             this.data = new DateTime();
         }
 
-        public MaterialiCantieri(int idMaterialiCantieri, int idTblCantieri, int fascia, int numeroBolla, int protocolloInterno, string descriMateriali, string codArt, string descriCodArt, string unitàDiMisura, string zOldNumeroBolla, string mate, string acquirente, string fornitore, string note, double qta, decimal pzzoUniCantiere, decimal pzzoTemp, bool visibile, bool ricalcolo, bool ricaricoSiNo, bool rientro, DateTime data, string pzzoFinCli)
+        public MaterialiCantieri(int idMaterialiCantieri, int idTblCantieri, int fascia, int numeroBolla, int protocolloInterno, string descriMateriali, string codArt, string descriCodArt, string unitàDiMisura, string zOldNumeroBolla, string mate, string acquirente, string fornitore, string note, double qta, decimal pzzoUniCantiere, decimal pzzoTemp, bool visibile, bool ricalcolo, bool ricaricoSiNo, bool rientro, DateTime data, decimal pzzoFinCli)
         {
             this.idMaterialiCantieri = idMaterialiCantieri;
             this.idTblCantieri = idTblCantieri;
@@ -35,16 +35,13 @@ namespace GestioneCantieri.Data
             this.descriMateriali = descriMateriali;
             this.codArt = codArt;
             this.descriCodArt = descriCodArt;
-            this.unitàDiMisura = unitàDiMisura;
-            this.zOldNumeroBolla = zOldNumeroBolla;
-            this.mate = mate;
+            this.tipologia = mate;
             this.acquirente = acquirente;
             this.fornitore = fornitore;
             this.note = note;
             this.PzzoFinCli = pzzoFinCli;
             this.qta = qta;
             this.pzzoUniCantiere = pzzoUniCantiere;
-            this.pzzoTemp = pzzoTemp;
             this.visibile = visibile;
             this.ricalcolo = ricalcolo;
             this.ricaricoSiNo = ricaricoSiNo;
@@ -156,42 +153,16 @@ namespace GestioneCantieri.Data
             }
         }
 
-        public string UnitàDiMisura
+        public string Tipologia
         {
             get
             {
-                return unitàDiMisura;
+                return tipologia;
             }
 
             set
             {
-                unitàDiMisura = value;
-            }
-        }
-
-        public string ZOldNumeroBolla
-        {
-            get
-            {
-                return zOldNumeroBolla;
-            }
-
-            set
-            {
-                zOldNumeroBolla = value;
-            }
-        }
-
-        public string Mate
-        {
-            get
-            {
-                return mate;
-            }
-
-            set
-            {
-                mate = value;
+                tipologia = value;
             }
         }
 
@@ -260,19 +231,6 @@ namespace GestioneCantieri.Data
             }
         }
 
-        public decimal PzzoTemp
-        {
-            get
-            {
-                return pzzoTemp;
-            }
-
-            set
-            {
-                pzzoTemp = value;
-            }
-        }
-
         public bool Visibile
         {
             get
@@ -338,7 +296,7 @@ namespace GestioneCantieri.Data
             }
         }
 
-        public string PzzoFinCli
+        public decimal PzzoFinCli
         {
             get
             {
