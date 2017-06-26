@@ -73,20 +73,6 @@ namespace GestioneCantieri
                 ddlScegliFornit.Items.Add(new ListItem(show, f.IdFornitori.ToString()));
             }
         }
-        protected void FillDdlTipDatCant()
-        {
-            DataTable dt = GestioneCantieriDAO.GetTipDatCant();
-            List<TipDatCant> listTipologie = dt.DataTableToList<TipDatCant>();
-
-            ddlTipDatCant.Items.Clear();
-            ddlTipDatCant.Items.Add(new ListItem("", "-1"));
-
-            foreach (TipDatCant t in listTipologie)
-            {
-                string show = t.Descrizione + " - " + t.Abbreviato;
-                ddlTipDatCant.Items.Add(new ListItem(show, t.IdTipologia.ToString()));
-            }
-        }
         protected void FillDdlScegliDdtMef()
         {
             DataTable dt = GestioneCantieriDAO.GetDDT(txtFiltroAnnoDDT.Text, txtFiltroN_DDT.Text);
@@ -120,7 +106,6 @@ namespace GestioneCantieri
             FillDdlScegliCant();
             FillDdlScegliAcquirente();
             FillDdlScegliFornit();
-            FillDdlTipDatCant();
         }
 
         /* EVENTI CLICK */
@@ -206,8 +191,8 @@ namespace GestioneCantieri
             if (Convert.ToInt32(txtQta.Text) > 0 && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
                 bool isInserito = GestioneCantieriDAO.InserisciMaterialeCantiere(idCant, txtDescrMat.Text, txtQta.Text, chkVisibile.Checked, chkRicalcolo.Checked,
-                    chkRicarico.Checked, txtDataDDT.Text, txtPzzoUnit.Text, "", txtCodArt.Text, txtDescriCodArt.Text, "", "", "", "", "",
-                    acquirente, fornitore, txtNumBolla.Text, txtProtocollo.Text, txtNote.Text);
+                    chkRicarico.Checked, txtDataDDT.Text, txtPzzoUnit.Text, txtCodArt.Text, txtDescriCodArt.Text, txtTipDatCant.Text, txtFascia.Text, acquirente, 
+                    fornitore, txtNumBolla.Text, txtProtocollo.Text, txtNote.Text, txtPzzoFinCli.Text);
 
                 if (isInserito)
                 {

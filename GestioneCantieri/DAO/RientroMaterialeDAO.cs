@@ -66,7 +66,7 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "SELECT IdMaterialiCantiere,IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo, "+
-                      "A.Data,PzzoUniCantiere,Rientro,CodArt,DescriCodArt,UnitàDiMisura,ZOldNumeroBolla,Mate,Fascia, "+
+                      "A.Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia, "+
                       "pzzoTemp,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,PzzoFinaleCli " +
                       "FROM TblMaterialiCantieri AS A " +
                       "JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
@@ -95,17 +95,13 @@ namespace GestioneCantieri.DAO
                     mc.Rientro = (dr.IsDBNull(9) ? false : dr.GetBoolean(9));
                     mc.CodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
                     mc.DescriCodArt = (dr.IsDBNull(11) ? null : dr.GetString(11));
-                    mc.UnitàDiMisura = (dr.IsDBNull(12) ? null : dr.GetString(12));
-                    mc.ZOldNumeroBolla = (dr.IsDBNull(13) ? null : dr.GetString(13));
-                    mc.Mate = (dr.IsDBNull(14) ? null : dr.GetString(14));
-                    mc.Fascia = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
-                    mc.PzzoTemp = (dr.IsDBNull(16) ? -1m : dr.GetDecimal(16));
-                    mc.Acquirente = (dr.IsDBNull(17) ? null : dr.GetString(17));
-                    mc.Fornitore = (dr.IsDBNull(18) ? null : dr.GetString(18));
-                    mc.NumeroBolla = (dr.IsDBNull(19) ? -1 : dr.GetInt32(19));
-                    mc.ProtocolloInterno = (dr.IsDBNull(20) ? -1 : dr.GetInt32(20));
-                    mc.Note = (dr.IsDBNull(21) ? null : dr.GetString(21));
-                    mc.PzzoFinCli = (dr.IsDBNull(22) ? null : dr.GetString(22));
+                    mc.Tipologia = (dr.IsDBNull(12) ? null : dr.GetString(12));
+                    mc.Fascia = (dr.IsDBNull(13) ? -1 : dr.GetInt32(13));
+                    mc.Acquirente = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.Fornitore = (dr.IsDBNull(15) ? null : dr.GetString(15));
+                    mc.NumeroBolla = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
+                    mc.ProtocolloInterno = (dr.IsDBNull(17) ? -1 : dr.GetInt32(17));
+                    mc.Note = (dr.IsDBNull(18) ? null : dr.GetString(18));
                     matList.Add(mc);
                 }
                 return matList;
