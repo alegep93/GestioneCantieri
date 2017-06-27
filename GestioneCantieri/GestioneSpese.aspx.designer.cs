@@ -10,7 +10,7 @@
 namespace GestioneCantieri {
     
     
-    public partial class GestioneOperaio {
+    public partial class GestioneSpese {
         
         /// <summary>
         /// pnlIntestazione control.
@@ -157,22 +157,22 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Panel pnlSubIntestazione;
         
         /// <summary>
-        /// lblScegliOperaio control.
+        /// lblScegliSpesa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScegliOperaio;
+        protected global::System.Web.UI.WebControls.Label lblScegliSpesa;
         
         /// <summary>
-        /// ddlScegliOperaio control.
+        /// ddlScegliSpesa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlScegliOperaio;
+        protected global::System.Web.UI.WebControls.DropDownList ddlScegliSpesa;
         
         /// <summary>
         /// lblQta control.
@@ -193,40 +193,40 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtQta;
         
         /// <summary>
-        /// lblPzzoOper control.
+        /// lblPzzoManodop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPzzoOper;
+        protected global::System.Web.UI.WebControls.Label lblPzzoManodop;
         
         /// <summary>
-        /// txtPzzoOper control.
+        /// txtPzzoManodop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPzzoOper;
+        protected global::System.Web.UI.WebControls.TextBox txtPzzoManodop;
         
         /// <summary>
-        /// lblDescrOper control.
+        /// lblDescrManodop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescrOper;
+        protected global::System.Web.UI.WebControls.Label lblDescrManodop;
         
         /// <summary>
-        /// txtDescrOper control.
+        /// txtDescrManodop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescrOper;
+        protected global::System.Web.UI.WebControls.TextBox txtDescrManodop;
         
         /// <summary>
         /// lblNote1 control.
@@ -328,12 +328,12 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnInserisci;
         
         /// <summary>
-        /// lblIsOperInserita control.
+        /// lblIsManodopInserita control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIsOperInserita;
+        protected global::System.Web.UI.WebControls.Label lblIsManodopInserita;
     }
 }

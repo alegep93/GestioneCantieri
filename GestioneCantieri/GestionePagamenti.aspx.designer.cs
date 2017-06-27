@@ -10,7 +10,7 @@
 namespace GestioneCantieri {
     
     
-    public partial class GestioneOperaio {
+    public partial class GestionePagamenti {
         
         /// <summary>
         /// pnlIntestazione control.
@@ -148,175 +148,85 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.DropDownList ddlScegliCant;
         
         /// <summary>
-        /// pnlSubIntestazione control.
+        /// pnlGestPagam control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlSubIntestazione;
+        protected global::System.Web.UI.WebControls.Panel pnlGestPagam;
         
         /// <summary>
-        /// lblScegliOperaio control.
+        /// lblImporto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblScegliOperaio;
+        protected global::System.Web.UI.WebControls.Label lblImporto;
         
         /// <summary>
-        /// ddlScegliOperaio control.
+        /// txtImporto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlScegliOperaio;
+        protected global::System.Web.UI.WebControls.TextBox txtImporto;
         
         /// <summary>
-        /// lblQta control.
+        /// lblDescr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQta;
+        protected global::System.Web.UI.WebControls.Label lblDescr;
         
         /// <summary>
-        /// txtQta control.
+        /// txtDescr control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtQta;
+        protected global::System.Web.UI.WebControls.TextBox txtDescr;
         
         /// <summary>
-        /// lblPzzoOper control.
+        /// lblAcconto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPzzoOper;
+        protected global::System.Web.UI.WebControls.Label lblAcconto;
         
         /// <summary>
-        /// txtPzzoOper control.
+        /// chkACconto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPzzoOper;
+        protected global::System.Web.UI.WebControls.CheckBox chkACconto;
         
         /// <summary>
-        /// lblDescrOper control.
+        /// lblSaldo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescrOper;
+        protected global::System.Web.UI.WebControls.Label lblSaldo;
         
         /// <summary>
-        /// txtDescrOper control.
+        /// chkSaldo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescrOper;
-        
-        /// <summary>
-        /// lblNote1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNote1;
-        
-        /// <summary>
-        /// txtNote1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNote1;
-        
-        /// <summary>
-        /// lblNote2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNote2;
-        
-        /// <summary>
-        /// txtNote2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNote2;
-        
-        /// <summary>
-        /// lblVisibile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblVisibile;
-        
-        /// <summary>
-        /// chkVisibile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkVisibile;
-        
-        /// <summary>
-        /// lblRicalcolo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRicalcolo;
-        
-        /// <summary>
-        /// chkRicalcolo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkRicalcolo;
-        
-        /// <summary>
-        /// lblRicarico control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblRicarico;
-        
-        /// <summary>
-        /// chkRicarico control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkRicarico;
+        protected global::System.Web.UI.WebControls.CheckBox chkSaldo;
         
         /// <summary>
         /// btnInserisci control.
@@ -328,12 +238,12 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnInserisci;
         
         /// <summary>
-        /// lblIsOperInserita control.
+        /// lblIsPagamInserito control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIsOperInserita;
+        protected global::System.Web.UI.WebControls.Label lblIsPagamInserito;
     }
 }

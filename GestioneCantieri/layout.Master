@@ -62,6 +62,7 @@
                             <li><a href="Manodopera.aspx">Manodopera</a></li>
                             <li><a href="GestioneOperaio.aspx">Gestione Operaio</a></li>
                             <li><a href="GestioneArrotondamento.aspx">Gestione Arrotondamento</a></li>
+                            <li><a href="GestionePagamenti.aspx">Gestione Pagamenti</a></li>
                         </ul>
                     </li>
                 </ul>

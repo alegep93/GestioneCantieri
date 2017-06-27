@@ -11,21 +11,21 @@ using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {
-    public partial class Gestione_Arrotondamento : System.Web.UI.Page
+    public partial class GestionePagamenti : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 FillDdlScegliCant();
-                pnlGestArrotond.Visible = false;
+                pnlGestPagam.Visible = false;
             }
         }
 
         /* HELPERS */
         protected void FillDdlScegliCant()
         {
-            DataTable dt = GestioneArrotondamentoDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
+            DataTable dt = GestionePagamentiDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
             List<Cantieri> listCantieri = dt.DataTableToList<Cantieri>();
 
             ddlScegliCant.Items.Clear();
@@ -42,32 +42,25 @@ namespace GestioneCantieri
         protected void btnFiltroCant_Click(object sender, EventArgs e)
         {
             FillDdlScegliCant();
-            pnlGestArrotond.Visible = false;
+            pnlGestPagam.Visible = false;
         }
         protected void btnInserisci_Click(object sender, EventArgs e)
         {
             string idCant = ddlScegliCant.SelectedItem.Value;
 
-            if (Convert.ToInt32(txtQta.Text) > 0)
+            /*************************** ????????????????????????? ***************************/
+            /*bool isInserito = GestionePagamentiDAO.InserisciPagamento(idCant,
+                txtQta.Text, "PAGA", txtCodArt.Text, txtDescriCodArt.Text, txtPzzoUnit.Text);
+            if (isInserito)
             {
-                bool isInserito = GestioneArrotondamentoDAO.InserisciArrotondamento(idCant, 
-                    txtQta.Text, "ARRO", txtCodArt.Text, txtDescriCodArt.Text, txtPzzoUnit.Text);
-                if (isInserito)
-                {
-                    lblIsArrotondInserito.Text = "Record inserito con successo";
-                    lblIsArrotondInserito.ForeColor = Color.Blue;
-                }
-                else
-                {
-                    lblIsArrotondInserito.Text = "Errore durante l'inserimento del record";
-                    lblIsArrotondInserito.ForeColor = Color.Red;
-                }
+                lblIsPagamInserito.Text = "Record inserito con successo";
+                lblIsPagamInserito.ForeColor = Color.Blue;
             }
             else
             {
-                lblIsArrotondInserito.Text = "Il valore della quantità deve essere maggiore di '0'";
-                lblIsArrotondInserito.ForeColor = Color.Red;
-            }
+                lblIsPagamInserito.Text = "Errore durante l'inserimento del record";
+                lblIsPagamInserito.ForeColor = Color.Red;
+            }*/
         }
 
         /* EVENTI TEXT-CHANGED */
@@ -75,11 +68,11 @@ namespace GestioneCantieri
         {
             if (ddlScegliCant.SelectedIndex != 0)
             {
-                pnlGestArrotond.Visible = true;
+                pnlGestPagam.Visible = true;
             }
             else
             {
-                pnlGestArrotond.Visible = false;
+                pnlGestPagam.Visible = false;
             }
         }
     }

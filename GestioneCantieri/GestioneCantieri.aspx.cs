@@ -121,10 +121,12 @@ namespace GestioneCantieri
             if (ddlScegliCant.SelectedIndex != 0)
             {
                 pnlSubIntestazione.Visible = true;
+                pnlMascheraGestCant.Visible = true;
             }
             else
             {
                 pnlSubIntestazione.Visible = false;
+                pnlMascheraGestCant.Visible = false;
             }
         }
 
@@ -142,11 +144,11 @@ namespace GestioneCantieri
         {
             if (ddlScegliDDTMef.SelectedIndex != 0)
             {
-                pnlMascheraGestCant.Visible = true;
+                txtNumBolla.Enabled = false;
             }
             else
             {
-                pnlMascheraGestCant.Visible = false;
+                txtNumBolla.Enabled = true;
             }
         }
 
@@ -179,7 +181,13 @@ namespace GestioneCantieri
 
         protected void btnCalcolaPrezzoUnit_Click(object sender, EventArgs e)
         {
-            txtPzzoUnit.Text = Math.Round(Convert.ToDecimal(txtPzzoNettoMef.Text), 2).ToString();
+            if (txtPzzoNettoMef.Text != "")
+                txtPzzoUnit.Text = Math.Round(Convert.ToDecimal(txtPzzoNettoMef.Text), 2).ToString();
+            else
+            {
+                lblIsRecordInserito.Text = "Inserire un valore nella casella 'Prezzo Netto Mef' per calcolare il 'Prezzo Unitario'";
+                lblIsRecordInserito.ForeColor = Color.Red;
+            }   
         }
 
         protected void btnInserisci_Click(object sender, EventArgs e)
@@ -187,12 +195,29 @@ namespace GestioneCantieri
             string idCant = ddlScegliCant.SelectedItem.Value;
             string acquirente = ddlScegliAcquirente.SelectedItem.Value;
             string fornitore = ddlScegliFornit.SelectedItem.Value;
+            string numeroBolla = "";
 
             if (Convert.ToInt32(txtQta.Text) > 0 && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
+                if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
+                {
+                    if (txtNumBolla.Text != "")
+                        numeroBolla = txtNumBolla.Text;
+                    else
+                    {
+                        lblIsRecordInserito.Text = "Scegliere un DDT dal menù a discesa o compilare il campo \"Numero Bolla\"";
+                        lblIsRecordInserito.ForeColor = Color.Red;
+                        return;
+                    }
+                }
+                else
+                {
+                    numeroBolla = (ddlScegliDDTMef.SelectedItem.Text).Split('-')[3];
+                }
+
                 bool isInserito = GestioneCantieriDAO.InserisciMaterialeCantiere(idCant, txtDescrMat.Text, txtQta.Text, chkVisibile.Checked, chkRicalcolo.Checked,
-                    chkRicarico.Checked, txtDataDDT.Text, txtPzzoUnit.Text, txtCodArt.Text, txtDescriCodArt.Text, txtTipDatCant.Text, txtFascia.Text, acquirente, 
-                    fornitore, txtNumBolla.Text, txtProtocollo.Text, txtNote.Text, txtPzzoFinCli.Text);
+                        chkRicarico.Checked, txtDataDDT.Text, txtPzzoUnit.Text, txtCodArt.Text, txtDescriCodArt.Text, txtTipDatCant.Text, txtFascia.Text, acquirente,
+                        fornitore, numeroBolla, txtProtocollo.Text, txtNote.Text, txtPzzoFinCli.Text);
 
                 if (isInserito)
                 {

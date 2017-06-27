@@ -18,7 +18,8 @@ namespace GestioneCantieri
             if (!IsPostBack)
             {
                 FillAllDdl();
-                pnlSubIntestazione.Visible = pnlRientroMatCant.Visible = false;
+                pnlSubIntestazione.Visible = false;
+                pnlRientroMatCant.Visible = false;
             }
         }
 
@@ -73,20 +74,6 @@ namespace GestioneCantieri
                 ddlScegliFornit.Items.Add(new ListItem(show, f.IdFornitori.ToString()));
             }
         }
-        protected void FillDdlTipDatCant()
-        {
-            DataTable dt = RientroMaterialeDAO.GetTipDatCant();
-            List<TipDatCant> listTipologie = dt.DataTableToList<TipDatCant>();
-
-            ddlTipDatCant.Items.Clear();
-            ddlTipDatCant.Items.Add(new ListItem("", "-1"));
-
-            foreach (TipDatCant t in listTipologie)
-            {
-                string show = t.Descrizione + " - " + t.Abbreviato;
-                ddlTipDatCant.Items.Add(new ListItem(show, t.IdTipologia.ToString()));
-            }
-        }
         protected void FillDdlScegliListino()
         {
             List<Mamg0> listMamg0 = RientroMaterialeDAO.GetListino(txtFiltroCodFSS.Text, txtFiltroAA_Des.Text);
@@ -115,22 +102,12 @@ namespace GestioneCantieri
                 ddlScegliMatCant.Items.Add(new ListItem(show, mc.IdMaterialiCantieri.ToString()));
             }
         }
-        protected void FillDdlQta(int qta)
-        {
-            ddlQta.Items.Clear();
-            ddlQta.Items.Add(new ListItem("", "-1"));
-            for (int i = 1; i <= qta; i++)
-            {
-                ddlQta.Items.Add(new ListItem(i.ToString(), i.ToString()));
-            }
-        }
         //Ogni Helper "Fill" va aggiunto qua dentro per funzionare
         protected void FillAllDdl()
         {
             FillDdlScegliCant();
             FillDdlScegliAcquirente();
             FillDdlScegliFornit();
-            FillDdlTipDatCant();
         }
 
         /* EVENTI CLICK */
@@ -183,7 +160,13 @@ namespace GestioneCantieri
 
         protected void btnCalcolaPrezzoUnit_Click(object sender, EventArgs e)
         {
-            txtPzzoUnit.Text = Math.Round(Convert.ToDecimal(txtPzzoNettoMef.Text), 2).ToString();
+            if(txtPzzoNettoMef.Text!="")
+                txtPzzoUnit.Text = Math.Round(Convert.ToDecimal(txtPzzoNettoMef.Text), 2).ToString();
+            else
+            {
+                lblIsRecordInserito.Text = "Inserire un valore nella casella 'Prezzo Netto Mef' per calcolare il 'Prezzo Unitario'";
+                lblIsRecordInserito.ForeColor = Color.Red;
+            }
         }
 
         protected void btnInserisci_Click(object sender, EventArgs e)
@@ -191,24 +174,37 @@ namespace GestioneCantieri
             string idCant = ddlScegliCant.SelectedItem.Value;
             string acquirente = ddlScegliAcquirente.SelectedItem.Value;
             string fornitore = ddlScegliFornit.SelectedItem.Value;
-            string qta = ddlQta.SelectedItem.Value;
+            int maxQta = Convert.ToInt32((ddlScegliMatCant.SelectedItem.Text).Split('-')[2]);
 
             if (Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
-                bool isInserito = RientroMaterialeDAO.InserisciMaterialeCantiere(idCant, txtDescrMat.Text, qta, chkVisibile.Checked, chkRicalcolo.Checked,
-                    chkRicarico.Checked, txtDataDDT.Text, txtPzzoUnit.Text, "", txtCodArt.Text, txtDescriCodArt.Text, "", "", "", "", "",
-                    acquirente, fornitore, txtNumBolla.Text, txtProtocollo.Text, txtNote.Text);
-
-                if (isInserito)
+                if (Convert.ToInt32(txtQta.Text) > 0 && Convert.ToInt32(txtQta.Text) <= maxQta)
                 {
-                    lblIsRecordInserito.Text = "Record inserito con successo";
-                    lblIsRecordInserito.ForeColor = Color.Blue;
+                    bool isInserito = RientroMaterialeDAO.InserisciMaterialeCantiere(idCant, txtDescrMat.Text, txtQta.Text, chkVisibile.Checked, chkRicalcolo.Checked,
+                        chkRicarico.Checked, txtDataDDT.Text, txtPzzoUnit.Text, "", txtCodArt.Text, txtDescriCodArt.Text, "", "", "", "", "",
+                        acquirente, fornitore, txtNumBolla.Text, txtProtocollo.Text, txtNote.Text);
+
+                    if (isInserito)
+                    {
+                        lblIsRecordInserito.Text = "Record inserito con successo";
+                        lblIsRecordInserito.ForeColor = Color.Blue;
+                    }
+                    else
+                    {
+                        lblIsRecordInserito.Text = "Errore durante l'inserimento del record";
+                        lblIsRecordInserito.ForeColor = Color.Red;
+                    }
                 }
                 else
                 {
-                    lblIsRecordInserito.Text = "Errore durante l'inserimento del record";
+                    lblIsRecordInserito.Text = "La quantità è 0 o maggiore di quella del materiale scelto";
                     lblIsRecordInserito.ForeColor = Color.Red;
                 }
+            }
+            else
+            {
+                lblIsRecordInserito.Text = "Inserire un valore maggiore di '0' per il campo Prezzo Unitario";
+                lblIsRecordInserito.ForeColor = Color.Red;
             }
         }
 
@@ -229,7 +225,6 @@ namespace GestioneCantieri
                 pnlRientroMatCant.Visible = true;
                 string[] partiMateriale = (ddlScegliMatCant.SelectedItem.Text).Split('-');
                 int qta = Convert.ToInt32(partiMateriale[2]);
-                FillDdlQta(qta);
             }
             else
                 pnlRientroMatCant.Visible = false;

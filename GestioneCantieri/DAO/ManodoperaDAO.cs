@@ -80,7 +80,7 @@ namespace GestioneCantieri.DAO
         }
 
         //INSERT
-        public static bool InserisciManodopera(string idCant, string operaio, string qta, string pzzoManodop, string descrManodop,
+        public static bool InserisciManodopera(string idCant, string operaio, string qta, string tipologia, string pzzoManodop, string descrManodop,
             string note1, string note2, bool visibile, bool? ricalcolo = null, bool? ricaricoSiNo = null)
         {
             SqlConnection cn = GetConnection();
@@ -88,17 +88,21 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblMaterialiCantieri ([IdTblCantieri],[DescriMateriali],[Qta],[Visibile],[Ricalcolo],[ricaricoSiNo],[Note]) " +
-                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pVisibile,@pRicalcolo,@pRicarico,@pNote)";
+                sql = "INSERT INTO TblMaterialiCantieri ([IdTblCantieri],[DescriMateriali],[Qta],[Tipologia],[Visibile],[Ricalcolo],[ricaricoSiNo],[Note],[PzzoFinCli]) " +
+                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pVisibile,@pRicalcolo,@pRicarico,@pNote,'')";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
                 cmd.Parameters.Add(new SqlParameter("pDescrMat", descrManodop));
                 cmd.Parameters.Add(new SqlParameter("pQta", qta));
+                cmd.Parameters.Add(new SqlParameter("pTipologia", tipologia));
                 cmd.Parameters.Add(new SqlParameter("pVisibile", visibile));
-                cmd.Parameters.Add(new SqlParameter("pRicalcolo", ricalcolo));
-                cmd.Parameters.Add(new SqlParameter("pRicarico", ricaricoSiNo));
                 cmd.Parameters.Add(new SqlParameter("pNote", note1 + " - " + note2));
+
+                if(ricalcolo==null)
+                    cmd.Parameters.Add(new SqlParameter("pRicalcolo", DBNull.Value));
+                if(ricaricoSiNo==null)
+                    cmd.Parameters.Add(new SqlParameter("pRicarico", DBNull.Value));
 
                 int row = cmd.ExecuteNonQuery();
 

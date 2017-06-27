@@ -21,6 +21,12 @@
             position: relative;
             top: 6px;
         }
+
+        span.pull-right{
+            position: relative;
+            top: 13px;
+            right: 10px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
@@ -66,15 +72,15 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <asp:Label ID="lblQta" Text="Quantità" runat="server" />
-                                <asp:TextBox ID="txtQta" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="txtQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-md-4">
-                                <asp:Label ID="lblPzzoManodop" Text="Prezzo Manodopera" runat="server" />
-                                <asp:TextBox ID="txtPzzoManodop" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:Label ID="lblPzzoOper" Text="Prezzo Operaio" runat="server" />
+                                <asp:TextBox ID="txtPzzoOper" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                             <div class="col-md-4">
-                                <asp:Label ID="lblDescrManodop" Text="Descrizione Manodopera" runat="server" />
-                                <asp:TextBox ID="txtDescrManodop" CssClass="form-control" runat="server"></asp:TextBox>
+                                <asp:Label ID="lblDescrOper" Text="Descrizione Operaio" runat="server" />
+                                <asp:TextBox ID="txtDescrOper" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
                         </div>
 
@@ -104,7 +110,7 @@
                             </div>
                             <div class="col-md-6">
                                 <asp:Button ID="btnInserisci" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
-                                <asp:Label ID="lblIsManodopInserita" Text="" runat="server" />
+                                <asp:Label ID="lblIsOperInserita" Text="" CssClass="pull-right" runat="server" />
                             </div>
                         </div>
                     </div>

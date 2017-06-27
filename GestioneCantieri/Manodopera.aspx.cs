@@ -53,7 +53,7 @@ namespace GestioneCantieri
                 ddlScegliOperaio.Items.Add(new ListItem(show, op.IdOperaio.ToString()));
                 i++;
 
-                if(op.NomeOp == "Maurizio" || op.NomeOp == "Mau" || op.NomeOp == "MAU")
+                if (op.NomeOp == "Maurizio" || op.NomeOp == "Mau" || op.NomeOp == "MAU")
                 {
                     ddlScegliOperaio.SelectedIndex = i;
                 }
@@ -93,7 +93,7 @@ namespace GestioneCantieri
 
             if (Convert.ToInt32(txtQta.Text) > 0)
             {
-                bool isInserito = ManodoperaDAO.InserisciManodopera(idCant, acquirente, txtQta.Text, txtPzzoManodop.Text,
+                bool isInserito = ManodoperaDAO.InserisciManodopera(idCant, acquirente, txtQta.Text, "MANO", txtPzzoManodop.Text,
                     txtDescrManodop.Text, txtNote1.Text, txtNote2.Text, chkVisibile.Checked);
 
                 if (isInserito)
@@ -106,6 +106,11 @@ namespace GestioneCantieri
                     lblIsManodopInserita.Text = "Errore durante l'inserimento del record";
                     lblIsManodopInserita.ForeColor = Color.Red;
                 }
+            }
+            else
+            {
+                lblIsManodopInserita.Text = "La quantità deve essere maggiore di '0'";
+                lblIsManodopInserita.ForeColor = Color.Red;
             }
         }
     }
