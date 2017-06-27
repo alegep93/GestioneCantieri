@@ -83,6 +83,8 @@
     <Content Include="GestioneArrotondamento.aspx" />
     <Content Include="GestioneCantieri.aspx" />
     <Content Include="GestioneOperaio.aspx" />
+    <Content Include="GestionePagamenti.aspx" />
+    <Content Include="GestioneSpese.aspx" />
     <Content Include="GestisciFrutti.aspx" />
     <Content Include="GestisciGruppiFrutti.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -143,6 +145,8 @@
     <Compile Include="DAO\GestioneArrotondamentoDAO.cs" />
     <Compile Include="DAO\GestioneCantieriDAO.cs" />
     <Compile Include="DAO\GestioneOperaioDAO.cs" />
+    <Compile Include="DAO\GestionePagamentiDAO.cs" />
+    <Compile Include="DAO\GestioneSpeseDAO.cs" />
     <Compile Include="DAO\InserimentoDatiDAO.cs" />
     <Compile Include="DAO\Mamg0DAO.cs" />
     <Compile Include="DAO\ManodoperaDAO.cs" />
@@ -176,6 +180,20 @@
     </Compile>
     <Compile Include="GestioneOperaio.aspx.designer.cs">
       <DependentUpon>GestioneOperaio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionePagamenti.aspx.cs">
+      <DependentUpon>GestionePagamenti.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionePagamenti.aspx.designer.cs">
+      <DependentUpon>GestionePagamenti.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestioneSpese.aspx.cs">
+      <DependentUpon>GestioneSpese.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestioneSpese.aspx.designer.cs">
+      <DependentUpon>GestioneSpese.aspx</DependentUpon>
     </Compile>
     <Compile Include="Manodopera.aspx.cs">
       <DependentUpon>Manodopera.aspx</DependentUpon>

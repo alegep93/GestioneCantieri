@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {
-    public partial class GestioneOperaio : System.Web.UI.Page
+    public partial class GestioneSpese : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,7 +26,7 @@ namespace GestioneCantieri
         //Fill Ddl
         protected void FillDdlScegliCant()
         {
-            DataTable dt = GestioneCantieriDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
+            DataTable dt = GestioneSpeseDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
             List<Cantieri> listCantieri = dt.DataTableToList<Cantieri>();
 
             ddlScegliCant.Items.Clear();
@@ -44,18 +44,18 @@ namespace GestioneCantieri
             DataTable dt = GestioneCantieriDAO.GetOperai();
             List<Operai> listOperai = dt.DataTableToList<Operai>();
 
-            ddlScegliOperaio.Items.Clear();
-            ddlScegliOperaio.Items.Add(new ListItem("", "-1"));
+            ddlScegliSpesa.Items.Clear();
+            ddlScegliSpesa.Items.Add(new ListItem("", "-1"));
 
             foreach (Operai op in listOperai)
             {
                 string show = op.NomeOp + " - " + op.DescrOp;
-                ddlScegliOperaio.Items.Add(new ListItem(show, op.IdOperaio.ToString()));
+                ddlScegliSpesa.Items.Add(new ListItem(show, op.IdOperaio.ToString()));
                 i++;
 
                 if (op.NomeOp == "Maurizio" || op.NomeOp == "Mau" || op.NomeOp == "MAU")
                 {
-                    ddlScegliOperaio.SelectedIndex = i;
+                    ddlScegliSpesa.SelectedIndex = i;
                 }
             }
         }
@@ -89,28 +89,28 @@ namespace GestioneCantieri
         protected void btnInserisci_Click(object sender, EventArgs e)
         {
             string idCant = ddlScegliCant.SelectedItem.Value;
-            string acquirente = ddlScegliOperaio.SelectedItem.Value;
+            string spesa = ddlScegliSpesa.SelectedItem.Value;
 
             if (Convert.ToInt32(txtQta.Text) > 0)
             {
-                bool isInserito = GestioneOperaioDAO.InserisciOperaio(idCant, acquirente, txtQta.Text, "OPER", txtPzzoOper.Text,
-                    txtDescrOper.Text, txtNote1.Text, txtNote2.Text, chkVisibile.Checked, chkRicarico.Checked);
+                bool isInserito = GestioneSpeseDAO.InserisciSpesa(idCant, acquirente, txtQta.Text, "SPE", txtPzzoManodop.Text,
+                    txtDescrManodop.Text, txtNote1.Text, txtNote2.Text);
 
                 if (isInserito)
                 {
-                    lblIsOperInserita.Text = "Record inserito con successo";
-                    lblIsOperInserita.ForeColor = Color.Blue;
+                    lblIsManodopInserita.Text = "Record inserito con successo";
+                    lblIsManodopInserita.ForeColor = Color.Blue;
                 }
                 else
                 {
-                    lblIsOperInserita.Text = "Errore durante l'inserimento del record";
-                    lblIsOperInserita.ForeColor = Color.Red;
+                    lblIsManodopInserita.Text = "Errore durante l'inserimento del record";
+                    lblIsManodopInserita.ForeColor = Color.Red;
                 }
             }
             else
             {
-                lblIsOperInserita.Text = "Il valore della quantità deve essere maggiore di '0'";
-                lblIsOperInserita.ForeColor = Color.Red;
+                lblIsManodopInserita.Text = "La quantità deve essere maggiore di '0'";
+                lblIsManodopInserita.ForeColor = Color.Red;
             }
         }
     }

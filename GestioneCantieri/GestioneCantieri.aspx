@@ -21,6 +21,12 @@
             position: relative;
             top: 6px;
         }
+
+        span.pull-right{
+            position: relative;
+            top: 13px;
+            right: 10px;
+        }
     </style>
 </asp:Content>
 
@@ -185,7 +191,7 @@
                         </div>
                         <div class="col-md-6">
                             <asp:Button ID="btnInserisci" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
-                            <asp:Label ID="lblIsRecordInserito" Text="" runat="server" />
+                            <asp:Label ID="lblIsRecordInserito" Text="" CssClass="pull-right" runat="server" />
                         </div>
                     </div>
                 </asp:Panel>

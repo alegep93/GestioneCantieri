@@ -7,7 +7,7 @@ using System.Web;
 
 namespace GestioneCantieri.DAO
 {
-    public class GestioneArrotondamentoDAO : BaseDAO
+    public class GestioneSpeseDAO : BaseDAO
     {
         //SELECT
         public static DataTable GetCantieri(string anno, string codCant, string descr, bool chiuso, bool riscosso)
@@ -52,25 +52,51 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-
-        //INSERT
-        public static bool InserisciArrotondamento(string idCant, string qta, string tipologia, string codArt, string descrCodArt, string pzzoUnit, bool? visibile = null, bool? ricalcolo = null, bool? ricaricoSiNo = null)
+        public static DataTable GetOperai()
         {
             SqlConnection cn = GetConnection();
             string sql = "";
 
             try
             {
-                sql = "INSERT INTO TblMaterialiCantieri ([IdTblCantieri],[Qta],[Visibile],[Tipologia],[Ricalcolo],[ricaricoSiNo],[PzzoUniCantiere],[CodArt],[DescriCodArt],[PzzoFinCli]) " +
-                      "VALUES (@pIdCant,@pQta,@pVisibile,@pTipol,@pRicalcolo,@pRicarico,@pPzzoUnit,@pCodArt,@pDescrCodArt,'')";
+                sql = "SELECT IdOperaio,NomeOp,DescrOP,Suffisso,Operaio " +
+                      "FROM TblOperaio " +
+                      "ORDER BY NomeOp ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero degli operai", ex);
+            }
+            finally { cn.Close(); }
+        }
+
+        //INSERT
+        public static bool InserisciSpesa(string idCant, string operaio, string qta, string tipologia, string pzzoManodop, string descrManodop,
+            string note1, string note2, bool? visibile = null, bool? ricalcolo = null, bool? ricaricoSiNo = null)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "INSERT INTO TblMaterialiCantieri ([IdTblCantieri],[DescriMateriali],[Qta],[Tipologia],[Visibile],[Ricalcolo],[ricaricoSiNo],[Note],[PzzoFinCli]) " +
+                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pVisibile,@pRicalcolo,@pRicarico,@pNote,'')";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
-                cmd.Parameters.Add(new SqlParameter("pPzzoUnit", pzzoUnit));
-                cmd.Parameters.Add(new SqlParameter("pCodArt", codArt));
-                cmd.Parameters.Add(new SqlParameter("pDescrCodArt", descrCodArt));
+                cmd.Parameters.Add(new SqlParameter("pDescrMat", descrManodop));
                 cmd.Parameters.Add(new SqlParameter("pQta", qta));
-                cmd.Parameters.Add(new SqlParameter("pTipol", tipologia));
+                cmd.Parameters.Add(new SqlParameter("pTipologia", tipologia));
+                cmd.Parameters.Add(new SqlParameter("pNote", note1 + " - " + note2));
 
                 if(visibile==null)
                     cmd.Parameters.Add(new SqlParameter("pVisibile", DBNull.Value));
@@ -88,7 +114,7 @@ namespace GestioneCantieri.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Errore durante l'inserimento di un arrotondamento", ex);
+                throw new Exception("Errore durante l'inserimento di una manodopera", ex);
             }
             finally { cn.Close(); }
         }

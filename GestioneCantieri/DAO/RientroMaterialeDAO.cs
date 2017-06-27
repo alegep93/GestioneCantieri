@@ -67,7 +67,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT IdMaterialiCantiere,IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo, "+
                       "A.Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia, "+
-                      "pzzoTemp,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,PzzoFinaleCli " +
+                      "Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,PzzoFinCli " +
                       "FROM TblMaterialiCantieri AS A " +
                       "JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
                       "WHERE CodArt LIKE @pCodArt AND DescriCodArt LIKE @pDescCodArt AND IdTblCantieri = @pIdCant " +
@@ -92,16 +92,16 @@ namespace GestioneCantieri.DAO
                     mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
                     mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
                     mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1m : dr.GetDecimal(8));
-                    mc.Rientro = (dr.IsDBNull(9) ? false : dr.GetBoolean(9));
-                    mc.CodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
-                    mc.DescriCodArt = (dr.IsDBNull(11) ? null : dr.GetString(11));
-                    mc.Tipologia = (dr.IsDBNull(12) ? null : dr.GetString(12));
-                    mc.Fascia = (dr.IsDBNull(13) ? -1 : dr.GetInt32(13));
-                    mc.Acquirente = (dr.IsDBNull(14) ? null : dr.GetString(14));
-                    mc.Fornitore = (dr.IsDBNull(15) ? null : dr.GetString(15));
-                    mc.NumeroBolla = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
-                    mc.ProtocolloInterno = (dr.IsDBNull(17) ? -1 : dr.GetInt32(17));
-                    mc.Note = (dr.IsDBNull(18) ? null : dr.GetString(18));
+                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
+                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
+                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.PzzoFinCli = (dr.IsDBNull(18) ? -1m : dr.GetDecimal(18));
                     matList.Add(mc);
                 }
                 return matList;

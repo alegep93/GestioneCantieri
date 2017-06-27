@@ -1,7 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/layout.Master" CodeBehind="GestioneArrotondamento.aspx.cs" Inherits="GestioneCantieri.Gestione_Arrotondamento" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/layout.Master" CodeBehind="GestionePagamenti.aspx.cs" Inherits="GestioneCantieri.GestionePagamenti" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
-    <title>Gestione Arrotondamento</title>
+    <title>Gestione Pagamenti</title>
     <style type="text/css">
         span.form-control {
             border: none;
@@ -28,10 +28,10 @@
             right: 10px;
         }
     </style>
-</asp:Content>
+    </asp:Content>
 
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
-    <h1>Gestione Arrotondamento</h1>
+    <h1>Gestione Pagamenti</h1>
     <asp:Panel ID="pnlIntestazione" CssClass="col-md-12" runat="server">
         <asp:Panel ID="pnlFiltriSceltaCant" CssClass="col-md-offset-2 col-md-8" runat="server">
             <div class="col-md-2">
@@ -64,29 +64,16 @@
         </div>
     </asp:Panel>
 
-    <asp:Panel ID="pnlGestArrotond" CssClass="col-md-12" runat="server">
+    <asp:Panel ID="pnlGestPagam" CssClass="col-md-12" runat="server">
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <asp:Label ID="lblCodArt" Text="Codice Articolo" runat="server" />
-                    <asp:TextBox ID="txtCodArt" CssClass="form-control" runat="server" Text="Arrotondamento"></asp:TextBox>
+                    <asp:Label ID="lblImporto" Text="Importo" runat="server" />
+                    <asp:TextBox ID="txtImporto" CssClass="form-control" runat="server" Text=""></asp:TextBox>
                 </div>
                 <div class="col-md-6">
-                    <asp:Label ID="lblDescriCodArt" Text="Descrizione Codice Articolo" runat="server" />
-                    <asp:TextBox ID="txtDescriCodArt" CssClass="form-control" runat="server" Text="Arrotondamento"></asp:TextBox>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="col-md-6">
-                    <asp:Label ID="lblQta" Text="Quantità" runat="server" />
-                    <asp:TextBox ID="txtQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-6">
-                    <asp:Label ID="lblPzzoUnit" Text="Prezzo Unitario" runat="server" />
-                    <asp:TextBox ID="txtPzzoUnit" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:Label ID="lblDescr" Text="Descrizione" runat="server" />
+                    <asp:TextBox ID="txtDescr" CssClass="form-control" runat="server" Text=""></asp:TextBox>
                 </div>
             </div>
         </div>
@@ -94,20 +81,16 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-2">
-                    <asp:Label ID="lblVisibile" Text="Visibile" runat="server" />
-                    <asp:CheckBox ID="chkVisibile" CssClass="form-control" Enabled="false" runat="server" />
+                    <asp:Label ID="lblAcconto" Text="Acconto" runat="server" />
+                    <asp:CheckBox ID="chkACconto" CssClass="form-control" Enabled="false" runat="server" />
                 </div>
                 <div class="col-md-2">
-                    <asp:Label ID="lblRicalcolo" Text="Ricalcolo" runat="server" />
-                    <asp:CheckBox ID="chkRicalcolo" CssClass="form-control" Enabled="false" runat="server" />
+                    <asp:Label ID="lblSaldo" Text="Saldo" runat="server" />
+                    <asp:CheckBox ID="chkSaldo" CssClass="form-control" Enabled="false" runat="server" />
                 </div>
-                <div class="col-md-2">
-                    <asp:Label ID="lblRicarico" Text="Ricarico Si/No" runat="server" />
-                    <asp:CheckBox ID="chkRicarico" CssClass="form-control" Enabled="false" runat="server" />
-                </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <asp:Button ID="btnInserisci" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
-                    <asp:Label ID="lblIsArrotondInserito" Text="" CssClass="pull-right" runat="server" />
+                    <asp:Label ID="lblIsPagamInserito" Text="" CssClass="pull-right" runat="server" />
                 </div>
             </div>
         </div>

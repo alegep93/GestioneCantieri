@@ -1,7 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/layout.Master" CodeBehind="Manodopera.aspx.cs" Inherits="GestioneCantieri.Manodopera" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/layout.Master" CodeBehind="GestioneSpese.aspx.cs" Inherits="GestioneCantieri.GestioneSpese" %>
 
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
-    <title>Manodopera</title>
+    <title>Gestione Arrotondamento</title>
     <style type="text/css">
         span.form-control {
             border: none;
@@ -22,15 +22,16 @@
             top: 6px;
         }
 
-        span.pull-right{
+        span.pull-right {
             position: relative;
             top: 13px;
             right: 10px;
         }
     </style>
 </asp:Content>
+
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
-    <h1>Manodopera</h1>
+    <h1>Gestione Spese</h1>
     <div class="container-fluid">
         <div class="row">
             <asp:Panel ID="pnlIntestazione" CssClass="col-md-12" runat="server">
@@ -66,8 +67,8 @@
                 <asp:Panel ID="pnlSubIntestazione" runat="server">
                     <div class="col-md-12">
                         <div class="col-md-offset-3 col-md-6">
-                            <asp:Label ID="lblScegliOperaio" Text="Scegli Operaio" runat="server" />
-                            <asp:DropDownList ID="ddlScegliOperaio" CssClass="form-control" runat="server" />
+                            <asp:Label ID="lblScegliSpesa" Text="Scegli Spesa" runat="server" />
+                            <asp:DropDownList ID="ddlScegliSpesa" CssClass="form-control" runat="server" />
                         </div>
                         <div class="row">
                             <div class="col-md-4">
@@ -98,7 +99,7 @@
                         <div class="row">
                             <div class="col-md-2">
                                 <asp:Label ID="lblVisibile" Text="Visibile" runat="server" />
-                                <asp:CheckBox ID="chkVisibile" CssClass="form-control" Checked="true" runat="server" />
+                                <asp:CheckBox ID="chkVisibile" CssClass="form-control" Enabled="false" runat="server" />
                             </div>
                             <div class="col-md-2">
                                 <asp:Label ID="lblRicalcolo" Text="Ricalcolo" runat="server" />

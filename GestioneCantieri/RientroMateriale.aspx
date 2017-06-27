@@ -21,11 +21,17 @@
             position: relative;
             top: 6px;
         }
+
+        span.pull-right{
+            position: relative;
+            top: 13px;
+            right: 10px;
+        }
     </style>
 </asp:Content>
 
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
-    <h1>Rientro Matieriale</h1>
+    <h1>Rientro Materiale</h1>
     <div class="container-fluid">
         <div class="row">
             <asp:Panel ID="pnlIntestazione" CssClass="col-md-12" runat="server">
@@ -70,19 +76,19 @@
                         </div>
                         <div class="col-md-4">
                             <asp:Label ID="lblTipDatCant" Text="Tipologia" runat="server" />
-                            <asp:DropDownList ID="ddlTipDatCant" CssClass="form-control" runat="server" />
+                            <asp:TextBox ID="txtTipologia" CssClass="form-control" Enabled="false" Text="RIEN" runat="server"></asp:TextBox>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-4">
                             <div class="col-md-12">
                                 <div class="col-md-6">
-                                    <asp:Label ID="lblFiltroCodArt" Text="Filtro Anno CodArt" runat="server" />
-                                    <asp:TextBox ID="txtFiltroCodArt" AutoPostBack="true" OnTextChanged="txtFiltroCodArt_TextChanged" placeholder="Filtro Anno DDT" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:Label ID="lblFiltroCodArt" Text="Filtro CodArt" runat="server" />
+                                    <asp:TextBox ID="txtFiltroCodArt" AutoPostBack="true" OnTextChanged="txtFiltroCodArt_TextChanged" placeholder="Filtro Cod Art" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                                 <div class="col-md-6">
                                     <asp:Label ID="lblFiltroDescriCodArt" Text="Filtro DescriCodArt" runat="server" />
-                                    <asp:TextBox ID="txtFiltroDescriCodArt" AutoPostBack="true" OnTextChanged="txtFiltroDescriCodArt_TextChanged" placeholder="Filtro N_DDT" CssClass="form-control" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="txtFiltroDescriCodArt" AutoPostBack="true" OnTextChanged="txtFiltroDescriCodArt_TextChanged" placeholder="Filtro DescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -151,7 +157,7 @@
                     <div class="row">
                         <div class="col-md-2">
                             <asp:Label ID="lblQta" Text="Quantità" runat="server" />
-                            <asp:DropDownList ID="ddlQta" CssClass="form-control" runat="server"></asp:DropDownList>
+                            <asp:TextBox ID="txtQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblPzzoNettoMef" Text="Prezzo Netto Mef" runat="server" />
@@ -185,7 +191,7 @@
                         </div>
                         <div class="col-md-6">
                             <asp:Button ID="btnInserisci" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
-                            <asp:Label ID="lblIsRecordInserito" Text="" runat="server" />
+                            <asp:Label ID="lblIsRecordInserito" Text="" CssClass="pull-right" runat="server" />
                         </div>
                     </div>
                 </asp:Panel>

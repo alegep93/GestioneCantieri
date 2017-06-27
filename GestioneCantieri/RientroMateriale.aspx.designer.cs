@@ -202,13 +202,13 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblTipDatCant;
         
         /// <summary>
-        /// ddlTipDatCant control.
+        /// txtTipologia control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTipDatCant;
+        protected global::System.Web.UI.WebControls.TextBox txtTipologia;
         
         /// <summary>
         /// lblFiltroCodArt control.
@@ -481,13 +481,13 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblQta;
         
         /// <summary>
-        /// ddlQta control.
+        /// txtQta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlQta;
+        protected global::System.Web.UI.WebControls.TextBox txtQta;
         
         /// <summary>
         /// lblPzzoNettoMef control.
