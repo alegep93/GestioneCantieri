@@ -23,10 +23,21 @@ namespace GestioneCantieri
         }
 
         /* HELPERS */
+        protected void FillMatCant(MaterialiCantieri mc)
+        {
+            mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
+            mc.Acquirente = ddlScegliOperaio.SelectedItem.Value;
+            mc.Qta = Convert.ToDouble(txtQta.Text);
+            mc.Tipologia = "MANO";
+            mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoManodop.Text);
+            mc.DescriMateriali = txtDescrManodop.Text;
+            mc.Note = txtNote1.Text + " - " + txtNote2.Text;
+            mc.Visibile = chkVisibile.Checked;
+        }
         //Fill Ddl
         protected void FillDdlScegliCant()
         {
-            DataTable dt = GestioneCantieriDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
+            DataTable dt = CantieriDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
             List<Cantieri> listCantieri = dt.DataTableToList<Cantieri>();
 
             ddlScegliCant.Items.Clear();
@@ -41,7 +52,7 @@ namespace GestioneCantieri
         protected void FillDdlScegliAcquirente()
         {
             int i = 0;
-            DataTable dt = GestioneCantieriDAO.GetOperai();
+            DataTable dt = OperaiDAO.GetOperai();
             List<Operai> listOperai = dt.DataTableToList<Operai>();
 
             ddlScegliOperaio.Items.Clear();
@@ -72,29 +83,14 @@ namespace GestioneCantieri
             FillDdlScegliCant();
             pnlSubIntestazione.Visible = false;
         }
-
-        /* EVENTI TEXT-CHANGED */
-        protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
-        {
-            if (ddlScegliCant.SelectedIndex != 0)
-            {
-                pnlSubIntestazione.Visible = true;
-            }
-            else
-            {
-                pnlSubIntestazione.Visible = false;
-            }
-        }
-
         protected void btnInserisci_Click(object sender, EventArgs e)
         {
-            string idCant = ddlScegliCant.SelectedItem.Value;
-            string acquirente = ddlScegliOperaio.SelectedItem.Value;
+            MaterialiCantieri mc = new MaterialiCantieri();
+            FillMatCant(mc);
 
             if (Convert.ToInt32(txtQta.Text) > 0)
             {
-                bool isInserito = ManodoperaDAO.InserisciManodopera(idCant, acquirente, txtQta.Text, "MANO", txtPzzoManodop.Text,
-                    txtDescrManodop.Text, txtNote1.Text, txtNote2.Text, chkVisibile.Checked);
+                bool isInserito = MaterialiCantieriDAO.InserisciManodopera(mc);
 
                 if (isInserito)
                 {
@@ -113,5 +109,19 @@ namespace GestioneCantieri
                 lblIsManodopInserita.ForeColor = Color.Red;
             }
         }
+
+        /* EVENTI TEXT-CHANGED */
+        protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlScegliCant.SelectedIndex != 0)
+            {
+                pnlSubIntestazione.Visible = true;
+            }
+            else
+            {
+                pnlSubIntestazione.Visible = false;
+            }
+        }
+
     }
 }

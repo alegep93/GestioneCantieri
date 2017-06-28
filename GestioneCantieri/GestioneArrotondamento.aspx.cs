@@ -23,9 +23,17 @@ namespace GestioneCantieri
         }
 
         /* HELPERS */
+        protected void FillMatCant(MaterialiCantieri mc) {
+            mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
+            mc.Qta = Convert.ToDouble(txtQta.Text);
+            mc.Tipologia = "ARRO";
+            mc.CodArt = txtCodArt.Text;
+            mc.DescriCodArt = txtDescriCodArt.Text;
+            mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoUnit.Text);
+        }
         protected void FillDdlScegliCant()
         {
-            DataTable dt = GestioneArrotondamentoDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
+            DataTable dt = CantieriDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
             List<Cantieri> listCantieri = dt.DataTableToList<Cantieri>();
 
             ddlScegliCant.Items.Clear();
@@ -46,12 +54,13 @@ namespace GestioneCantieri
         }
         protected void btnInserisci_Click(object sender, EventArgs e)
         {
-            string idCant = ddlScegliCant.SelectedItem.Value;
+            MaterialiCantieri mc = new MaterialiCantieri();
+            FillMatCant(mc);
 
             if (Convert.ToInt32(txtQta.Text) > 0)
             {
-                bool isInserito = GestioneArrotondamentoDAO.InserisciArrotondamento(idCant, 
-                    txtQta.Text, "ARRO", txtCodArt.Text, txtDescriCodArt.Text, txtPzzoUnit.Text);
+                bool isInserito = MaterialiCantieriDAO.InserisciArrotondamento(mc);
+
                 if (isInserito)
                 {
                     lblIsArrotondInserito.Text = "Record inserito con successo";

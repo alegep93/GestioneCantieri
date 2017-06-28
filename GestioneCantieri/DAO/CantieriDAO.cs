@@ -7,9 +7,8 @@ using System.Web;
 
 namespace GestioneCantieri.DAO
 {
-    public class GestioneArrotondamentoDAO : BaseDAO
+    public class CantieriDAO : BaseDAO
     {
-        //SELECT
         public static DataTable GetCantieri(string anno, string codCant, string descr, bool chiuso, bool riscosso)
         {
             SqlConnection cn = GetConnection();
@@ -49,46 +48,6 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'applicazione dei filtri sui cantieri", ex);
-            }
-            finally { cn.Close(); }
-        }
-
-        //INSERT
-        public static bool InserisciArrotondamento(string idCant, string qta, string tipologia, string codArt, string descrCodArt, string pzzoUnit, bool? visibile = null, bool? ricalcolo = null, bool? ricaricoSiNo = null)
-        {
-            SqlConnection cn = GetConnection();
-            string sql = "";
-
-            try
-            {
-                sql = "INSERT INTO TblMaterialiCantieri ([IdTblCantieri],[Qta],[Visibile],[Tipologia],[Ricalcolo],[ricaricoSiNo],[PzzoUniCantiere],[CodArt],[DescriCodArt],[PzzoFinCli]) " +
-                      "VALUES (@pIdCant,@pQta,@pVisibile,@pTipol,@pRicalcolo,@pRicarico,@pPzzoUnit,@pCodArt,@pDescrCodArt,'')";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
-                cmd.Parameters.Add(new SqlParameter("pPzzoUnit", pzzoUnit));
-                cmd.Parameters.Add(new SqlParameter("pCodArt", codArt));
-                cmd.Parameters.Add(new SqlParameter("pDescrCodArt", descrCodArt));
-                cmd.Parameters.Add(new SqlParameter("pQta", qta));
-                cmd.Parameters.Add(new SqlParameter("pTipol", tipologia));
-
-                if(visibile==null)
-                    cmd.Parameters.Add(new SqlParameter("pVisibile", DBNull.Value));
-                if (ricalcolo == null)
-                    cmd.Parameters.Add(new SqlParameter("pRicalcolo", DBNull.Value));
-                if (ricaricoSiNo == null)
-                    cmd.Parameters.Add(new SqlParameter("pRicarico", DBNull.Value));
-
-                int row = cmd.ExecuteNonQuery();
-
-                if (row > 0)
-                    return true;
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante l'inserimento di un arrotondamento", ex);
             }
             finally { cn.Close(); }
         }
