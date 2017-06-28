@@ -52,7 +52,7 @@ namespace GestioneCantieri
         protected void BindGridWithSearch()
         {
             List<Mamg0> listaDDT = new List<Mamg0>();
-            listaDDT = Mamg0DAO.searchListino(txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text, txtDescriCodArt1.Text, txtDescriCodArt2.Text, txtDescriCodArt3.Text);
+            listaDDT = Mamg0DAO.GetListino(txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text, txtDescriCodArt1.Text, txtDescriCodArt2.Text, txtDescriCodArt3.Text);
             grdListino.DataSource = listaDDT;
             grdListino.DataBind();
         }

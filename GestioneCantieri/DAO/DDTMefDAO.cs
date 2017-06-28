@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using GestioneCantieri.Data;
 using System.Data.SqlClient;
+using System.Data;
 
 namespace GestioneCantieri.DAO
 {
@@ -47,6 +48,38 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero dell'elenco dei DDT", ex);
+            }
+        }
+        public static DataTable GetDDT(string anno, string n_ddt)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            anno = "%" + anno + "%";
+            n_ddt = "%" + n_ddt + "%";
+
+            try
+            {
+                /* Senza Filtro */
+                sql = "SELECT IdDDTMef, Anno, Data, N_DDT, CodArt, " +
+                      "DescriCodArt, Qta, Importo, Acquirente, PrezzoUnitario, AnnoN_DDT " +
+                      "FROM TblDDTMef " +
+                      "WHERE Anno LIKE @pAnno AND N_DDT LIKE @pN_DDT ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pAnno", anno));
+                cmd.Parameters.Add(new SqlParameter("pN_DDT", n_ddt));
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei DDT Mef", ex);
             }
         }
 

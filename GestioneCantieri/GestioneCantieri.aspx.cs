@@ -23,10 +23,32 @@ namespace GestioneCantieri
         }
 
         /* HELPERS */
+        //Popolo un oggetto di tipo MaterialeCantiere per fare la insert
+        protected void FillMatCant(MaterialiCantieri mc)
+        {
+            mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
+            mc.DescriMateriali = txtDescrMat.Text;
+            mc.Qta = Convert.ToDouble(txtQta.Text);
+            mc.Visibile = chkVisibile.Checked;
+            mc.Ricalcolo = chkRicalcolo.Checked;
+            mc.RicaricoSiNo = chkRicarico.Checked;
+            mc.Data = Convert.ToDateTime(txtDataDDT.Text);
+            mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoUnit.Text);
+            mc.CodArt = txtCodArt.Text;
+            mc.DescriCodArt = txtDescriCodArt.Text;
+            mc.Tipologia = txtTipDatCant.Text;
+            mc.Fascia = Convert.ToInt32(txtFascia.Text);
+            mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
+            mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
+            mc.NumeroBolla = Convert.ToInt32(txtNumBolla.Text);
+            mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
+            mc.Note = txtNote.Text;
+            mc.PzzoFinCli = Convert.ToDecimal(txtPzzoFinCli.Text);
+        }
         //Fill Ddl
         protected void FillDdlScegliCant()
         {
-            DataTable dt = GestioneCantieriDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
+            DataTable dt = CantieriDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
             List<Cantieri> listCantieri = dt.DataTableToList<Cantieri>();
 
             ddlScegliCant.Items.Clear();
@@ -41,7 +63,7 @@ namespace GestioneCantieri
         protected void FillDdlScegliAcquirente()
         {
             int i = 0;
-            DataTable dt = GestioneCantieriDAO.GetOperai();
+            DataTable dt = OperaiDAO.GetOperai();
             List<Operai> listOperai = dt.DataTableToList<Operai>();
 
             ddlScegliAcquirente.Items.Clear();
@@ -61,7 +83,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlScegliFornit()
         {
-            DataTable dt = GestioneCantieriDAO.GetFornitori();
+            DataTable dt = FornitoriDAO.GetFornitori();
             List<Fornitori> listFornitori = dt.DataTableToList<Fornitori>();
 
             ddlScegliFornit.Items.Clear();
@@ -75,7 +97,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlScegliDdtMef()
         {
-            DataTable dt = GestioneCantieriDAO.GetDDT(txtFiltroAnnoDDT.Text, txtFiltroN_DDT.Text);
+            DataTable dt = DDTMefDAO.GetDDT(txtFiltroAnnoDDT.Text, txtFiltroN_DDT.Text);
             List<DDTMef> listDDT = dt.DataTableToList<DDTMef>();
 
             ddlScegliDDTMef.Items.Clear();
@@ -89,7 +111,7 @@ namespace GestioneCantieri
         }
         protected void FillDddlScegliListino()
         {
-            List<Mamg0> listMamg0 = GestioneCantieriDAO.GetListino(txtFiltroCodFSS.Text, txtFiltroAA_Des.Text);
+            List<Mamg0> listMamg0 = Mamg0DAO.GetListino(txtFiltroCodFSS.Text, txtFiltroAA_Des.Text);
 
             ddlScegliListino.Items.Clear();
             ddlScegliListino.Items.Add(new ListItem("", "-1"));
@@ -197,6 +219,9 @@ namespace GestioneCantieri
             string fornitore = ddlScegliFornit.SelectedItem.Value;
             string numeroBolla = "";
 
+            MaterialiCantieri mc = new MaterialiCantieri();
+            FillMatCant(mc);
+
             if (Convert.ToInt32(txtQta.Text) > 0 && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
@@ -215,9 +240,7 @@ namespace GestioneCantieri
                     numeroBolla = (ddlScegliDDTMef.SelectedItem.Text).Split('-')[3];
                 }
 
-                bool isInserito = GestioneCantieriDAO.InserisciMaterialeCantiere(idCant, txtDescrMat.Text, txtQta.Text, chkVisibile.Checked, chkRicalcolo.Checked,
-                        chkRicarico.Checked, txtDataDDT.Text, txtPzzoUnit.Text, txtCodArt.Text, txtDescriCodArt.Text, txtTipDatCant.Text, txtFascia.Text, acquirente,
-                        fornitore, numeroBolla, txtProtocollo.Text, txtNote.Text, txtPzzoFinCli.Text);
+                bool isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
 
                 if (isInserito)
                 {

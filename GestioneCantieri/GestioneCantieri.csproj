@@ -142,21 +142,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\BaseDAO.cs" />
-    <Compile Include="DAO\GestioneArrotondamentoDAO.cs" />
-    <Compile Include="DAO\GestioneCantieriDAO.cs" />
-    <Compile Include="DAO\GestioneOperaioDAO.cs" />
-    <Compile Include="DAO\GestionePagamentiDAO.cs" />
-    <Compile Include="DAO\GestioneSpeseDAO.cs" />
+    <Compile Include="DAO\CantieriDAO.cs" />
+    <Compile Include="DAO\FornitoriDAO.cs" />
     <Compile Include="DAO\InserimentoDatiDAO.cs" />
     <Compile Include="DAO\Mamg0DAO.cs" />
-    <Compile Include="DAO\ManodoperaDAO.cs" />
+    <Compile Include="DAO\MaterialiCantieriDAO.cs" />
+    <Compile Include="DAO\OperaiDAO.cs" />
     <Compile Include="DAO\OrdineFruttiDAO.cs" />
     <Compile Include="DAO\DDTMefDAO.cs" />
     <Compile Include="DAO\GestisciGruppiFruttiDAO.cs" />
-    <Compile Include="DAO\RientroMaterialeDAO.cs" />
     <Compile Include="DAO\StampaFruttiPerGruppiDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantLocDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantDAO.cs" />
+    <Compile Include="DAO\TipDatCantDAO.cs" />
     <Compile Include="Data\MaterialiCantieri.cs" />
     <Compile Include="Data\Pagamenti.cs" />
     <Compile Include="Data\TipDatCant.cs" />

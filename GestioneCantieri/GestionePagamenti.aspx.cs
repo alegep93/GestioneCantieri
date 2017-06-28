@@ -25,7 +25,7 @@ namespace GestioneCantieri
         /* HELPERS */
         protected void FillDdlScegliCant()
         {
-            DataTable dt = GestionePagamentiDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
+            DataTable dt = CantieriDAO.GetCantieri(txtFiltroCantAnno.Text, txtFiltroCantCodCant.Text, txtFiltroCantDescrCodCant.Text, chkFiltroCantChiuso.Checked, chkFiltroCantRiscosso.Checked);
             List<Cantieri> listCantieri = dt.DataTableToList<Cantieri>();
 
             ddlScegliCant.Items.Clear();
