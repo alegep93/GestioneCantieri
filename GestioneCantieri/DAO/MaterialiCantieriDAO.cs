@@ -275,17 +275,17 @@ namespace GestioneCantieri.DAO
                       "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pVisibile,@pRicalcolo,@pRicarico,@pNote,'')";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
-                cmd.Parameters.Add(new SqlParameter("pDescrMat", descrManodop));
-                cmd.Parameters.Add(new SqlParameter("pQta", qta));
-                cmd.Parameters.Add(new SqlParameter("pTipologia", tipologia));
-                cmd.Parameters.Add(new SqlParameter("pNote", note1 + " - " + note2));
+                cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
+                cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.DescriMateriali));
+                cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
+                cmd.Parameters.Add(new SqlParameter("pTipologia", mc.Tipologia));
+                cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
 
-                if (visibile == null)
+                if (mc.Visibile == false)
                     cmd.Parameters.Add(new SqlParameter("pVisibile", DBNull.Value));
-                if (ricalcolo == null)
+                if (mc.Ricalcolo == false)
                     cmd.Parameters.Add(new SqlParameter("pRicalcolo", DBNull.Value));
-                if (ricaricoSiNo == null)
+                if (mc.RicaricoSiNo == false)
                     cmd.Parameters.Add(new SqlParameter("pRicarico", DBNull.Value));
 
                 int row = cmd.ExecuteNonQuery();

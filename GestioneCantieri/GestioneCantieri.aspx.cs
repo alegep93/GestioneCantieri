@@ -40,10 +40,18 @@ namespace GestioneCantieri
             mc.Fascia = Convert.ToInt32(txtFascia.Text);
             mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
-            mc.NumeroBolla = Convert.ToInt32(txtNumBolla.Text);
             mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
             mc.Note = txtNote.Text;
-            mc.PzzoFinCli = Convert.ToDecimal(txtPzzoFinCli.Text);
+
+            if (txtNumBolla.Enabled)
+                mc.NumeroBolla = Convert.ToInt32(txtNumBolla.Text);
+            else
+                mc.NumeroBolla = Convert.ToInt32((ddlScegliDDTMef.SelectedItem.Text).Split('-')[3]);
+
+            if (txtPzzoFinCli.Text != "")
+                mc.PzzoFinCli = Convert.ToDecimal(txtPzzoFinCli.Text);
+            else
+                mc.PzzoFinCli = 0.0m;
         }
         //Fill Ddl
         protected void FillDdlScegliCant()
