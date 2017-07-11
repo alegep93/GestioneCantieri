@@ -26,6 +26,7 @@ namespace GestioneCantieri
             txtAnnoFine.Text = "";
             txtDataInizio.Text = "";
             txtDataFine.Text = "";
+            txtQta.Text = "";
             txtCodArt1.Text = "";
             txtCodArt2.Text = "";
             txtCodArt3.Text = "";
@@ -82,7 +83,7 @@ namespace GestioneCantieri
         protected void BindGridWithSearch()
         {
             List<DDTMef> listaDDT = new List<DDTMef>();
-            listaDDT = DDTMefDAO.searchFilter(txtAnnoInizio.Text, txtAnnoFine.Text, txtDataInizio.Text, txtDataFine.Text,
+            listaDDT = DDTMefDAO.searchFilter(txtAnnoInizio.Text, txtAnnoFine.Text, txtDataInizio.Text, txtDataFine.Text, txtQta.Text,
                                               txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text, txtDescriCodArt1.Text, txtDescriCodArt2.Text, txtDescriCodArt3.Text);
             grdListaDDTMef.DataSource = listaDDT;
             grdListaDDTMef.DataBind();

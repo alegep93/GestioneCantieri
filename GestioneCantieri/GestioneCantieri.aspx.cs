@@ -37,22 +37,33 @@ namespace GestioneCantieri
             mc.CodArt = txtCodArt.Text;
             mc.DescriCodArt = txtDescriCodArt.Text;
             mc.Tipologia = txtTipDatCant.Text;
-            mc.Fascia = Convert.ToInt32(txtFascia.Text);
             mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
-            mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
             mc.Note = txtNote.Text;
 
-            if (txtNumBolla.Enabled)
-                mc.NumeroBolla = Convert.ToInt32(txtNumBolla.Text);
+            if (txtFascia.Text != "")
+                mc.Fascia = Convert.ToInt32(txtFascia.Text);
             else
+                mc.Fascia = -1;
+
+            if (txtProtocollo.Text != "")
+                mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
+            else
+                mc.ProtocolloInterno = -1;
+
+            if (txtNumBolla.Enabled && txtNumBolla.Text != "")
+                mc.NumeroBolla = Convert.ToInt32(txtNumBolla.Text);
+            else if (ddlScegliDDTMef.SelectedIndex != -1)
                 mc.NumeroBolla = Convert.ToInt32((ddlScegliDDTMef.SelectedItem.Text).Split('-')[3]);
+            else
+                mc.NumeroBolla = -1;
 
             if (txtPzzoFinCli.Text != "")
                 mc.PzzoFinCli = Convert.ToDecimal(txtPzzoFinCli.Text);
             else
                 mc.PzzoFinCli = 0.0m;
         }
+
         //Fill Ddl
         protected void FillDdlScegliCant()
         {
@@ -126,11 +137,12 @@ namespace GestioneCantieri
 
             foreach (Mamg0 mmg in listMamg0)
             {
-                string show = mmg.CodArt + " - " + mmg.Desc + " - " + mmg.PrezzoNetto + " - " + mmg.PrezzoListino + " - " + mmg.Sconto1 + " - " + mmg.Sconto2 + " - " + mmg.Sconto3;
+                string show = mmg.CodArt + " | " + mmg.Desc + " | " + mmg.PrezzoNetto + " | " + mmg.PrezzoListino + " | " + mmg.Sconto1 + " | " + mmg.Sconto2 + " | " + mmg.Sconto3;
                 ddlScegliListino.Items.Add(new ListItem(show, mmg.CodArt.ToString()));
             }
         }
-        //Ogni Helper "Fill" va aggiunto qua dentro per funzionare
+
+        //Ogni Helper "Fill" va aggiunto qua dentro per essere richiamato all'apertura dell'applicazione
         protected void FillAllDdl()
         {
             FillDdlScegliCant();
@@ -144,88 +156,19 @@ namespace GestioneCantieri
             FillDdlScegliCant();
             pnlSubIntestazione.Visible = false;
         }
-
-        /* EVENTI TEXT-CHANGED */
-        protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
-        {
-            if (ddlScegliCant.SelectedIndex != 0)
-            {
-                pnlSubIntestazione.Visible = true;
-                pnlMascheraGestCant.Visible = true;
-            }
-            else
-            {
-                pnlSubIntestazione.Visible = false;
-                pnlMascheraGestCant.Visible = false;
-            }
-        }
-
-        protected void txtFiltroAnnoDDT_TextChanged(object sender, EventArgs e)
-        {
-            FillDdlScegliDdtMef();
-        }
-
-        protected void txtFiltroN_DDT_TextChanged(object sender, EventArgs e)
-        {
-            FillDdlScegliDdtMef();
-        }
-
-        protected void ddlScegliDDTMef_TextChanged(object sender, EventArgs e)
-        {
-            if (ddlScegliDDTMef.SelectedIndex != 0)
-            {
-                txtNumBolla.Enabled = false;
-            }
-            else
-            {
-                txtNumBolla.Enabled = true;
-            }
-        }
-
-        protected void txtFiltroCodFSS_TextChanged(object sender, EventArgs e)
-        {
-            FillDddlScegliListino();
-        }
-
-        protected void txtFiltroAA_Des_TextChanged(object sender, EventArgs e)
-        {
-            FillDddlScegliListino();
-        }
-
-        protected void ddlScegliListino_TextChanged(object sender, EventArgs e)
-        {
-            if (ddlScegliListino.SelectedIndex != 0)
-            {
-                string[] partiListino = ddlScegliListino.SelectedItem.Text.Split('-');
-                txtCodArt.Text = partiListino[0];
-                txtDescriCodArt.Text = partiListino[1];
-                txtPzzoNettoMef.Text = partiListino[2];
-                txtPzzoUnit.Text = "0.00";
-            }
-            else
-            {
-                txtCodArt.Text = txtDescriCodArt.Text = txtPzzoNettoMef.Text = "";
-                txtPzzoUnit.Text = "0.00";
-            }
-        }
-
-        protected void btnCalcolaPrezzoUnit_Click(object sender, EventArgs e)
-        {
-            if (txtPzzoNettoMef.Text != "")
-                txtPzzoUnit.Text = Math.Round(Convert.ToDecimal(txtPzzoNettoMef.Text), 2).ToString();
-            else
-            {
-                lblIsRecordInserito.Text = "Inserire un valore nella casella 'Prezzo Netto Mef' per calcolare il 'Prezzo Unitario'";
-                lblIsRecordInserito.ForeColor = Color.Red;
-            }   
-        }
-
         protected void btnInserisci_Click(object sender, EventArgs e)
         {
             string idCant = ddlScegliCant.SelectedItem.Value;
             string acquirente = ddlScegliAcquirente.SelectedItem.Value;
             string fornitore = ddlScegliFornit.SelectedItem.Value;
             string numeroBolla = "";
+
+            if (txtDataDDT.Text == "")
+            {
+                lblIsRecordInserito.Text = "Inserire un valore per la data";
+                lblIsRecordInserito.ForeColor = Color.Red;
+                return;
+            }
 
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCant(mc);
@@ -260,6 +203,79 @@ namespace GestioneCantieri
                     lblIsRecordInserito.Text = "Errore durante l'inserimento del record";
                     lblIsRecordInserito.ForeColor = Color.Red;
                 }
+            }
+            else
+            {
+                lblIsRecordInserito.Text = "Quantità e/o Prezzo Unitario devono essere maggiori di 0";
+                lblIsRecordInserito.ForeColor = Color.Red;
+            }
+        }
+
+        /* EVENTI TEXT-CHANGED */
+        protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlScegliCant.SelectedIndex != 0)
+            {
+                pnlSubIntestazione.Visible = true;
+                pnlMascheraGestCant.Visible = true;
+            }
+            else
+            {
+                pnlSubIntestazione.Visible = false;
+                pnlMascheraGestCant.Visible = false;
+            }
+        }
+        protected void txtFiltroAnnoDDT_TextChanged(object sender, EventArgs e)
+        {
+            FillDdlScegliDdtMef();
+        }
+        protected void txtFiltroN_DDT_TextChanged(object sender, EventArgs e)
+        {
+            FillDdlScegliDdtMef();
+        }
+        protected void ddlScegliDDTMef_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlScegliDDTMef.SelectedIndex != 0)
+            {
+                txtNumBolla.Enabled = false;
+            }
+            else
+            {
+                txtNumBolla.Enabled = true;
+            }
+        }
+        protected void txtFiltroCodFSS_TextChanged(object sender, EventArgs e)
+        {
+            FillDddlScegliListino();
+        }
+        protected void txtFiltroAA_Des_TextChanged(object sender, EventArgs e)
+        {
+            FillDddlScegliListino();
+        }
+        protected void ddlScegliListino_TextChanged(object sender, EventArgs e)
+        {
+            if (ddlScegliListino.SelectedIndex != 0)
+            {
+                string[] partiListino = ddlScegliListino.SelectedItem.Text.Split('|');
+                txtCodArt.Text = partiListino[0];
+                txtDescriCodArt.Text = partiListino[1];
+                txtPzzoNettoMef.Text = partiListino[2];
+                txtPzzoUnit.Text = "0.00";
+            }
+            else
+            {
+                txtCodArt.Text = txtDescriCodArt.Text = txtPzzoNettoMef.Text = "";
+                txtPzzoUnit.Text = "0.00";
+            }
+        }
+        protected void btnCalcolaPrezzoUnit_Click(object sender, EventArgs e)
+        {
+            if (txtPzzoNettoMef.Text != "")
+                txtPzzoUnit.Text = Math.Round(Convert.ToDecimal(txtPzzoNettoMef.Text), 2).ToString();
+            else
+            {
+                lblIsRecordInserito.Text = "Inserire un valore nella casella 'Prezzo Netto Mef' per calcolare il 'Prezzo Unitario'";
+                lblIsRecordInserito.ForeColor = Color.Red;
             }
         }
     }

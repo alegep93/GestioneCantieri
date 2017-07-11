@@ -14,7 +14,7 @@
             </div>
             <div id="filterContainer">
                 <!-- Ricerca Per Anno -->
-                <div class="searchFilterContainer col-md-3">
+                <div class="searchFilterContainer col-md-2">
                     <asp:Label ID="lblCercaAnno" runat="server" Text="Cerca per anno"></asp:Label>
                     <div class="col-md-12">
                         <asp:Label ID="lblAnnoInizio" runat="server" Text="Anno Iniziale"></asp:Label>
@@ -27,7 +27,7 @@
                 </div>
 
                 <!-- Ricerca Per Data -->
-                <div class="searchFilterContainer col-md-3">
+                <div class="searchFilterContainer col-md-2">
                     <asp:Label ID="lblCercaData" runat="server" Text="Cerca per data"></asp:Label>
                     <div class="col-md-12">
                         <asp:Label ID="lblDataInizio" runat="server" Text="Data Inizio"></asp:Label>
@@ -39,31 +39,40 @@
                     </div>
                 </div>
 
+                <!-- Ricerca Per Quantità -->
+                <div class="searchFilterContainer col-md-2">
+                    <asp:Label ID="lblCercaQta" runat="server" Text="Cerca per Quantità"></asp:Label>
+                    <div class="col-md-12">
+                        <asp:Label ID="lblQta" runat="server" Text="Quantità"></asp:Label>
+                        <asp:TextBox ID="txtQta" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                </div>
+
                 <!-- Ricerca Per CodArt e DescriCodArt -->
                 <div class="searchFilterContainer col-md-4">
                     <asp:Label ID="Label1" runat="server" Text="CodArt & DescriCodArt"></asp:Label>
                     <div class="col-md-12">
                         <asp:Label ID="lblCercaCodArt" runat="server" Text="Cerca per codice articolo"></asp:Label>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtCodArt1" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtCodArt1" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtCodArt2" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtCodArt2" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtCodArt3" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtCodArt3" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <asp:Label ID="lblCercaDescriCodArt" runat="server" Text="Cerca per Descrizione Cod. Art."></asp:Label>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtDescriCodArt1" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtDescriCodArt1" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtDescriCodArt2" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtDescriCodArt2" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtDescriCodArt3" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtDescriCodArt3" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
                 </div>

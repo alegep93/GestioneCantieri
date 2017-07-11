@@ -37,6 +37,19 @@ namespace GestioneCantieri
                 ddlScegliCant.Items.Add(new ListItem(show, c.IdCantieri.ToString()));
             }
         }
+        private void FillPagamento(Pagamenti pag)
+        {
+            pag.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
+            pag.Data = DateTime.Now;
+            pag.DescriPagamenti = txtDescr.Text;
+            pag.Acconto = chkACconto.Checked;
+            pag.Saldo = chkSaldo.Checked;
+
+            if (txtImporto.Text != "")
+                pag.Imporo = Convert.ToDecimal(txtImporto.Text);
+            else
+                pag.Imporo = -1;
+        }
 
         /* EVENTI CLICK */
         protected void btnFiltroCant_Click(object sender, EventArgs e)
@@ -46,11 +59,10 @@ namespace GestioneCantieri
         }
         protected void btnInserisci_Click(object sender, EventArgs e)
         {
-            string idCant = ddlScegliCant.SelectedItem.Value;
+            Pagamenti pag = new Pagamenti();
+            FillPagamento(pag);
 
-            /*************************** ????????????????????????? ***************************/
-            /*bool isInserito = GestionePagamentiDAO.InserisciPagamento(idCant,
-                txtQta.Text, "PAGA", txtCodArt.Text, txtDescriCodArt.Text, txtPzzoUnit.Text);
+            bool isInserito = PagamentiDAO.InserisciPagamento(pag);
             if (isInserito)
             {
                 lblIsPagamInserito.Text = "Record inserito con successo";
@@ -60,7 +72,7 @@ namespace GestioneCantieri
             {
                 lblIsPagamInserito.Text = "Errore durante l'inserimento del record";
                 lblIsPagamInserito.ForeColor = Color.Red;
-            }*/
+            }
         }
 
         /* EVENTI TEXT-CHANGED */

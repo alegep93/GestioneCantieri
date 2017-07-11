@@ -28,11 +28,16 @@ namespace GestioneCantieri
             mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
             mc.Acquirente = ddlScegliOperaio.SelectedItem.Value;
             mc.Qta = Convert.ToDouble(txtQta.Text);
-            mc.Tipologia = "MANO";
-            mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoManodop.Text);
+            mc.Tipologia = "MANODOPERA";
             mc.DescriMateriali = txtDescrManodop.Text;
+            mc.Data = DateTime.Now;
             mc.Note = txtNote1.Text + " - " + txtNote2.Text;
             mc.Visibile = chkVisibile.Checked;
+
+            if (txtPzzoManodop.Text != "")
+                mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoManodop.Text);
+            else
+                mc.PzzoUniCantiere = -1;
         }
         //Fill Ddl
         protected void FillDdlScegliCant()

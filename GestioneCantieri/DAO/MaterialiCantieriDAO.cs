@@ -45,7 +45,7 @@ namespace GestioneCantieri.DAO
                     mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
                     mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
                     mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
-                    mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1 : dr.GetInt32(8));
+                    mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
                     mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
                     mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
                     mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
@@ -122,8 +122,8 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Tipologia,Visibile,Ricalcolo,ricaricoSiNo,Note,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipol,@pVisibile,@pRicalcolo,@pRicarico,@pNote,'')";
+                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Tipologia,Visibile,Ricalcolo,ricaricoSiNo,Data,Note,PzzoFinCli) " +
+                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipol,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pNote,'')";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
@@ -132,6 +132,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pTipol", mc.Tipologia));
                 cmd.Parameters.Add(new SqlParameter("pVisibile", mc.Visibile));
                 cmd.Parameters.Add(new SqlParameter("pRicarico", mc.RicaricoSiNo));
+                cmd.Parameters.Add(new SqlParameter("pData", mc.Data));
                 cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
 
                 if (mc.Ricalcolo == false)
@@ -158,14 +159,15 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,Qta,Visibile,Tipologia,Ricalcolo,ricaricoSiNo,PzzoUniCantiere,CodArt,DescriCodArt,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pQta,@pVisibile,@pTipol,@pRicalcolo,@pRicarico,@pPzzoUnit,@pCodArt,@pDescrCodArt,'')";
+                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,Qta,Visibile,Tipologia,Ricalcolo,ricaricoSiNo,Data,PzzoUniCantiere,CodArt,DescriCodArt,PzzoFinCli) " +
+                      "VALUES (@pIdCant,@pQta,@pVisibile,@pTipol,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@pCodArt,@pDescrCodArt,'')";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
                 cmd.Parameters.Add(new SqlParameter("pPzzoUnit", mc.PzzoUniCantiere));
                 cmd.Parameters.Add(new SqlParameter("pCodArt", mc.CodArt));
                 cmd.Parameters.Add(new SqlParameter("pDescrCodArt", mc.DescriCodArt));
+                cmd.Parameters.Add(new SqlParameter("pData", mc.Data));
                 cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
                 cmd.Parameters.Add(new SqlParameter("pTipol", mc.Tipologia));
 
@@ -234,8 +236,8 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Tipologia,Visibile,Ricalcolo,ricaricoSiNo,Note,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pVisibile,@pRicalcolo,@pRicarico,@pNote,'')";
+                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Tipologia,Visibile,Ricalcolo,ricaricoSiNo,Data,Note,PzzoFinCli) " +
+                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pNote,'')";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
@@ -243,6 +245,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
                 cmd.Parameters.Add(new SqlParameter("pTipologia", mc.Tipologia));
                 cmd.Parameters.Add(new SqlParameter("pVisibile", mc.Visibile));
+                cmd.Parameters.Add(new SqlParameter("pData", mc.Data));
                 cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
 
                 if (mc.Ricalcolo == false)
