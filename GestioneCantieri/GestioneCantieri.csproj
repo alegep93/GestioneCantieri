@@ -151,6 +151,7 @@
     <Compile Include="DAO\OrdineFruttiDAO.cs" />
     <Compile Include="DAO\DDTMefDAO.cs" />
     <Compile Include="DAO\GestisciGruppiFruttiDAO.cs" />
+    <Compile Include="DAO\PagamentiDAO.cs" />
     <Compile Include="DAO\StampaFruttiPerGruppiDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantLocDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantDAO.cs" />

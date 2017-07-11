@@ -26,10 +26,15 @@ namespace GestioneCantieri
         protected void FillMatCant(MaterialiCantieri mc) {
             mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
             mc.Qta = Convert.ToDouble(txtQta.Text);
-            mc.Tipologia = "ARRO";
+            mc.Tipologia = "ARROTONDAMENTO";
             mc.CodArt = txtCodArt.Text;
             mc.DescriCodArt = txtDescriCodArt.Text;
-            mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoUnit.Text);
+            mc.Data = DateTime.Now;
+
+            if (txtPzzoUnit.Text != "")
+                mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoUnit.Text);
+            else
+                mc.PzzoUniCantiere = -1;
         }
         protected void FillDdlScegliCant()
         {

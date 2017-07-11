@@ -32,6 +32,7 @@ namespace GestioneCantieri
             mc.Visibile = chkVisibile.Checked;
             mc.Ricalcolo = chkRicalcolo.Checked;
             mc.RicaricoSiNo = chkRicarico.Checked;
+            mc.Tipologia = "OPERAIO";
             mc.Data = Convert.ToDateTime(DateTime.Now);
             mc.Note = txtNote1.Text + " - " + txtNote2.Text;
         }

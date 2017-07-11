@@ -76,7 +76,7 @@
                         </div>
                         <div class="col-md-4">
                             <asp:Label ID="lblTipDatCant" Text="Tipologia" runat="server" />
-                            <asp:TextBox ID="txtTipDatCant" CssClass="form-control" Enabled="false" Text="MATE" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtTipDatCant" CssClass="form-control" Enabled="false" Text="MATERIALE" runat="server"></asp:TextBox>
                         </div>
                     </div>
                     <div class="col-md-12">
