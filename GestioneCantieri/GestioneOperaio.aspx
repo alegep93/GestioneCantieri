@@ -69,50 +69,7 @@
                             <asp:Label ID="lblScegliOperaio" Text="Scegli Operaio" runat="server" />
                             <asp:DropDownList ID="ddlScegliOperaio" CssClass="form-control" runat="server" />
                         </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <asp:Label ID="lblQta" Text="Quantità" runat="server" />
-                                <asp:TextBox ID="txtQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:Label ID="lblPzzoOper" Text="Prezzo Operaio" runat="server" />
-                                <asp:TextBox ID="txtPzzoOper" CssClass="form-control" runat="server"></asp:TextBox>
-                            </div>
-                            <div class="col-md-4">
-                                <asp:Label ID="lblDescrOper" Text="Descrizione Operaio" runat="server" />
-                                <asp:TextBox ID="txtDescrOper" CssClass="form-control" runat="server"></asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <asp:Label ID="lblNote1" Text="Note 1" runat="server" />
-                                <asp:TextBox ID="txtNote1" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
-                            </div>
-                            <div class="col-md-6">
-                                <asp:Label ID="lblNote2" Text="Note 2" runat="server" />
-                                <asp:TextBox ID="txtNote2" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <asp:Label ID="lblVisibile" Text="Visibile" runat="server" />
-                                <asp:CheckBox ID="chkVisibile" CssClass="form-control" Checked="true" runat="server" />
-                            </div>
-                            <div class="col-md-2">
-                                <asp:Label ID="lblRicalcolo" Text="Ricalcolo" runat="server" />
-                                <asp:CheckBox ID="chkRicalcolo" CssClass="form-control" Enabled="false" runat="server" />
-                            </div>
-                            <div class="col-md-2">
-                                <asp:Label ID="lblRicarico" Text="Ricarico Si/No" runat="server" />
-                                <asp:CheckBox ID="chkRicarico" CssClass="form-control" Checked="true" runat="server" />
-                            </div>
-                            <div class="col-md-6">
-                                <asp:Button ID="btnInserisci" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
-                                <asp:Label ID="lblIsOperInserita" Text="" CssClass="pull-right" runat="server" />
-                            </div>
-                        </div>
+                        
                     </div>
                 </asp:Panel>
             </asp:Panel>
