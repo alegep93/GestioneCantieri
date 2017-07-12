@@ -29,6 +29,10 @@ namespace GestioneCantieri
         }
 
         /* EVENTI CLICK */
+        protected void btnFiltroGruppi_Click(object sender, EventArgs e)
+        {
+            FillDdlGruppi();
+        }
         protected void btnInserisciGruppo_Click(object sender, EventArgs e)
         {
             bool isAggiunto = OrdineFruttiDAO.InserisciGruppo(ddlScegliCantiere.SelectedItem.Value, ddlScegliGruppo.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value, txtDataOrdine.Text, txtAppartamento.Text);
@@ -63,7 +67,7 @@ namespace GestioneCantieri
                 compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
             }
         }
-        protected void txtFiltroGruppo1_TextChanged(object sender, EventArgs e)
+        /*protected void txtFiltroGruppo1_TextChanged(object sender, EventArgs e)
         {
             FillDdlGruppi();
         }
@@ -74,7 +78,7 @@ namespace GestioneCantieri
         protected void txtFiltroGruppo3_TextChanged(object sender, EventArgs e)
         {
             FillDdlGruppi();
-        }
+        }*/
         protected void ddlScegliGruppo_TextChanged(object sender, EventArgs e)
         {
             if (ddlScegliGruppo.SelectedItem.Text != "")

@@ -47,15 +47,18 @@
                     <!-- Filtri sui nomi dei gruppi presenti su DB -->
                     <div class="col-md-4">
                         <asp:Label ID="lblFiltro1" runat="server" Text="Filtro 1"></asp:Label>
-                        <asp:TextBox ID="txtFiltroGruppo1" placeholder="Filtro 1" OnTextChanged="txtFiltroGruppo1_TextChanged" AutoPostBack="true" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtFiltroGruppo1" placeholder="Filtro 1" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <asp:Label ID="lblFiltro2" runat="server" Text="Filtro 2"></asp:Label>
-                        <asp:TextBox ID="txtFiltroGruppo2" placeholder="Filtro 2" OnTextChanged="txtFiltroGruppo2_TextChanged" AutoPostBack="true" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtFiltroGruppo2" placeholder="Filtro 2" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <asp:Label ID="lblFiltro3" runat="server" Text="Filtro 3"></asp:Label>
-                        <asp:TextBox ID="txtFiltroGruppo3" placeholder="Filtro 3" OnTextChanged="txtFiltroGruppo3_TextChanged" AutoPostBack="true" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtFiltroGruppo3" placeholder="Filtro 3" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12">
+                        <asp:Button ID="btnFiltroGruppi" CssClass="btn btn-primary btn-lg pull-right" OnClick="btnFiltroGruppi_Click" runat="server" Text="Filtra Gruppi" />
                     </div>
                 </div>
                 <!-- Lista dei gruppi (filtrati o non) -->
