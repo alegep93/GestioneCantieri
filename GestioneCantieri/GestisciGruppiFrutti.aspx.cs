@@ -77,6 +77,7 @@ namespace GestioneCantieri
             compList = GestisciGruppiFruttiDAO.getCompGruppo(Convert.ToInt32(ddlGruppi.SelectedItem.Value));
             ddlFrutti.SelectedIndex = 0;
             txtQta.Text = "";
+            ddlFrutti.Focus();
         }
         protected void btnApriInserisci_Click(object sender, EventArgs e)
         {

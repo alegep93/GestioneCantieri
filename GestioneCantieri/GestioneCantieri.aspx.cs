@@ -18,6 +18,7 @@ namespace GestioneCantieri
             if (!IsPostBack)
             {
                 FillAllDdl();
+                ShowPanels(false, false, false, false, false, false);
                 pnlSubIntestazione.Visible = pnlMascheraGestCant.Visible = false;
             }
         }
@@ -150,6 +151,27 @@ namespace GestioneCantieri
             FillDdlScegliFornit();
         }
 
+        //Mostra/Nasconde pannelli
+        protected void ShowPanels(bool pnlMatCant, bool pnlRientro, bool pnlManodop, bool pnlOper, bool pnlArrotond, bool pnlPagam)
+        {
+            pnlMascheraGestCant.Visible = pnlMatCant;
+            pnlRientroMatCant.Visible = pnlRientro;
+            pnlManodopera.Visible = pnlManodop;
+            pnlGestioneOperaio.Visible = pnlOper;
+            pnlGestArrotond.Visible = pnlArrotond;
+            pnlGestPagam.Visible = pnlPagam;
+        }
+        protected void RemoveActiveClass()
+        {
+            foreach (var b in pnlScegliMaschera.Controls)
+            {
+                if (b.GetType().Name == "Button")
+                {
+                    (((Button)b).CssClass).Replace(" active", "");
+                }
+            }
+        }
+
         /* EVENTI CLICK */
         protected void btnFiltroCant_Click(object sender, EventArgs e)
         {
@@ -211,13 +233,44 @@ namespace GestioneCantieri
             }
         }
 
+        //Visibilità maschere
+        protected void btnMatCant_Click(object sender, EventArgs e)
+        {
+            lblTitoloMaschera.Text = "Materiali Cantieri";
+            ShowPanels(true, false, false, false, false, false);
+        }
+        protected void btnRientro_Click(object sender, EventArgs e)
+        {
+            lblTitoloMaschera.Text = "Rientro Materiali";
+            ShowPanels(false, true, false, false, false, false);
+        }
+        protected void btnManodop_Click(object sender, EventArgs e)
+        {
+            lblTitoloMaschera.Text = "Manodopera";
+            ShowPanels(false, false, true, false, false, false);
+        }
+        protected void btnGestOper_Click(object sender, EventArgs e)
+        {
+            lblTitoloMaschera.Text = "Gestione Operaio";
+            ShowPanels(false, false, false, true, false, false);
+        }
+        protected void btnGestArrot_Click(object sender, EventArgs e)
+        {
+            lblTitoloMaschera.Text = "Gestione Arrotondamenti";
+            ShowPanels(false, false, false, false, true, false);
+        }
+        protected void btnGestPagam_Click(object sender, EventArgs e)
+        {
+            lblTitoloMaschera.Text = "Gestione Pagamenti";
+            ShowPanels(false, false, false, false, false, true);
+        }
+
         /* EVENTI TEXT-CHANGED */
         protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
         {
             if (ddlScegliCant.SelectedIndex != 0)
             {
                 pnlSubIntestazione.Visible = true;
-                pnlMascheraGestCant.Visible = true;
             }
             else
             {

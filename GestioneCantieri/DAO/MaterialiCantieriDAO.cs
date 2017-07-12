@@ -91,7 +91,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pData", mc.Data));
                 cmd.Parameters.Add(new SqlParameter("pPzzoUnit", mc.PzzoUniCantiere));
                 cmd.Parameters.Add(new SqlParameter("pCodArt", mc.CodArt));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt", mc.DescriMateriali));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt", mc.DescriCodArt));
                 cmd.Parameters.Add(new SqlParameter("pTipologia", mc.Tipologia));
                 cmd.Parameters.Add(new SqlParameter("pFascia", mc.Fascia));
                 cmd.Parameters.Add(new SqlParameter("pAcquirente", mc.Acquirente));
