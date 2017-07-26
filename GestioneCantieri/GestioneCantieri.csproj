@@ -48,6 +48,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\AjaxMin.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.11\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.DynamicData" />
@@ -80,10 +83,7 @@
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Default.aspx" />
-    <Content Include="GestioneArrotondamento.aspx" />
     <Content Include="GestioneCantieri.aspx" />
-    <Content Include="GestioneOperaio.aspx" />
-    <Content Include="GestionePagamenti.aspx" />
     <Content Include="GestioneSpese.aspx" />
     <Content Include="GestisciFrutti.aspx" />
     <Content Include="GestisciGruppiFrutti.aspx" />
@@ -91,7 +91,6 @@
     <Content Include="InserimentoDati.aspx" />
     <Content Include="layout.Master" />
     <Content Include="Listino.aspx" />
-    <Content Include="Manodopera.aspx" />
     <Content Include="OrdineFrutti.aspx" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -107,7 +106,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
-    <Content Include="RientroMateriale.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DynamicStampaOrdFrutStyle.js" />
@@ -138,6 +136,7 @@
     <Content Include="StampaFruttiGruppi.aspx" />
     <Content Include="StampaOrdFrutLocale.aspx" />
     <Content Include="StampaOrdFrutCantExcel.aspx" />
+    <Content Include="StampeVarie.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -155,37 +154,18 @@
     <Compile Include="DAO\StampaFruttiPerGruppiDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantLocDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantDAO.cs" />
+    <Compile Include="DAO\StampeDAO.cs" />
     <Compile Include="DAO\TipDatCantDAO.cs" />
     <Compile Include="Data\MaterialiCantieri.cs" />
     <Compile Include="Data\Pagamenti.cs" />
+    <Compile Include="Data\Stampe.cs" />
     <Compile Include="Data\TipDatCant.cs" />
-    <Compile Include="GestioneArrotondamento.aspx.cs">
-      <DependentUpon>GestioneArrotondamento.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="GestioneArrotondamento.aspx.designer.cs">
-      <DependentUpon>GestioneArrotondamento.aspx</DependentUpon>
-    </Compile>
     <Compile Include="GestioneCantieri.aspx.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="GestioneCantieri.aspx.designer.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="GestioneOperaio.aspx.cs">
-      <DependentUpon>GestioneOperaio.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="GestioneOperaio.aspx.designer.cs">
-      <DependentUpon>GestioneOperaio.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="GestionePagamenti.aspx.cs">
-      <DependentUpon>GestionePagamenti.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="GestionePagamenti.aspx.designer.cs">
-      <DependentUpon>GestionePagamenti.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestioneSpese.aspx.cs">
       <DependentUpon>GestioneSpese.aspx</DependentUpon>
@@ -194,19 +174,12 @@
     <Compile Include="GestioneSpese.aspx.designer.cs">
       <DependentUpon>GestioneSpese.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Manodopera.aspx.cs">
-      <DependentUpon>Manodopera.aspx</DependentUpon>
+    <Compile Include="StampeVarie.aspx.cs">
+      <DependentUpon>StampeVarie.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Manodopera.aspx.designer.cs">
-      <DependentUpon>Manodopera.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="RientroMateriale.aspx.cs">
-      <DependentUpon>RientroMateriale.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="RientroMateriale.aspx.designer.cs">
-      <DependentUpon>RientroMateriale.aspx</DependentUpon>
+    <Compile Include="StampeVarie.aspx.designer.cs">
+      <DependentUpon>StampeVarie.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utils\DataTableToListHelper.cs" />
     <Compile Include="Data\Cantieri.cs" />

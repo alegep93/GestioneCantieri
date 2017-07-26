@@ -444,7 +444,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT IdOperaio,NomeOp,DescrOP,Suffisso,Operaio " +
+                sql = "SELECT IdOperaio,NomeOp,DescrOP,Suffisso,Operaio,CostoOperaio " +
                       "FROM TblOperaio " +
                       "ORDER BY NomeOp ASC ";
 
@@ -472,7 +472,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT IdOperaio,NomeOp,DescrOP,Suffisso,Operaio " +
+                sql = "SELECT IdOperaio,NomeOp,DescrOP,Suffisso,Operaio,CostoOperaio " +
                       "FROM TblOperaio " +
                       "WHERE IdOperaio = @pId " +
                       "ORDER BY NomeOp ASC ";
@@ -488,6 +488,7 @@ namespace GestioneCantieri.DAO
                     op.DescrOp = (dr.IsDBNull(2) ? null : dr.GetString(2));
                     op.Suffisso = (dr.IsDBNull(3) ? null : dr.GetString(3));
                     op.Operaio = (dr.IsDBNull(4) ? null : dr.GetString(4));
+                    op.CostoOperaio = (dr.IsDBNull(5) ? 0.0m : dr.GetDecimal(5));
                 }
 
                 return op;
@@ -498,7 +499,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
-        public static bool InserisciOperaio(string nome, string descr, string suff, string operaio)
+        public static bool InserisciOperaio(string nome, string descr, string suff, string operaio, string costoOp)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -506,14 +507,15 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "INSERT INTO TblOperaio " +
-                      "(NomeOp, DescrOP, Suffisso, Operaio) " +
-                      "VALUES (@pNome,@pDescr,@pSuff,@pOperaio) ";
+                      "(NomeOp, DescrOP, Suffisso, Operaio, CostoOperaio) " +
+                      "VALUES (@pNome,@pDescr,@pSuff,@pOperaio,@pCostoOp) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("@pNome", nome));
                 cmd.Parameters.Add(new SqlParameter("@pDescr", descr));
                 cmd.Parameters.Add(new SqlParameter("@pSuff", suff));
                 cmd.Parameters.Add(new SqlParameter("@pOperaio", operaio));
+                cmd.Parameters.Add(new SqlParameter("@pCostoOp", costoOp));
 
                 int ret = cmd.ExecuteNonQuery();
 
@@ -528,7 +530,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool UpdateOperaio(string idOper, string nome, string descr, string suff, string oper)
+        public static bool UpdateOperaio(string idOper, string nome, string descr, string suff, string oper, string costoOp)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -539,7 +541,8 @@ namespace GestioneCantieri.DAO
                       "SET NomeOp = @pNome, " +
                       "DescrOP = @pDescr, " +
                       "Suffisso = @pSuff, " +
-                      "Operaio = @pOper " +
+                      "Operaio = @pOper, " +
+                      "CostoOperaio = @pCostoOp " +
                       "WHERE IdOperaio = @pId ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -547,6 +550,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pDescr", descr));
                 cmd.Parameters.Add(new SqlParameter("pSuff", suff));
                 cmd.Parameters.Add(new SqlParameter("pOper", oper));
+                cmd.Parameters.Add(new SqlParameter("pCostoOp", costoOp));
                 cmd.Parameters.Add(new SqlParameter("pId", idOper));
 
                 int row = cmd.ExecuteNonQuery();

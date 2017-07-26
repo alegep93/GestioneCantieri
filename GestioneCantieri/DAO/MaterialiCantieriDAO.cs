@@ -67,6 +67,59 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
+        public static List<MaterialiCantieri> GetMaterialeCantiere(string id)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            List<MaterialiCantieri> matList = new List<MaterialiCantieri>();
+            string sql = "";
+
+            try
+            {
+                sql = "SELECT IdMaterialiCantiere,IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo, " +
+                      "ricaricoSiNo,Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore, " +
+                      "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli " +
+                      "FROM TblMaterialiCantieri " +
+                      "WHERE IdTblCantieri = @Id ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("Id", id));
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    MaterialiCantieri mc = new MaterialiCantieri();
+                    mc.IdMaterialiCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
+                    mc.IdTblCantieri = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.Qta = (dr.IsDBNull(3) ? -1.0d : dr.GetDouble(3));
+                    mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
+                    mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
+                    mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
+                    mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
+                    mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
+                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
+                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
+                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
+                    matList.Add(mc);
+                }
+
+                return matList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei materiali di cantiere per singolo cantiere", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
 
         //INSERT
         public static bool InserisciMaterialeCantiere(MaterialiCantieri mc)

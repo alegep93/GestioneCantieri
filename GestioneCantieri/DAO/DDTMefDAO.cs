@@ -82,6 +82,40 @@ namespace GestioneCantieri.DAO
                 throw new Exception("Errore durante il recupero dei DDT Mef", ex);
             }
         }
+        public static DataTable GetDDTForPDF(string dataInizio, string dataFine, string acquirente, string n_ddt)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            acquirente = "%" + acquirente + "%";
+            n_ddt = "%" + n_ddt + "%";
+
+            try
+            {
+                /* Senza Filtro */
+                sql = "SELECT IdDDTMef, Anno, Data, N_DDT, CodArt, " +
+                      "DescriCodArt, Qta, Importo, Acquirente, PrezzoUnitario, AnnoN_DDT " +
+                      "FROM TblDDTMef " +
+                      "WHERE (Data BETWEEN Convert(date,@pDataInizio) AND Convert(date,@pDataFine)) AND Acquirente LIKE @pAcquirente AND N_DDT LIKE @pN_DDT ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
+                cmd.Parameters.Add(new SqlParameter("pDataFine", dataFine));
+                cmd.Parameters.Add(new SqlParameter("pAcquirente", acquirente));
+                cmd.Parameters.Add(new SqlParameter("pN_DDT", n_ddt));
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei DDT Mef per la stampa in PDF", ex);
+            }
+        }
 
         /*** Mostro la lista dei DDT in base ai campi compilati ***/
         public static List<DDTMef> searchFilter(string inizio, string fine, string dataInizio, string dataFine, string qta,

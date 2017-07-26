@@ -184,7 +184,7 @@ namespace GestioneCantieri
         {
             if (txtNomeOper.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciOperaio(txtNomeOper.Text, txtDescrOper.Text, txtSuffOper.Text, txtOperaio.Text);
+                bool isInserito = InserimentoDatiDAO.InserisciOperaio(txtNomeOper.Text, txtDescrOper.Text, txtSuffOper.Text, txtOperaio.Text, txtCostoOperaio.Text);
 
                 if (isInserito)
                 {
@@ -209,7 +209,7 @@ namespace GestioneCantieri
         protected void btnModOper_Click(object sender, EventArgs e)
         {
             bool isUpdated = InserimentoDatiDAO.UpdateOperaio(hidIdOper.Value, txtNomeOper.Text,
-                txtDescrOper.Text, txtSuffOper.Text, txtOperaio.Text);
+                txtDescrOper.Text, txtSuffOper.Text, txtOperaio.Text, txtCostoOperaio.Text);
 
             if (isUpdated)
             {
@@ -538,6 +538,7 @@ namespace GestioneCantieri
             txtDescrOper.Text = operaio.DescrOp;
             txtSuffOper.Text = operaio.Suffisso;
             txtOperaio.Text = operaio.Operaio;
+            txtCostoOperaio.Text = operaio.CostoOperaio.ToString();
         }
         //Cantieri
         protected void BindGridCantieri()

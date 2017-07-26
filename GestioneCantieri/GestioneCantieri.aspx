@@ -139,7 +139,7 @@
                 </h2>
             </div>
 
-            <!-- Maschera gestione materiali cantieri -->
+            <!-- Maschera gestione materiali cantieri e Rientro -->
             <asp:Panel ID="pnlMascheraGestCant" CssClass="col-md-12" runat="server">
                 <div class="row">
                     <div class="col-md-offset-3 col-md-8">
@@ -152,9 +152,14 @@
                             <asp:TextBox ID="txtFiltroAA_Des" placeholder="Filtro AA_DES" AutoPostBack="true" OnTextChanged="txtFiltroAA_Des_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
-                    <div class="col-md-offset-2 col-md-8">
+                    <div class="col-md-offset-2 col-md-8 matCantDdl">
                         <asp:Label ID="lblScegliListino" Text="Scegli Listino" runat="server" />
                         <asp:DropDownList ID="ddlScegliListino" AutoPostBack="true" OnTextChanged="ddlScegliListino_TextChanged" CssClass="form-control" runat="server" />
+                    </div>
+
+                    <div class="col-md-offset-2 col-md-8 rientroDdl">
+                        <asp:Label ID="lblScegliMatCant" Text="Scegli Materiale Cantiere" runat="server" />
+                        <asp:DropDownList ID="ddlScegliMatCant" AutoPostBack="true" OnTextChanged="ddlScegliMatCant_TextChanged" CssClass="form-control" runat="server" />
                     </div>
                 </div>
                 <div class="row">
@@ -211,96 +216,20 @@
                         <asp:Button ID="btnCalcolaPrezzoUnit" OnClick="btnCalcolaPrezzoUnit_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Calcola Prezzo Unitario" />
                     </div>
                     <div class="col-md-6">
-                        <asp:Button ID="btnInserisci" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
+                        <asp:Button ID="btnInserisciMatCant" OnClick="btnInserisciMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Mat Cant" />
+                        <asp:Button ID="btnInserisciRientro" OnClick="btnInserisciRientro_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Rientro" />
                         <asp:Label ID="lblIsRecordInserito" Text="" CssClass="pull-right" runat="server" />
                     </div>
                 </div>
             </asp:Panel>
 
-            <!-- Maschera di rientro materiali -->
-            <asp:Panel ID="pnlRientroMatCant" CssClass="col-md-12" runat="server">
-                <div class="row">
-                    <div class="col-md-offset-3 col-md-8">
-                        <div class="col-md-4">
-                            <asp:Label ID="Label1" Text="Filtro Cod_FSS" runat="server" />
-                            <asp:TextBox ID="TextBox1" placeholder="Filtro Cod_FSS" AutoPostBack="true" OnTextChanged="txtFiltroCodFSS_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:Label ID="Label2" Text="Filtro AA_DES" runat="server" />
-                            <asp:TextBox ID="TextBox2" placeholder="Filtro AA_DES" AutoPostBack="true" OnTextChanged="txtFiltroAA_Des_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
-                        </div>
-                    </div>
-                    <div class="col-md-offset-2 col-md-8">
-                        <asp:Label ID="Label3" Text="Scegli Listino" runat="server" />
-                        <asp:DropDownList ID="DropDownList1" AutoPostBack="true" OnTextChanged="ddlScegliListino_TextChanged" CssClass="form-control" runat="server" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <asp:Label ID="Label4" Text="Codice Articolo" runat="server" />
-                        <asp:TextBox ID="TextBox3" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:Label ID="Label5" Text="Descrizione Codice Articolo" runat="server" />
-                        <asp:TextBox ID="TextBox4" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:Label ID="Label6" Text="Descrizione Materiale" runat="server" />
-                        <asp:TextBox ID="TextBox5" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-3">
-                        <asp:Label ID="Label7" Text="Note" runat="server" />
-                        <asp:TextBox ID="TextBox6" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <asp:Label ID="Label8" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="TextBox7" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2">
-                        <asp:Label ID="Label9" Text="Prezzo Netto Mef" runat="server" />
-                        <asp:TextBox ID="TextBox8" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2">
-                        <asp:Label ID="Label10" Text="Prezzo Unitario" runat="server" />
-                        <asp:TextBox ID="TextBox9" Text="0.00" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-2">
-                        <asp:Label ID="Label11" Text="Prezzo Finale Cliente" runat="server" />
-                        <asp:TextBox ID="TextBox10" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-
-                    <div class="col-md-1">
-                        <asp:Label ID="Label12" Text="Visibile" runat="server" />
-                        <asp:CheckBox ID="CheckBox1" CssClass="form-control" Checked="true" runat="server" />
-                    </div>
-                    <div class="col-md-1">
-                        <asp:Label ID="Label13" Text="Ricalcolo" runat="server" />
-                        <asp:CheckBox ID="CheckBox2" CssClass="form-control" Checked="true" runat="server" />
-                    </div>
-                    <div class="col-md-2">
-                        <asp:Label ID="Label14" Text="Ricarico Si/No" runat="server" />
-                        <asp:CheckBox ID="CheckBox3" CssClass="form-control" Checked="true" runat="server" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <asp:Button ID="Button1" OnClick="btnCalcolaPrezzoUnit_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Calcola Prezzo Unitario" />
-                    </div>
-                    <div class="col-md-6">
-                        <asp:Button ID="Button2" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
-                        <asp:Label ID="Label15" Text="" CssClass="pull-right" runat="server" />
-                    </div>
-                </div>
-            </asp:Panel>
-
+            
             <!-- Maschera manodopera -->
             <asp:Panel ID="pnlManodopera" CssClass="col-md-12" runat="server">
                 <div class="row">
                     <div class="col-md-4">
-                        <asp:Label ID="Label16" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="TextBox11" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
+                        <asp:Label ID="lblManodopQta" Text="Quantità" runat="server" />
+                        <asp:TextBox ID="txtManodopQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <asp:Label ID="lblPzzoManodop" Text="Prezzo Manodopera" runat="server" />
@@ -325,19 +254,19 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <asp:Label ID="Label17" Text="Visibile" runat="server" />
-                        <asp:CheckBox ID="CheckBox4" CssClass="form-control" Checked="true" runat="server" />
+                        <asp:Label ID="lblManodopVisibile" Text="Visibile" runat="server" />
+                        <asp:CheckBox ID="chkManodopVisibile" CssClass="form-control" Checked="true" runat="server" />
                     </div>
                     <div class="col-md-2">
-                        <asp:Label ID="Label18" Text="Ricalcolo" runat="server" />
-                        <asp:CheckBox ID="CheckBox5" CssClass="form-control" Enabled="false" runat="server" />
+                        <asp:Label ID="lblManodopRicalcolo" Text="Ricalcolo" runat="server" />
+                        <asp:CheckBox ID="chkManodopRicalcolo" CssClass="form-control" Enabled="false" runat="server" />
                     </div>
                     <div class="col-md-2">
-                        <asp:Label ID="Label19" Text="Ricarico Si/No" runat="server" />
-                        <asp:CheckBox ID="CheckBox6" CssClass="form-control" Enabled="false" runat="server" />
+                        <asp:Label ID="lblManodopRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
+                        <asp:CheckBox ID="chkManodopRicaricoSiNo" CssClass="form-control" Enabled="false" runat="server" />
                     </div>
                     <div class="col-md-6">
-                        <asp:Button ID="Button3" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
+                        <asp:Button ID="btnInsManodop" OnClick="btnInsManodop_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Manodopera" />
                         <asp:Label ID="lblIsManodopInserita" Text="" CssClass="pull-right" runat="server" />
                     </div>
                 </div>
@@ -346,9 +275,16 @@
             <!-- Maschera Gestione Operaio -->
             <asp:Panel ID="pnlGestioneOperaio" CssClass="col-md-12" runat="server">
                 <div class="row">
+                    <div class="col-md-offset-3 col-md-6">
+                        <asp:Label ID="lblScegliOperaio" Text="Scegli Operaio" runat="server" />
+                        <asp:DropDownList ID="ddlScegliOperaio" CssClass="form-control" AutoPostBack="true" OnTextChanged="ddlScegliOperaio_TextChanged" runat="server"></asp:DropDownList>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-md-4">
-                        <asp:Label ID="Label20" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="TextBox12" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
+                        <asp:Label ID="lblOperQta" Text="Quantità" runat="server" />
+                        <asp:TextBox ID="txtOperQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <asp:Label ID="lblPzzoOper" Text="Prezzo Operaio" runat="server" />
@@ -362,30 +298,30 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <asp:Label ID="Label21" Text="Note 1" runat="server" />
-                        <asp:TextBox ID="TextBox13" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:Label ID="lblOperNote1" Text="Note 1" runat="server" />
+                        <asp:TextBox ID="txtOperNote1" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-6">
-                        <asp:Label ID="Label22" Text="Note 2" runat="server" />
-                        <asp:TextBox ID="TextBox14" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:Label ID="lblOperNote2" Text="Note 2" runat="server" />
+                        <asp:TextBox ID="txtOperNote2" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-2">
-                        <asp:Label ID="Label23" Text="Visibile" runat="server" />
-                        <asp:CheckBox ID="CheckBox7" CssClass="form-control" Checked="true" runat="server" />
+                        <asp:Label ID="lblOperVisibile" Text="Visibile" runat="server" />
+                        <asp:CheckBox ID="chkOperVisibile" CssClass="form-control" Checked="true" runat="server" />
                     </div>
                     <div class="col-md-2">
-                        <asp:Label ID="Label24" Text="Ricalcolo" runat="server" />
-                        <asp:CheckBox ID="CheckBox8" CssClass="form-control" Enabled="false" runat="server" />
+                        <asp:Label ID="lblOperRicalcolo" Text="Ricalcolo" runat="server" />
+                        <asp:CheckBox ID="chkOperRicalcolo" CssClass="form-control" Enabled="false" Checked="false" runat="server" />
                     </div>
                     <div class="col-md-2">
-                        <asp:Label ID="Label25" Text="Ricarico Si/No" runat="server" />
-                        <asp:CheckBox ID="CheckBox9" CssClass="form-control" Checked="true" runat="server" />
+                        <asp:Label ID="lblOperRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
+                        <asp:CheckBox ID="chkOperRicaricoSiNo" CssClass="form-control" Checked="true" runat="server" />
                     </div>
                     <div class="col-md-6">
-                        <asp:Button ID="Button4" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
+                        <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Operaio" />
                         <asp:Label ID="lblIsOperInserita" Text="" CssClass="pull-right" runat="server" />
                     </div>
                 </div>
@@ -396,12 +332,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <asp:Label ID="Label26" Text="Codice Articolo" runat="server" />
-                            <asp:TextBox ID="TextBox15" CssClass="form-control" runat="server" Text="Arrotondamento"></asp:TextBox>
+                            <asp:Label ID="lblArrotCodArt" Text="Codice Articolo" runat="server" />
+                            <asp:TextBox ID="txtArrotCodArt" CssClass="form-control" runat="server" Text="Arrotondamento"></asp:TextBox>
                         </div>
                         <div class="col-md-6">
-                            <asp:Label ID="Label27" Text="Descrizione Codice Articolo" runat="server" />
-                            <asp:TextBox ID="TextBox16" CssClass="form-control" runat="server" Text="Arrotondamento"></asp:TextBox>
+                            <asp:Label ID="lblArrotDescriCodArt" Text="Descrizione Codice Articolo" runat="server" />
+                            <asp:TextBox ID="txtArrotDescriCodArt" CssClass="form-control" runat="server" Text="Arrotondamento"></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -409,12 +345,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <asp:Label ID="Label28" Text="Quantità" runat="server" />
-                            <asp:TextBox ID="TextBox17" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
+                            <asp:Label ID="lblArrotQta" Text="Quantità" runat="server" />
+                            <asp:TextBox ID="txtArrotQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-6">
-                            <asp:Label ID="Label29" Text="Prezzo Unitario" runat="server" />
-                            <asp:TextBox ID="TextBox18" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:Label ID="lblArrotPzzoUnit" Text="Prezzo Unitario" runat="server" />
+                            <asp:TextBox ID="txtArrotPzzoUnit" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -422,19 +358,19 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-2">
-                            <asp:Label ID="Label30" Text="Visibile" runat="server" />
-                            <asp:CheckBox ID="CheckBox10" CssClass="form-control" Enabled="false" runat="server" />
+                            <asp:Label ID="lblArrotVisibile" Text="Visibile" runat="server" />
+                            <asp:CheckBox ID="chkArrotVisibile" CssClass="form-control" Enabled="false" runat="server" />
                         </div>
                         <div class="col-md-2">
-                            <asp:Label ID="Label31" Text="Ricalcolo" runat="server" />
-                            <asp:CheckBox ID="CheckBox11" CssClass="form-control" Enabled="false" runat="server" />
+                            <asp:Label ID="lblArrotRicalcolo" Text="Ricalcolo" runat="server" />
+                            <asp:CheckBox ID="chkArrotRicalcolo" CssClass="form-control" Enabled="false" runat="server" />
                         </div>
                         <div class="col-md-2">
-                            <asp:Label ID="Label32" Text="Ricarico Si/No" runat="server" />
-                            <asp:CheckBox ID="CheckBox12" CssClass="form-control" Enabled="false" runat="server" />
+                            <asp:Label ID="lblArrotRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
+                            <asp:CheckBox ID="chkArrotRicaricoSiNo" CssClass="form-control" Enabled="false" runat="server" />
                         </div>
                         <div class="col-md-6">
-                            <asp:Button ID="Button5" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
+                            <asp:Button ID="btnInsArrot" OnClick="btnInsArrot_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Arrotondamento" />
                             <asp:Label ID="lblIsArrotondInserito" Text="" CssClass="pull-right" runat="server" />
                         </div>
                     </div>
@@ -446,12 +382,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="col-md-6">
-                            <asp:Label ID="lblImporto" Text="Importo" runat="server" />
-                            <asp:TextBox ID="txtImporto" CssClass="form-control" runat="server" Text=""></asp:TextBox>
+                            <asp:Label ID="lblImportoPagam" Text="Importo" runat="server" />
+                            <asp:TextBox ID="txtImportoPagam" CssClass="form-control" runat="server" Text=""></asp:TextBox>
                         </div>
                         <div class="col-md-6">
-                            <asp:Label ID="lblDescr" Text="Descrizione" runat="server" />
-                            <asp:TextBox ID="txtDescr" CssClass="form-control" runat="server" Text=""></asp:TextBox>
+                            <asp:Label ID="lblDescrPagam" Text="Descrizione" runat="server" />
+                            <asp:TextBox ID="txtDescrPagam" CssClass="form-control" runat="server" Text=""></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -460,14 +396,14 @@
                     <div class="col-md-12">
                         <div class="col-md-2">
                             <asp:Label ID="lblAcconto" Text="Acconto" runat="server" />
-                            <asp:CheckBox ID="chkACconto" CssClass="form-control" Enabled="false" runat="server" />
+                            <asp:CheckBox ID="chkAcconto" CssClass="form-control" Enabled="false" runat="server" />
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblSaldo" Text="Saldo" runat="server" />
                             <asp:CheckBox ID="chkSaldo" CssClass="form-control" Enabled="false" runat="server" />
                         </div>
                         <div class="col-md-8">
-                            <asp:Button ID="Button6" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
+                            <asp:Button ID="btnInsPagam" OnClick="btnInsPagam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Pagamento" />
                             <asp:Label ID="lblIsPagamInserito" Text="" CssClass="pull-right" runat="server" />
                         </div>
                     </div>
