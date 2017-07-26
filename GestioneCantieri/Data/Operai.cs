@@ -9,20 +9,23 @@ namespace GestioneCantieri.Data
     {
         int idOperaio;
         string nomeOp, descrOp, suffisso, operaio;
+        decimal costoOperaio;
 
         public Operai()
         {
             this.idOperaio = -1;
             this.nomeOp = this.descrOp = this.suffisso = this.operaio = "";
+            this.costoOperaio = 0.0m;
         }
 
-        public Operai(int idOperaio, string nomeOp, string descrOp, string suffisso, string operaio)
+        public Operai(int idOperaio, string nomeOp, string descrOp, string suffisso, string operaio, decimal costoOperaio)
         {
             this.idOperaio = idOperaio;
             this.nomeOp = nomeOp;
             this.descrOp = descrOp;
             this.suffisso = suffisso;
             this.operaio = operaio;
+            this.costoOperaio = costoOperaio;
         }
 
         public string DescrOp
@@ -88,6 +91,12 @@ namespace GestioneCantieri.Data
             {
                 suffisso = value;
             }
+        }
+
+        public decimal CostoOperaio
+        {
+            get { return costoOperaio; }
+            set { costoOperaio = value; }
         }
     }
 }

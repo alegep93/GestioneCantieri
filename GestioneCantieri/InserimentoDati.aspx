@@ -271,13 +271,17 @@
                     <asp:Label ID="lblDescrOper" runat="server" Text="Descrizione" />
                     <asp:TextBox ID="txtDescrOper" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
-                <div class="col-md-3 form-group">
+                <div class="col-md-2 form-group">
                     <asp:Label ID="lblSuffOper" runat="server" Text="Suffisso" />
                     <asp:TextBox ID="txtSuffOper" CssClass="form-control" MaxLength="4" runat="server"></asp:TextBox>
                 </div>
-                <div class="col-md-3 form-group">
+                <div class="col-md-2 form-group">
                     <asp:Label ID="lblOperaio" runat="server" Text="Operaio" />
                     <asp:TextBox ID="txtOperaio" CssClass="form-control" MaxLength="4" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-2 form-group">
+                    <asp:Label ID="lblCostoOperaio" runat="server" Text="Costo Operaio" />
+                    <asp:TextBox ID="txtCostoOperaio" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
 
                 <asp:HiddenField ID="hidIdOper" runat="server" />
@@ -297,6 +301,7 @@
                             <asp:BoundField HeaderText="Descrizione" DataField="DescrOp" />
                             <asp:BoundField HeaderText="Suffisso" DataField="Suffisso" />
                             <asp:BoundField HeaderText="Operaio" DataField="Operaio" />
+                            <asp:BoundField HeaderText="Costo Operaio" DataField="CostoOperaio" />
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:Button ID="btnVisualOper" CommandName="VisualOper" CommandArgument="<%# BindItem.IdOperaio %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />

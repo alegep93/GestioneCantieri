@@ -2,6 +2,13 @@
 
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
     <title>Gestione DDT Mef</title>
+    <style>
+        .tableContainer {
+            max-height: 500px;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
     <h1>DDT Mef</h1>
@@ -91,7 +98,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 tableContainer">
                 <asp:GridView ID="grdListaDDTMef" runat="server" OnRowDataBound="grdListaDDTMef_RowDataBound" ItemType="GestioneCantieri.Data.DDTMef"
                     AutoGenerateColumns="False" OnRowCommand="grdListaDDTMef_RowCommand"
                     PageSize="20" OnPageIndexChanging="grdListaDDTMef_PageIndexChanging" CssClass="table table-striped table-responsive text-center">
