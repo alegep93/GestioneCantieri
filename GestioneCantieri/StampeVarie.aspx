@@ -2,6 +2,14 @@
 
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
     <title>Stampe Varie</title>
+    <style>
+        span.pull-right {
+            position: relative;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+        }
+    </style>
 </asp:Content>
 
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
@@ -40,27 +48,23 @@
                 <asp:TextBox ID="txtNomeFile" CssClass="form-control" runat="server"></asp:TextBox>
             </div>
             <div class="col-md-12">
-                <asp:Button ID="btnShowGridView" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnShowGridView_Click" runat="server" Text="Mostra Risultati" />
+                <asp:Button ID="btnStampaDDT" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaDDT_Click" runat="server" Text="Stampa DDT" />
+                <asp:Label ID="lblIsNomeFileInserito" runat="server" CssClass="pull-right" Text=""></asp:Label>
             </div>
         </asp:Panel>
 
-        <asp:GridView ID="grdStampaDDT" runat="server" ItemType="GestioneCantieri.Data.DDTMef" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center">
+        <asp:GridView ID="grdStampaDDT" runat="server" ItemType="GestioneCantieri.Data.DDTMef" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="false">
             <Columns>
-                <asp:BoundField DataField="Anno" HeaderText="Anno" />
-                <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                <%--<asp:BoundField DataField="Anno" HeaderText="Anno" />--%>
+                <%--<asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />--%>
                 <asp:BoundField DataField="N_ddt" HeaderText="N_DDT" />
                 <asp:BoundField DataField="CodArt" HeaderText="Codice Articolo" />
-                <asp:BoundField DataField="DescriCodArt" HeaderText="Descrizione Codice Articolo" />
+                <asp:BoundField DataField="DescriCodArt" HeaderText="Descrizione Cod. Art." />
                 <asp:BoundField DataField="Qta" HeaderText="Quantità" />
-                <asp:BoundField DataField="Importo" HeaderText="Importo" DataFormatString="{0:0.00}" />
-                <asp:BoundField DataField="Acquirente" HeaderText="Acquirente" />
-                <asp:BoundField DataField="PrezzoUnitario" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
-                <asp:BoundField DataField="AnnoN_ddt" HeaderText="Anno N_DDT" />
+                <%--<asp:BoundField DataField="Acquirente" HeaderText="Acquirente" />--%>
+                <asp:BoundField DataField="PrezzoUnitario" HeaderText="Prezzo Unit." />
+                <asp:BoundField DataField="Valore" HeaderText="Valore" />
             </Columns>
         </asp:GridView>
-
-        <div class="col-md-12">
-            <asp:Button ID="btnStampaDDT" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaDDT_Click" runat="server" Text="Stampa DDT" />
-        </div>
     </div>
 </asp:Content>
