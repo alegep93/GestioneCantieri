@@ -148,13 +148,22 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtNomeFile;
         
         /// <summary>
-        /// Controllo btnShowGridView.
+        /// Controllo btnStampaDDT.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnShowGridView;
+        protected global::System.Web.UI.WebControls.Button btnStampaDDT;
+        
+        /// <summary>
+        /// Controllo lblIsNomeFileInserito.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIsNomeFileInserito;
         
         /// <summary>
         /// Controllo grdStampaDDT.
@@ -164,14 +173,5 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdStampaDDT;
-        
-        /// <summary>
-        /// Controllo btnStampaDDT.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStampaDDT;
     }
 }

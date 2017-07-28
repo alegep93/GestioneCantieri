@@ -10,17 +10,17 @@ namespace GestioneCantieri.Data
         int id, anno, n_ddt, qta, annoN_ddt;
         DateTime data;
         string codArt, descriCodArt, acquirente;
-        decimal importo, prezzoUnitario;
+        decimal importo, prezzoUnitario, valore;
 
         public DDTMef()
         {
             id = anno = n_ddt = qta = annoN_ddt = 0;
             data = new DateTime();
             codArt = descriCodArt = acquirente = null;
-            importo = prezzoUnitario = 0m;
+            importo = prezzoUnitario = Valore = 0m;
         }
 
-        public DDTMef(int id, int anno, int n_ddt, int qta, int annoN_ddt, DateTime data, string codArt, string descrCodArt, string acquirente, decimal importo, decimal prezzoUnitario)
+        public DDTMef(int id, int anno, int n_ddt, int qta, int annoN_ddt, DateTime data, string codArt, string descrCodArt, string acquirente, decimal importo, decimal prezzoUnitario, decimal valore)
         {
             this.id = id;
             this.anno = anno;
@@ -33,6 +33,7 @@ namespace GestioneCantieri.Data
             this.acquirente = acquirente;
             this.importo = importo;
             this.prezzoUnitario = prezzoUnitario;
+            this.Valore = valore;
         }
 
         public int Id
@@ -100,5 +101,7 @@ namespace GestioneCantieri.Data
             get { return prezzoUnitario; }
             set { prezzoUnitario = value; }
         }
+
+        public decimal Valore { get => valore; set => valore = value; }
     }
 }
