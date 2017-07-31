@@ -8,7 +8,7 @@ namespace GestioneCantieri.Data
     public class MaterialiCantieri
     {
         int idMaterialiCantieri, idTblCantieri, fascia, numeroBolla, protocolloInterno;
-        string descriMateriali, codArt, descriCodArt, tipologia, acquirente, fornitore, note, codCant;
+        string descriMateriali, codArt, descriCodArt, tipologia, acquirente, fornitore, note, codCant, descriCodCant;
         double qta;
         decimal pzzoUniCantiere, pzzoFinCli, valore;
         bool visibile, ricalcolo, ricaricoSiNo, rientro;
@@ -18,14 +18,14 @@ namespace GestioneCantieri.Data
         {
             this.idMaterialiCantieri = this.idTblCantieri = this.fascia = this.numeroBolla = this.protocolloInterno = -1;
             this.descriMateriali = this.codArt = this.descriCodArt = this.tipologia = "";
-            this.acquirente = this.fornitore = this.note = this.CodCant = "";
+            this.acquirente = this.fornitore = this.note = this.CodCant = this.DescriCodCant= "";
             this.qta = -1d;
             this.pzzoUniCantiere = this.PzzoFinCli = this.Valore = 0m;
             this.visibile = this.ricalcolo = this.ricaricoSiNo = this.rientro = false;
             this.data = new DateTime();
         }
 
-        public MaterialiCantieri(int idMaterialiCantieri, int idTblCantieri, int fascia, int numeroBolla, int protocolloInterno, string descriMateriali, string codArt, string descriCodArt, string unitàDiMisura, string zOldNumeroBolla, string mate, string acquirente, string fornitore, string note, double qta, decimal pzzoUniCantiere, decimal pzzoTemp, bool visibile, bool ricalcolo, bool ricaricoSiNo, bool rientro, DateTime data, decimal pzzoFinCli, string codCant, decimal valore)
+        public MaterialiCantieri(int idMaterialiCantieri, int idTblCantieri, int fascia, int numeroBolla, int protocolloInterno, string descriMateriali, string codArt, string descriCodArt, string unitàDiMisura, string zOldNumeroBolla, string mate, string acquirente, string fornitore, string note, double qta, decimal pzzoUniCantiere, decimal pzzoTemp, bool visibile, bool ricalcolo, bool ricaricoSiNo, bool rientro, DateTime data, decimal pzzoFinCli, string codCant, decimal valore,string descriCodCant)
         {
             this.idMaterialiCantieri = idMaterialiCantieri;
             this.idTblCantieri = idTblCantieri;
@@ -49,6 +49,7 @@ namespace GestioneCantieri.Data
             this.data = data;
             this.CodCant = codCant;
             this.Valore = valore;
+            this.DescriCodCant = descriCodCant;
         }
 
         public int IdMaterialiCantieri
@@ -313,5 +314,6 @@ namespace GestioneCantieri.Data
 
         public string CodCant { get => codCant; set => codCant = value; }
         public decimal Valore { get => valore; set => valore = value; }
+        public string DescriCodCant { get => descriCodCant; set => descriCodCant = value; }
     }
 }
