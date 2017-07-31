@@ -120,6 +120,70 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
+        public static List<MaterialiCantieri> GetMaterialeCantiere(string dataInizio, string dataFine, string acquirente, string fornitore, string n_ddt)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            List<MaterialiCantieri> matList = new List<MaterialiCantieri>();
+            string sql = "";
+
+            fornitore = "%" + fornitore + "%";
+            acquirente = "%" + acquirente + "%";
+            n_ddt = "%" + n_ddt + "%";
+
+            try
+            {
+                sql = "SELECT IdMaterialiCantiere,D.CodCant,DescriMateriali,Qta,Visibile,Ricalcolo, " +
+                      "ricaricoSiNo,A.Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,C.NomeOp AS 'Acquirente',B.RagSocForni AS 'Fornitore', " +
+                      "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli " +
+                      "FROM TblMaterialiCantieri AS A " +
+                      "LEFT JOIN TblForitori AS B ON(A.Fornitore = B.IdFornitori) " +
+                      "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
+                      "LEFT JOIN TblCantieri AS D ON (A.IdTblCantieri = D.IdCantieri)" +
+                      "WHERE (A.Data BETWEEN Convert(date,@pDataInizio) AND Convert(date,@pDataFine)) AND C.NomeOp LIKE @pAcquirente AND B.RagSocForni LIKE @pFornitore AND NumeroBolla LIKE @pN_DDT  ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
+                cmd.Parameters.Add(new SqlParameter("pDataFine", dataFine));
+                cmd.Parameters.Add(new SqlParameter("pAcquirente", acquirente));
+                cmd.Parameters.Add(new SqlParameter("pFornitore", fornitore));
+                cmd.Parameters.Add(new SqlParameter("pN_DDT", n_ddt));
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    MaterialiCantieri mc = new MaterialiCantieri();
+                    mc.IdMaterialiCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
+                    mc.CodCant = (dr.IsDBNull(1) ? null : dr.GetString(1));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.Qta = (dr.IsDBNull(3) ? -1.0d : dr.GetDouble(3));
+                    mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
+                    mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
+                    mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
+                    mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
+                    mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
+                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
+                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
+                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
+                    matList.Add(mc);
+                }
+
+                return matList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei materiali di cantiere per singolo cantiere", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
 
         //INSERT
         public static bool InserisciMaterialeCantiere(MaterialiCantieri mc)

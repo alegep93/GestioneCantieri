@@ -49,6 +49,7 @@
             </div>
             <div class="col-md-12">
                 <asp:Button ID="btnStampaDDT" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaDDT_Click" runat="server" Text="Stampa DDT" />
+                <asp:Button ID="btnStampaMatCant" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaMatCant_Click" runat="server" Text="Stampa Mat Cant" />
                 <asp:Label ID="lblIsNomeFileInserito" runat="server" CssClass="pull-right" Text=""></asp:Label>
             </div>
         </asp:Panel>
@@ -63,6 +64,20 @@
                 <asp:BoundField DataField="Qta" HeaderText="Quantità" />
                 <%--<asp:BoundField DataField="Acquirente" HeaderText="Acquirente" />--%>
                 <asp:BoundField DataField="PrezzoUnitario" HeaderText="Prezzo Unit." />
+                <asp:BoundField DataField="Valore" HeaderText="Valore" />
+            </Columns>
+        </asp:GridView>
+
+        <asp:GridView ID="grdStampaMateCant" runat="server" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="false">
+            <Columns>
+                <asp:BoundField DataField="NumeroBolla" HeaderText="Num. Bolla" />
+                <asp:BoundField DataField="Fornitore" HeaderText="Fornit." />
+                <asp:BoundField DataField="CodCant" HeaderText="CodCant" />
+                <asp:BoundField DataField="Acquirente" HeaderText="Acquirente" />
+                <asp:BoundField DataField="CodArt" HeaderText="CodArt" />
+                <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. CodArt" />
+                <asp:BoundField DataField="Qta" HeaderText="Qta" />
+                <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." />
                 <asp:BoundField DataField="Valore" HeaderText="Valore" />
             </Columns>
         </asp:GridView>

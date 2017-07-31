@@ -157,6 +157,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnStampaDDT;
         
         /// <summary>
+        /// Controllo btnStampaMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnStampaMatCant;
+        
+        /// <summary>
         /// Controllo lblIsNomeFileInserito.
         /// </summary>
         /// <remarks>
@@ -173,5 +182,14 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdStampaDDT;
+        
+        /// <summary>
+        /// Controllo grdStampaMateCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdStampaMateCant;
     }
 }
