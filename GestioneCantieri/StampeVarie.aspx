@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <asp:Panel ID="pnlCampiStampaDDT" runat="server">
+        <asp:Panel ID="pnlCampiStampaDDT_MatCant" runat="server">
             <div class="col-md-4">
                 <asp:Label ID="lblDataDa" runat="server" Text="Data Da:"></asp:Label>
                 <asp:TextBox ID="txtDataDa" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
@@ -50,9 +50,42 @@
             <div class="col-md-12">
                 <asp:Button ID="btnStampaDDT" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaDDT_Click" runat="server" Text="Stampa DDT" />
                 <asp:Button ID="btnStampaMatCant" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaMatCant_Click" runat="server" Text="Stampa Mat Cant" />
-                <asp:Label ID="lblIsNomeFileInserito" runat="server" CssClass="pull-right" Text=""></asp:Label>
             </div>
         </asp:Panel>
+
+        <asp:Panel ID="pnlCampiStampaCliente" runat="server">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="col-md-3">
+                    <asp:Label ID="lblAnno" runat="server" Text="Anno"></asp:Label>
+                    <asp:TextBox ID="txtAnno" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblCodCant" runat="server" Text="Codice Cantiere"></asp:Label>
+                    <asp:TextBox ID="txtCodCant" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-1">
+                    <asp:Label ID="lblChiuso" runat="server" Text="Chiuso"></asp:Label>
+                    <asp:CheckBox ID="chkChiuso" runat="server" />
+                </div>
+                <div class="col-md-1">
+                    <asp:Label ID="lblRiscosso" runat="server" Text="Riscosso"></asp:Label>
+                    <asp:CheckBox ID="chkRiscosso" runat="server" />
+                </div>
+                <div class="col-md-3">
+                    <asp:Button ID="btnFiltraCantieri" CssClass="btn btn-lg btn-primary" OnClick="btnFiltraCantieri_Click" runat="server" Text="Filtra Cantieri" />
+                </div>
+                <div class="col-md-12">
+                    <asp:DropDownList ID="ddlScegliCant" CssClass="form-control" runat="server"></asp:DropDownList>
+                </div>
+            </div>
+            <div class="col-md-offset-8 col-md-4">
+                <asp:Label ID="lblNomeFileStampaCliente" runat="server" Text="Nome File"></asp:Label>
+                <asp:TextBox ID="txtNomeFileStampaCliente" CssClass="form-control" runat="server"></asp:TextBox>
+                <asp:Button ID="btnStampaCliente" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaCliente_Click" runat="server" Text="Stampa Materiale Cliente" />
+            </div>
+        </asp:Panel>
+
+        <asp:Label ID="lblIsNomeFileInserito" runat="server" CssClass="pull-right" Text=""></asp:Label>
 
         <asp:GridView ID="grdStampaDDT" runat="server" ItemType="GestioneCantieri.Data.DDTMef" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="false">
             <Columns>
@@ -75,6 +108,16 @@
                 <asp:BoundField DataField="CodCant" HeaderText="CodCant" />
                 <asp:BoundField DataField="Acquirente" HeaderText="Acquirente" />
                 <asp:BoundField DataField="CodArt" HeaderText="CodArt" />
+                <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. CodArt" />
+                <asp:BoundField DataField="Qta" HeaderText="Qta" />
+                <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." />
+                <asp:BoundField DataField="Valore" HeaderText="Valore" />
+            </Columns>
+        </asp:GridView>
+
+        <asp:GridView ID="grdStampaCliente" runat="server" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="false">
+            <Columns>
+                <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
                 <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. CodArt" />
                 <asp:BoundField DataField="Qta" HeaderText="Qta" />
                 <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." />
