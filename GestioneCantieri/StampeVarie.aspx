@@ -9,6 +9,12 @@
             right: 10px;
             font-size: 20px;
         }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            left: 0px !important;
+        }
     </style>
 </asp:Content>
 
@@ -75,10 +81,11 @@
                     <asp:Button ID="btnFiltraCantieri" CssClass="btn btn-lg btn-primary" OnClick="btnFiltraCantieri_Click" runat="server" Text="Filtra Cantieri" />
                 </div>
                 <div class="col-md-12">
+                    <asp:Label ID="lblScegliCantiere" runat="server" Text="Scegli Cantiere"></asp:Label>
                     <asp:DropDownList ID="ddlScegliCant" CssClass="form-control" runat="server"></asp:DropDownList>
                 </div>
             </div>
-            <div class="col-md-offset-8 col-md-4">
+            <div class="col-md-offset-3 col-md-6">
                 <asp:Label ID="lblNomeFileStampaCliente" runat="server" Text="Nome File"></asp:Label>
                 <asp:TextBox ID="txtNomeFileStampaCliente" CssClass="form-control" runat="server"></asp:TextBox>
                 <asp:Button ID="btnStampaCliente" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaCliente_Click" runat="server" Text="Stampa Materiale Cliente" />
