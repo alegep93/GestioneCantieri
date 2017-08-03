@@ -19,7 +19,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT id,nomeStampa " +
                       "FROM TblStampe " +
-                      "ORDER BY nomeStampa ";
+                      "ORDER BY id ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);

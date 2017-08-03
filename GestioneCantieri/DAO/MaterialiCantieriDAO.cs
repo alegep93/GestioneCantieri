@@ -1,6 +1,7 @@
 ﻿using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -241,6 +242,226 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
+        public static List<MaterialiCantieri> GetMatCantPerResocontoOperaio(string dataInizio, string dataFine, string acquirente)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            List<MaterialiCantieri> matCantList = new List<MaterialiCantieri>();
+            string sql = "";
+
+            try
+            {
+                sql = "SELECT A.Data,C.NomeOp,B.CodCant,B.DescriCodCAnt,A.Qta,C.CostoOperaio,A.OperaioPagato " +
+                      "FROM TblMaterialiCantieri AS A " +
+                      "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
+                      "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
+                      "WHERE (A.Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND C.NomeOp LIKE @pAcquirente AND A.OperaioPagato = 0 ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
+                cmd.Parameters.Add(new SqlParameter("pDataFine", dataFine));
+                cmd.Parameters.Add(new SqlParameter("pAcquirente", acquirente));
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    MaterialiCantieri mc = new MaterialiCantieri();
+                    mc.Data = (dr.IsDBNull(0) ? new DateTime() : dr.GetDateTime(0));
+                    mc.Acquirente = (dr.IsDBNull(1) ? null : dr.GetString(1));
+                    mc.CodCant = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.DescriCodCant = (dr.IsDBNull(3) ? null : dr.GetString(3));
+                    mc.Qta = (dr.IsDBNull(4) ? -0d : dr.GetDouble(4));
+                    mc.CostoOperaio = (dr.IsDBNull(5) ? -0m : dr.GetDecimal(5));
+                    mc.OperaioPagato = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
+                    matCantList.Add(mc);
+                }
+
+                return matCantList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei dati per il resoconto operaio", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
+
+        //Calcolo Totali
+        public static decimal TotMaterialeVisibile(string idCant)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            MaterialiCantieri mc = new MaterialiCantieri();
+            decimal totMatVisibile = 0m;
+            string sql;
+
+            try
+            {
+                sql = "SELECT IdTblCantieri,PzzoUniCantiere,Qta,Visibile " +
+                      "FROM TblMaterialiCantieri " +
+                      "WHERE Tipologia = 'MATERIALE' AND Visibile = 1 AND Ricalcolo = 1 AND IdTblCantieri = @pIdCant ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    mc.PzzoUniCantiere = (dr.IsDBNull(1) ? 0m : dr.GetDecimal(1));
+                    mc.Qta = (dr.IsDBNull(2) ? 0d : dr.GetDouble(2));
+                    totMatVisibile += mc.PzzoUniCantiere * Convert.ToInt32(mc.Qta);
+                }
+
+                return totMatVisibile;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del materiale visibile", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
+        public static decimal TotNascosto(string idCant)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            MaterialiCantieri mc = new MaterialiCantieri();
+            decimal totMatNascosto = 0m;
+            string sql;
+
+            try
+            {
+                sql = "SELECT IdTblCantieri,PzzoUniCantiere,Qta,Visibile " +
+                      "FROM TblMaterialiCantieri " +
+                      "WHERE Visibile = 0 AND IdTblCantieri = @pIdCant ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    mc.PzzoUniCantiere = (dr.IsDBNull(1) ? 0m : dr.GetDecimal(1));
+                    mc.Qta = (dr.IsDBNull(2) ? 0d : dr.GetDouble(2));
+                    totMatNascosto += mc.PzzoUniCantiere * Convert.ToInt32(mc.Qta);
+                }
+
+                return totMatNascosto;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del materiale visibile", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
+
+        //Valore Ricalcolo
+        public static List<decimal> CalcolaValoreRicalcolo(string idCant, decimal perc)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            List<decimal> decList = new List<decimal>();
+            string sql;
+
+            try
+            {
+                sql = "SELECT ((PzzoUniCantiere * @pPerc)/100) AS 'Valore Ricalcolo' " +
+                      "FROM TblMaterialiCantieri " +
+                      "WHERE Visibile = 1 AND Ricalcolo = 1 AND IdTblCantieri = @pIdCant ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+                cmd.Parameters.Add(new SqlParameter("pPerc", perc));
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    MaterialiCantieri mc = new MaterialiCantieri();
+                    mc.ValoreRicalcolo = (dr.IsDBNull(0) ? 0m : dr.GetDecimal(0));
+                    decList.Add(mc.ValoreRicalcolo);
+                }
+
+                return decList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del materiale visibile", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
+        //Valore Ricarico
+        public static List<decimal> CalcolaValoreRicarico(string idCant)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            List<decimal> decList = new List<decimal>();
+            string sql;
+
+            try
+            {
+                sql = "SELECT (((A.PzzoUniCantiere * B.Ricarico)/100)) AS 'Valore Ricarico' " +
+                      "FROM TblMaterialiCantieri AS A " +
+                      "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
+                      "WHERE Visibile = 1 AND ricaricoSiNo = 1 AND IdTblCantieri = @pIdCant ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    MaterialiCantieri mc = new MaterialiCantieri();
+                    mc.ValoreRicarico = (dr.IsDBNull(0) ? 0m : dr.GetDecimal(0));
+                    decList.Add(mc.ValoreRicarico);
+                }
+
+                return decList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del materiale visibile", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
+
+        //Estrazione dati per creazione intestazione Conto Finale Cliente e Verifica Cantieri
+        public static MaterialiCantieri GetDataPerIntestazione(string idCant)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            MaterialiCantieri mc = new MaterialiCantieri();
+            string sql = "";
+
+            try
+            {
+                sql = "SELECT C.RagSocCli,B.CodCant,B.DescriCodCAnt " +
+                      "FROM TblMaterialiCantieri AS A " +
+                      "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
+                      "LEFT JOIN TblClienti AS C ON(B.IdTblClienti = C.IdCliente) " +
+                      "WHERE IdTblCantieri = @pIdCant ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    mc.RagSocCli = (dr.IsDBNull(0) ? null : dr.GetString(0));
+                    mc.CodCant = (dr.IsDBNull(1) ? null : dr.GetString(1));
+                    mc.DescriCodCant = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                }
+
+                return mc;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei dati per l'intestazione del conto fin. cli.", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
 
         //INSERT
         public static bool InserisciMaterialeCantiere(MaterialiCantieri mc)
@@ -470,6 +691,37 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'inserimento di una manodopera", ex);
+            }
+            finally { cn.Close(); }
+        }
+
+        //UPDATE
+        public static bool UpdateOperaioPagato(string dataInizio, string dataFine, string idOperaio)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "UPDATE TblMaterialiCantieri " +
+                      "SET OperaioPagato=1 " +
+                      "WHERE (Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND Acquirente=@pIdOperaio ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
+                cmd.Parameters.Add(new SqlParameter("pDataFine", dataFine));
+                cmd.Parameters.Add(new SqlParameter("pIdOperaio", idOperaio));
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'update del campo OperaioPagato", ex);
             }
             finally { cn.Close(); }
         }

@@ -82,7 +82,8 @@ namespace GestioneCantieri
 
             foreach (Cantieri c in listCantieri)
             {
-                ddlScegliCant.Items.Add(new System.Web.UI.WebControls.ListItem(c.DescriCodCAnt, c.IdCantieri.ToString()));
+                string show = c.CodCant + " - " + c.DescriCodCAnt;
+                ddlScegliCant.Items.Add(new System.Web.UI.WebControls.ListItem(show, c.IdCantieri.ToString()));
             }
         }
         protected void FillAllDdl()
@@ -126,7 +127,7 @@ namespace GestioneCantieri
         }
         protected PdfPTable InitializePdfTableMatCant()
         {
-            float[] columns = { 120f, 130f, 170f, 160f, 150f, 250f, 110f, 150f, 120f };
+            float[] columns = { 170f, 130f, 170f, 160f, 140f, 240f, 110f, 150f, 130f };
             PdfPTable table = new PdfPTable(grdStampaMateCant.Columns.Count);
             table.WidthPercentage = 100;
             table.SetTotalWidth(columns);
@@ -264,7 +265,7 @@ namespace GestioneCantieri
 
                                         if (j == 4)
                                         {
-                                            cellText = new Phrase(Server.HtmlDecode(Math.Round(Convert.ToDecimal(grdStampaDDT.Rows[i].Cells[j].Text), 2).ToString()), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
+                                            cellText = new Phrase(Server.HtmlDecode(String.Format("{0:n}",Math.Round(Convert.ToDecimal(grdStampaDDT.Rows[i].Cells[j].Text)), 2).ToString()), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
                                         }
                                         else
                                         {
@@ -380,7 +381,7 @@ namespace GestioneCantieri
 
                                         if (j == 7)
                                         {
-                                            cellText = new Phrase(Server.HtmlDecode(Math.Round(Convert.ToDecimal(grdStampaMateCant.Rows[i].Cells[j].Text), 2).ToString()), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
+                                            cellText = new Phrase(Server.HtmlDecode(String.Format("{0:n}", Math.Round(Convert.ToDecimal(grdStampaMateCant.Rows[i].Cells[j].Text)), 2).ToString()), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
                                         }
                                         else
                                         {
@@ -411,11 +412,11 @@ namespace GestioneCantieri
                                     else
                                     {
                                         decimal valore = Convert.ToInt32(Server.HtmlDecode(grdStampaMateCant.Rows[i].Cells[6].Text)) * Convert.ToDecimal(Server.HtmlDecode(grdStampaMateCant.Rows[i].Cells[7].Text));
-                                        Phrase val = new Phrase(Math.Round(valore, 2).ToString(), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
+                                        Phrase val = new Phrase(String.Format("{0:n}", Math.Round(valore, 2)), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
                                         PdfPCell valCel = new PdfPCell(val);
                                         valCel.HorizontalAlignment = Element.ALIGN_RIGHT;
 
-                                        grdStampaMateCant.Rows[i].Cells[8].Text = Math.Round(valore, 2).ToString();
+                                        grdStampaMateCant.Rows[i].Cells[8].Text = String.Format("{0:n}", Math.Round(valore, 2));
                                         valCel.BorderWidth = 0;
 
                                         table.AddCell(valCel);
@@ -495,7 +496,7 @@ namespace GestioneCantieri
 
                                     if (j == 3)
                                     {
-                                        cellText = new Phrase(Server.HtmlDecode(Math.Round(Convert.ToDecimal(grdStampaCliente.Rows[i].Cells[j].Text), 2).ToString()), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
+                                        cellText = new Phrase(Server.HtmlDecode(String.Format("{0:n}", Math.Round(Convert.ToDecimal(grdStampaCliente.Rows[i].Cells[j].Text), 2))), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
                                     }
                                     else
                                     {
@@ -526,11 +527,11 @@ namespace GestioneCantieri
                                 else
                                 {
                                     decimal valore = Convert.ToInt32(Server.HtmlDecode(grdStampaCliente.Rows[i].Cells[2].Text)) * Convert.ToDecimal(Server.HtmlDecode(grdStampaCliente.Rows[i].Cells[3].Text));
-                                    Phrase val = new Phrase(Math.Round(valore, 2).ToString(), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
+                                    Phrase val = new Phrase(String.Format("{0:n}", Math.Round(valore, 2)), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
                                     PdfPCell valCel = new PdfPCell(val);
                                     valCel.HorizontalAlignment = Element.ALIGN_RIGHT;
 
-                                    grdStampaCliente.Rows[i].Cells[4].Text = Math.Round(valore, 2).ToString();
+                                    grdStampaCliente.Rows[i].Cells[4].Text = String.Format("{0:n}", Math.Round(valore, 2));
                                     valCel.BorderWidth = 0;
 
                                     table.AddCell(valCel);
@@ -607,7 +608,7 @@ namespace GestioneCantieri
         {
             //Creazione Totali
             //Totale No Iva
-            Phrase totalePerNumDDT = new Phrase("Totale: " + totale.ToString(), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
+            Phrase totalePerNumDDT = new Phrase("Totale: " + String.Format("{0:n}", totale), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
             PdfPCell totPerNumDDTCell = new PdfPCell(totalePerNumDDT);
 
             totPerNumDDTCell.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -620,7 +621,7 @@ namespace GestioneCantieri
         }
         protected void GeneraTotaliFinali(PdfPTable tblTotali, decimal totaleFinale)
         {
-            Phrase totFinNoIva = new Phrase("Tot: " + totaleFinale, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
+            Phrase totFinNoIva = new Phrase("Tot: " + String.Format("{0:n}", totaleFinale), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
             PdfPCell totFinNoIvaCell = new PdfPCell(totFinNoIva);
 
             //IVA
@@ -629,7 +630,7 @@ namespace GestioneCantieri
             PdfPCell ivaCell = new PdfPCell(ivaPhrase);
 
             //Totale + IVA
-            Phrase totaleConIva = new Phrase("Imponibile: " + (totaleFinale + iva).ToString(), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
+            Phrase totaleConIva = new Phrase("Imponibile: " + String.Format("{0:n}", (totaleFinale + iva)), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
             PdfPCell totaleConIvaCell = new PdfPCell(totaleConIva);
 
             //Stile celle totali
@@ -649,7 +650,7 @@ namespace GestioneCantieri
             if (txtNomeFile.Text != "")
             {
                 BindGridStampaDDT();
-                ExportToPdfPerMatCant();
+                ExportToPdfPerDDT();
             }
             else
             {
@@ -683,6 +684,10 @@ namespace GestioneCantieri
                 lblIsNomeFileInserito.ForeColor = Color.Red;
             }
         }
+        protected void btnFiltraCantieri_Click(object sender, EventArgs e)
+        {
+            FillDdlScegliCantiere();
+        }
 
         /* EVENTI TEXT-CHANGED */
         protected void ddlScegliStampa_TextChanged(object sender, EventArgs e)
@@ -691,15 +696,18 @@ namespace GestioneCantieri
             switch (index)
             {
                 case 0:
-                    pnlCampiStampaDDT_MatCant.Visible = false; ;
+                    pnlCampiStampaDDT_MatCant.Visible = false;
+                    pnlCampiStampaCliente.Visible = false;
                     break;
                 case 1:
                     pnlCampiStampaDDT_MatCant.Visible = true;
+                    pnlCampiStampaCliente.Visible = false;
                     btnStampaDDT.Visible = true;
                     btnStampaMatCant.Visible = false;
                     break;
                 case 2:
                     pnlCampiStampaDDT_MatCant.Visible = true;
+                    pnlCampiStampaCliente.Visible = false;
                     btnStampaDDT.Visible = false;
                     btnStampaMatCant.Visible = true;
                     break;
@@ -715,11 +723,6 @@ namespace GestioneCantieri
         public override void VerifyRenderingInServerForm(Control control)
         {
             //Do nothing
-        }
-
-        protected void btnFiltraCantieri_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

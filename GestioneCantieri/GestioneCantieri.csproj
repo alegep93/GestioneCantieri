@@ -106,6 +106,8 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="ResocontoOperaio.aspx" />
+    <Content Include="RicalcoloConti.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\DynamicStampaOrdFrutStyle.js" />
@@ -136,6 +138,8 @@
     <Content Include="StampaFruttiGruppi.aspx" />
     <Content Include="StampaOrdFrutLocale.aspx" />
     <Content Include="StampaOrdFrutCantExcel.aspx" />
+    <Content Include="StampaValoriCantieri.aspx" />
+    <Content Include="StampaVerificaCantiere.aspx" />
     <Content Include="StampeVarie.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -173,6 +177,34 @@
     </Compile>
     <Compile Include="GestioneSpese.aspx.designer.cs">
       <DependentUpon>GestioneSpese.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ResocontoOperaio.aspx.cs">
+      <DependentUpon>ResocontoOperaio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ResocontoOperaio.aspx.designer.cs">
+      <DependentUpon>ResocontoOperaio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RicalcoloConti.aspx.cs">
+      <DependentUpon>RicalcoloConti.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RicalcoloConti.aspx.designer.cs">
+      <DependentUpon>RicalcoloConti.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StampaValoriCantieri.aspx.cs">
+      <DependentUpon>StampaValoriCantieri.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StampaValoriCantieri.aspx.designer.cs">
+      <DependentUpon>StampaValoriCantieri.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StampaVerificaCantiere.aspx.cs">
+      <DependentUpon>StampaVerificaCantiere.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StampaVerificaCantiere.aspx.designer.cs">
+      <DependentUpon>StampaVerificaCantiere.aspx</DependentUpon>
     </Compile>
     <Compile Include="StampeVarie.aspx.cs">
       <DependentUpon>StampeVarie.aspx</DependentUpon>
