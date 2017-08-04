@@ -138,6 +138,7 @@
     <Content Include="StampaFruttiGruppi.aspx" />
     <Content Include="StampaOrdFrutLocale.aspx" />
     <Content Include="StampaOrdFrutCantExcel.aspx" />
+    <Content Include="StampaPerTipologia.aspx" />
     <Content Include="StampaValoriCantieri.aspx" />
     <Content Include="StampaVerificaCantiere.aspx" />
     <Content Include="StampeVarie.aspx" />
@@ -191,6 +192,13 @@
     </Compile>
     <Compile Include="RicalcoloConti.aspx.designer.cs">
       <DependentUpon>RicalcoloConti.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StampaPerTipologia.aspx.cs">
+      <DependentUpon>StampaPerTipologia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StampaPerTipologia.aspx.designer.cs">
+      <DependentUpon>StampaPerTipologia.aspx</DependentUpon>
     </Compile>
     <Compile Include="StampaValoriCantieri.aspx.cs">
       <DependentUpon>StampaValoriCantieri.aspx</DependentUpon>
