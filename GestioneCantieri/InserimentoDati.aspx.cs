@@ -414,7 +414,7 @@ namespace GestioneCantieri
         protected void BindGridFornitori()
         {
             DataTable dt = InserimentoDatiDAO.GetAllFornitori();
-            List<TipDatCant> fornitList = dt.DataTableToList<TipDatCant>();
+            List<Fornitori> fornitList = dt.DataTableToList<Fornitori>();
             grdFornitori.DataSource = fornitList;
             grdFornitori.DataBind();
         }
