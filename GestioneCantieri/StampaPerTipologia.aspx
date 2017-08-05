@@ -71,7 +71,7 @@
                     <asp:RadioButton ID="rdbManodop" GroupName="rdbTipol" runat="server" />
                 </div>
                 <div class="col-md-6 text-center">
-                    <asp:Label ID="lblOperaio" runat="server" Text="lblOperaio"></asp:Label>
+                    <asp:Label ID="lblOperaio" runat="server" Text="Operaio"></asp:Label>
                     <asp:RadioButton ID="rdbOper" GroupName="rdbTipol" runat="server" />
                 </div>
                 <div class="col-md-12">
