@@ -184,6 +184,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblTotArrot;
         
         /// <summary>
+        /// Controllo lblTotAChiamata.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotAChiamata;
+        
+        /// <summary>
         /// Controllo lblTotGuadagno.
         /// </summary>
         /// <remarks>
@@ -209,6 +218,15 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotGuadagnoConManodop;
+        
+        /// <summary>
+        /// Controllo lblTotGuadagnoOrarioManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotGuadagnoOrarioManodop;
         
         /// <summary>
         /// Controllo grdStampaMateCant.

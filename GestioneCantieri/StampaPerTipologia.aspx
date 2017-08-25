@@ -68,7 +68,7 @@
                 </div>
                 <div class="col-md-6 text-center">
                     <asp:Label ID="lblManodop" runat="server" Text="Manodopera"></asp:Label>
-                    <asp:RadioButton ID="rdbManodop" GroupName="rdbTipol" runat="server" />
+                    <asp:RadioButton ID="rdbManodop" GroupName="rdbTipol" Checked="true" runat="server" />
                 </div>
                 <div class="col-md-6 text-center">
                     <asp:Label ID="lblOperaio" runat="server" Text="Operaio"></asp:Label>
@@ -88,7 +88,7 @@
                     <asp:BoundField DataField="DescriCodCant" HeaderText="Descrizione CodCant" />
                     <asp:BoundField DataField="RagSocCli" HeaderText="Ragione Soc. Cliente" />
                     <asp:BoundField DataField="Qta" HeaderText="Qta" />
-                    <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit. Cantiere" />
+                    <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit. Cantiere" DataFormatString="{0:0.00}" />
                 </Columns>
             </asp:GridView>
         </div>

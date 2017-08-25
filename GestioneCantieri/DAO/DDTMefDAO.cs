@@ -147,12 +147,12 @@ namespace GestioneCantieri.DAO
                 //altrimenti faccio una where generica per tutti gli altri casi
                 if (inizio != "" && fine != "")
                 {
-                    sql += "WHERE ((ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) OR (Data = @pDataInizio OR Data = @pDataFine)) " +
+                    sql += "WHERE ((ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
                 else if (dataInizio != "" && dataFine != ""){
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data BETWEEN @pDataInizio AND @pDataFine)) " +
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine))) " +
                            "AND Qta LIKE @pQta "+
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
@@ -164,13 +164,13 @@ namespace GestioneCantieri.DAO
                     dataInizio = "%" + dataInizio + "%";
                     dataFine = "%" + dataFine + "%";
 
-                    sql += "WHERE ((ANNO LIKE @pAnnoInizio OR Anno LIKE @pAnnoFine) OR (Data LIKE @pDataInizio OR Data LIKE @pDataFine)) " +
+                    sql += "WHERE ((ANNO LIKE @pAnnoInizio OR Anno LIKE @pAnnoFine) OR (Data LIKE CONVERT(Date,@pDataInizio) OR Data LIKE CONVERT(Date,@pDataFine))) " +
                            "AND Qta LIKE @pQta " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
                 else { 
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = @pDataInizio OR Data = @pDataFine)) " +
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
                            "AND Qta LIKE @pQta " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
@@ -264,13 +264,13 @@ namespace GestioneCantieri.DAO
 
                 if (inizio != "" && fine != "")
                 {
-                    sql += "WHERE ((ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) OR (Data = @pDataInizio OR Data = @pDataFine)) " +
+                    sql += "WHERE ((ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
                 else if (dataInizio != "" && dataFine != "")
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data BETWEEN @pDataInizio AND @pDataFine)) " +
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine))) " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
@@ -281,13 +281,13 @@ namespace GestioneCantieri.DAO
                     dataInizio = "%" + dataInizio + "%";
                     dataFine = "%" + dataFine + "%";
 
-                    sql += "WHERE ((ANNO LIKE @pAnnoInizio OR Anno LIKE @pAnnoFine) OR (Data LIKE @pDataInizio OR Data LIKE @pDataFine)) " +
+                    sql += "WHERE ((ANNO LIKE @pAnnoInizio OR Anno LIKE @pAnnoFine) OR (Data LIKE CONVERT(Date,@pDataInizio) OR Data LIKE CONVERT(Date,@pDataFine))) " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = @pDataInizio OR Data = @pDataFine)) " +
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }

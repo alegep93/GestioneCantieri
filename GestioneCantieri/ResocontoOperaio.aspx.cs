@@ -45,16 +45,16 @@ namespace GestioneCantieri
             decimal valore = 0m, totValore = 0m;
             int totOre = 0;
 
-            List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMatCantPerResocontoOperaio(txtDataDa.Text, txtDataA.Text, ddlScegliOperaio.SelectedItem.Text);
+            List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMatCantPerResocontoOperaio(txtDataDa.Text, txtDataA.Text, ddlScegliOperaio.SelectedItem.Value);
             grdResocontoOperaio.DataSource = matCantList;
             grdResocontoOperaio.DataBind();
 
             //Imposto la colonna del valore
             for (int i = 0; i < grdResocontoOperaio.Rows.Count; i++)
             {
-                valore = Convert.ToInt32(grdResocontoOperaio.Rows[i].Cells[4].Text) * Convert.ToDecimal(grdResocontoOperaio.Rows[i].Cells[5].Text);
+                valore = Convert.ToDecimal(grdResocontoOperaio.Rows[i].Cells[4].Text) * Convert.ToDecimal(grdResocontoOperaio.Rows[i].Cells[5].Text);
                 grdResocontoOperaio.Rows[i].Cells[6].Text = Math.Round(valore, 2).ToString();
-                totOre += Convert.ToInt32(grdResocontoOperaio.Rows[i].Cells[4].Text);
+                totOre += Convert.ToInt32(Convert.ToDecimal(grdResocontoOperaio.Rows[i].Cells[4].Text));
                 totValore += Convert.ToDecimal(grdResocontoOperaio.Rows[i].Cells[6].Text);
             }
 

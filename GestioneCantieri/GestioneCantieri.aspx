@@ -27,6 +27,12 @@
             top: 13px;
             right: 10px;
         }
+
+        .tableContainer {
+            max-height: 500px;
+            overflow: hidden;
+            overflow-y: scroll;
+        }
     </style>
 </asp:Content>
 
@@ -77,7 +83,7 @@
                         </div>
                         <div class="col-md-4">
                             <asp:Label ID="lblTipDatCant" Text="Tipologia" runat="server" />
-                            <asp:TextBox ID="txtTipDatCant" CssClass="form-control" Enabled="false" Text="MATERIALE" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtTipDatCant" CssClass="form-control" Text="MATERIALE" Enabled="false" runat="server"></asp:TextBox>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -122,11 +128,12 @@
                     <!-- Pulsantiera per scelta maschera -->
                     <asp:Panel ID="pnlScegliMaschera" runat="server">
                         <div class="col-md-offset-2 col-md-8 text-center" style="padding: 20px 0;">
-                            <asp:Button ID="btnMatCant" runat="server" OnClick="btnMatCant_Click" CssClass="btn btn-lg btn-default" Text="Matieriali Cantieri" />
-                            <asp:Button ID="btnRientro" runat="server" OnClick="btnRientro_Click" CssClass="btn btn-lg btn-default" Text="Rientro Matieriali" />
+                            <asp:Button ID="btnMatCant" runat="server" OnClick="btnMatCant_Click" CssClass="btn btn-lg btn-default" Text="Materiali Cantieri" />
+                            <asp:Button ID="btnRientro" runat="server" OnClick="btnRientro_Click" CssClass="btn btn-lg btn-default" Text="Rientro Materiali" />
                             <asp:Button ID="btnManodop" runat="server" OnClick="btnManodop_Click" CssClass="btn btn-lg btn-default" Text="Manodopera" />
                             <asp:Button ID="btnGestOper" runat="server" OnClick="btnGestOper_Click" CssClass="btn btn-lg btn-default" Text="Gest. Operaio" />
                             <asp:Button ID="btnGestArrot" runat="server" OnClick="btnGestArrot_Click" CssClass="btn btn-lg btn-default" Text="Gest. Arrotond." />
+                            <asp:Button ID="btnGestChiam" runat="server" OnClick="btnGestChiam_Click" CssClass="btn btn-lg btn-default" Text="Gest. A Chiamata." />
                             <asp:Button ID="btnGestPagam" runat="server" OnClick="btnGestPagam_Click" CssClass="btn btn-lg btn-default" Text="Gest. Pagamenti" />
                         </div>
                     </asp:Panel>
@@ -144,40 +151,51 @@
                 <div class="row">
                     <div class="col-md-offset-3 col-md-8">
                         <div class="col-md-4">
-                            <asp:Label ID="lblFiltroCod_FSS" Text="Filtro Cod_FSS" runat="server" />
-                            <asp:TextBox ID="txtFiltroCodFSS" placeholder="Filtro Cod_FSS" AutoPostBack="true" OnTextChanged="txtFiltroCodFSS_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:Label ID="lblFiltroCod_FSS" Text="Filtro Codice Articolo" runat="server" />
+                            <asp:TextBox ID="txtFiltroCodFSS" placeholder="Filtro Codice Articolo" AutoPostBack="true" OnTextChanged="txtFiltroCodFSS_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <asp:Label ID="lblFiltroAA_Des" Text="Filtro AA_DES" runat="server" />
-                            <asp:TextBox ID="txtFiltroAA_Des" placeholder="Filtro AA_DES" AutoPostBack="true" OnTextChanged="txtFiltroAA_Des_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:Label ID="lblFiltroAA_Des" Text="Filtro Descrizione Articolo" runat="server" />
+                            <asp:TextBox ID="txtFiltroAA_Des" placeholder="Filtro Descrizione Articolo" AutoPostBack="true" OnTextChanged="txtFiltroAA_Des_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
                     <div class="col-md-offset-2 col-md-8 matCantDdl">
                         <asp:Label ID="lblScegliListino" Text="Scegli Listino" runat="server" />
                         <asp:DropDownList ID="ddlScegliListino" AutoPostBack="true" OnTextChanged="ddlScegliListino_TextChanged" CssClass="form-control" runat="server" />
                     </div>
-
+                    <div class="col-md-offset-3 col-md-3 rientroDdl">
+                        <asp:Label ID="lblFiltroMatCantCodArt" Text="Filtro Cod. Art." runat="server" />
+                        <asp:TextBox ID="txtFiltroMatCantCodArt" placeholder="Filtro Cod. Art." AutoPostBack="true" OnTextChanged="txtFiltroMatCantCodArt_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 rientroDdl">
+                        <asp:Label ID="lblFiltroMatCantDescriCodArt" Text="Filtro Descri. Cod. Art." runat="server" />
+                        <asp:TextBox ID="txtFiltroMatCantDescriCodArt" placeholder="Filtro Descri. Cod. Art." AutoPostBack="true" OnTextChanged="txtFiltroMatCantDescriCodArt_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
                     <div class="col-md-offset-2 col-md-8 rientroDdl">
                         <asp:Label ID="lblScegliMatCant" Text="Scegli Materiale Cantiere" runat="server" />
                         <asp:DropDownList ID="ddlScegliMatCant" AutoPostBack="true" OnTextChanged="ddlScegliMatCant_TextChanged" CssClass="form-control" runat="server" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <asp:Label ID="lblCodArt" Text="Codice Articolo" runat="server" />
                         <asp:TextBox ID="txtCodArt" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <asp:Label ID="lblDescriCodArt" Text="Descrizione Codice Articolo" runat="server" />
                         <asp:TextBox ID="txtDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <asp:Label ID="lblDescrMat" Text="Descrizione Materiale" runat="server" />
                         <asp:TextBox ID="txtDescrMat" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblNote" Text="Note" runat="server" />
                         <asp:TextBox ID="txtNote" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblNote_2" Text="Note 2" runat="server" />
+                        <asp:TextBox ID="txtNote_2" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
                 <div class="row">
@@ -217,13 +235,90 @@
                     </div>
                     <div class="col-md-6">
                         <asp:Button ID="btnInserisciMatCant" OnClick="btnInserisciMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Mat Cant" />
+                        <asp:Button ID="btnModMatCant" OnClick="btnModMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Mat Cant" />
                         <asp:Button ID="btnInserisciRientro" OnClick="btnInserisciRientro_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Rientro" />
+                        <asp:Button ID="btnModRientro" OnClick="btnModRientro_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Rientro" />
                         <asp:Label ID="lblIsRecordInserito" Text="" CssClass="pull-right" runat="server" />
                     </div>
                 </div>
+
+                <asp:HiddenField ID="hidIdMatCant" runat="server" />
+
+                <asp:Panel ID="pnlFiltriMatCant" CssClass="col-md-12" runat="server">
+                    <div class="col-md-offset-3 col-md-6">
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroCodArtGrdMatCant" runat="server" Text="Filtro Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroCodArtGrdMatCant" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroDescriCodArtGrdMatCant" runat="server" Text="Filtro Descri Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroDescriCodArtGrdMatCant" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Button ID="btnFiltraGrdMatCant" OnClick="btnFiltraGrdMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <div class="col-md-12 table-responsive tableContainer">
+                    <asp:GridView ID="grdMatCant" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="false" OnRowCommand="grdMatCant_RowCommand" CssClass="table table-striped text-center" runat="server">
+                        <Columns>
+                            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                            <asp:BoundField DataField="ProtocolloInterno" HeaderText="Protocollo" />
+                            <asp:BoundField DataField="Fornitore" HeaderText="Fornitore" />
+                            <asp:BoundField DataField="CodArt" HeaderText="Cod. Art" />
+                            <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. Cod. Art." />
+                            <asp:BoundField DataField="Qta" HeaderText="Quantità" />
+                            <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualMatCant" CommandName="VisualMatCant" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModMatCant" CommandName="ModMatCant" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimMatCant" CommandName="ElimMatCant" CommandArgument="<%# BindItem.IdMaterialiCantieri %>"
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo record?');" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+
+                    <asp:GridView ID="grdRientro" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="false" OnRowCommand="grdRientro_RowCommand" CssClass="table table-striped text-center" runat="server">
+                        <Columns>
+                            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                            <asp:BoundField DataField="ProtocolloInterno" HeaderText="Protocollo" />
+                            <asp:BoundField DataField="Fornitore" HeaderText="Fornitore" />
+                            <asp:BoundField DataField="CodArt" HeaderText="Cod. Art" />
+                            <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. Cod. Art." />
+                            <asp:BoundField DataField="Qta" HeaderText="Quantità" />
+                            <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualRientro" CommandName="VisualRientro" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModRientro" CommandName="ModRientro" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimRientro" CommandName="ElimRientro" CommandArgument="<%# BindItem.IdMaterialiCantieri %>"
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo record?');" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
             </asp:Panel>
 
-            
             <!-- Maschera manodopera -->
             <asp:Panel ID="pnlManodopera" CssClass="col-md-12" runat="server">
                 <div class="row">
@@ -259,16 +354,63 @@
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblManodopRicalcolo" Text="Ricalcolo" runat="server" />
-                        <asp:CheckBox ID="chkManodopRicalcolo" CssClass="form-control" Enabled="false" runat="server" />
+                        <asp:CheckBox ID="chkManodopRicalcolo" CssClass="form-control" runat="server" />
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblManodopRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
-                        <asp:CheckBox ID="chkManodopRicaricoSiNo" CssClass="form-control" Enabled="false" runat="server" />
+                        <asp:CheckBox ID="chkManodopRicaricoSiNo" CssClass="form-control" runat="server" />
                     </div>
                     <div class="col-md-6">
                         <asp:Button ID="btnInsManodop" OnClick="btnInsManodop_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Manodopera" />
+                        <asp:Button ID="btnModManodop" OnClick="btnModManodop_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Manodopera" />
                         <asp:Label ID="lblIsManodopInserita" Text="" CssClass="pull-right" runat="server" />
                     </div>
+                </div>
+
+                <asp:Panel ID="pnlFiltriManodop" CssClass="col-md-12" runat="server">
+                    <div class="col-md-offset-3 col-md-6">
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroManodopCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroManodopCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroManodopDescriCodArt" runat="server" Text="Filtro Descri Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroManodopDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Button ID="btnFiltraGrdManodop" OnClick="btnFiltraGrdManodop_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <div class="col-md-12 table-responsive tableContainer">
+                    <asp:GridView ID="grdManodop" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="false" OnRowCommand="grdManodop_RowCommand" CssClass="table table-striped text-center" runat="server">
+                        <Columns>
+                            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                            <asp:BoundField DataField="ProtocolloInterno" HeaderText="Protocollo" />
+                            <asp:BoundField DataField="Fornitore" HeaderText="Fornitore" />
+                            <asp:BoundField DataField="CodArt" HeaderText="Cod. Art" />
+                            <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. Cod. Art." />
+                            <asp:BoundField DataField="Qta" HeaderText="Quantità" />
+                            <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualManodop" CommandName="VisualManodop" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModManodop" CommandName="ModManodop" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimManodop" CommandName="ElimManodop" CommandArgument="<%# BindItem.IdMaterialiCantieri %>"
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo record?');" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
                 </div>
             </asp:Panel>
 
@@ -314,7 +456,7 @@
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblOperRicalcolo" Text="Ricalcolo" runat="server" />
-                        <asp:CheckBox ID="chkOperRicalcolo" CssClass="form-control" Enabled="false" Checked="false" runat="server" />
+                        <asp:CheckBox ID="chkOperRicalcolo" CssClass="form-control" Checked="false" runat="server" />
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblOperRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
@@ -322,8 +464,55 @@
                     </div>
                     <div class="col-md-6">
                         <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Operaio" />
+                        <asp:Button ID="btnModOper" OnClick="btnModOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Operaio" />
                         <asp:Label ID="lblIsOperInserita" Text="" CssClass="pull-right" runat="server" />
                     </div>
+                </div>
+
+                <asp:Panel ID="pnlFiltriOper" CssClass="col-md-12" runat="server">
+                    <div class="col-md-offset-3 col-md-6">
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroOperCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroOperCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroOperDescriCodArt" runat="server" Text="Filtro Descri Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroOperDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Button ID="btnOperFiltraGrd" OnClick="btnOperFiltraGrd_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <div class="col-md-12 table-responsive tableContainer">
+                    <asp:GridView ID="grdOperai" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="false" OnRowCommand="grdOperai_RowCommand" CssClass="table table-striped text-center" runat="server">
+                        <Columns>
+                            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                            <asp:BoundField DataField="ProtocolloInterno" HeaderText="Protocollo" />
+                            <asp:BoundField DataField="Fornitore" HeaderText="Fornitore" />
+                            <asp:BoundField DataField="CodArt" HeaderText="Cod. Art" />
+                            <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. Cod. Art." />
+                            <asp:BoundField DataField="Qta" HeaderText="Quantità" />
+                            <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualOper" CommandName="VisualOper" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModOper" CommandName="ModOper" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimOper" CommandName="ElimOper" CommandArgument="<%# BindItem.IdMaterialiCantieri %>"
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo record?');" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
                 </div>
             </asp:Panel>
 
@@ -359,21 +548,181 @@
                     <div class="col-md-12">
                         <div class="col-md-2">
                             <asp:Label ID="lblArrotVisibile" Text="Visibile" runat="server" />
-                            <asp:CheckBox ID="chkArrotVisibile" CssClass="form-control" Enabled="false" runat="server" />
+                            <asp:CheckBox ID="chkArrotVisibile" CssClass="form-control" runat="server" />
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblArrotRicalcolo" Text="Ricalcolo" runat="server" />
-                            <asp:CheckBox ID="chkArrotRicalcolo" CssClass="form-control" Enabled="false" runat="server" />
+                            <asp:CheckBox ID="chkArrotRicalcolo" CssClass="form-control" runat="server" />
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblArrotRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
-                            <asp:CheckBox ID="chkArrotRicaricoSiNo" CssClass="form-control" Enabled="false" runat="server" />
+                            <asp:CheckBox ID="chkArrotRicaricoSiNo" CssClass="form-control" runat="server" />
                         </div>
                         <div class="col-md-6">
                             <asp:Button ID="btnInsArrot" OnClick="btnInsArrot_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Arrotondamento" />
+                            <asp:Button ID="btnModArrot" OnClick="btnModArrot_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Arrotondamento" />
                             <asp:Label ID="lblIsArrotondInserito" Text="" CssClass="pull-right" runat="server" />
                         </div>
                     </div>
+                </div>
+
+                <asp:Panel ID="pnlFiltriArrot" CssClass="col-md-12" runat="server">
+                    <div class="col-md-offset-3 col-md-6">
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroArrotCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroArrotCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroArrotDescriCodArt" runat="server" Text="Filtro Descri Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroArrotDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Button ID="btnArrotFiltraGrd" OnClick="btnArrotFiltraGrd_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <div class="col-md-12 table-responsive tableContainer">
+                    <asp:GridView ID="grdArrot" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="false" OnRowCommand="grdArrot_RowCommand" CssClass="table table-striped text-center" runat="server">
+                        <Columns>
+                            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                            <asp:BoundField DataField="ProtocolloInterno" HeaderText="Protocollo" />
+                            <asp:BoundField DataField="Fornitore" HeaderText="Fornitore" />
+                            <asp:BoundField DataField="CodArt" HeaderText="Cod. Art" />
+                            <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. Cod. Art." />
+                            <asp:BoundField DataField="Qta" HeaderText="Quantità" />
+                            <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualArrot" CommandName="VisualArrot" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModArrot" CommandName="ModArrot" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimArrot" CommandName="ElimArrot" CommandArgument="<%# BindItem.IdMaterialiCantieri %>"
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo record?');" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </asp:Panel>
+
+            <!-- Maschera Gestione A Chiamata -->
+            <asp:Panel ID="pnlGestChiamata" CssClass="col-md-12" runat="server">
+                <div class="row">
+                    <div class="col-md-2">
+                        <asp:Label ID="lblChiamCodArt" Text="Codice Articolo" runat="server" />
+                        <asp:TextBox ID="txtChiamCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblChiamDescriCodArt" Text="Descrizione Codice Articolo" runat="server" />
+                        <asp:TextBox ID="txtChiamDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblChiamDescrMate" Text="Descrizione Materiale" runat="server" />
+                        <asp:TextBox ID="txtChiamDescrMate" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblChiamNote" Text="Note" runat="server" />
+                        <asp:TextBox ID="txtChiamNote" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblChiamNote2" Text="Note 2" runat="server" />
+                        <asp:TextBox ID="txtChiamNote2" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <asp:Label ID="lblChiamQta" Text="Quantità" runat="server" />
+                        <asp:TextBox ID="txtChiamQta" Text="0" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblChiamPzzoNetto" Text="Prezzo Netto Mef" runat="server" />
+                        <asp:TextBox ID="txtChiamPzzoNetto" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblChiamPzzoUnit" Text="Prezzo Unitario" runat="server" />
+                        <asp:TextBox ID="txtChiamPzzoUnit" Text="0.00" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblChiamPzzoFinCli" Text="Prezzo Finale Cliente" runat="server" />
+                        <asp:TextBox ID="txtChiamPzzoFinCli" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+
+                    <div class="col-md-1">
+                        <asp:Label ID="lblChiamVisibile" Text="Visibile" runat="server" />
+                        <asp:CheckBox ID="chkChiamVisibile" CssClass="form-control" Checked="true" runat="server" />
+                    </div>
+                    <div class="col-md-1">
+                        <asp:Label ID="lblChiamRicalcolo" Text="Ricalcolo" runat="server" />
+                        <asp:CheckBox ID="chkChiamRicalcolo" CssClass="form-control" Checked="true" runat="server" />
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblChiamRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
+                        <asp:CheckBox ID="chkChiamRicaricoSiNo" CssClass="form-control" Checked="true" runat="server" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <asp:Button ID="btnCalcolaPzzoUnitAChiam" OnClick="btnCalcolaPzzoUnitAChiam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Calcola Prezzo Unitario" />
+                    </div>
+                    <div class="col-md-6">
+                        <asp:Button ID="btnInsAChiam" OnClick="btnInsAChiam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci A Chiamata" />
+                        <asp:Button ID="btnModAChiam" OnClick="btnModAChiam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica A Chiamata" />
+                        <asp:Label ID="lblIsAChiamInserita" Text="" CssClass="pull-right" runat="server" />
+                    </div>
+                </div>
+
+                <asp:Panel ID="pnlFiltriGrdAChiam" CssClass="col-md-12" runat="server">
+                    <div class="col-md-offset-3 col-md-6">
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroAChiamCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroAChiamCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroAChiamDescriCodArt" runat="server" Text="Filtro Descri Cod Art"></asp:Label>
+                            <asp:TextBox ID="txtFiltroAChiamDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Button ID="btnFiltraGrdAChiam" OnClick="btnFiltraGrdAChiam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <div class="col-md-12 table-responsive tableContainer">
+                    <asp:GridView ID="grdAChiam" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="false" OnRowCommand="grdAChiam_RowCommand" CssClass="table table-striped text-center" runat="server">
+                        <Columns>
+                            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                            <asp:BoundField DataField="ProtocolloInterno" HeaderText="Protocollo" />
+                            <asp:BoundField DataField="Fornitore" HeaderText="Fornitore" />
+                            <asp:BoundField DataField="CodArt" HeaderText="Cod. Art" />
+                            <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. Cod. Art." />
+                            <asp:BoundField DataField="Qta" HeaderText="Quantità" />
+                            <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualChiam" CommandName="VisualChiam" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModChiam" CommandName="ModChiam" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimChiam" CommandName="ElimChiam" CommandArgument="<%# BindItem.IdMaterialiCantieri %>"
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo record?');" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
                 </div>
             </asp:Panel>
 
@@ -396,17 +745,56 @@
                     <div class="col-md-12">
                         <div class="col-md-2">
                             <asp:Label ID="lblAcconto" Text="Acconto" runat="server" />
-                            <asp:CheckBox ID="chkAcconto" CssClass="form-control" Enabled="false" runat="server" />
+                            <asp:CheckBox ID="chkAcconto" CssClass="form-control" runat="server" />
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblSaldo" Text="Saldo" runat="server" />
-                            <asp:CheckBox ID="chkSaldo" CssClass="form-control" Enabled="false" runat="server" />
+                            <asp:CheckBox ID="chkSaldo" CssClass="form-control" runat="server" />
                         </div>
                         <div class="col-md-8">
                             <asp:Button ID="btnInsPagam" OnClick="btnInsPagam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Pagamento" />
+                            <asp:Button ID="btnModPagam" OnClick="btnModPagam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Pagamento" />
                             <asp:Label ID="lblIsPagamInserito" Text="" CssClass="pull-right" runat="server" />
                         </div>
                     </div>
+                </div>
+
+                <asp:Panel ID="pnlFiltriGrdPagam" CssClass="col-md-12" runat="server">
+                    <div class="col-md-offset-3 col-md-6">
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroPagamDescri" runat="server" Text="Filtro Descrizione"></asp:Label>
+                            <asp:TextBox ID="txtFiltroPagamDescri" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Button ID="btnFiltraPagam" OnClick="btnFiltraPagam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
+                        </div>
+                    </div>
+                </asp:Panel>
+
+                <div class="col-md-12 table-responsive tableContainer">
+                    <asp:GridView ID="grdPagamenti" ItemType="GestioneCantieri.Data.Pagamenti" AutoGenerateColumns="false" OnRowCommand="grdPagamenti_RowCommand" CssClass="table table-striped text-center" runat="server">
+                        <Columns>
+                            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                            <asp:BoundField DataField="Imporo" HeaderText="Importo" DataFormatString="{0:0.00}" />
+                            <asp:BoundField DataField="DescriPagamenti" HeaderText="Descriz. Pagam." />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualPagam" CommandName="VisualPagam" CommandArgument="<%# BindItem.IdPagamenti %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModPagam" CommandName="ModPagam" CommandArgument="<%# BindItem.IdPagamenti %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimPagam" CommandName="ElimPagam" CommandArgument="<%# BindItem.IdPagamenti %>"
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo record?');" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
                 </div>
             </asp:Panel>
         </div>

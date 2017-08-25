@@ -46,7 +46,7 @@ namespace GestioneCantieri
             if (c.Preventivo)
                 txtContoPreventivo.Text += String.Format("{0:n}", c.ValorePreventivo);
             else
-                txtContoPreventivo.Text += RicalcoloConti.totRicalcoloConti.ToString();
+                txtContoPreventivo.Text += Math.Round(RicalcoloConti.totRicalcoloConti,2).ToString();
 
             //Popolo il campo Tot. Acconti
             decimal totAcconti = 0m;

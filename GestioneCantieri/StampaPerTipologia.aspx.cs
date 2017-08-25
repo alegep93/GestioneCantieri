@@ -50,7 +50,7 @@ namespace GestioneCantieri
                 totale += valore;
             }
 
-            lblTotale.Text = "<strong>Totale</strong>: " + totale;
+            lblTotale.Text = "<strong>Totale</strong>: " + Math.Round(totale,2);
         }
 
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)

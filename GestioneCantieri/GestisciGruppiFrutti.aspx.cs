@@ -67,6 +67,7 @@ namespace GestioneCantieri
             {
                 lblFruttoAggiungo.Text = "Componente '" + ddlFrutti.SelectedItem.Text + "' aggiunto correttamente!";
                 lblFruttoAggiungo.ForeColor = Color.Blue;
+                btnInsCompgruppo.Visible = false;
             }
             else
             {
@@ -345,6 +346,11 @@ namespace GestioneCantieri
         protected void MostraListaGruppiInseriti()
         {
             gruppiList = GestisciGruppiFruttiDAO.getGruppiWithSearch(txtFiltroGruppi1.Text, txtFiltroGruppi2.Text, txtFiltroGruppi3.Text);
+        }
+
+        protected void ddlFrutti_TextChanged(object sender, EventArgs e)
+        {
+            btnInsCompgruppo.Visible = true;
         }
     }
 }
