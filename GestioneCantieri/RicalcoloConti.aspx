@@ -50,7 +50,7 @@
                     <asp:TextBox ID="txtCodCant" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-1">
-                    <asp:Label ID="lblChiuso" runat="server" Text="Chiuso"></asp:Label>
+                    <asp:Label ID="lblChiuso" runat="server" Text="Chiuso" style="width:100%; float:left;"></asp:Label>
                     <asp:CheckBox ID="chkChiuso" runat="server" />
                 </div>
                 <div class="col-md-1">

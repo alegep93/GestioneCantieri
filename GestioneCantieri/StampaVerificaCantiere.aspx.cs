@@ -44,8 +44,10 @@ namespace GestioneCantieri
             decimal totMate = 0m;
             decimal totRientro = 0m;
             decimal totManodop = 0m;
+            decimal totOreManodop = 0m;
             decimal totOper = 0m;
             decimal totArrot = 0m;
+            decimal totChiam = 0m;
 
             List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiere(ddlScegliCant.SelectedItem.Value);
             grdStampaVerificaCant.DataSource = matCantList;
@@ -61,19 +63,20 @@ namespace GestioneCantieri
             lblTotContoCliente.Text = "<strong>Tot. Conto/Preventivo</strong>: ";
 
             if (c.Preventivo)
-                lblTotContoCliente.Text += c.ValorePreventivo;
+                lblTotContoCliente.Text += Math.Round(c.ValorePreventivo, 2).ToString();
             else
-                lblTotContoCliente.Text += RicalcoloConti.totRicalcoloConti.ToString();
+                lblTotContoCliente.Text += Math.Round(RicalcoloConti.totRicalcoloConti, 2).ToString();
 
             for (int i = 0; i < matCantList.Count; i++)
             {
-                valore = Convert.ToInt32(grdStampaVerificaCant.Rows[i].Cells[4].Text) * Convert.ToDecimal(grdStampaVerificaCant.Rows[i].Cells[5].Text);
+                valore = Convert.ToDecimal(grdStampaVerificaCant.Rows[i].Cells[4].Text) * Convert.ToDecimal(grdStampaVerificaCant.Rows[i].Cells[5].Text);
                 grdStampaVerificaCant.Rows[i].Cells[6].Text = valore.ToString();
             }
 
             foreach (MaterialiCantieri matCant in matCantList)
             {
-                decimal val = Convert.ToInt32(matCant.Qta) * matCant.PzzoUniCantiere;
+                decimal val = Convert.ToDecimal(matCant.Qta) * matCant.PzzoUniCantiere;
+                decimal totOre = Convert.ToDecimal(matCant.Qta);
                 switch (matCant.Tipologia)
                 {
                     case "MATERIALE":
@@ -84,12 +87,16 @@ namespace GestioneCantieri
                         break;
                     case "MANODOPERA":
                         totManodop += val;
+                        totOreManodop += totOre;
                         break;
                     case "OPERAIO":
                         totOper += val;
                         break;
                     case "ARROTONDAMENTO":
                         totArrot += val;
+                        break;
+                    case "A CHIAMATA":
+                        totChiam += val;
                         break;
                 }
             }
@@ -98,17 +105,22 @@ namespace GestioneCantieri
             lblTotRientro.Text = "<strong>Tot. Rientro</strong>: " + String.Format("{0:n}", totRientro).ToString();
             lblTotOper.Text = "<strong>Tot. Operaio</strong>: " + String.Format("{0:n}", totOper).ToString();
             lblTotArrot.Text = "<strong>Tot. Arrotondamento</strong>: " + String.Format("{0:n}", totArrot).ToString();
+            lblTotAChiamata.Text = "<strong>Tot. A Chiamata</strong>: " + String.Format("{0:n}", totChiam).ToString();
 
-            decimal sommaTotPerTipol = totMate + totRientro + totOper + totArrot;
-            decimal contoFinCli = Convert.ToDecimal(lblTotContoCliente.Text.Split(':')[1].Trim());
-            decimal totGuadagno = Convert.ToDecimal(String.Format("{0:n}", contoFinCli - sommaTotPerTipol));
             totManodop = Convert.ToDecimal(String.Format("{0:n}", totManodop));
+
+            decimal sommaTotPerTipol = totMate + totRientro + totOper;
+            decimal contoFinCli = Convert.ToDecimal(lblTotContoCliente.Text.Split(':')[1].Trim());
+            decimal totGuadagno = Convert.ToDecimal(String.Format("{0:n}", contoFinCli - sommaTotPerTipol - totManodop + totArrot + totChiam));
 
             lblTotGuadagno.Text = "<strong>Totale Guadagno</strong>: " + totGuadagno;
             lblTotManodop.Text = "<strong>Tot. Manodopera</strong>: " + totManodop;
 
+            decimal totGuadConManodop = totGuadagno + totManodop;
+            lblTotGuadagnoConManodop.Text = "<strong>Tot. Guadagno Con Manodopopera</strong>: " + totGuadConManodop;
 
-            lblTotGuadagnoConManodop.Text = "<strong>Tot. Guadagno Con Manodopopera</strong>: " + (totGuadagno + totManodop);
+            decimal totGuadOrarioManodop = totGuadConManodop / totOreManodop;
+            lblTotGuadagnoOrarioManodop.Text = "<strong>Tot. Guadagno Orario Manodopopera</strong>: " + String.Format("{0:n}", totGuadOrarioManodop);
         }
 
         /* EVENTI CLICK */

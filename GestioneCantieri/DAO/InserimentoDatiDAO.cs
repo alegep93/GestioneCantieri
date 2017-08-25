@@ -153,7 +153,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "INSERT INTO TblClienti " +
                       "(RagSocCli,Indirizzo,Cap,Città,Provincia,Tel1,Cell1,PartitaIva,CodFiscale,Data,Note) " +
-                      "VALUES (@pRagSoc,@pIndir,@pCap,@pCitta,@pProvincia,@pTel,@pCel,@pPartIva,@pCodFisc,@pData,@pNote) ";
+                      "VALUES (@pRagSoc,@pIndir,@pCap,@pCitta,@pProvincia,@pTel,@pCel,@pPartIva,@pCodFisc,CONVERT(date,@pData),@pNote) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pRagSoc", ragSoc));
@@ -198,7 +198,7 @@ namespace GestioneCantieri.DAO
                       "Cell1 = @pCel, " +
                       "PartitaIva = @pPartIva, " +
                       "CodFiscale = @pCodFisc, " +
-                      "Data = @pData, " +
+                      "Data = CONVERT(date,@pData), " +
                       "Provincia = @pProv, " +
                       "Note = @pNote " +
                       "WHERE IdCliente = @pId ";
@@ -754,7 +754,7 @@ namespace GestioneCantieri.DAO
                       "(IdTblClienti,Data,CodCant,DescriCodCAnt,Indirizzo,Città,Ricarico, " +
                       "PzzoManodopera,Chiuso,Riscosso,Numero,ValorePreventivo,IVA,Anno,Preventivo, " +
                       "FasciaTblCantieri,DaDividere,Diviso,Fatturato,CodRiferCant) " +
-                      "VALUES (@pIdTblClienti,@pData,@pCodCant,@pDescCodCant,@pIndir,@pCitta,@pRicar, " +
+                      "VALUES (@pIdTblClienti,CONVERT(date,@pData),@pCodCant,@pDescCodCant,@pIndir,@pCitta,@pRicar, " +
                       "@pPzzoManod,@pChiuso,@pRiscosso,@pNumero,@pValPrev,@pIva,@pAnno,@pPrev,@pFasciaCant, " +
                       "@pDaDividere,@pDiviso,@pFatturato,@pCodRiferCant) ";
 
@@ -849,7 +849,7 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblCantieri " +
-                      "SET IdTblClienti = @pIdClienti, Data = @pData, " +
+                      "SET IdTblClienti = @pIdClienti, Data = CONVERT(date,@pData), " +
                       "CodCant = @pCodCant, DescriCodCAnt = @pDescrCant, " +
                       "Indirizzo = @pIndir, Città = @pCitta, " +
                       "Ricarico = @pRicarico, PzzoManodopera = @pPrezzoManodop, " +

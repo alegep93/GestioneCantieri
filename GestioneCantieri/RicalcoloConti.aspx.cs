@@ -32,22 +32,9 @@ namespace GestioneCantieri
         {
             decimal matVisibile = MaterialiCantieriDAO.TotMaterialeVisibile(idCant);
             decimal matNascosto = MaterialiCantieriDAO.TotNascosto(idCant);
-            decimal percentuale = Math.Round(((matNascosto * 100) / matVisibile), 2);
+            decimal percentuale = ((matNascosto * 100) / matVisibile); //Math.Round(((matNascosto * 100) / matVisibile), 2);
 
             return percentuale;
-        }
-        protected void RipartisciPercentuale()
-        {
-            decimal perc = CalcolaPercentualeTotaleMaterialiNascosti();
-
-            for (int i = 0; i < grdStampaMateCant.Rows.Count; i++)
-            {
-                //string visibile = 
-                //string ricalcolo
-            }
-        }
-        protected void AggiungiRicarico()
-        {
         }
         protected void FillDdlScegliCantiere()
         {
@@ -70,9 +57,11 @@ namespace GestioneCantieri
             List<decimal> decListRicalcolo = MaterialiCantieriDAO.CalcolaValoreRicalcolo(idCant, perc);
             List<decimal> decListRicarico = MaterialiCantieriDAO.CalcolaValoreRicarico(idCant);
 
-            List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiere(idCant);
+            List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiereForRicalcoloConti(idCant);
             grd.DataSource = matCantList;
             grd.DataBind();
+
+            int cRicalcolo = 0, cRicarico = 0;
 
             //Imposto la colonna del valore
             for (int i = 0; i < grd.Rows.Count; i++)
@@ -81,28 +70,26 @@ namespace GestioneCantieri
                 string ricalcolo = grd.Rows[i].Cells[9].Text;
                 string ricaricoSiNo = grd.Rows[i].Cells[10].Text;
                 decimal pzzoUnit = 0m, valRicarico = 0m, valRicalcolo = 0m;
-                int cRicalcolo = 0, cRicarico = 0;
-
                 pzzoUnit = Convert.ToDecimal(grd.Rows[i].Cells[3].Text);
-
-                if (visibile == "True" && ricalcolo == "True")
-                {
-                    grd.Rows[i].Cells[5].Text = Math.Round(decListRicalcolo[cRicalcolo], 2).ToString();
-                    valRicalcolo = Convert.ToDecimal(grd.Rows[i].Cells[5].Text);
-                    cRicalcolo++;
-                }
 
                 if (visibile == "True" && ricaricoSiNo == "True")
                 {
-                    grd.Rows[i].Cells[4].Text = Math.Round(decListRicarico[cRicarico], 2).ToString();
+                    grd.Rows[i].Cells[4].Text = decListRicarico[cRicarico].ToString(); //Math.Round(decListRicarico[cRicarico], 2).ToString();
                     valRicarico = Convert.ToDecimal(grd.Rows[i].Cells[4].Text);
                     cRicarico++;
                 }
 
+                if (visibile == "True" && ricalcolo == "True")
+                {
+                    grd.Rows[i].Cells[5].Text = decListRicalcolo[cRicalcolo].ToString(); //Math.Round(decListRicalcolo[cRicalcolo], 2).ToString();
+                    valRicalcolo = Convert.ToDecimal(grd.Rows[i].Cells[5].Text);
+                    cRicalcolo++;
+                }
+
                 grd.Rows[i].Cells[6].Text = (pzzoUnit + valRicalcolo + valRicarico).ToString();
 
-                valore = Convert.ToInt32(grd.Rows[i].Cells[2].Text) * Convert.ToDecimal(grd.Rows[i].Cells[6].Text);
-                grd.Rows[i].Cells[7].Text = Math.Round(valore, 2).ToString();
+                valore = Convert.ToDecimal(grd.Rows[i].Cells[2].Text) * Convert.ToDecimal(grd.Rows[i].Cells[6].Text);
+                grd.Rows[i].Cells[7].Text = valore.ToString(); //Math.Round(valore, 2).ToString();
             }
         }
         public void BindGridPDF(GridView grd, GridView grdPDF)
@@ -116,7 +103,7 @@ namespace GestioneCantieri
                 grdPDF.Rows[i].Cells[0].Text = grd.Rows[i].Cells[0].Text;
                 grdPDF.Rows[i].Cells[1].Text = grd.Rows[i].Cells[1].Text;
                 grdPDF.Rows[i].Cells[2].Text = grd.Rows[i].Cells[2].Text;
-                grdPDF.Rows[i].Cells[3].Text = grd.Rows[i].Cells[3].Text;
+                grdPDF.Rows[i].Cells[3].Text = grd.Rows[i].Cells[6].Text;
                 grdPDF.Rows[i].Cells[4].Text = grd.Rows[i].Cells[7].Text;
             }
         }
@@ -125,7 +112,7 @@ namespace GestioneCantieri
             decimal totAcconti = 0m;
             List<Pagamenti> pagList = PagamentiDAO.GetPagamenti(idCant);
 
-            foreach(Pagamenti p in pagList)
+            foreach (Pagamenti p in pagList)
             {
                 totAcconti += p.Imporo;
             }
@@ -285,7 +272,7 @@ namespace GestioneCantieri
         {
             idCant = ddlScegliCant.SelectedItem.Value;
             BindGrid(grdStampaMateCant);
-            BindGridPDF(grdStampaMateCant,grdStampaMateCantPDF);
+            BindGridPDF(grdStampaMateCant, grdStampaMateCantPDF);
             ExportToPdfPerContoFinCli(grdStampaMateCantPDF);
         }
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)

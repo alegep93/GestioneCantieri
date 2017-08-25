@@ -91,7 +91,7 @@
 
                             <asp:Panel ID="nuovoFruttoPanel" runat="server">
                                 <asp:Label ID="lblElencoFrutti" runat="server" Text="Frutti"></asp:Label>
-                                <asp:DropDownList ID="ddlFrutti" CssClass="form-control" runat="server"></asp:DropDownList>
+                                <asp:DropDownList ID="ddlFrutti" AutoPostBack="true" OnTextChanged="ddlFrutti_TextChanged" CssClass="form-control" runat="server"></asp:DropDownList>
 
                                 <asp:Label ID="lblQuantita" runat="server" Text="Quantità"></asp:Label>
                                 <asp:TextBox ID="txtQta" CssClass="form-control" runat="server"></asp:TextBox>

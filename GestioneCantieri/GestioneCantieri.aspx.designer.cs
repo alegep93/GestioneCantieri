@@ -391,6 +391,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnGestArrot;
         
         /// <summary>
+        /// Controllo btnGestChiam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGestChiam;
+        
+        /// <summary>
         /// Controllo btnGestPagam.
         /// </summary>
         /// <remarks>
@@ -470,6 +479,42 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlScegliListino;
+        
+        /// <summary>
+        /// Controllo lblFiltroMatCantCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroMatCantCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroMatCantCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroMatCantCodArt;
+        
+        /// <summary>
+        /// Controllo lblFiltroMatCantDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroMatCantDescriCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroMatCantDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroMatCantDescriCodArt;
         
         /// <summary>
         /// Controllo lblScegliMatCant.
@@ -560,6 +605,24 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNote;
+        
+        /// <summary>
+        /// Controllo lblNote_2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNote_2;
+        
+        /// <summary>
+        /// Controllo txtNote_2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNote_2;
         
         /// <summary>
         /// Controllo lblQta.
@@ -706,6 +769,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnInserisciMatCant;
         
         /// <summary>
+        /// Controllo btnModMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModMatCant;
+        
+        /// <summary>
         /// Controllo btnInserisciRientro.
         /// </summary>
         /// <remarks>
@@ -715,6 +787,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnInserisciRientro;
         
         /// <summary>
+        /// Controllo btnModRientro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModRientro;
+        
+        /// <summary>
         /// Controllo lblIsRecordInserito.
         /// </summary>
         /// <remarks>
@@ -722,6 +803,87 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsRecordInserito;
+        
+        /// <summary>
+        /// Controllo hidIdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidIdMatCant;
+        
+        /// <summary>
+        /// Controllo pnlFiltriMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFiltriMatCant;
+        
+        /// <summary>
+        /// Controllo lblFiltroCodArtGrdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroCodArtGrdMatCant;
+        
+        /// <summary>
+        /// Controllo txtFiltroCodArtGrdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroCodArtGrdMatCant;
+        
+        /// <summary>
+        /// Controllo lblFiltroDescriCodArtGrdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroDescriCodArtGrdMatCant;
+        
+        /// <summary>
+        /// Controllo txtFiltroDescriCodArtGrdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroDescriCodArtGrdMatCant;
+        
+        /// <summary>
+        /// Controllo btnFiltraGrdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltraGrdMatCant;
+        
+        /// <summary>
+        /// Controllo grdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdMatCant;
+        
+        /// <summary>
+        /// Controllo grdRientro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdRientro;
         
         /// <summary>
         /// Controllo pnlManodopera.
@@ -886,6 +1048,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnInsManodop;
         
         /// <summary>
+        /// Controllo btnModManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModManodop;
+        
+        /// <summary>
         /// Controllo lblIsManodopInserita.
         /// </summary>
         /// <remarks>
@@ -893,6 +1064,69 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsManodopInserita;
+        
+        /// <summary>
+        /// Controllo pnlFiltriManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFiltriManodop;
+        
+        /// <summary>
+        /// Controllo lblFiltroManodopCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroManodopCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroManodopCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroManodopCodArt;
+        
+        /// <summary>
+        /// Controllo lblFiltroManodopDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroManodopDescriCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroManodopDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroManodopDescriCodArt;
+        
+        /// <summary>
+        /// Controllo btnFiltraGrdManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltraGrdManodop;
+        
+        /// <summary>
+        /// Controllo grdManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdManodop;
         
         /// <summary>
         /// Controllo pnlGestioneOperaio.
@@ -1075,6 +1309,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnInsOper;
         
         /// <summary>
+        /// Controllo btnModOper.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModOper;
+        
+        /// <summary>
         /// Controllo lblIsOperInserita.
         /// </summary>
         /// <remarks>
@@ -1082,6 +1325,69 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsOperInserita;
+        
+        /// <summary>
+        /// Controllo pnlFiltriOper.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFiltriOper;
+        
+        /// <summary>
+        /// Controllo lblFiltroOperCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroOperCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroOperCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroOperCodArt;
+        
+        /// <summary>
+        /// Controllo lblFiltroOperDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroOperDescriCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroOperDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroOperDescriCodArt;
+        
+        /// <summary>
+        /// Controllo btnOperFiltraGrd.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnOperFiltraGrd;
+        
+        /// <summary>
+        /// Controllo grdOperai.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdOperai;
         
         /// <summary>
         /// Controllo pnlGestArrotond.
@@ -1228,6 +1534,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnInsArrot;
         
         /// <summary>
+        /// Controllo btnModArrot.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModArrot;
+        
+        /// <summary>
         /// Controllo lblIsArrotondInserito.
         /// </summary>
         /// <remarks>
@@ -1235,6 +1550,393 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsArrotondInserito;
+        
+        /// <summary>
+        /// Controllo pnlFiltriArrot.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFiltriArrot;
+        
+        /// <summary>
+        /// Controllo lblFiltroArrotCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroArrotCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroArrotCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroArrotCodArt;
+        
+        /// <summary>
+        /// Controllo lblFiltroArrotDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroArrotDescriCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroArrotDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroArrotDescriCodArt;
+        
+        /// <summary>
+        /// Controllo btnArrotFiltraGrd.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnArrotFiltraGrd;
+        
+        /// <summary>
+        /// Controllo grdArrot.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdArrot;
+        
+        /// <summary>
+        /// Controllo pnlGestChiamata.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlGestChiamata;
+        
+        /// <summary>
+        /// Controllo lblChiamCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamCodArt;
+        
+        /// <summary>
+        /// Controllo txtChiamCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtChiamCodArt;
+        
+        /// <summary>
+        /// Controllo lblChiamDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamDescriCodArt;
+        
+        /// <summary>
+        /// Controllo txtChiamDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtChiamDescriCodArt;
+        
+        /// <summary>
+        /// Controllo lblChiamDescrMate.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamDescrMate;
+        
+        /// <summary>
+        /// Controllo txtChiamDescrMate.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtChiamDescrMate;
+        
+        /// <summary>
+        /// Controllo lblChiamNote.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamNote;
+        
+        /// <summary>
+        /// Controllo txtChiamNote.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtChiamNote;
+        
+        /// <summary>
+        /// Controllo lblChiamNote2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamNote2;
+        
+        /// <summary>
+        /// Controllo txtChiamNote2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtChiamNote2;
+        
+        /// <summary>
+        /// Controllo lblChiamQta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamQta;
+        
+        /// <summary>
+        /// Controllo txtChiamQta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtChiamQta;
+        
+        /// <summary>
+        /// Controllo lblChiamPzzoNetto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamPzzoNetto;
+        
+        /// <summary>
+        /// Controllo txtChiamPzzoNetto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtChiamPzzoNetto;
+        
+        /// <summary>
+        /// Controllo lblChiamPzzoUnit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamPzzoUnit;
+        
+        /// <summary>
+        /// Controllo txtChiamPzzoUnit.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtChiamPzzoUnit;
+        
+        /// <summary>
+        /// Controllo lblChiamPzzoFinCli.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamPzzoFinCli;
+        
+        /// <summary>
+        /// Controllo txtChiamPzzoFinCli.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtChiamPzzoFinCli;
+        
+        /// <summary>
+        /// Controllo lblChiamVisibile.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamVisibile;
+        
+        /// <summary>
+        /// Controllo chkChiamVisibile.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkChiamVisibile;
+        
+        /// <summary>
+        /// Controllo lblChiamRicalcolo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamRicalcolo;
+        
+        /// <summary>
+        /// Controllo chkChiamRicalcolo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkChiamRicalcolo;
+        
+        /// <summary>
+        /// Controllo lblChiamRicaricoSiNo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblChiamRicaricoSiNo;
+        
+        /// <summary>
+        /// Controllo chkChiamRicaricoSiNo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkChiamRicaricoSiNo;
+        
+        /// <summary>
+        /// Controllo btnCalcolaPzzoUnitAChiam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCalcolaPzzoUnitAChiam;
+        
+        /// <summary>
+        /// Controllo btnInsAChiam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnInsAChiam;
+        
+        /// <summary>
+        /// Controllo btnModAChiam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModAChiam;
+        
+        /// <summary>
+        /// Controllo lblIsAChiamInserita.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIsAChiamInserita;
+        
+        /// <summary>
+        /// Controllo pnlFiltriGrdAChiam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFiltriGrdAChiam;
+        
+        /// <summary>
+        /// Controllo lblFiltroAChiamCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroAChiamCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroAChiamCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroAChiamCodArt;
+        
+        /// <summary>
+        /// Controllo lblFiltroAChiamDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroAChiamDescriCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroAChiamDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroAChiamDescriCodArt;
+        
+        /// <summary>
+        /// Controllo btnFiltraGrdAChiam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltraGrdAChiam;
+        
+        /// <summary>
+        /// Controllo grdAChiam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdAChiam;
         
         /// <summary>
         /// Controllo pnlGestPagam.
@@ -1327,6 +2029,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnInsPagam;
         
         /// <summary>
+        /// Controllo btnModPagam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModPagam;
+        
+        /// <summary>
         /// Controllo lblIsPagamInserito.
         /// </summary>
         /// <remarks>
@@ -1334,5 +2045,50 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsPagamInserito;
+        
+        /// <summary>
+        /// Controllo pnlFiltriGrdPagam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFiltriGrdPagam;
+        
+        /// <summary>
+        /// Controllo lblFiltroPagamDescri.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroPagamDescri;
+        
+        /// <summary>
+        /// Controllo txtFiltroPagamDescri.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroPagamDescri;
+        
+        /// <summary>
+        /// Controllo btnFiltraPagam.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltraPagam;
+        
+        /// <summary>
+        /// Controllo grdPagamenti.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdPagamenti;
     }
 }

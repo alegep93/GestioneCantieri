@@ -69,7 +69,7 @@
                         <asp:BoundField DataField="CodCant" HeaderText="CodCant" />
                         <asp:BoundField DataField="DescriCodCant" HeaderText="DescriCodCant" />
                         <asp:BoundField DataField="Qta" HeaderText="Qta" />
-                        <asp:BoundField DataField="CostoOperaio" HeaderText="Costo Operaio" DataFormatString="{0:0.00}" />
+                        <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit. Cant" DataFormatString="{0:0.00}" />
                         <asp:BoundField DataField="Valore" HeaderText="Valore" />
                         <asp:BoundField DataField="OperaioPagato" HeaderText="Operaio Pagato" />
                     </Columns>

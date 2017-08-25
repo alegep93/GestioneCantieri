@@ -10,7 +10,7 @@ namespace GestioneCantieri.Data
         int idPagamenti, idTblCantieri;
         DateTime data;
         decimal imporo;
-        string descriPagamenti;
+        string descriPagamenti, codCant, descriCodCant;
         bool acconto, saldo;
 
         public Pagamenti()
@@ -22,7 +22,7 @@ namespace GestioneCantieri.Data
             this.acconto = this.saldo = false;
         }
 
-        public Pagamenti(int idPagamenti, int idTblCantieri, DateTime data, decimal imporo, string descriPagamenti, bool acconto, bool saldo)
+        public Pagamenti(int idPagamenti, int idTblCantieri, DateTime data, decimal imporo, string descriPagamenti, bool acconto, bool saldo, string codCant, string descriCodCant)
         {
             this.idPagamenti = idPagamenti;
             this.idTblCantieri = idTblCantieri;
@@ -31,6 +31,8 @@ namespace GestioneCantieri.Data
             this.descriPagamenti = descriPagamenti;
             this.acconto = acconto;
             this.saldo = saldo;
+            this.codCant = codCant;
+            this.descriCodCant = descriCodCant;
         }
 
         public int IdPagamenti
@@ -123,5 +125,8 @@ namespace GestioneCantieri.Data
                 saldo = value;
             }
         }
+
+        public string CodCant { get => codCant; set => codCant = value; }
+        public string DescriCodCant { get => descriCodCant; set => descriCodCant = value; }
     }
 }
