@@ -163,7 +163,7 @@ namespace GestioneCantieri.DAO
         }
 
         //UPDATE
-        public static bool UpdatePagamento(int idPagam, Pagamenti pag)
+        public static bool UpdatePagamento(string idPagam, Pagamenti pag)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -172,7 +172,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "UPDATE TblPagamenti " +
                       "SET IdTblCantieri = @pIdCant, data = @pData, Imporo = @pImporo, " +
-                      "DescriPagamenti = @pDescrPag, Acconto = @pAcconto, Saldo = @pSaldo) " +
+                      "DescriPagamenti = @pDescrPag, Acconto = @pAcconto, Saldo = @pSaldo " +
                       "WHERE IdPagamenti = @id";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
