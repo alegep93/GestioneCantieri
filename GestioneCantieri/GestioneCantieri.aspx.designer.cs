@@ -1066,6 +1066,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblIsManodopInserita;
         
         /// <summary>
+        /// Controllo hidManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidManodop;
+        
+        /// <summary>
         /// Controllo pnlFiltriManodop.
         /// </summary>
         /// <remarks>
@@ -1327,6 +1336,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblIsOperInserita;
         
         /// <summary>
+        /// Controllo hidOper.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidOper;
+        
+        /// <summary>
         /// Controllo pnlFiltriOper.
         /// </summary>
         /// <remarks>
@@ -1550,6 +1568,15 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsArrotondInserito;
+        
+        /// <summary>
+        /// Controllo hidArrot.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidArrot;
         
         /// <summary>
         /// Controllo pnlFiltriArrot.
@@ -1876,6 +1903,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblIsAChiamInserita;
         
         /// <summary>
+        /// Controllo hidAChiamata.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidAChiamata;
+        
+        /// <summary>
         /// Controllo pnlFiltriGrdAChiam.
         /// </summary>
         /// <remarks>
@@ -2045,6 +2081,15 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsPagamInserito;
+        
+        /// <summary>
+        /// Controllo hidPagamenti.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidPagamenti;
         
         /// <summary>
         /// Controllo pnlFiltriGrdPagam.

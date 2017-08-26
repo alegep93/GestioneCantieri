@@ -367,6 +367,8 @@
                     </div>
                 </div>
 
+                <asp:HiddenField ID="hidManodop" runat="server" />
+
                 <asp:Panel ID="pnlFiltriManodop" CssClass="col-md-12" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
@@ -469,6 +471,8 @@
                     </div>
                 </div>
 
+                <asp:HiddenField ID="hidOper" runat="server" />
+
                 <asp:Panel ID="pnlFiltriOper" CssClass="col-md-12" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
@@ -565,6 +569,8 @@
                         </div>
                     </div>
                 </div>
+
+                <asp:HiddenField ID="hidArrot" runat="server" />
 
                 <asp:Panel ID="pnlFiltriArrot" CssClass="col-md-12" runat="server">
                     <div class="col-md-offset-3 col-md-6">
@@ -679,6 +685,8 @@
                     </div>
                 </div>
 
+                <asp:HiddenField ID="hidAChiamata" runat="server" />
+
                 <asp:Panel ID="pnlFiltriGrdAChiam" CssClass="col-md-12" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
@@ -758,6 +766,8 @@
                         </div>
                     </div>
                 </div>
+
+                <asp:HiddenField ID="hidPagamenti" runat="server" />
 
                 <asp:Panel ID="pnlFiltriGrdPagam" CssClass="col-md-12" runat="server">
                     <div class="col-md-offset-3 col-md-6">
