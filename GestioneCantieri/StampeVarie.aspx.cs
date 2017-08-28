@@ -108,14 +108,6 @@ namespace GestioneCantieri
             grdStampaMateCant.DataSource = matCantList;
             grdStampaMateCant.DataBind();
         }
-        //protected void BindGridStampaCliente()
-        //{
-        //    List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantierePerNomeCant(ddlScegliCant.SelectedItem.Text);
-        //    grdStampaCliente.DataSource = matCantList;
-        //    grdStampaCliente.DataBind();
-        //}
-
-        //Gestione della stampa PDF
 
         protected PdfPTable InitializePdfTableDDT()
         {
@@ -135,15 +127,6 @@ namespace GestioneCantieri
 
             return table;
         }
-        //protected PdfPTable InitializePdfTableCliente()
-        //{
-        //    float[] columns = { 150f, 300f, 150f, 150f, 150f, };
-        //    PdfPTable table = new PdfPTable(grdStampaCliente.Columns.Count);
-        //    table.WidthPercentage = 100;
-        //    table.SetTotalWidth(columns);
-
-        //    return table;
-        //}
 
         protected void ExportToPdfPerDDT()
         {
@@ -198,32 +181,6 @@ namespace GestioneCantieri
             Response.Write(pdfDoc);
             Response.End();
         }
-        //protected void ExportToPdfPerCliente()
-        //{
-        //    decimal totale = 0m;
-        //    decimal totaleFinale = 0m;
-        //    int numDdtAttuale = 0;
-        //    List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantierePerNomeCant(ddlScegliCant.SelectedItem.Text);
-
-        //    //Apro lo stream verso il file PDF
-        //    Document pdfDoc = new Document(PageSize.A4, 8f, 2f, 2f, 2f);
-        //    PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-        //    pdfDoc.Open();
-
-        //    PdfPTable table = InitializePdfTableCliente();
-
-        //    Phrase title = new Phrase(txtNomeFileStampaCliente.Text, FontFactory.GetFont("Arial", 24, iTextSharp.text.Font.BOLD, BaseColor.RED));
-        //    pdfDoc.Add(title);
-
-        //    GeneraPDFPerCliente(pdfDoc, matCantList, title, table, totale, numDdtAttuale, totaleFinale);
-
-        //    pdfDoc.Close();
-        //    Response.ContentType = "application/pdf";
-        //    Response.AddHeader("content-disposition", "attachment;filename=" + txtNomeFileStampaCliente.Text + ".pdf");
-        //    Response.Cache.SetCacheability(HttpCacheability.NoCache);
-        //    Response.Write(pdfDoc);
-        //    Response.End();
-        //}
         protected void GeneraPDFPerNumDDT(Document pdfDoc, List<DDTMef> ddtList, Phrase title, PdfPTable table, decimal totale, int numDdtAttuale, decimal totFin)
         {
             PdfPTable tblTotali = null;
@@ -266,7 +223,7 @@ namespace GestioneCantieri
 
                                         if (j == 4)
                                         {
-                                            cellText = new Phrase(Server.HtmlDecode(String.Format("{0:n}", Math.Round(Convert.ToDecimal(grdStampaDDT.Rows[i].Cells[j].Text)), 2).ToString()), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
+                                            cellText = new Phrase(Server.HtmlDecode(Math.Round(Convert.ToDecimal(grdStampaDDT.Rows[i].Cells[j].Text), 2).ToString()), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
                                         }
                                         else
                                         {
@@ -296,7 +253,7 @@ namespace GestioneCantieri
                                     }
                                     else
                                     {
-                                        decimal valore = Convert.ToInt32(Server.HtmlDecode(grdStampaDDT.Rows[i].Cells[3].Text)) * Convert.ToDecimal(Server.HtmlDecode(grdStampaDDT.Rows[i].Cells[4].Text));
+                                        decimal valore = Convert.ToDecimal(Server.HtmlDecode(grdStampaDDT.Rows[i].Cells[3].Text)) * Convert.ToDecimal(Server.HtmlDecode(grdStampaDDT.Rows[i].Cells[4].Text));
                                         Phrase val = new Phrase(Math.Round(valore, 2).ToString(), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
                                         PdfPCell valCel = new PdfPCell(val);
                                         valCel.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -457,101 +414,6 @@ namespace GestioneCantieri
             //pdfDoc.Add(new Paragraph(""));
             //pdfDoc.Add(tblTotali);
         }
-        /*protected void GeneraPDFPerCliente(Document pdfDoc, List<MaterialiCantieri> matCantList, Phrase title, PdfPTable table, decimal totale, int numDdtAttuale, decimal totFin)
-        {
-            PdfPTable tblTotali = null;
-            Phrase intestazione = new Phrase();
-            intestazione = GeneraIntestazioneCliente(matCantList, 0);
-
-            //Transfer rows from GridView to table
-            for (int i = 0; i < grdStampaCliente.Columns.Count; i++)
-            {
-                Phrase cellText = new Phrase(Server.HtmlDecode(grdStampaCliente.Columns[i].HeaderText), FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.BOLD, BaseColor.BLACK));
-                PdfPCell cell = new PdfPCell(cellText);
-                cell.BorderWidth = 0;
-                cell.BorderWidthBottom = 1;
-                cell.BorderColorBottom = BaseColor.BLUE;
-                cell.HorizontalAlignment = PdfPCell.ALIGN_LEFT;
-                table.AddCell(cell);
-
-                if (i == 3 || i == 4)
-                {
-                    cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                }
-            }
-
-            for (int i = 0; i < grdStampaCliente.Rows.Count; i++)
-            {
-                if (grdStampaCliente.Rows[i].RowType == DataControlRowType.DataRow)
-                {
-                    for (int j = 0; j < grdStampaCliente.Columns.Count; j++)
-                    {
-                        if (j != 4)
-                        {
-                            Phrase cellText = new Phrase();
-
-                            if (j == 3)
-                            {
-                                cellText = new Phrase(Server.HtmlDecode(String.Format("{0:n}", Math.Round(Convert.ToDecimal(grdStampaCliente.Rows[i].Cells[j].Text), 2))), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
-                            }
-                            else
-                            {
-                                cellText = new Phrase(Server.HtmlDecode(grdStampaCliente.Rows[i].Cells[j].Text), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
-                            }
-
-                            PdfPCell cell = new PdfPCell(cellText);
-                            cell.BorderWidth = 0;
-
-                            switch (j)
-                            {
-                                case 2:
-                                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                                    break;
-                                case 3:
-                                case 4:
-                                    cell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                                    break;
-                            }
-
-                            //Set Color of Alternating row
-                            if (i % 2 != 0)
-                            {
-                                cell.BackgroundColor = new BaseColor(ColorTranslator.FromHtml("#F7F7F7"));
-                            }
-                            table.AddCell(cell);
-                        }
-                        else
-                        {
-                            decimal valore = Convert.ToDecimal(Server.HtmlDecode(grdStampaCliente.Rows[i].Cells[2].Text)) * Convert.ToDecimal(Server.HtmlDecode(grdStampaCliente.Rows[i].Cells[3].Text));
-                            Phrase val = new Phrase(String.Format("{0:n}", Math.Round(valore, 2)), FontFactory.GetFont("Arial", 10, BaseColor.BLACK));
-                            PdfPCell valCel = new PdfPCell(val);
-                            valCel.HorizontalAlignment = Element.ALIGN_RIGHT;
-
-                            grdStampaCliente.Rows[i].Cells[4].Text = String.Format("{0:n}", Math.Round(valore, 2));
-                            valCel.BorderWidth = 0;
-
-                            table.AddCell(valCel);
-                            totale += Math.Round(valore, 2);
-                        }
-                    }
-                }
-            }
-
-            tblTotali = new PdfPTable(1);
-            tblTotali.WidthPercentage = 100;
-
-            GeneraTotalePerNumDDT(tblTotali, totale);
-
-            pdfDoc.Add(new Paragraph(""));
-            pdfDoc.Add(intestazione);
-            pdfDoc.Add(table);
-            pdfDoc.Add(new Paragraph(""));
-            pdfDoc.Add(tblTotali);
-
-            totFin += totale;
-            table = InitializePdfTableMatCant();
-            totale = 0m;
-        }*/
 
         //Intestazione PDF
         protected Phrase GeneraIntestazioneDDT(List<DDTMef> ddtList, int counter)
@@ -575,18 +437,6 @@ namespace GestioneCantieri
 
             return intestazione;
         }
-        //protected Phrase GeneraIntestazioneCliente(List<MaterialiCantieri> ddtList, int counter)
-        //{
-        //    string codiceCantiere = "Codice Cantiere: " + ddtList[counter].CodCant;
-        //    string descri = "Descrizione: " + ddtList[counter].DescriCodCant;
-        //    string intestazioneObj = codiceCantiere + "    -    " + descri;
-
-        //    Phrase intestazione = new Phrase(intestazioneObj, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
-
-        //    return intestazione;
-        //}
-
-        //Tabelle dei totali
 
         protected void GeneraTotalePerNumDDT(PdfPTable tblTotali, decimal totale)
         {

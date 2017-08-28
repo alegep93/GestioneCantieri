@@ -94,15 +94,12 @@
 
         <asp:Label ID="lblIsNomeFileInserito" runat="server" CssClass="pull-right" Text=""></asp:Label>
 
-        <asp:GridView ID="grdStampaDDT" runat="server" ItemType="GestioneCantieri.Data.DDTMef" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="false">
+        <asp:GridView ID="grdStampaDDT" runat="server" ItemType="GestioneCantieri.Data.DDTMef" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="true">
             <Columns>
-                <%--<asp:BoundField DataField="Anno" HeaderText="Anno" />--%>
-                <%--<asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />--%>
                 <asp:BoundField DataField="N_ddt" HeaderText="N_DDT" />
                 <asp:BoundField DataField="CodArt" HeaderText="Codice Articolo" />
                 <asp:BoundField DataField="DescriCodArt" HeaderText="Descrizione Cod. Art." />
                 <asp:BoundField DataField="Qta" HeaderText="Quantità" />
-                <%--<asp:BoundField DataField="Acquirente" HeaderText="Acquirente" />--%>
                 <asp:BoundField DataField="PrezzoUnitario" HeaderText="Prezzo Unit." />
                 <asp:BoundField DataField="Valore" HeaderText="Valore" />
             </Columns>
@@ -115,16 +112,6 @@
                 <asp:BoundField DataField="CodCant" HeaderText="CodCant" />
                 <asp:BoundField DataField="Acquirente" HeaderText="Acquirente" />
                 <asp:BoundField DataField="CodArt" HeaderText="CodArt" />
-                <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. CodArt" />
-                <asp:BoundField DataField="Qta" HeaderText="Qta" />
-                <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." />
-                <asp:BoundField DataField="Valore" HeaderText="Valore" />
-            </Columns>
-        </asp:GridView>
-
-        <asp:GridView ID="grdStampaCliente" runat="server" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="false">
-            <Columns>
-                <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
                 <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. CodArt" />
                 <asp:BoundField DataField="Qta" HeaderText="Qta" />
                 <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." />
