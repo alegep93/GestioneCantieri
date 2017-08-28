@@ -22,13 +22,13 @@
             top: 6px;
         }
 
-        span.pull-right{
+        span.pull-right {
             position: relative;
             top: 13px;
             right: 10px;
         }
     </style>
-    </asp:Content>
+</asp:Content>
 
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
     <h1>Gestione Pagamenti</h1>
@@ -64,16 +64,31 @@
         </div>
     </asp:Panel>
 
+    <!-- Maschera Gestione Pagamenti-->
     <asp:Panel ID="pnlGestPagam" CssClass="col-md-12" runat="server">
         <div class="row">
+            <!-- Titolo della maschera -->
+            <div class="col-md-12 text-center">
+                <h2>
+                    <asp:Label ID="lblTitoloMaschera" runat="server" Text=""></asp:Label>
+                </h2>
+            </div>
+
+            <!-- Data -->
+            <div class="col-md-offset-5 col-md-2">
+                <asp:Label ID="lblDataDDT" Text="Data DDT" runat="server" />
+                <asp:TextBox ID="txtDataDDT" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
+            </div>
+
+            <!-- Campi per l'inserimento dei valori -->
             <div class="col-md-12">
                 <div class="col-md-6">
-                    <asp:Label ID="lblImporto" Text="Importo" runat="server" />
-                    <asp:TextBox ID="txtImporto" CssClass="form-control" runat="server" Text=""></asp:TextBox>
+                    <asp:Label ID="lblImportoPagam" Text="Importo" runat="server" />
+                    <asp:TextBox ID="txtImportoPagam" CssClass="form-control" runat="server" Text=""></asp:TextBox>
                 </div>
                 <div class="col-md-6">
-                    <asp:Label ID="lblDescr" Text="Descrizione" runat="server" />
-                    <asp:TextBox ID="txtDescr" CssClass="form-control" runat="server" Text=""></asp:TextBox>
+                    <asp:Label ID="lblDescrPagam" Text="Descrizione" runat="server" />
+                    <asp:TextBox ID="txtDescrPagam" CssClass="form-control" runat="server" Text=""></asp:TextBox>
                 </div>
             </div>
         </div>
@@ -82,17 +97,58 @@
             <div class="col-md-12">
                 <div class="col-md-2">
                     <asp:Label ID="lblAcconto" Text="Acconto" runat="server" />
-                    <asp:CheckBox ID="chkACconto" CssClass="form-control" Enabled="false" runat="server" />
+                    <asp:CheckBox ID="chkAcconto" CssClass="form-control" runat="server" />
                 </div>
                 <div class="col-md-2">
                     <asp:Label ID="lblSaldo" Text="Saldo" runat="server" />
-                    <asp:CheckBox ID="chkSaldo" CssClass="form-control" Enabled="false" runat="server" />
+                    <asp:CheckBox ID="chkSaldo" CssClass="form-control" runat="server" />
                 </div>
                 <div class="col-md-8">
-                    <asp:Button ID="btnInserisci" OnClick="btnInserisci_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Record" />
+                    <asp:Button ID="btnInsPagam" OnClick="btnInsPagam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Pagamento" />
+                    <asp:Button ID="btnModPagam" OnClick="btnModPagam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Pagamento" />
                     <asp:Label ID="lblIsPagamInserito" Text="" CssClass="pull-right" runat="server" />
                 </div>
             </div>
+        </div>
+
+        <asp:HiddenField ID="hidPagamenti" runat="server" />
+
+        <asp:Panel ID="pnlFiltriGrdPagam" CssClass="col-md-12" runat="server">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="col-md-3">
+                    <asp:Label ID="lblFiltroPagamDescri" runat="server" Text="Filtro Descrizione"></asp:Label>
+                    <asp:TextBox ID="txtFiltroPagamDescri" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-3">
+                    <asp:Button ID="btnFiltraPagam" OnClick="btnFiltraPagam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
+                </div>
+            </div>
+        </asp:Panel>
+
+        <div class="col-md-12 table-responsive tableContainer">
+            <asp:GridView ID="grdPagamenti" ItemType="GestioneCantieri.Data.Pagamenti" AutoGenerateColumns="false" OnRowCommand="grdPagamenti_RowCommand" CssClass="table table-striped text-center" runat="server">
+                <Columns>
+                    <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                    <asp:BoundField DataField="Imporo" HeaderText="Importo" DataFormatString="{0:0.00}" />
+                    <asp:BoundField DataField="DescriPagamenti" HeaderText="Descriz. Pagam." />
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button ID="btnVisualPagam" CommandName="VisualPagam" CommandArgument="<%# BindItem.IdPagamenti %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button ID="btnModPagam" CommandName="ModPagam" CommandArgument="<%# BindItem.IdPagamenti %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button ID="btnElimPagam" CommandName="ElimPagam" CommandArgument="<%# BindItem.IdPagamenti %>"
+                                CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo record?');" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
         </div>
     </asp:Panel>
 </asp:Content>
