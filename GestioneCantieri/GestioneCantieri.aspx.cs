@@ -121,12 +121,12 @@ namespace GestioneCantieri
             string tipol = txtTipDatCant.Text;
 
             //Svuoto tutti i TextBox
-            foreach (Control c in pnlIntestazione.Controls)
+            foreach (Control c in pnlFiltriSceltaCant.Controls)
             {
                 if (c is TextBox)
                     ((TextBox)c).Text = "";
-                if (c is DropDownList)
-                    ((DropDownList)c).SelectedIndex = 0;
+                if (c is CheckBox)
+                    ((CheckBox)c).Checked = false;
             }
             foreach (Control c in pnlSubIntestazione.Controls)
             {
@@ -493,6 +493,7 @@ namespace GestioneCantieri
             }
 
             BindGridMatCant();
+            SvuotaCampi(pnlMascheraGestCant);
         }
         protected void btnInserisciRientro_Click(object sender, EventArgs e)
         {
@@ -559,6 +560,7 @@ namespace GestioneCantieri
             }
 
             BindGridMatCant();
+            SvuotaCampi(pnlMascheraGestCant);
         }
         protected void btnFiltraGrdMatCant_Click(object sender, EventArgs e)
         {
@@ -765,6 +767,7 @@ namespace GestioneCantieri
             }
 
             BindGridMatCant();
+            SvuotaCampi(pnlMascheraGestCant);
         }
 
         //Rientro
@@ -808,6 +811,8 @@ namespace GestioneCantieri
                 lblIsRecordInserito.Text = "Errore durante l'eliminazione del record";
                 lblIsRecordInserito.ForeColor = Color.Red;
             }
+
+            BindGridMatCant();
         }
         protected void btnModRientro_Click(object sender, EventArgs e)
         {
@@ -825,6 +830,9 @@ namespace GestioneCantieri
                 lblIsRecordInserito.Text = "Errore durante la modifica del record";
                 lblIsRecordInserito.ForeColor = Color.Red;
             }
+
+            BindGridMatCant();
+            SvuotaCampi(pnlMascheraGestCant);
         }
         #endregion
 
@@ -906,6 +914,7 @@ namespace GestioneCantieri
             }
 
             BindGridManodop();
+            SvuotaCampi(pnlManodopera);
         }
 
         //Visibilità pannello
@@ -920,6 +929,10 @@ namespace GestioneCantieri
             EnableDisableControls(true, pnlManodopera);
             SvuotaCampi(pnlManodopera);
             ChooseFornitore("Manodopera");
+
+            //Popolo il campo PzzoManodopera a partire dal prezzo scritto nella tabella Cantieri
+            Cantieri c = CantieriDAO.GetCantiere(ddlScegliCant.SelectedItem.Value);
+            txtPzzoManodop.Text = c.PzzoManodopera.ToString();
         }
 
         /* EVENTI PER IL ROWCOMMAND */
@@ -1036,6 +1049,7 @@ namespace GestioneCantieri
             }
 
             BindGridManodop();
+            SvuotaCampi(pnlManodopera);
         }
 
         //Aggiornamento del valore della manodopera per il cantiere corrente
@@ -1043,7 +1057,7 @@ namespace GestioneCantieri
         {
             if (txtAggiornaValManodop.Text != "" && txtAggiornaValManodop.Text != "0")
             {
-                bool isUpdated = CantieriDAO.UpdateValoreManodoperaCantiere(ddlScegliCant.SelectedItem.Value, txtAggiornaValManodop.Text);
+                bool isUpdated = MaterialiCantieriDAO.UpdateValoreManodopera(ddlScegliCant.SelectedItem.Value, txtAggiornaValManodop.Text);
                 if (isUpdated)
                 {
                     lblIsManodopInserita.Text = "Valore della manodopera modificato con successo";
@@ -1153,6 +1167,7 @@ namespace GestioneCantieri
             }
 
             BindGridOper();
+            SvuotaCampi(pnlGestioneOperaio);
         }
         //Visibilità pannello
         protected void btnGestOper_Click(object sender, EventArgs e)
@@ -1291,6 +1306,7 @@ namespace GestioneCantieri
             }
 
             BindGridOper();
+            SvuotaCampi(pnlGestioneOperaio);
         }
         #endregion
 
@@ -1348,6 +1364,7 @@ namespace GestioneCantieri
             }
 
             BindGridArrot();
+            SvuotaCampi(pnlGestArrotond);
         }
         //Visibilità pannello
         protected void btnGestArrot_Click(object sender, EventArgs e)
@@ -1479,6 +1496,7 @@ namespace GestioneCantieri
             }
 
             BindGridArrot();
+            SvuotaCampi(pnlGestArrotond);
         }
         #endregion
 
@@ -1658,6 +1676,7 @@ namespace GestioneCantieri
             }
 
             BindGridChiamata();
+            SvuotaCampi(pnlGestChiamata);
         }
         protected void btnGestChiam_Click(object sender, EventArgs e)
         {
@@ -1732,6 +1751,7 @@ namespace GestioneCantieri
             }
 
             BindGridChiamata();
+            SvuotaCampi(pnlGestChiamata);
         }
         protected void btnFiltraGrdAChiam_Click(object sender, EventArgs e)
         {

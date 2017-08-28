@@ -42,6 +42,7 @@
     <h1>Stampa Per Tipologia</h1>
     <div class="container-fluid">
         <div class="row">
+            <!-- Stampa Per Cantiere -->
             <div class="col-md-offset-3 col-md-6">
                 <div class="col-md-3">
                     <asp:Label ID="lblAnno" runat="server" Text="Anno"></asp:Label>
@@ -74,6 +75,18 @@
                     <asp:Label ID="lblOperaio" runat="server" Text="Operaio"></asp:Label>
                     <asp:RadioButton ID="rdbOper" GroupName="rdbTipol" runat="server" />
                 </div>
+
+                <!-- Stampa Per Data -->
+                <div class="col-md-3">
+                    <asp:Label ID="lblDataDa" runat="server" Text="Data Da:"></asp:Label>
+                    <asp:TextBox ID="txtDataDa" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblDataA" runat="server" Text="Data A:"></asp:Label>
+                    <asp:TextBox ID="txtDataA" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+
+
                 <div class="col-md-12">
                     <asp:Button ID="btnStampaPerTipologia" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaVerificaCant_Click" runat="server" Text="Stampa Tipologia" />
                 </div>

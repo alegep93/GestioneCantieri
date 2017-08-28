@@ -148,6 +148,42 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.RadioButton rdbOper;
         
         /// <summary>
+        /// Controllo lblDataDa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDataDa;
+        
+        /// <summary>
+        /// Controllo txtDataDa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDataDa;
+        
+        /// <summary>
+        /// Controllo lblDataA.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDataA;
+        
+        /// <summary>
+        /// Controllo txtDataA.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtDataA;
+        
+        /// <summary>
         /// Controllo btnStampaPerTipologia.
         /// </summary>
         /// <remarks>
