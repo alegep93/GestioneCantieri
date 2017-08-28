@@ -898,11 +898,14 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Tipologia,PzzoUniCantiere,ProtocolloInterno,NumeroBolla,Fascia,Visibile,Ricalcolo,ricaricoSiNo,Data,Note,Note2,PzzoFinCli) " +
+                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,CodArt,DescriCodArt,Qta,Tipologia,PzzoUniCantiere, " +
+                      "ProtocolloInterno,NumeroBolla,Fascia,Visibile,Ricalcolo,ricaricoSiNo,Data,Note,Note2,PzzoFinCli) " +
                       "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pzzoUnit,@protocollo,@bolla,@fascia,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pNote,@note2,'')";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
+                cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.CodArt));
+                cmd.Parameters.Add(new SqlParameter("DescriCodArt", mc.DescriCodArt));
                 cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.DescriMateriali));
                 cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
                 cmd.Parameters.Add(new SqlParameter("pTipologia", mc.Tipologia));
@@ -1002,25 +1005,25 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblMaterialiCantieri " +
-                      "SET [IdTblCantieri] = @idCant " +
-                      ",[DescriMateriali] = @descrMat " +
-                      ",[Qta] = @qta " +
-                      ",[Visibile] = @visibile " +
-                      ",[Ricalcolo] = @ricalcolo " +
-                      ",[ricaricoSiNo] = @ricarico " +
-                      ",[Data] = @data " +
-                      ",[PzzoUniCantiere] = @pzzoUni " +
-                      ",[CodArt] = @codArt " +
-                      ",[DescriCodArt] = @descriCodArt " +
-                      ",[Fascia] = @fascia " +
-                      ",[NumeroBolla] = @numBolla " +
-                      ",[ProtocolloInterno] = @protocollo " +
-                      ",[Note] = @note " +
-                      ",[Tipologia] = @tipol " +
-                      ",[PzzoFinCli] = @pzzoFinCli " +
-                      ",[Acquirente] = @acquir " +
-                      ",[Fornitore] = @fornit " +
-                      ",[Note2] = @note2 " +
+                      "SET IdTblCantieri = @idCant " +
+                      ",DescriMateriali = @descrMat " +
+                      ",Qta = @qta " +
+                      ",Visibile = @visibile " +
+                      ",Ricalcolo = @ricalcolo " +
+                      ",ricaricoSiNo = @ricarico " +
+                      ",Data = @data " +
+                      ",PzzoUniCantiere = @pzzoUni " +
+                      ",CodArt = @codArt " +
+                      ",DescriCodArt = @descriCodArt " +
+                      ",Fascia = @fascia " +
+                      ",NumeroBolla = @numBolla " +
+                      ",ProtocolloInterno = @protocollo " +
+                      ",Note = @note " +
+                      ",Tipologia = @tipol " +
+                      ",PzzoFinCli = @pzzoFinCli " +
+                      ",Acquirente = @acquir " +
+                      ",Fornitore = @fornit " +
+                      ",Note2 = @note2 " +
                       "WHERE IdMaterialiCantiere = @id ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -1066,28 +1069,32 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblMaterialiCantieri " +
-                      "SET [IdTblCantieri] = @idCant " +
-                      ",[DescriMateriali] = @descrMat " +
-                      ",[Qta] = @qta " +
-                      ",[Visibile] = @visibile " +
-                      ",[Ricalcolo] = @ricalcolo " +
-                      ",[ricaricoSiNo] = @ricarico " +
-                      ",[Data] = @data " +
-                      ",[PzzoUniCantiere] = @pzzoUni " +
-                      ",[Fascia] = @fascia " +
-                      ",[NumeroBolla] = @numBolla " +
-                      ",[ProtocolloInterno] = @protocollo " +
-                      ",[Note] = @note " +
-                      ",[Tipologia] = @tipol " +
-                      ",[Acquirente] = @acquir " +
-                      ",[Fornitore] = @fornit " +
-                      ",[Note2] = @note2 " +
+                      "SET IdTblCantieri = @idCant " +
+                      ",DescriMateriali = @descrMat " +
+                      ",CodArt = @codArt " +
+                      ",DescriCodArt = @descriCodArt " +
+                      ",Qta = @qta " +
+                      ",Visibile = @visibile " +
+                      ",Ricalcolo = @ricalcolo " +
+                      ",ricaricoSiNo = @ricarico " +
+                      ",Data = @data " +
+                      ",PzzoUniCantiere = @pzzoUni " +
+                      ",Fascia = @fascia " +
+                      ",NumeroBolla = @numBolla " +
+                      ",ProtocolloInterno = @protocollo " +
+                      ",Note = @note " +
+                      ",Tipologia = @tipol " +
+                      ",Acquirente = @acquir " +
+                      ",Fornitore = @fornit " +
+                      ",Note2 = @note2 " +
                       "WHERE IdMaterialiCantiere = @id ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("id", id));
                 cmd.Parameters.Add(new SqlParameter("idCant", mc.IdTblCantieri));
                 cmd.Parameters.Add(new SqlParameter("descrMat", mc.DescriMateriali));
+                cmd.Parameters.Add(new SqlParameter("codArt", mc.CodArt));
+                cmd.Parameters.Add(new SqlParameter("DescriCodArt", mc.DescriCodArt));
                 cmd.Parameters.Add(new SqlParameter("qta", mc.Qta));
                 cmd.Parameters.Add(new SqlParameter("visibile", mc.Visibile));
                 cmd.Parameters.Add(new SqlParameter("ricalcolo", mc.Ricalcolo));
@@ -1113,6 +1120,34 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'update del record MatCant", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static bool UpdateValoreManodopera(string id, string valManodop)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "UPDATE TblMaterialiCantieri " +
+                      "SET PzzoUniCantiere = @pzzoManodop " +
+                      "WHERE IdTblCantieri = @id ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("id", id));
+                cmd.Parameters.Add(new SqlParameter("pzzoManodop", valManodop));
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'update del valore della manodopera", ex);
             }
             finally { cn.Close(); }
         }
