@@ -409,6 +409,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnGestChiam;
         
         /// <summary>
+        /// Controllo btnGestSpese.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGestSpese;
+        
+        /// <summary>
         /// Controllo lblTitoloMaschera.
         /// </summary>
         /// <remarks>
@@ -2000,5 +2009,266 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdAChiam;
+        
+        /// <summary>
+        /// Controllo pnlGestSpese.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlGestSpese;
+        
+        /// <summary>
+        /// Controllo lblSpeseCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpeseCodArt;
+        
+        /// <summary>
+        /// Controllo txtSpeseCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSpeseCodArt;
+        
+        /// <summary>
+        /// Controllo lblSpeseDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpeseDescriCodArt;
+        
+        /// <summary>
+        /// Controllo txtSpeseDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSpeseDescriCodArt;
+        
+        /// <summary>
+        /// Controllo lblSpeseQta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpeseQta;
+        
+        /// <summary>
+        /// Controllo txtSpeseQta.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSpeseQta;
+        
+        /// <summary>
+        /// Controllo lblSpesaPrezzo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpesaPrezzo;
+        
+        /// <summary>
+        /// Controllo txtSpesaPrezzo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSpesaPrezzo;
+        
+        /// <summary>
+        /// Controllo lblSpesaPrezzoCalcolato.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpesaPrezzoCalcolato;
+        
+        /// <summary>
+        /// Controllo txtSpesaPrezzoCalcolato.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtSpesaPrezzoCalcolato;
+        
+        /// <summary>
+        /// Controllo lblSpesaVisibile.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpesaVisibile;
+        
+        /// <summary>
+        /// Controllo chkSpesaVisibile.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSpesaVisibile;
+        
+        /// <summary>
+        /// Controllo lblSpesaRicalcolo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpesaRicalcolo;
+        
+        /// <summary>
+        /// Controllo chkSpesaRicalcolo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSpesaRicalcolo;
+        
+        /// <summary>
+        /// Controllo lblSpesaRicarico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSpesaRicarico;
+        
+        /// <summary>
+        /// Controllo chkSpesaRicarico.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox chkSpesaRicarico;
+        
+        /// <summary>
+        /// Controllo btnCalcolaPzzoUnitSpese.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCalcolaPzzoUnitSpese;
+        
+        /// <summary>
+        /// Controllo btnInsSpesa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnInsSpesa;
+        
+        /// <summary>
+        /// Controllo btnModSpesa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModSpesa;
+        
+        /// <summary>
+        /// Controllo lblIsSpesaInserita.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIsSpesaInserita;
+        
+        /// <summary>
+        /// Controllo hidIdSpesa.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hidIdSpesa;
+        
+        /// <summary>
+        /// Controllo pnlFiltriGrdSpese.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFiltriGrdSpese;
+        
+        /// <summary>
+        /// Controllo lblFiltroSpeseCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroSpeseCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroSpeseCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroSpeseCodArt;
+        
+        /// <summary>
+        /// Controllo lblFiltroSpeseDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroSpeseDescriCodArt;
+        
+        /// <summary>
+        /// Controllo txtFiltroSpeseDescriCodArt.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroSpeseDescriCodArt;
+        
+        /// <summary>
+        /// Controllo btnFiltraGrdSpese.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltraGrdSpese;
+        
+        /// <summary>
+        /// Controllo grdSpese.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdSpese;
     }
 }

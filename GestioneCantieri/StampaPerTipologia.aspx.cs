@@ -34,23 +34,26 @@ namespace GestioneCantieri
         protected void BindGrid()
         {
             decimal totale = 0m;
-
+            decimal totaleOre = 0m;
             List<MaterialiCantieri> mcList = new List<MaterialiCantieri>();
+
             if (rdbManodop.Checked)
-                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, "MANODOPERA");
+                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, txtDataDa.Text, txtDataA.Text, "MANODOPERA");
             else if (rdbOper.Checked)
-                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, "OPERAIO");
+                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, txtDataDa.Text, txtDataA.Text, "OPERAIO");
 
             grdStampaPerTipologia.DataSource = mcList;
             grdStampaPerTipologia.DataBind();
 
             for (int i = 0; i < grdStampaPerTipologia.Rows.Count; i++)
             {
-                decimal valore = Convert.ToInt32(grdStampaPerTipologia.Rows[i].Cells[4].Text) * Convert.ToDecimal(grdStampaPerTipologia.Rows[i].Cells[5].Text);
+                decimal valore = Convert.ToDecimal(grdStampaPerTipologia.Rows[i].Cells[4].Text) * Convert.ToDecimal(grdStampaPerTipologia.Rows[i].Cells[5].Text);
+                totaleOre += Convert.ToDecimal(grdStampaPerTipologia.Rows[i].Cells[4].Text);
                 totale += valore;
             }
 
-            lblTotale.Text = "<strong>Totale</strong>: " + Math.Round(totale,2);
+            lblTotOre.Text = "<strong>Totale Ore</strong>: " + Math.Round(totaleOre, 2);
+            lblTotale.Text = "<strong>Totale Valore</strong>: " + Math.Round(totale, 2);
         }
 
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)

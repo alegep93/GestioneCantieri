@@ -36,22 +36,22 @@ namespace GestioneCantieri.DAO
                     MaterialiCantieri mc = new MaterialiCantieri();
                     mc.IdMaterialiCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
                     mc.IdTblCantieri = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
-                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? "" : dr.GetString(2));
                     mc.Qta = (dr.IsDBNull(3) ? -1.0d : dr.GetDouble(3));
                     mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
                     mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
                     mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
                     mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
                     mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
-                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
-                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
-                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.CodArt = (dr.IsDBNull(9) ? "" : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? "" : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? "" : dr.GetString(11));
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
-                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
-                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
                     mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
-                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
                     matList.Add(mc);
                 }
@@ -93,22 +93,22 @@ namespace GestioneCantieri.DAO
                     MaterialiCantieri mc = new MaterialiCantieri();
                     mc.IdMaterialiCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
                     mc.IdTblCantieri = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
-                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? "" : dr.GetString(2));
                     mc.Qta = (dr.IsDBNull(3) ? -1.0d : dr.GetDouble(3));
                     mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
                     mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
                     mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
                     mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
                     mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
-                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
-                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
-                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.CodArt = (dr.IsDBNull(9) ? "" : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? "" : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? "" : dr.GetString(11));
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
-                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
-                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
                     mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
-                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
                     matList.Add(mc);
                 }
@@ -133,7 +133,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                if(codArt != "%%" || descr != "%%")
+                if (codArt != "%%" || descr != "%%")
                 {
                     sql = "SELECT ";
                 }
@@ -163,25 +163,25 @@ namespace GestioneCantieri.DAO
                 {
                     MaterialiCantieri mc = new MaterialiCantieri();
                     mc.IdMaterialiCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    mc.CodCant = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.CodCant = (dr.IsDBNull(1) ? "" : dr.GetString(1));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? "" : dr.GetString(2));
                     mc.Qta = (dr.IsDBNull(3) ? -1.0d : dr.GetDouble(3));
                     mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
                     mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
                     mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
                     mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
                     mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
-                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
-                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
-                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.CodArt = (dr.IsDBNull(9) ? "" : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? "" : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? "" : dr.GetString(11));
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
-                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
-                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
                     mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
-                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
-                    mc.DescriCodCant = (dr.IsDBNull(19) ? null : dr.GetString(19));
+                    mc.DescriCodCant = (dr.IsDBNull(19) ? "" : dr.GetString(19));
                     matList.Add(mc);
                 }
 
@@ -228,23 +228,23 @@ namespace GestioneCantieri.DAO
                 {
                     MaterialiCantieri mc = new MaterialiCantieri();
                     mc.IdMaterialiCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    mc.CodCant = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.CodCant = (dr.IsDBNull(1) ? "" : dr.GetString(1));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? "" : dr.GetString(2));
                     mc.Qta = (dr.IsDBNull(3) ? -1.0d : dr.GetDouble(3));
                     mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
                     mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
                     mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
                     mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
                     mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
-                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
-                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
-                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.CodArt = (dr.IsDBNull(9) ? "" : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? "" : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? "" : dr.GetString(11));
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
-                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
-                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
                     mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
-                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
                     matList.Add(mc);
                 }
@@ -274,7 +274,7 @@ namespace GestioneCantieri.DAO
                       "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli,B.CodCant " +
                       "FROM TblMaterialiCantieri AS A " +
                       "LEFT JOIN TblCantieri AS B ON (A.IdTblCantieri = B.IdCantieri) " +
-                      "WHERE B.DescriCodCAnt LIKE @nomeCant " + 
+                      "WHERE B.DescriCodCAnt LIKE @nomeCant " +
                       "ORDER BY A.Data ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -286,25 +286,25 @@ namespace GestioneCantieri.DAO
                 {
                     MaterialiCantieri mc = new MaterialiCantieri();
                     mc.IdMaterialiCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    mc.DescriCodCant = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.DescriCodCant = (dr.IsDBNull(1) ? "" : dr.GetString(1));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? "" : dr.GetString(2));
                     mc.Qta = (dr.IsDBNull(3) ? -1.0d : dr.GetDouble(3));
                     mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
                     mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
                     mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
                     mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
                     mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
-                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
-                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
-                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.CodArt = (dr.IsDBNull(9) ? "" : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? "" : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? "" : dr.GetString(11));
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
-                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
-                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
                     mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
-                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
-                    mc.CodCant = (dr.IsDBNull(19) ? null : dr.GetString(19));
+                    mc.CodCant = (dr.IsDBNull(19) ? "" : dr.GetString(19));
                     matList.Add(mc);
                 }
 
@@ -344,9 +344,9 @@ namespace GestioneCantieri.DAO
                 {
                     MaterialiCantieri mc = new MaterialiCantieri();
                     mc.Data = (dr.IsDBNull(0) ? new DateTime() : dr.GetDateTime(0));
-                    mc.Acquirente = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    mc.CodCant = (dr.IsDBNull(2) ? null : dr.GetString(2));
-                    mc.DescriCodCant = (dr.IsDBNull(3) ? null : dr.GetString(3));
+                    mc.Acquirente = (dr.IsDBNull(1) ? "" : dr.GetString(1));
+                    mc.CodCant = (dr.IsDBNull(2) ? "" : dr.GetString(2));
+                    mc.DescriCodCant = (dr.IsDBNull(3) ? "" : dr.GetString(3));
                     mc.Qta = (dr.IsDBNull(4) ? -0d : dr.GetDouble(4));
                     mc.PzzoUniCantiere = (dr.IsDBNull(5) ? 0m : dr.GetDecimal(5));
                     mc.OperaioPagato = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
@@ -444,22 +444,22 @@ namespace GestioneCantieri.DAO
                     MaterialiCantieri mc = new MaterialiCantieri();
                     mc.IdMaterialiCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
                     mc.IdTblCantieri = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
-                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? "" : dr.GetString(2));
                     mc.Qta = (dr.IsDBNull(3) ? -1.0d : dr.GetDouble(3));
                     mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
                     mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
                     mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
                     mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
                     mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
-                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
-                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
-                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.CodArt = (dr.IsDBNull(9) ? "" : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? "" : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? "" : dr.GetString(11));
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
-                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
-                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
                     mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
-                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
                     matList.Add(mc);
                 }
@@ -474,7 +474,7 @@ namespace GestioneCantieri.DAO
         }
 
         //Recupero i record in base alla tipologia passata come parametro di ingresso
-        public static List<MaterialiCantieri> GetMaterialeCantierePerTipologia(string idCant, string tipologia)
+        public static List<MaterialiCantieri> GetMaterialeCantierePerTipologia(string idCant, string dataDa, string dataA, string tipologia)
         {
             SqlConnection cn = GetConnection();
             SqlDataReader dr = null;
@@ -485,14 +485,22 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT IdMaterialiCantiere,B.DescriCodCAnt,DescriMateriali,Qta,Visibile,Ricalcolo, " +
                       "ricaricoSiNo,A.Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore, " +
-                      "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli,B.CodCant " +
+                      "NumeroBolla,ProtocolloInterno,A.Note,PzzoFinCli,B.CodCant,C.RagSocCli " +
                       "FROM TblMaterialiCantieri AS A " +
                       "LEFT JOIN TblCantieri AS B ON (A.IdTblCantieri = B.IdCantieri) " +
-                      "WHERE Tipologia = @pTipol AND IdTblCantieri = @pIdCant ";
+                      "LEFT JOIN TblClienti AS C ON (B.IdTblClienti = C.IdCliente) " +
+                      "WHERE Tipologia = @pTipol ";
+
+                if (idCant != "-1")
+                    sql += " AND IdTblCantieri = @pIdCant ";
+                else
+                    sql += " AND A.Data BETWEEN CONVERT(date, @dataDa) AND CONVERT(date, @dataA) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pTipol", tipologia));
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+                cmd.Parameters.Add(new SqlParameter("dataDa", dataDa));
+                cmd.Parameters.Add(new SqlParameter("dataA", dataA));
 
                 dr = cmd.ExecuteReader();
 
@@ -500,25 +508,26 @@ namespace GestioneCantieri.DAO
                 {
                     MaterialiCantieri mc = new MaterialiCantieri();
                     mc.IdMaterialiCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    mc.DescriCodCant = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    mc.DescriMateriali = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.DescriCodCant = (dr.IsDBNull(1) ? "" : dr.GetString(1));
+                    mc.DescriMateriali = (dr.IsDBNull(2) ? "" : dr.GetString(2));
                     mc.Qta = (dr.IsDBNull(3) ? -1.0d : dr.GetDouble(3));
                     mc.Visibile = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
                     mc.Ricalcolo = (dr.IsDBNull(5) ? false : dr.GetBoolean(5));
                     mc.RicaricoSiNo = (dr.IsDBNull(6) ? false : dr.GetBoolean(6));
                     mc.Data = (dr.IsDBNull(7) ? new DateTime() : dr.GetDateTime(7));
                     mc.PzzoUniCantiere = (dr.IsDBNull(8) ? -1.0m : dr.GetDecimal(8));
-                    mc.CodArt = (dr.IsDBNull(9) ? null : dr.GetString(9));
-                    mc.DescriCodArt = (dr.IsDBNull(10) ? null : dr.GetString(10));
-                    mc.Tipologia = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    mc.CodArt = (dr.IsDBNull(9) ? "" : dr.GetString(9));
+                    mc.DescriCodArt = (dr.IsDBNull(10) ? "" : dr.GetString(10));
+                    mc.Tipologia = (dr.IsDBNull(11) ? "" : dr.GetString(11));
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
-                    mc.Acquirente = (dr.IsDBNull(13) ? null : dr.GetString(13));
-                    mc.Fornitore = (dr.IsDBNull(14) ? null : dr.GetString(14));
+                    mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
+                    mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
                     mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
-                    mc.Note = (dr.IsDBNull(17) ? null : dr.GetString(17));
+                    mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
-                    mc.CodCant = (dr.IsDBNull(19) ? null : dr.GetString(19));
+                    mc.CodCant = (dr.IsDBNull(19) ? "" : dr.GetString(19));
+                    mc.RagSocCli = (dr.IsDBNull(20) ? "" : dr.GetString(20));
                     matList.Add(mc);
                 }
 
@@ -550,7 +559,7 @@ namespace GestioneCantieri.DAO
                 while (dr.Read())
                 {
                     MaterialiCantieri mc = new MaterialiCantieri();
-                    mc.Tipologia = (dr.IsDBNull(0) ? null : dr.GetString(0));
+                    mc.Tipologia = (dr.IsDBNull(0) ? "" : dr.GetString(0));
                     matList.Add(mc.Tipologia);
                 }
 
@@ -725,9 +734,9 @@ namespace GestioneCantieri.DAO
 
                 while (dr.Read())
                 {
-                    mc.RagSocCli = (dr.IsDBNull(0) ? null : dr.GetString(0));
-                    mc.CodCant = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    mc.DescriCodCant = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    mc.RagSocCli = (dr.IsDBNull(0) ? "" : dr.GetString(0));
+                    mc.CodCant = (dr.IsDBNull(1) ? "" : dr.GetString(1));
+                    mc.DescriCodCant = (dr.IsDBNull(2) ? "" : dr.GetString(2));
                 }
 
                 return mc;
@@ -876,7 +885,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pVisibile", visibile));
                 cmd.Parameters.Add(new SqlParameter("pRicalcolo", ricalcolo));
                 cmd.Parameters.Add(new SqlParameter("pRicarico", ricaricoSiNo));
-                cmd.Parameters.Add(new SqlParameter("pNote", note1 + " - " + note2));                    
+                cmd.Parameters.Add(new SqlParameter("pNote", note1 + " - " + note2));
 
                 int row = cmd.ExecuteNonQuery();
 
@@ -940,18 +949,27 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Tipologia,Visibile,Ricalcolo,ricaricoSiNo,Note,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pVisibile,@pRicalcolo,@pRicarico,@pNote,'')";
+                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,CodArt,DescriCodArt,Qta,Tipologia,PzzoUniCantiere, " +
+                      "ProtocolloInterno,NumeroBolla,Fascia,Visibile,Ricalcolo,ricaricoSiNo,Data,Note,Note2,PzzoFinCli) " +
+                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pzzoUnit,@protocollo,@bolla,@fascia,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pNote,@note2,'')";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
+                cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.CodArt));
+                cmd.Parameters.Add(new SqlParameter("DescriCodArt", mc.DescriCodArt));
                 cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.DescriMateriali));
                 cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
                 cmd.Parameters.Add(new SqlParameter("pTipologia", mc.Tipologia));
+                cmd.Parameters.Add(new SqlParameter("pzzoUnit", mc.PzzoUniCantiere));
+                cmd.Parameters.Add(new SqlParameter("protocollo", mc.ProtocolloInterno));
+                cmd.Parameters.Add(new SqlParameter("bolla", mc.NumeroBolla));
+                cmd.Parameters.Add(new SqlParameter("fascia", mc.Fascia));
                 cmd.Parameters.Add(new SqlParameter("pVisibile", mc.Visibile));
                 cmd.Parameters.Add(new SqlParameter("pRicalcolo", mc.Ricalcolo));
                 cmd.Parameters.Add(new SqlParameter("pRicarico", mc.RicaricoSiNo));
+                cmd.Parameters.Add(new SqlParameter("pData", mc.Data));
                 cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
+                cmd.Parameters.Add(new SqlParameter("note2", mc.Note2));
 
                 int row = cmd.ExecuteNonQuery();
 

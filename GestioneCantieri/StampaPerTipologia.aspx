@@ -67,6 +67,18 @@
                     <asp:Label ID="lblScegliCantiere" runat="server" Text="Scegli Cantiere"></asp:Label>
                     <asp:DropDownList ID="ddlScegliCant" CssClass="form-control" runat="server"></asp:DropDownList>
                 </div>
+
+                <!-- Stampa Per Data -->
+                <div class="col-md-offset-3 col-md-3">
+                    <asp:Label ID="lblDataDa" runat="server" Text="Data Da:"></asp:Label>
+                    <asp:TextBox ID="txtDataDa" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-3">
+                    <asp:Label ID="lblDataA" runat="server" Text="Data A:"></asp:Label>
+                    <asp:TextBox ID="txtDataA" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+
+                <!-- Tipologie -->
                 <div class="col-md-6 text-center">
                     <asp:Label ID="lblManodop" runat="server" Text="Manodopera"></asp:Label>
                     <asp:RadioButton ID="rdbManodop" GroupName="rdbTipol" Checked="true" runat="server" />
@@ -76,17 +88,7 @@
                     <asp:RadioButton ID="rdbOper" GroupName="rdbTipol" runat="server" />
                 </div>
 
-                <!-- Stampa Per Data -->
-                <div class="col-md-3">
-                    <asp:Label ID="lblDataDa" runat="server" Text="Data Da:"></asp:Label>
-                    <asp:TextBox ID="txtDataDa" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-                <div class="col-md-3">
-                    <asp:Label ID="lblDataA" runat="server" Text="Data A:"></asp:Label>
-                    <asp:TextBox ID="txtDataA" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-
-
+                <!-- Bottone di stampa -->
                 <div class="col-md-12">
                     <asp:Button ID="btnStampaPerTipologia" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaVerificaCant_Click" runat="server" Text="Stampa Tipologia" />
                 </div>
@@ -107,6 +109,7 @@
         </div>
 
         <div class="col-md-12 text-right">
+            <asp:Label ID="lblTotOre" CssClass="lblIntestazione" runat="server" Text=""></asp:Label> <br />
             <asp:Label ID="lblTotale" CssClass="lblIntestazione" runat="server" Text=""></asp:Label>
         </div>
     </div>
