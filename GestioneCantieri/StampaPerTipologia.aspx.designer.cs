@@ -112,42 +112,6 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.DropDownList ddlScegliCant;
         
         /// <summary>
-        /// Controllo lblManodop.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblManodop;
-        
-        /// <summary>
-        /// Controllo rdbManodop.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdbManodop;
-        
-        /// <summary>
-        /// Controllo lblOperaio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblOperaio;
-        
-        /// <summary>
-        /// Controllo rdbOper.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton rdbOper;
-        
-        /// <summary>
         /// Controllo lblDataDa.
         /// </summary>
         /// <remarks>
@@ -184,6 +148,42 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtDataA;
         
         /// <summary>
+        /// Controllo lblManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblManodop;
+        
+        /// <summary>
+        /// Controllo rdbManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rdbManodop;
+        
+        /// <summary>
+        /// Controllo lblOperaio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblOperaio;
+        
+        /// <summary>
+        /// Controllo rdbOper.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButton rdbOper;
+        
+        /// <summary>
         /// Controllo btnStampaPerTipologia.
         /// </summary>
         /// <remarks>
@@ -200,6 +200,15 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdStampaPerTipologia;
+        
+        /// <summary>
+        /// Controllo lblTotOre.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotOre;
         
         /// <summary>
         /// Controllo lblTotale.

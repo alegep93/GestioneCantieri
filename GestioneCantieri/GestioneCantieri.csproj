@@ -86,7 +86,6 @@
     <Content Include="Default.aspx" />
     <Content Include="GestioneCantieri.aspx" />
     <Content Include="GestionePagamenti.aspx" />
-    <Content Include="GestioneSpese.aspx" />
     <Content Include="GestisciFrutti.aspx" />
     <Content Include="GestisciGruppiFrutti.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -180,13 +179,6 @@
     </Compile>
     <Compile Include="GestionePagamenti.aspx.designer.cs">
       <DependentUpon>GestionePagamenti.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="GestioneSpese.aspx.cs">
-      <DependentUpon>GestioneSpese.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="GestioneSpese.aspx.designer.cs">
-      <DependentUpon>GestioneSpese.aspx</DependentUpon>
     </Compile>
     <Compile Include="ResocontoOperaio.aspx.cs">
       <DependentUpon>ResocontoOperaio.aspx</DependentUpon>

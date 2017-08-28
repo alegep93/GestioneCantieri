@@ -171,8 +171,8 @@ namespace GestioneCantieri
             chkManodopRicaricoSiNo.Checked = chkArrotRicaricoSiNo.Checked = false;
 
             //Reimposto i textbox ai valori di default
-            txtQta.Text = txtManodopQta.Text = txtOperQta.Text = txtArrotQta.Text = txtChiamQta.Text = "0";
-            txtPzzoUnit.Text = txtChiamPzzoUnit.Text = "0.00";
+            txtQta.Text = txtManodopQta.Text = txtOperQta.Text = txtArrotQta.Text = txtChiamQta.Text = txtSpesaPrezzo.Text = "0";
+            txtPzzoUnit.Text = txtChiamPzzoUnit.Text = txtSpesaPrezzoCalcolato.Text = "0.00";
 
             //Textbox Tipologia sempre Disabilitato
             txtTipDatCant.Enabled = false;
@@ -217,6 +217,15 @@ namespace GestioneCantieri
                 i++;
             }
         }
+        protected void BindAllGrid()
+        {
+            BindGridMatCant();
+            BindGridManodop();
+            BindGridOper();
+            BindGridArrot();
+            BindGridChiamata();
+            BindGridSpese();
+        }
 
         //Ogni Helper "Fill" va aggiunto qua dentro per essere richiamato all'apertura dell'applicazione
         protected void FillAllDdl()
@@ -231,13 +240,13 @@ namespace GestioneCantieri
         }
 
         //Mostra/Nasconde pannelli
-        protected void ShowPanels(bool pnlMatCant, bool pnlManodop, bool pnlOper, bool pnlArrotond, bool pnlPagam, bool pnlChiam)
+        protected void ShowPanels(bool pnlMatCant, bool pnlManodop, bool pnlOper, bool pnlArrotond, bool pnlSpese, bool pnlChiam)
         {
             pnlMascheraGestCant.Visible = pnlMatCant;
             pnlManodopera.Visible = pnlManodop;
             pnlGestioneOperaio.Visible = pnlOper;
             pnlGestArrotond.Visible = pnlArrotond;
-            //pnlGestPagam.Visible = pnlPagam;
+            pnlGestSpese.Visible = pnlSpese;
             pnlGestChiamata.Visible = pnlChiam;
         }
 
@@ -305,6 +314,7 @@ namespace GestioneCantieri
             }
             FillDdlScegliMatCant();
             FillDdlScegliAcquirente();
+            BindAllGrid();
         }
         protected void txtFiltroAnnoDDT_TextChanged(object sender, EventArgs e)
         {
@@ -1756,6 +1766,220 @@ namespace GestioneCantieri
         protected void btnFiltraGrdAChiam_Click(object sender, EventArgs e)
         {
             BindGridChiamata();
+        }
+        #endregion
+
+        #region Spese
+        /* HELPERS */
+        protected void BindGridSpese()
+        {
+            List<MaterialiCantieri> mcList = MaterialiCantieriDAO.GetMaterialeCantiereForGridView(ddlScegliCant.SelectedItem.Value, txtFiltroAChiamCodArt.Text,
+                txtFiltroAChiamDescriCodArt.Text, "SPESE");
+            grdSpese.DataSource = mcList;
+            grdSpese.DataBind();
+        }
+        protected void FillMatCantSpese(MaterialiCantieri mc)
+        {
+            mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
+            mc.DescriMateriali = txtSpeseDescriCodArt.Text;
+            mc.Visibile = chkSpesaVisibile.Checked;
+            mc.Ricalcolo = chkSpesaRicalcolo.Checked;
+            mc.RicaricoSiNo = chkSpesaRicarico.Checked;
+            mc.Data = Convert.ToDateTime(txtDataDDT.Text);
+            mc.PzzoUniCantiere = Convert.ToDecimal(txtSpesaPrezzoCalcolato.Text);
+            mc.CodArt = txtSpeseCodArt.Text;
+            mc.DescriCodArt = txtSpeseDescriCodArt.Text;
+            mc.Tipologia = txtTipDatCant.Text;
+            mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
+            mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
+            //mc.Note = txtChiamNote.Text;
+            //mc.Note2 = txtChiamNote2.Text;
+            mc.Qta = Convert.ToDouble(txtSpeseQta.Text);
+
+            if (txtFascia.Text != "")
+                mc.Fascia = Convert.ToInt32(txtFascia.Text);
+            else
+                mc.Fascia = 0;
+
+            if (txtProtocollo.Text != "")
+                mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
+            else
+                mc.ProtocolloInterno = 0;
+
+            if (txtNumBolla.Enabled && txtNumBolla.Text != "")
+                mc.NumeroBolla = Convert.ToInt32(txtNumBolla.Text);
+            else if (ddlScegliDDTMef.SelectedIndex != -1)
+                mc.NumeroBolla = Convert.ToInt32((ddlScegliDDTMef.SelectedItem.Text).Split('-')[3]);
+            else
+                mc.NumeroBolla = 0;
+        }
+        private void PopolaCampiSpese(int id, bool enableControls)
+        {
+            MaterialiCantieri mc = MaterialiCantieriDAO.GetSingleMaterialeCantiere(id);
+
+            //Rendo i textbox abilitati/disabilitati
+            EnableDisableControls(enableControls, pnlGestSpese);
+
+            ddlScegliCant.SelectedItem.Value = mc.IdTblCantieri.ToString();
+            ddlScegliAcquirente.SelectedItem.Value = mc.Acquirente;
+            ddlScegliFornit.SelectedItem.Value = mc.Fornitore;
+            txtTipDatCant.Text = mc.Tipologia;
+            txtNumBolla.Text = mc.NumeroBolla.ToString();
+            txtDataDDT.Text = mc.Data.ToString("yyyy-MM-dd");
+            txtDataDDT.TextMode = TextBoxMode.Date;
+            txtFascia.Text = mc.Fascia.ToString();
+            txtProtocollo.Text = mc.ProtocolloInterno.ToString();
+            txtSpeseCodArt.Text = mc.CodArt;
+            txtSpeseDescriCodArt.Text = mc.DescriCodArt;
+            txtSpeseQta.Text = mc.Qta.ToString();
+            txtSpesaPrezzoCalcolato.Text = mc.PzzoUniCantiere.ToString();
+            chkSpesaVisibile.Checked = mc.Visibile;
+            chkSpesaRicalcolo.Checked = mc.Ricalcolo;
+            chkSpesaRicarico.Checked = mc.RicaricoSiNo;
+        }
+        private void PopolaObjSpesa(MaterialiCantieri mc)
+        {
+            mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
+            mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
+            mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
+            mc.Tipologia = txtTipDatCant.Text;
+            mc.NumeroBolla = Convert.ToInt32(txtNumBolla.Text);
+            mc.Data = Convert.ToDateTime(txtDataDDT.Text);
+            mc.Fascia = Convert.ToInt32(txtFascia.Text);
+            mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
+            mc.CodArt = txtSpeseCodArt.Text;
+            mc.DescriCodArt = txtSpeseDescriCodArt.Text;
+            mc.Qta = Convert.ToDouble(txtSpeseQta.Text);
+            mc.PzzoUniCantiere = Convert.ToDecimal(txtSpesaPrezzoCalcolato.Text);
+            mc.Visibile = chkSpesaVisibile.Checked;
+            mc.Ricalcolo = chkSpesaRicalcolo.Checked;
+            mc.RicaricoSiNo = chkSpesaRicarico.Checked;
+        }
+
+        /* EVENTI CLICK */
+        protected void btnGestSpese_Click(object sender, EventArgs e)
+        {
+            lblTitoloMaschera.Text = "Inserisci Spese";
+            txtTipDatCant.Text = "SPESE";
+            ShowPanels(false, false, false, false, true, false);
+            btnModSpesa.Visible = false;
+            BindGridSpese();
+            EnableDisableControls(true, pnlGestSpese);
+            SvuotaCampi(pnlGestSpese);
+            ChooseFornitore("Spese");
+        }
+        protected void btnFiltraGrdSpese_Click(object sender, EventArgs e)
+        {
+            BindGridSpese();
+        }
+        protected void btnCalcolaPzzoUnitSpese_Click(object sender, EventArgs e)
+        {
+            if (txtSpesaPrezzoCalcolato.Text != "")
+                txtSpesaPrezzoCalcolato.Text = Math.Round(Convert.ToDecimal(txtSpesaPrezzo.Text.Replace(".", ",")), 2).ToString();
+            else
+            {
+                lblIsSpesaInserita.Text = "Inserire un valore nella casella 'Prezzo' per calcolare il 'Prezzo Calcolato'";
+                lblIsSpesaInserita.ForeColor = Color.Red;
+            }
+        }
+        protected void btnInsSpesa_Click(object sender, EventArgs e)
+        {
+            bool isInserito = false;
+
+            if (isDateNotSet())
+                return;
+
+            MaterialiCantieri mc = new MaterialiCantieri();
+            FillMatCantSpese(mc);
+
+            if (Convert.ToInt32(txtSpeseQta.Text) > 0)
+            {
+                if (isIntestazioneCompilata())
+                    isInserito = MaterialiCantieriDAO.InserisciSpesa(mc);
+
+                if (isInserito)
+                {
+                    lblIsArrotondInserito.Text = "Record inserito con successo";
+                    lblIsArrotondInserito.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsArrotondInserito.Text = "Errore durante l'inserimento del record. L'intestazione deve essere interamente compilata.";
+                    lblIsArrotondInserito.ForeColor = Color.Red;
+                }
+            }
+            else
+            {
+                lblIsArrotondInserito.Text = "Il valore della quantità deve essere maggiore di '0'";
+                lblIsArrotondInserito.ForeColor = Color.Red;
+            }
+
+            BindGridSpese();
+            SvuotaCampi(pnlGestSpese);
+        }
+
+        /* EVENTI ROW-COMMAND */
+        protected void grdSpese_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int idSpesa = Convert.ToInt32(e.CommandArgument.ToString());
+
+            if (e.CommandName == "VisualSpesa")
+                VisualizzaDatiSpesa(idSpesa);
+            else if (e.CommandName == "ModSpesa")
+                ModificaDatiSpesa(idSpesa);
+            else if (e.CommandName == "ElimSpesa")
+                EliminaSpesa(idSpesa);
+        }
+        private void VisualizzaDatiSpesa(int idSpesa)
+        {
+            lblTitoloMaschera.Text = "Visualizza Spese";
+            btnInsSpesa.Visible = btnModSpesa.Visible = false;
+            PopolaCampiSpese(idSpesa, false);
+        }
+        private void ModificaDatiSpesa(int idSpesa)
+        {
+            lblTitoloMaschera.Text = "Modifica Spese";
+            btnInsSpesa.Visible = false;
+            btnModSpesa.Visible = true;
+            PopolaCampiSpese(idSpesa, true);
+            hidAChiamata.Value = idSpesa.ToString();
+        }
+        private void EliminaSpesa(int idSpesa)
+        {
+            bool isDeleted = MaterialiCantieriDAO.DeleteMatCant(idSpesa);
+
+            if (isDeleted)
+            {
+                lblIsSpesaInserita.Text = "Record eliminato con successo";
+                lblIsSpesaInserita.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsSpesaInserita.Text = "Errore durante l'eliminazione del record";
+                lblIsSpesaInserita.ForeColor = Color.Red;
+            }
+
+            BindGridSpese();
+        }
+        protected void btnModSpesa_Click(object sender, EventArgs e)
+        {
+            MaterialiCantieri mc = new MaterialiCantieri();
+            PopolaObjSpesa(mc);
+            bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidIdSpesa.Value, mc);
+
+            if (isUpdated)
+            {
+                lblIsSpesaInserita.Text = "Record modificato con successo";
+                lblIsSpesaInserita.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsSpesaInserita.Text = "Errore durante la modifica del record";
+                lblIsSpesaInserita.ForeColor = Color.Red;
+            }
+
+            BindGridSpese();
+            SvuotaCampi(pnlGestSpese);
         }
         #endregion
     }
