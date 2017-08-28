@@ -60,11 +60,11 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                /* Senza Filtro */
-                sql = "SELECT IdDDTMef, Anno, Data, N_DDT, CodArt, " +
-                      "DescriCodArt, Qta, Importo, Acquirente, PrezzoUnitario, AnnoN_DDT " +
+                sql = "SELECT Data, N_DDT " +
                       "FROM TblDDTMef " +
-                      "WHERE Anno LIKE @pAnno AND N_DDT LIKE @pN_DDT ";
+                      "WHERE Anno LIKE @pAnno AND N_DDT LIKE @pN_DDT " +
+                      "GROUP BY N_DDT, Data " +
+                      "ORDER BY Data ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pAnno", anno));

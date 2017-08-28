@@ -10,6 +10,7 @@ namespace GestioneCantieri.DAO
 {
     public class CantieriDAO : BaseDAO
     {
+        //SELECT
         public static Cantieri GetCantiere(string id)
         {
             SqlConnection cn = GetConnection();
@@ -64,7 +65,7 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante il recupero dei dati del singolo cantiere", ex);
             }
-            finally { cn.Close(); }
+            finally { cn.Close(); dr.Close(); }
         }
         public static DataTable GetCantieri(string anno, string codCant, string descr, bool chiuso, bool riscosso)
         {
@@ -106,7 +107,7 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'applicazione dei filtri sui cantieri", ex);
             }
-            finally { cn.Close(); }
+            finally { cn.Close();}
         }
         public static DataTable GetCantieri(string anno, string codCant, bool fatturato, bool chiuso, bool riscosso)
         {
@@ -146,6 +147,35 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'applicazione dei filtri sui cantieri", ex);
+            }
+            finally { cn.Close();}
+        }
+
+        //UPDATE
+        public static bool UpdateValoreManodoperaCantiere(string id, string pzzoManodop)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+            Cantieri cant = new Cantieri();
+
+            try
+            {
+                sql = "UPDATE TblCantieri SET PzzoManodopera = @pzzoManodop WHERE IdCantieri = @idCant ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("idCant", id));
+                cmd.Parameters.Add(new SqlParameter("pzzoManodop", pzzoManodop));
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante la modifica del valore della manodopera", ex);
             }
             finally { cn.Close(); }
         }

@@ -50,6 +50,7 @@
     </Reference>
     <Reference Include="itextsharp, Version=5.5.11.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.11\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -84,6 +85,7 @@
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Default.aspx" />
     <Content Include="GestioneCantieri.aspx" />
+    <Content Include="GestionePagamenti.aspx" />
     <Content Include="GestioneSpese.aspx" />
     <Content Include="GestisciFrutti.aspx" />
     <Content Include="GestisciGruppiFrutti.aspx" />
@@ -171,6 +173,13 @@
     </Compile>
     <Compile Include="GestioneCantieri.aspx.designer.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestionePagamenti.aspx.cs">
+      <DependentUpon>GestionePagamenti.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestionePagamenti.aspx.designer.cs">
+      <DependentUpon>GestionePagamenti.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestioneSpese.aspx.cs">
       <DependentUpon>GestioneSpese.aspx</DependentUpon>
