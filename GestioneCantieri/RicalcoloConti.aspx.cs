@@ -244,7 +244,7 @@ namespace GestioneCantieri
         protected void GeneraTotalePerContoFinCli(PdfPTable tblTotali, decimal totale)
         {
             decimal totValAcconti = CalcolaTotAcconti();
-            totRicalcoloConti = totale - totValAcconti;
+            totRicalcoloConti = totale;
 
             //Totale No Iva
             Phrase totContoFinCli = new Phrase("Totale Senza IVA: " + String.Format("{0:n}", totale), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
@@ -253,7 +253,7 @@ namespace GestioneCantieri
             //Totale Acconti
             Phrase totAcconti = new Phrase("Totale Acconti : " + String.Format("{0:n}", totValAcconti), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
             PdfPCell totAccontiCell = new PdfPCell(totAcconti);
-            Phrase totaleFinale = new Phrase("Totale Finale: " + String.Format("{0:n}", totRicalcoloConti), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
+            Phrase totaleFinale = new Phrase("Totale Finale: " + String.Format("{0:n}", totale - totValAcconti), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
             PdfPCell totaleFinaleCell = new PdfPCell(totaleFinale);
 
             totContoFinCliCell.HorizontalAlignment = totAccontiCell.HorizontalAlignment = totaleFinaleCell.HorizontalAlignment = Element.ALIGN_RIGHT;
