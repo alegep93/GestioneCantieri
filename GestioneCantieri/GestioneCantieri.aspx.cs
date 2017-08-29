@@ -1318,6 +1318,32 @@ namespace GestioneCantieri
             BindGridOper();
             SvuotaCampi(pnlGestioneOperaio);
         }
+
+        //Aggiornamento Costo Operaio
+        protected void btnNuovoCostoOperaio_Click(object sender, EventArgs e)
+        {
+            if (txtNuovoCostoOperaio.Text != "" && txtNuovoCostoOperaio.Text != "0")
+            {
+                bool isUpdated = MaterialiCantieriDAO.UpdateCostoOperaio(ddlScegliCant.SelectedItem.Value, txtAggiornaValManodop.Text, ddlScegliOperaio.SelectedItem.Value);
+                if (isUpdated)
+                {
+                    lblIsManodopInserita.Text = "Costo operaio modificato con successo";
+                    lblIsManodopInserita.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsManodopInserita.Text = "Errore durante la modifica del costo operaio";
+                    lblIsManodopInserita.ForeColor = Color.Red;
+                }
+            }
+            else
+            {
+                lblIsManodopInserita.Text = "Il campo \"Nuovo Costo Operaio\" NON può essere nè vuoto nè 0";
+                lblIsManodopInserita.ForeColor = Color.Red;
+            }
+
+            BindGridOper();
+        }
         #endregion
 
         #region Arrotondamento
