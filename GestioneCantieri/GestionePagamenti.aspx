@@ -27,6 +27,15 @@
             top: 13px;
             right: 10px;
         }
+
+        select, input {
+            font-size: 20px !important;
+            min-height: 40px;
+        }
+
+        h2 {
+            margin-top: 0 !important;
+        }
     </style>
 </asp:Content>
 

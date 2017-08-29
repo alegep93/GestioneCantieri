@@ -1150,7 +1150,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "UPDATE TblMaterialiCantieri " +
                       "SET PzzoUniCantiere = @pzzoManodop " +
-                      "WHERE IdTblCantieri = @id ";
+                      "WHERE IdTblCantieri = @id AND Tipologia = 'MANODOPERA'";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("id", id));
@@ -1166,6 +1166,35 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'update del valore della manodopera", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static bool UpdateCostoOperaio(string idCant, string costoOperaio, string idOper)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "UPDATE TblMaterialiCantieri " +
+                      "SET PzzoUniCantiere = @pzzoOper " +
+                      "WHERE IdTblCantieri = @id AND Acquirente = @idOper AND Tipologia = 'OPERAIO' ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("id", idCant));
+                cmd.Parameters.Add(new SqlParameter("pzzoOper", costoOperaio));
+                cmd.Parameters.Add(new SqlParameter("idOper", idOper));
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'update del costo Operaio", ex);
             }
             finally { cn.Close(); }
         }

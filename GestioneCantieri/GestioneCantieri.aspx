@@ -33,6 +33,14 @@
             overflow: hidden;
             overflow-y: scroll;
         }
+
+        select, input {
+            font-size: 20px !important;
+            min-height: 40px;
+        }
+        h2{
+            margin-top: 0 !important;
+        }
     </style>
 </asp:Content>
 
@@ -55,15 +63,15 @@
                         <asp:Label ID="lblFiltroCantDescrCodCant" Text="Descri Cod Cant" runat="server" />
                         <asp:TextBox ID="txtFiltroCantDescrCodCant" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <asp:Label ID="lblFiltroCantChiuso" Text="Chiuso" runat="server" />
                         <asp:CheckBox ID="chkFiltroCantChiuso" CssClass="form-control" Checked="false" runat="server" />
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <asp:Label ID="lblFiltroCantRiscosso" Text="Riscosso" runat="server" />
                         <asp:CheckBox ID="chkFiltroCantRiscosso" CssClass="form-control" Checked="false" runat="server" />
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <asp:Button ID="btnFiltroCant" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnFiltroCant_Click" runat="server" Text="Filtra" />
                         <asp:Button ID="btnSvuotaIntestazione" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnSvuotaIntestazione_Click" runat="server" Text="Svuota Intestazione" />
                     </div>
@@ -73,20 +81,6 @@
                     <asp:DropDownList ID="ddlScegliCant" CssClass="form-control" AutoPostBack="true" OnTextChanged="ddlScegliCant_TextChanged" runat="server" />
                 </div>
                 <asp:Panel ID="pnlSubIntestazione" runat="server">
-                    <div class="col-md-12">
-                        <div class="col-md-4">
-                            <asp:Label ID="lblAcquirente" Text="Acquirente" runat="server" />
-                            <asp:DropDownList ID="ddlScegliAcquirente" CssClass="form-control" runat="server" />
-                        </div>
-                        <div class="col-md-4">
-                            <asp:Label ID="lblScegliFornit" Text="Fornitore" runat="server" />
-                            <asp:DropDownList ID="ddlScegliFornit" CssClass="form-control" runat="server" />
-                        </div>
-                        <div class="col-md-4">
-                            <asp:Label ID="lblTipDatCant" Text="Tipologia" runat="server" />
-                            <asp:TextBox ID="txtTipDatCant" CssClass="form-control" Text="MATERIALE" Enabled="false" runat="server"></asp:TextBox>
-                        </div>
-                    </div>
                     <div class="col-md-12">
                         <div class="col-md-4">
                             <div class="col-md-12">
@@ -123,6 +117,20 @@
                                 <asp:Label ID="lblProtocollo" Text="Protocollo" runat="server" />
                                 <asp:TextBox ID="txtProtocollo" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <asp:Label ID="lblAcquirente" Text="Acquirente" runat="server" />
+                            <asp:DropDownList ID="ddlScegliAcquirente" CssClass="form-control" runat="server" />
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Label ID="lblScegliFornit" Text="Fornitore" runat="server" />
+                            <asp:DropDownList ID="ddlScegliFornit" CssClass="form-control" runat="server" />
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Label ID="lblTipDatCant" Text="Tipologia" runat="server" />
+                            <asp:TextBox ID="txtTipDatCant" CssClass="form-control" Text="MATERIALE" Enabled="false" runat="server"></asp:TextBox>
                         </div>
                     </div>
 
@@ -192,11 +200,11 @@
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblNote" Text="Note" runat="server" />
-                        <asp:TextBox ID="txtNote" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtNote" TextMode="MultiLine" Rows="2" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblNote_2" Text="Note 2" runat="server" />
-                        <asp:TextBox ID="txtNote_2" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtNote_2" TextMode="MultiLine" Rows="2" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
                 <div class="row">
@@ -340,11 +348,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <asp:Label ID="lblNote1" Text="Note 1" runat="server" />
-                        <asp:TextBox ID="txtNote1" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtNote1" TextMode="MultiLine" Rows="2" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-6">
                         <asp:Label ID="lblNote2" Text="Note 2" runat="server" />
-                        <asp:TextBox ID="txtNote2" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtNote2" TextMode="MultiLine" Rows="2" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
 
@@ -448,11 +456,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <asp:Label ID="lblOperNote1" Text="Note 1" runat="server" />
-                        <asp:TextBox ID="txtOperNote1" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtOperNote1" TextMode="MultiLine" Rows="2" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-6">
                         <asp:Label ID="lblOperNote2" Text="Note 2" runat="server" />
-                        <asp:TextBox ID="txtOperNote2" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtOperNote2" TextMode="MultiLine" Rows="2" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
 
@@ -469,7 +477,12 @@
                         <asp:Label ID="lblOperRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
                         <asp:CheckBox ID="chkOperRicaricoSiNo" CssClass="form-control" Checked="true" runat="server" />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
+                        <asp:Label ID="lblNuovoCostoOperaio" Text="Nuovo Costo Operaio" runat="server" />
+                        <asp:TextBox ID="txtNuovoCostoOperaio" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:Button ID="btnNuovoCostoOperaio" OnClick="btnNuovoCostoOperaio_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Aggiorna Costo Operaio" />
+                    </div>
+                    <div class="col-md-3">
                         <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Operaio" />
                         <asp:Button ID="btnModOper" OnClick="btnModOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Operaio" />
                         <asp:Label ID="lblIsOperInserita" Text="" CssClass="pull-right" runat="server" />
@@ -639,11 +652,11 @@
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblChiamNote" Text="Note" runat="server" />
-                        <asp:TextBox ID="txtChiamNote" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtChiamNote" TextMode="MultiLine" Rows="2" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblChiamNote2" Text="Note 2" runat="server" />
-                        <asp:TextBox ID="txtChiamNote2" TextMode="MultiLine" Rows="5" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtChiamNote2" TextMode="MultiLine" Rows="2" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
                 <div class="row">
