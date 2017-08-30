@@ -239,8 +239,8 @@ namespace GestioneCantieri
 
                 bool isInserito = InserimentoDatiDAO.InserisciCantiere(ddlScegliClientePerCantiere.SelectedValue, txtDataInserCant.Text,
                     txtCodCant.Text, txtDescrCodCant.Text, txtIndirizzoCant.Text, txtCittaCant.Text,
-                    txtRicaricoCant.Text, txtPzzoManodopCant.Text, chiuso, riscosso,
-                    txtNumeroCant.Text, txtValPrevCant.Text, txtIvaCant.Text, txtAnnoCant.Text,
+                    txtRicaricoCant.Text, Convert.ToDecimal(txtPzzoManodopCant.Text), chiuso, riscosso,
+                    txtNumeroCant.Text, Convert.ToDecimal(txtValPrevCant.Text), txtIvaCant.Text, txtAnnoCant.Text,
                     preventivo, daDividere, diviso, fatturato, txtFasciaCant.Text, codRiferCant);
 
                 if (isInserito)
@@ -275,8 +275,8 @@ namespace GestioneCantieri
 
             bool isUpdated = InserimentoDatiDAO.UpdateCantiere(hidIdCant.Value, ddlScegliClientePerCantiere.SelectedValue, txtDataInserCant.Text,
                     txtCodCant.Text, txtDescrCodCant.Text, txtIndirizzoCant.Text, txtCittaCant.Text,
-                    txtRicaricoCant.Text, txtPzzoManodopCant.Text, chiuso, riscosso,
-                    txtNumeroCant.Text, txtValPrevCant.Text, txtIvaCant.Text, txtAnnoCant.Text,
+                    txtRicaricoCant.Text, Convert.ToDecimal(txtPzzoManodopCant.Text), chiuso, riscosso,
+                    txtNumeroCant.Text, Convert.ToDecimal(txtValPrevCant.Text), txtIvaCant.Text, txtAnnoCant.Text,
                     preventivo, daDividere, diviso, fatturato, txtFasciaCant.Text);
 
             if (isUpdated)
@@ -631,16 +631,16 @@ namespace GestioneCantieri
                 selectedListItem.Selected = true;
 
             //Popolo i textbox
-            txtDataInserCant.Text = cant.Data.ToString("dd-MM-yyyy");
+            txtDataInserCant.Text = cant.Data.ToString("yyyy-MM-dd");
             txtDataInserCant.TextMode = TextBoxMode.Date;
             txtCodCant.Text = cant.CodCant;
             txtDescrCodCant.Text = cant.DescriCodCAnt;
             txtIndirizzoCant.Text = cant.Indirizzo;
             txtCittaCant.Text = cant.Città;
             txtRicaricoCant.Text = cant.Ricarico.ToString();
-            txtPzzoManodopCant.Text = cant.PzzoManodopera.ToString();
+            txtPzzoManodopCant.Text = cant.PzzoManodopera.ToString("N2");
             txtNumeroCant.Text = cant.Numero;
-            txtValPrevCant.Text = cant.ValorePreventivo.ToString();
+            txtValPrevCant.Text = cant.ValorePreventivo.ToString("N2");
             txtIvaCant.Text = cant.Iva.ToString();
             txtAnnoCant.Text = cant.Anno.ToString();
             txtFasciaCant.Text = cant.FasciaTblCantieri.ToString();

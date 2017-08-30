@@ -741,8 +741,8 @@ namespace GestioneCantieri.DAO
             finally { cn.Close(); dr.Close(); }
         }
         public static bool InserisciCantiere(string idCliente, string data, string codCant,
-            string descrCodCant, string indirizzo, string citta, string ricarico, string pzzoManodop,
-            string chiuso, string riscosso, string numeroCant, string valPrev, string iva, string anno,
+            string descrCodCant, string indirizzo, string citta, string ricarico, decimal pzzoManodop,
+            string chiuso, string riscosso, string numeroCant, decimal valPrev, string iva, string anno,
             string preventivo, string daDividere, string diviso, string fatturato, string fasciaCantiere, string codRiferCant)
         {
             SqlConnection cn = GetConnection();
@@ -839,8 +839,8 @@ namespace GestioneCantieri.DAO
             finally { cn.Close(); }
         }
         public static bool UpdateCantiere(string idCant, string idCliente, string data, string codCant,
-            string descrCodCant, string indirizzo, string citta, string ricarico, string pzzoManodop,
-            string chiuso, string riscosso, string numeroCant, string valPrev, string iva, string anno,
+            string descrCodCant, string indirizzo, string citta, string ricarico, decimal pzzoManodop,
+            string chiuso, string riscosso, string numeroCant, decimal valPrev, string iva, string anno,
             string preventivo, string daDividere, string diviso, string fatturato, string fasciaCantiere)
         {
             SqlConnection cn = GetConnection();
