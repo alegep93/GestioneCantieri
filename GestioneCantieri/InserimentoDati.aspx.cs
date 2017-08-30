@@ -632,6 +632,7 @@ namespace GestioneCantieri
 
             //Popolo i textbox
             txtDataInserCant.Text = cant.Data.ToString("dd-MM-yyyy");
+            txtDataInserCant.TextMode = TextBoxMode.Date;
             txtCodCant.Text = cant.CodCant;
             txtDescrCodCant.Text = cant.DescriCodCAnt;
             txtIndirizzoCant.Text = cant.Indirizzo;
