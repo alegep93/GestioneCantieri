@@ -226,6 +226,11 @@ namespace GestioneCantieri
             BindGridChiamata();
             BindGridSpese();
         }
+        protected void HideMessageLabels()
+        {
+            lblIsRecordInserito.Text = lblIsManodopInserita.Text = lblIsOperInserita.Text = 
+               lblIsArrotondInserito.Text = lblIsSpesaInserita.Text = lblIsAChiamInserita.Text = "";
+        }
 
         //Ogni Helper "Fill" va aggiunto qua dentro per essere richiamato all'apertura dell'applicazione
         protected void FillAllDdl()
@@ -593,6 +598,7 @@ namespace GestioneCantieri
             EnableDisableControls(true, pnlMascheraGestCant);
             SvuotaCampi(pnlMascheraGestCant);
             ChooseFornitore("Mef");
+            HideMessageLabels();
         }
         protected void btnRientro_Click(object sender, EventArgs e)
         {
@@ -608,6 +614,7 @@ namespace GestioneCantieri
             EnableDisableControls(true, pnlMascheraGestCant);
             SvuotaCampi(pnlMascheraGestCant);
             ChooseFornitore("Rientro");
+            HideMessageLabels();
         }
 
         /* EVENTI TEXT-CHANGED */
@@ -731,6 +738,7 @@ namespace GestioneCantieri
             lblTitoloMaschera.Text = "Visualizza Materiali Cantieri";
             btnInserisciMatCant.Visible = btnModMatCant.Visible = false;
             PopolaCampiMatCant(id, false);
+            HideMessageLabels();
         }
         private void ModificaDatiMatCant(int id)
         {
@@ -741,6 +749,7 @@ namespace GestioneCantieri
             PopolaCampiMatCant(id, true);
             BindGridMatCant();
             hidIdMatCant.Value = id.ToString();
+            HideMessageLabels();
         }
         private void EliminaMatCant(int id)
         {
@@ -797,6 +806,7 @@ namespace GestioneCantieri
             lblTitoloMaschera.Text = "Visualizza Rientro Materiali";
             btnInserisciRientro.Visible = btnModRientro.Visible = false;
             PopolaCampiMatCant(idRientro, false);
+            HideMessageLabels();
         }
         private void ModificaDatiRientro(int idRientro)
         {
@@ -806,6 +816,7 @@ namespace GestioneCantieri
             btnModMatCant.Visible = false;
             PopolaCampiMatCant(idRientro, true);
             hidIdMatCant.Value = idRientro.ToString();
+            HideMessageLabels();
         }
         private void EliminaRientro(int idRientro)
         {
@@ -939,6 +950,7 @@ namespace GestioneCantieri
             EnableDisableControls(true, pnlManodopera);
             SvuotaCampi(pnlManodopera);
             ChooseFornitore("Manodopera");
+            HideMessageLabels();
 
             //Popolo il campo PzzoManodopera a partire dal prezzo scritto nella tabella Cantieri
             Cantieri c = CantieriDAO.GetCantiere(ddlScegliCant.SelectedItem.Value);
@@ -1015,6 +1027,7 @@ namespace GestioneCantieri
             lblTitoloMaschera.Text = "Visualizza Manodopera";
             btnInsManodop.Visible = btnModManodop.Visible = false;
             PopolaCampiManodop(idManodop, false);
+            HideMessageLabels();
         }
         private void ModificaDatiManodop(int idManodop)
         {
@@ -1023,6 +1036,7 @@ namespace GestioneCantieri
             btnModManodop.Visible = true;
             PopolaCampiManodop(idManodop, true);
             hidManodop.Value = idManodop.ToString();
+            HideMessageLabels();
         }
         private void EliminaManodop(int idManodop)
         {
@@ -1193,6 +1207,7 @@ namespace GestioneCantieri
             EnableDisableControls(true, pnlGestioneOperaio);
             SvuotaCampi(pnlGestioneOperaio);
             ChooseFornitore("Operaio");
+            HideMessageLabels();
         }
 
         /* EVENTI TEXT-CHANGED */
@@ -1272,6 +1287,7 @@ namespace GestioneCantieri
             lblTitoloMaschera.Text = "Visualizza Operaio";
             btnInsOper.Visible = btnModOper.Visible = false;
             PopolaCampiOper(idOper, false);
+            HideMessageLabels();
         }
         private void ModificaDatiOper(int idOper)
         {
@@ -1280,6 +1296,7 @@ namespace GestioneCantieri
             btnModOper.Visible = true;
             PopolaCampiOper(idOper, true);
             hidOper.Value = idOper.ToString();
+            HideMessageLabels();
         }
         private void EliminaOper(int idOper)
         {
@@ -1413,6 +1430,7 @@ namespace GestioneCantieri
             EnableDisableControls(true, pnlGestArrotond);
             SvuotaCampi(pnlGestArrotond);
             ChooseFornitore("Arrotondamento");
+            HideMessageLabels();
         }
 
         /* EVENTI PER IL ROWCOMMAND */
@@ -1488,6 +1506,7 @@ namespace GestioneCantieri
             btnInsArrot.Visible = btnModArrot.Visible = false;
             PopolaCampiArrot(idArrot, false);
             btnInsArrot.Visible = btnModArrot.Visible = false;
+            HideMessageLabels();
         }
         private void ModificaDatiArrot(int idArrot)
         {
@@ -1496,6 +1515,7 @@ namespace GestioneCantieri
             btnModArrot.Visible = true;
             PopolaCampiArrot(idArrot, true);
             hidArrot.Value = idArrot.ToString();
+            HideMessageLabels();
         }
         private void EliminaArrot(int idArrot)
         {
@@ -1724,6 +1744,7 @@ namespace GestioneCantieri
             EnableDisableControls(true, pnlGestChiamata);
             SvuotaCampi(pnlGestChiamata);
             ChooseFornitore("A Chiamata");
+            HideMessageLabels();
         }
 
         /* Eventi Per il RowCommand */
@@ -1743,6 +1764,7 @@ namespace GestioneCantieri
             lblTitoloMaschera.Text = "Visualizza A Chiamata";
             btnInsAChiam.Visible = btnModAChiam.Visible = false;
             PopolaCampiChiamata(idChiamata, false);
+            HideMessageLabels();
         }
         private void ModificaDatiChiam(int idChiamata)
         {
@@ -1751,6 +1773,7 @@ namespace GestioneCantieri
             btnModAChiam.Visible = true;
             PopolaCampiChiamata(idChiamata, true);
             hidAChiamata.Value = idChiamata.ToString();
+            HideMessageLabels();
         }
         private void EliminaChiam(int idChiamata)
         {
@@ -1893,6 +1916,7 @@ namespace GestioneCantieri
             EnableDisableControls(true, pnlGestSpese);
             SvuotaCampi(pnlGestSpese);
             ChooseFornitore("Spese");
+            HideMessageLabels();
         }
         protected void btnFiltraGrdSpese_Click(object sender, EventArgs e)
         {
@@ -1961,6 +1985,7 @@ namespace GestioneCantieri
             lblTitoloMaschera.Text = "Visualizza Spese";
             btnInsSpesa.Visible = btnModSpesa.Visible = false;
             PopolaCampiSpese(idSpesa, false);
+            HideMessageLabels();
         }
         private void ModificaDatiSpesa(int idSpesa)
         {
@@ -1969,6 +1994,7 @@ namespace GestioneCantieri
             btnModSpesa.Visible = true;
             PopolaCampiSpese(idSpesa, true);
             hidAChiamata.Value = idSpesa.ToString();
+            HideMessageLabels();
         }
         private void EliminaSpesa(int idSpesa)
         {
