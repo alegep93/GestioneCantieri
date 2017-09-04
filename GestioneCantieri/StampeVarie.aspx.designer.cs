@@ -166,6 +166,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnStampaMatCant;
         
         /// <summary>
+        /// Controllo btnAggiungiNumPagine.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAggiungiNumPagine;
+        
+        /// <summary>
         /// Controllo pnlCampiStampaCliente.
         /// </summary>
         /// <remarks>
