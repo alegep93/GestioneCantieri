@@ -56,6 +56,7 @@
             <div class="col-md-12">
                 <asp:Button ID="btnStampaDDT" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaDDT_Click" runat="server" Text="Stampa DDT" />
                 <asp:Button ID="btnStampaMatCant" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaMatCant_Click" runat="server" Text="Stampa Mat Cant" />
+                <asp:Button ID="btnAggiungiNumPagine" CssClass="btn btn-lg btn-info pull-right" OnClick="btnAggiungiNumPagine_Click" runat="server" Text="Aggiungi Num. Pagine" />
             </div>
         </asp:Panel>
 

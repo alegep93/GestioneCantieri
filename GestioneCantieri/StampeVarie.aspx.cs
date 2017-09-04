@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
+using GestioneCantieri.FooterPDF;
 
 namespace GestioneCantieri
 {
@@ -128,22 +129,44 @@ namespace GestioneCantieri
             return table;
         }
 
+        protected void AddPageNumber()
+        {
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split('\\')[1];
+            byte[] bytes = File.ReadAllBytes(@"C:\\Users\\" + userName + "\\Downloads\\" + txtNomeFile.Text + ".pdf");
+            iTextSharp.text.Font blackFont = FontFactory.GetFont("Arial", 12, iTextSharp.text.Font.NORMAL, BaseColor.BLACK);
+            using (MemoryStream stream = new MemoryStream())
+            {
+                PdfReader reader = new PdfReader(bytes);
+                using (PdfStamper stamper = new PdfStamper(reader, stream))
+                {
+                    int pages = reader.NumberOfPages;
+                    for (int i = 1; i <= pages; i++)
+                    {
+                        ColumnText.ShowTextAligned(stamper.GetOverContent(i), Element.ALIGN_RIGHT, new Phrase(i.ToString() + " / " + pages.ToString(), blackFont), 570f, 15f, 0);
+                    }
+                }
+                bytes = stream.ToArray();
+            }
+            File.WriteAllBytes(@"C:\\Users\\" + userName + "\\Downloads\\" + txtNomeFile.Text + ".pdf", bytes);
+        }
+
         protected void ExportToPdfPerDDT()
         {
             decimal totale = 0m;
             decimal totaleFinale = 0m;
             int numDdtAttuale = 0;
+
             dt = DDTMefDAO.GetDDTForPDF(txtDataDa.Text, txtDataA.Text, ddlScegliAcquirente.SelectedItem.Text, txtNumDDT.Text);
             List<DDTMef> ddtList = dt.DataTableToList<DDTMef>();
 
             //Apro lo stream verso il file PDF
-            Document pdfDoc = new Document(PageSize.A4, 8f, 2f, 2f, 2f);
+            Document pdfDoc = new Document(PageSize.A4, 8f, 2f, 0f, 10f);
             PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
             pdfDoc.Open();
 
             PdfPTable table = InitializePdfTableDDT();
 
-            Phrase title = new Phrase(txtNomeFile.Text, FontFactory.GetFont("Arial", 24, iTextSharp.text.Font.BOLD, BaseColor.RED));
+            Phrase title = new Phrase(txtNomeFile.Text, FontFactory.GetFont("Arial", 22, iTextSharp.text.Font.BOLD, BaseColor.RED));
             pdfDoc.Add(title);
 
             GeneraPDFPerNumDDT(pdfDoc, ddtList, title, table, totale, numDdtAttuale, totaleFinale);
@@ -498,6 +521,7 @@ namespace GestioneCantieri
             {
                 BindGridStampaMatCant();
                 ExportToPdfPerMatCant();
+                AddPageNumber();
             }
             else
             {
@@ -559,6 +583,11 @@ namespace GestioneCantieri
         public override void VerifyRenderingInServerForm(Control control)
         {
             //Do nothing
+        }
+
+        protected void btnAggiungiNumPagine_Click(object sender, EventArgs e)
+        {
+            AddPageNumber();
         }
     }
 }
