@@ -432,7 +432,8 @@ namespace GestioneCantieri.DAO
                       "ricaricoSiNo,Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore, " +
                       "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli " +
                       "FROM TblMaterialiCantieri " +
-                      "WHERE IdTblCantieri = @Id AND Visibile != 0 ";
+                      "WHERE IdTblCantieri = @Id AND Visibile != 0 " +
+                      "ORDER BY Data";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("Id", id));
@@ -474,7 +475,7 @@ namespace GestioneCantieri.DAO
         }
 
         //Recupero i record in base alla tipologia passata come parametro di ingresso
-        public static List<MaterialiCantieri> GetMaterialeCantierePerTipologia(string idCant, string dataDa, string dataA, string tipologia)
+        public static List<MaterialiCantieri> GetMaterialeCantierePerTipologia(string idCant, string dataDa, string dataA, string idOper, string tipologia)
         {
             SqlConnection cn = GetConnection();
             SqlDataReader dr = null;
@@ -484,11 +485,12 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "SELECT IdMaterialiCantiere,B.DescriCodCAnt,DescriMateriali,Qta,Visibile,Ricalcolo, " +
-                      "ricaricoSiNo,A.Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore, " +
+                      "ricaricoSiNo,A.Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,D.NomeOp,Fornitore, " +
                       "NumeroBolla,ProtocolloInterno,A.Note,PzzoFinCli,B.CodCant,C.RagSocCli " +
                       "FROM TblMaterialiCantieri AS A " +
                       "LEFT JOIN TblCantieri AS B ON (A.IdTblCantieri = B.IdCantieri) " +
                       "LEFT JOIN TblClienti AS C ON (B.IdTblClienti = C.IdCliente) " +
+                      "LEFT JOIN TblOperaio AS D ON (A.Acquirente = D.IdOperaio) " +
                       "WHERE Tipologia = @pTipol ";
 
                 if (idCant != "-1")
@@ -496,11 +498,15 @@ namespace GestioneCantieri.DAO
                 else
                     sql += " AND A.Data BETWEEN CONVERT(date, @dataDa) AND CONVERT(date, @dataA) ";
 
+                if (idOper != "-1")
+                    sql += " AND A.Acquirente = @pIdOper ";
+
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pTipol", tipologia));
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
                 cmd.Parameters.Add(new SqlParameter("dataDa", dataDa));
                 cmd.Parameters.Add(new SqlParameter("dataA", dataA));
+                cmd.Parameters.Add(new SqlParameter("pIdOper", idOper));
 
                 dr = cmd.ExecuteReader();
 
