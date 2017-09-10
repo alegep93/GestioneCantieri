@@ -130,7 +130,7 @@ namespace GestioneCantieri.DAO
             codArt1 = "%" + codArt1 + "%";
             codArt2 = "%" + codArt2 + "%";
             codArt3 = "%" + codArt3 + "%";
-            qta = "%" + qta + "%";
+            //qta = "%" + qta + "%";
             descriCodArt1 = "%" + descriCodArt1 + "%";            
             descriCodArt2 = "%" + descriCodArt2 + "%";            
             descriCodArt3 = "%" + descriCodArt3 + "%";
@@ -161,11 +161,11 @@ namespace GestioneCantieri.DAO
                 {
                     inizio = "%" + inizio + "%";
                     fine = "%" + fine + "%";
-                    dataInizio = "%" + dataInizio + "%";
-                    dataFine = "%" + dataFine + "%";
+                    dataInizio = "2010-01-01";
+                    dataFine = DateTime.Now.ToString();
 
-                    sql += "WHERE ((ANNO LIKE @pAnnoInizio OR Anno LIKE @pAnnoFine) OR (Data LIKE CONVERT(Date,@pDataInizio) OR Data LIKE CONVERT(Date,@pDataFine))) " +
-                           "AND Qta LIKE @pQta " +
+                    sql += //"WHERE ((ANNO LIKE @pAnnoInizio OR Anno LIKE @pAnnoFine) OR (Data LIKE CONVERT(Date,@pDataInizio) OR Data LIKE CONVERT(Date,@pDataFine))) " +
+                           "WHERE Qta LIKE @pQta " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
@@ -179,8 +179,8 @@ namespace GestioneCantieri.DAO
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pAnnoInizio", inizio));
                 cmd.Parameters.Add(new SqlParameter("pAnnoFine", fine));
-                cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
-                cmd.Parameters.Add(new SqlParameter("pDataFine", dataFine));
+                cmd.Parameters.Add(new SqlParameter("pDataInizio", Convert.ToDateTime(dataInizio)));
+                cmd.Parameters.Add(new SqlParameter("pDataFine", Convert.ToDateTime(dataFine)));
                 cmd.Parameters.Add(new SqlParameter("pQta", qta));
                 cmd.Parameters.Add(new SqlParameter("pCodArt1", codArt1));
                 cmd.Parameters.Add(new SqlParameter("pCodArt2", codArt2));
@@ -278,11 +278,11 @@ namespace GestioneCantieri.DAO
                 {
                     inizio = "%" + inizio + "%";
                     fine = "%" + fine + "%";
-                    dataInizio = "%" + dataInizio + "%";
-                    dataFine = "%" + dataFine + "%";
+                    dataInizio = "2010-01-01";
+                    dataFine = DateTime.Now.ToString();
 
-                    sql += "WHERE ((ANNO LIKE @pAnnoInizio OR Anno LIKE @pAnnoFine) OR (Data LIKE CONVERT(Date,@pDataInizio) OR Data LIKE CONVERT(Date,@pDataFine))) " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                    sql += //"WHERE ((ANNO LIKE @pAnnoInizio OR Anno LIKE @pAnnoFine) OR (Data LIKE CONVERT(Date,@pDataInizio) OR Data LIKE CONVERT(Date,@pDataFine))) " +
+                           "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
                 else
@@ -296,8 +296,8 @@ namespace GestioneCantieri.DAO
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pAnnoInizio", inizio));
                 cmd.Parameters.Add(new SqlParameter("pAnnoFine", fine));
-                cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
-                cmd.Parameters.Add(new SqlParameter("pDataFine", dataFine));
+                cmd.Parameters.Add(new SqlParameter("pDataInizio", Convert.ToDateTime(dataInizio)));
+                cmd.Parameters.Add(new SqlParameter("pDataFine", Convert.ToDateTime(dataFine)));
                 cmd.Parameters.Add(new SqlParameter("pCodArt1", codArt1));
                 cmd.Parameters.Add(new SqlParameter("pCodArt2", codArt2));
                 cmd.Parameters.Add(new SqlParameter("pCodArt3", codArt3));

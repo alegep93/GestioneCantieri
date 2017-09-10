@@ -94,6 +94,7 @@ namespace GestioneCantieri
             {
                 btnStampaValoriCantieri.Visible = true;
                 pnlRisultati.Visible = true;
+                txtContoPreventivo.Text = txtTotPagamenti.Text = txtTotFinale.Text = "";
             }
             else
             {
