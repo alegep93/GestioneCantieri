@@ -116,11 +116,14 @@
                 <asp:Label ID="lblTotGuadagno" runat="server" CssClass="lblIntestazione" Text=""></asp:Label>
             </div>
             <div class="col-md-3">
-                <asp:Label ID="lblTotManodop" runat="server" CssClass="lblIntestazione" Text=""></asp:Label>
+                <asp:Label ID="lblTotSpese" runat="server" CssClass="lblIntestazione" Text=""></asp:Label>
             </div>
         </div>
 
         <div class="col-md-12 text-center">
+            <div class="col-md-3">
+                <asp:Label ID="lblTotManodop" runat="server" CssClass="lblIntestazione" Text=""></asp:Label>
+            </div>
             <div class="col-md-3">
                 <asp:Label ID="lblTotGuadagnoConManodop" runat="server" CssClass="lblIntestazione" Text=""></asp:Label>
             </div>

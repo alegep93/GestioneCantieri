@@ -3,6 +3,7 @@ using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {
@@ -13,6 +14,7 @@ namespace GestioneCantieri
             if (!IsPostBack)
             {
                 FillDdlScegliCantiere();
+                FillDdlScegliOperaio();
             }
         }
 
@@ -31,6 +33,27 @@ namespace GestioneCantieri
                 ddlScegliCant.Items.Add(new System.Web.UI.WebControls.ListItem(show, c.IdCantieri.ToString()));
             }
         }
+        protected void FillDdlScegliOperaio()
+        {
+            int i = 0;
+            DataTable dt = OperaiDAO.GetOperai();
+            List<Operai> listOperai = dt.DataTableToList<Operai>();
+
+            ddlScegliOperaio.Items.Clear();
+            ddlScegliOperaio.Items.Add(new ListItem("", "-1"));
+
+            foreach (Operai op in listOperai)
+            {
+                string show = op.NomeOp + " - " + op.DescrOp;
+                ddlScegliOperaio.Items.Add(new ListItem(show, op.IdOperaio.ToString()));
+
+                i++;
+                if (op.NomeOp == "Maurizio" || op.NomeOp == "Mau" || op.NomeOp == "MAU")
+                {
+                    ddlScegliOperaio.SelectedIndex = i;
+                }
+            }
+        }
         protected void BindGrid()
         {
             decimal totale = 0m;
@@ -38,9 +61,9 @@ namespace GestioneCantieri
             List<MaterialiCantieri> mcList = new List<MaterialiCantieri>();
 
             if (rdbManodop.Checked)
-                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, txtDataDa.Text, txtDataA.Text, "MANODOPERA");
+                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, txtDataDa.Text, txtDataA.Text, ddlScegliOperaio.SelectedItem.Value, "MANODOPERA");
             else if (rdbOper.Checked)
-                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, txtDataDa.Text, txtDataA.Text, "OPERAIO");
+                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, txtDataDa.Text, txtDataA.Text, ddlScegliOperaio.SelectedItem.Value, "OPERAIO");
 
             grdStampaPerTipologia.DataSource = mcList;
             grdStampaPerTipologia.DataBind();

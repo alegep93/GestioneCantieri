@@ -78,6 +78,12 @@
                     <asp:TextBox ID="txtDataA" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
 
+                <!-- Scelta Operaio -->
+                <div class="col-md-12">
+                    <asp:Label ID="lblScegliOperaio" runat="server" Text="Scegli Operaio"></asp:Label>
+                    <asp:DropDownList ID="ddlScegliOperaio" CssClass="form-control" runat="server"></asp:DropDownList>
+                </div>
+
                 <!-- Tipologie -->
                 <div class="col-md-6 text-center">
                     <asp:Label ID="lblManodop" runat="server" Text="Manodopera"></asp:Label>
@@ -104,6 +110,7 @@
                     <asp:BoundField DataField="RagSocCli" HeaderText="Ragione Soc. Cliente" />
                     <asp:BoundField DataField="Qta" HeaderText="Qta" />
                     <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit. Cantiere" DataFormatString="{0:0.00}" />
+                    <asp:BoundField DataField="Acquirente" HeaderText="Operaio" />
                 </Columns>
             </asp:GridView>
         </div>

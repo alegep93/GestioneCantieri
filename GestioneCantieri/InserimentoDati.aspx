@@ -301,7 +301,7 @@
                             <asp:BoundField HeaderText="Descrizione" DataField="DescrOp" />
                             <asp:BoundField HeaderText="Suffisso" DataField="Suffisso" />
                             <asp:BoundField HeaderText="Operaio" DataField="Operaio" />
-                            <asp:BoundField HeaderText="Costo Operaio" DataField="CostoOperaio" />
+                            <asp:BoundField HeaderText="Costo Operaio" DataField="CostoOperaio" DataFormatString="{0:0.00}" />
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:Button ID="btnVisualOper" CommandName="VisualOper" CommandArgument="<%# BindItem.IdOperaio %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
@@ -471,45 +471,6 @@
                                                 CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo cantiere?');"/>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <%--<asp:BoundField HeaderText="Indirizzo" DataField="Indirizzo" />
-                            <asp:BoundField HeaderText="Città" DataField="Città" />
-                            <asp:BoundField HeaderText="Ricarico" DataField="Ricarico" />
-                            <asp:BoundField HeaderText="Prezzo Manodopera" DataField="PzzoManodopera" />
-                            <asp:TemplateField HeaderText="Chiuso">
-                                <ItemTemplate>
-                                    <asp:Label runat="server" ID="lblChiusoYesNo"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Riscosso">
-                                <ItemTemplate>
-                                    <asp:Label runat="server" ID="lblRiscossoYesNo"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField HeaderText="Numero" DataField="Numero" />
-                            <asp:BoundField HeaderText="Valore Preventivo" DataField="ValorePreventivo" />
-                            <asp:BoundField HeaderText="Iva" DataField="IVA" />
-                            <asp:BoundField HeaderText="Anno" DataField="Anno" />
-                            <asp:TemplateField HeaderText="Preventivo">
-                                <ItemTemplate>
-                                    <asp:Label runat="server" ID="lblPreventivoYesNo"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Da Dividere">
-                                <ItemTemplate>
-                                    <asp:Label runat="server" ID="lblDaDividereYesNo"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Diviso">
-                                <ItemTemplate>
-                                    <asp:Label runat="server" ID="lblDivisoYesNo"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Fatturato">
-                                <ItemTemplate>
-                                    <asp:Label runat="server" ID="lblFatturatoYesNo"></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
-                            <asp:BoundField HeaderText="Fascia Cantiere" DataField="FasciaTblCantieri" />--%>
                         </Columns>
                     </asp:GridView>
                 </div>

@@ -48,6 +48,7 @@ namespace GestioneCantieri
             decimal totOper = 0m;
             decimal totArrot = 0m;
             decimal totChiam = 0m;
+            decimal totSpese = 0m;
 
             List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiere(ddlScegliCant.SelectedItem.Value);
             grdStampaVerificaCant.DataSource = matCantList;
@@ -95,6 +96,9 @@ namespace GestioneCantieri
                     case "ARROTONDAMENTO":
                         totArrot += val;
                         break;
+                    case "SPESE":
+                        totSpese += val;
+                        break;
                     case "A CHIAMATA":
                         totChiam += val;
                         break;
@@ -106,6 +110,7 @@ namespace GestioneCantieri
             lblTotOper.Text = "<strong>Tot. Operaio</strong>: " + String.Format("{0:n}", totOper).ToString();
             lblTotArrot.Text = "<strong>Tot. Arrotondamento</strong>: " + String.Format("{0:n}", totArrot).ToString();
             lblTotAChiamata.Text = "<strong>Tot. A Chiamata</strong>: " + String.Format("{0:n}", totChiam).ToString();
+            lblTotSpese.Text = "<strong>Tot. Spese</strong>: " + String.Format("{0:n}", totSpese).ToString();
 
             totManodop = Convert.ToDecimal(String.Format("{0:n}", totManodop));
 
