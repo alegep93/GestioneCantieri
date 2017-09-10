@@ -330,7 +330,7 @@ namespace GestioneCantieri.DAO
                       "FROM TblMaterialiCantieri AS A " +
                       "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
                       "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
-                      "WHERE (A.Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND C.IdOperaio LIKE @pAcquirente AND A.OperaioPagato = 0 ";
+                      "WHERE (A.Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND C.IdOperaio LIKE @pAcquirente AND (A.OperaioPagato = 0 || A.OperaioPagato IS NULL) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -909,11 +909,11 @@ namespace GestioneCantieri.DAO
             {
                 sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,CodArt,DescriCodArt,Qta,Tipologia,PzzoUniCantiere, " +
                       "ProtocolloInterno,NumeroBolla,Fascia,Visibile,Ricalcolo,ricaricoSiNo,Data,Note,Note2,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pzzoUnit,@protocollo,@bolla,@fascia,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pNote,@note2,'')";
+                      "VALUES (@pIdCant,@pCodArt,@DescriCodArt,@pDescrMat,@pQta,@pTipologia,@pzzoUnit,@protocollo,@bolla,@fascia,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pNote,@note2,'')";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
-                cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.CodArt));
+                cmd.Parameters.Add(new SqlParameter("pCodArt", mc.CodArt));
                 cmd.Parameters.Add(new SqlParameter("DescriCodArt", mc.DescriCodArt));
                 cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.DescriMateriali));
                 cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
