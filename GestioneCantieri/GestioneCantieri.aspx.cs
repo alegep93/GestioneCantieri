@@ -242,6 +242,9 @@ namespace GestioneCantieri
 
             //Per la sezione Gestione Operaio
             FillDdlScegliOperaio();
+
+            //Per la sezione Gestione Spese
+            FillDdlScegliSpesa();
         }
 
         //Mostra/Nasconde pannelli
@@ -283,8 +286,8 @@ namespace GestioneCantieri
         {
             if (txtDataDDT.Text == "")
             {
-                lblIsRecordInserito.Text = lblIsManodopInserita.Text = lblIsOperInserita.Text = lblIsManodopInserita.Text = "Inserire un valore per la data";
-                lblIsRecordInserito.ForeColor = lblIsManodopInserita.ForeColor = lblIsOperInserita.ForeColor = lblIsManodopInserita.ForeColor = Color.Red;
+                lblIsRecordInserito.Text = lblIsManodopInserita.Text = lblIsOperInserita.Text = lblIsManodopInserita.Text = lblIsSpesaInserita.Text = "Inserire un valore per la data";
+                lblIsRecordInserito.ForeColor = lblIsManodopInserita.ForeColor = lblIsOperInserita.ForeColor = lblIsManodopInserita.ForeColor = lblIsSpesaInserita.ForeColor = Color.Red;
                 return true;
             }
             return false;
@@ -909,7 +912,7 @@ namespace GestioneCantieri
                 if (Convert.ToInt32(txtManodopQta.Text) > 0)
                 {
                     if (isIntestazioneCompilata())
-                        isInserito = MaterialiCantieriDAO.InserisciManodopera(mc);
+                        isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
 
                     if (isInserito)
                     {
@@ -1125,6 +1128,7 @@ namespace GestioneCantieri
             mc.Note2 = txtOperNote2.Text;
             mc.NumeroBolla = Convert.ToInt32(txtNumBolla.Text);
             mc.Fascia = Convert.ToInt32(txtFascia.Text);
+            mc.IdOperaio = Convert.ToInt32(ddlScegliOperaio.SelectedItem.Value);
         }
         protected void FillDdlScegliOperaio()
         {
@@ -1171,7 +1175,7 @@ namespace GestioneCantieri
             if (Convert.ToInt32(txtOperQta.Text) > 0)
             {
                 if (isIntestazioneCompilata())
-                    isInserito = MaterialiCantieriDAO.InserisciOperaio(mc);
+                    isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
 
                 if (isInserito)
                 {
@@ -1397,7 +1401,7 @@ namespace GestioneCantieri
             if (Convert.ToInt32(txtArrotQta.Text) > 0)
             {
                 if (isIntestazioneCompilata())
-                    isInserito = MaterialiCantieriDAO.InserisciArrotondamento(mc);
+                    isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
 
                 if (isInserito)
                 {
@@ -1827,6 +1831,20 @@ namespace GestioneCantieri
             grdSpese.DataSource = mcList;
             grdSpese.DataBind();
         }
+        protected void FillDdlScegliSpesa()
+        {
+            DataTable dt = SpeseDAO.GetSpese();
+            List<Spese> listSpese = dt.DataTableToList<Spese>();
+
+            ddlScegliSpesa.Items.Clear();
+            ddlScegliSpesa.Items.Add(new ListItem("", "-1"));
+
+            foreach (Spese s in listSpese)
+            {
+                string show = s.Descrizione;
+                ddlScegliSpesa.Items.Add(new ListItem(show, s.IdSpesa.ToString()));
+            }
+        }
         protected void FillMatCantSpese(MaterialiCantieri mc)
         {
             mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
@@ -1841,8 +1859,6 @@ namespace GestioneCantieri
             mc.Tipologia = txtTipDatCant.Text;
             mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
-            //mc.Note = txtChiamNote.Text;
-            //mc.Note2 = txtChiamNote2.Text;
             mc.Qta = Convert.ToDouble(txtSpeseQta.Text);
 
             if (txtFascia.Text != "")
@@ -1911,6 +1927,7 @@ namespace GestioneCantieri
             lblTitoloMaschera.Text = "Inserisci Spese";
             txtTipDatCant.Text = "SPESE";
             ShowPanels(false, false, false, false, true, false);
+            btnInsSpesa.Visible = true;
             btnModSpesa.Visible = false;
             BindGridSpese();
             EnableDisableControls(true, pnlGestSpese);
@@ -1945,27 +1962,33 @@ namespace GestioneCantieri
             if (Convert.ToInt32(txtSpeseQta.Text) > 0)
             {
                 if (isIntestazioneCompilata())
-                    isInserito = MaterialiCantieriDAO.InserisciSpesa(mc);
+                    isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
 
                 if (isInserito)
                 {
-                    lblIsArrotondInserito.Text = "Record inserito con successo";
-                    lblIsArrotondInserito.ForeColor = Color.Blue;
+                    lblIsSpesaInserita.Text = "Record inserito con successo";
+                    lblIsSpesaInserita.ForeColor = Color.Blue;
                 }
                 else
                 {
-                    lblIsArrotondInserito.Text = "Errore durante l'inserimento del record. L'intestazione deve essere interamente compilata.";
-                    lblIsArrotondInserito.ForeColor = Color.Red;
+                    lblIsSpesaInserita.Text = "Errore durante l'inserimento del record. L'intestazione deve essere interamente compilata.";
+                    lblIsSpesaInserita.ForeColor = Color.Red;
                 }
             }
             else
             {
-                lblIsArrotondInserito.Text = "Il valore della quantità deve essere maggiore di '0'";
-                lblIsArrotondInserito.ForeColor = Color.Red;
+                lblIsSpesaInserita.Text = "Il valore della quantità deve essere maggiore di '0'";
+                lblIsSpesaInserita.ForeColor = Color.Red;
             }
 
             BindGridSpese();
             SvuotaCampi(pnlGestSpese);
+        }
+
+        /* EVENTI TEXT-CHANGED */
+        protected void ddlScegliSpesa_TextChanged(object sender, EventArgs e)
+        {
+            txtSpeseCodArt.Text = txtSpeseDescriCodArt.Text = ddlScegliSpesa.SelectedItem.Text;
         }
 
         /* EVENTI ROW-COMMAND */

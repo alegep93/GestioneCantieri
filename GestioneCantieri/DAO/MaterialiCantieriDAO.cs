@@ -499,7 +499,7 @@ namespace GestioneCantieri.DAO
                     sql += " AND A.Data BETWEEN CONVERT(date, @dataDa) AND CONVERT(date, @dataA) ";
 
                 if (idOper != "-1")
-                    sql += " AND A.Acquirente = @pIdOper ";
+                    sql += " AND A.IdTblOperaio = @pIdOper ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pTipol", tipologia));
@@ -807,57 +807,31 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Tipologia,PzzoUniCantiere,ProtocolloInterno,Visibile,Ricalcolo,ricaricoSiNo,Data,Note,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipol,@pzzoUnit,@protocollo,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pNote,'')";
+                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,idTblOperaio,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo,Data, " +
+                      "PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,pzzoFinCli) " +
+                      "VALUES (@pIdCant,@idOper,@pDescrMat,@pQta,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@pCodArt,@pDescriCodArt,@pTipologia,@pFascia, " +
+                      "@pAcquirente,@pFornitore,@pNumBolla,@pProtocollo,@pNote,@pPzzoFinCli)";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
+                cmd.Parameters.Add(new SqlParameter("idOper", mc.IdOperaio));
                 cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.DescriMateriali));
                 cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
-                cmd.Parameters.Add(new SqlParameter("pTipol", mc.Tipologia));
-                cmd.Parameters.Add(new SqlParameter("pzzoUnit", mc.PzzoUniCantiere));
-                cmd.Parameters.Add(new SqlParameter("protocollo", mc.ProtocolloInterno));
                 cmd.Parameters.Add(new SqlParameter("pVisibile", mc.Visibile));
                 cmd.Parameters.Add(new SqlParameter("pRicalcolo", mc.Ricalcolo));
                 cmd.Parameters.Add(new SqlParameter("pRicarico", mc.RicaricoSiNo));
                 cmd.Parameters.Add(new SqlParameter("pData", mc.Data));
-                cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
-
-                int row = cmd.ExecuteNonQuery();
-
-                if (row > 0)
-                    return true;
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante l'inserimento di una manodopera", ex);
-            }
-            finally { cn.Close(); }
-        }
-        public static bool InserisciArrotondamento(MaterialiCantieri mc)
-        {
-            SqlConnection cn = GetConnection();
-            string sql = "";
-
-            try
-            {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,Qta,Visibile,Tipologia,Ricalcolo,ricaricoSiNo,Data,PzzoUniCantiere,ProtocolloInterno,CodArt,DescriCodArt,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pQta,@pVisibile,@pTipol,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@protocollo,@pCodArt,@pDescrCodArt,'')";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
                 cmd.Parameters.Add(new SqlParameter("pPzzoUnit", mc.PzzoUniCantiere));
-                cmd.Parameters.Add(new SqlParameter("protocollo", mc.ProtocolloInterno));
                 cmd.Parameters.Add(new SqlParameter("pCodArt", mc.CodArt));
-                cmd.Parameters.Add(new SqlParameter("pDescrCodArt", mc.DescriCodArt));
-                cmd.Parameters.Add(new SqlParameter("pVisibile", mc.Visibile));
-                cmd.Parameters.Add(new SqlParameter("pRicalcolo", mc.Ricalcolo));
-                cmd.Parameters.Add(new SqlParameter("pRicarico", mc.RicaricoSiNo));
-                cmd.Parameters.Add(new SqlParameter("pData", mc.Data));
-                cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
-                cmd.Parameters.Add(new SqlParameter("pTipol", mc.Tipologia));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt", mc.DescriCodArt));
+                cmd.Parameters.Add(new SqlParameter("pTipologia", mc.Tipologia));
+                cmd.Parameters.Add(new SqlParameter("pFascia", mc.Fascia));
+                cmd.Parameters.Add(new SqlParameter("pAcquirente", mc.Acquirente));
+                cmd.Parameters.Add(new SqlParameter("pFornitore", mc.Fornitore));
+                cmd.Parameters.Add(new SqlParameter("pNumBolla", mc.NumeroBolla));
+                cmd.Parameters.Add(new SqlParameter("pProtocollo", mc.ProtocolloInterno));
+                cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
+                cmd.Parameters.Add(new SqlParameter("pPzzoFinCli", mc.PzzoFinCli));
 
                 int row = cmd.ExecuteNonQuery();
 
@@ -868,7 +842,7 @@ namespace GestioneCantieri.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Errore durante l'inserimento di un arrotondamento", ex);
+                throw new Exception("Errore durante l'inserimento di un materiale cantiere", ex);
             }
             finally { cn.Close(); }
         }
@@ -906,92 +880,6 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool InserisciManodopera(MaterialiCantieri mc)
-        {
-            SqlConnection cn = GetConnection();
-            string sql = "";
-
-            try
-            {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,CodArt,DescriCodArt,Qta,Tipologia,PzzoUniCantiere, " +
-                      "ProtocolloInterno,NumeroBolla,Fascia,Visibile,Ricalcolo,ricaricoSiNo,Data,Note,Note2,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pCodArt,@DescriCodArt,@pDescrMat,@pQta,@pTipologia,@pzzoUnit,@protocollo,@bolla,@fascia,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pNote,@note2,'')";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
-                cmd.Parameters.Add(new SqlParameter("pCodArt", mc.CodArt));
-                cmd.Parameters.Add(new SqlParameter("DescriCodArt", mc.DescriCodArt));
-                cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.DescriMateriali));
-                cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
-                cmd.Parameters.Add(new SqlParameter("pTipologia", mc.Tipologia));
-                cmd.Parameters.Add(new SqlParameter("pzzoUnit", mc.PzzoUniCantiere));
-                cmd.Parameters.Add(new SqlParameter("protocollo", mc.ProtocolloInterno));
-                cmd.Parameters.Add(new SqlParameter("bolla", mc.NumeroBolla));
-                cmd.Parameters.Add(new SqlParameter("fascia", mc.Fascia));
-                cmd.Parameters.Add(new SqlParameter("pVisibile", mc.Visibile));
-                cmd.Parameters.Add(new SqlParameter("pRicalcolo", mc.Ricalcolo));
-                cmd.Parameters.Add(new SqlParameter("pRicarico", mc.RicaricoSiNo));
-                cmd.Parameters.Add(new SqlParameter("pData", mc.Data));
-                cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
-                cmd.Parameters.Add(new SqlParameter("note2", mc.Note2));
-
-                int row = cmd.ExecuteNonQuery();
-
-                if (row > 0)
-                    return true;
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante l'inserimento di una manodopera", ex);
-            }
-            finally { cn.Close(); }
-        }
-        public static bool InserisciSpesa(MaterialiCantieri mc)
-        {
-            SqlConnection cn = GetConnection();
-            string sql = "";
-
-            try
-            {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,CodArt,DescriCodArt,Qta,Tipologia,PzzoUniCantiere, " +
-                      "ProtocolloInterno,NumeroBolla,Fascia,Visibile,Ricalcolo,ricaricoSiNo,Data,Note,Note2,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipologia,@pzzoUnit,@protocollo,@bolla,@fascia,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pNote,@note2,'')";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
-                cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.CodArt));
-                cmd.Parameters.Add(new SqlParameter("DescriCodArt", mc.DescriCodArt));
-                cmd.Parameters.Add(new SqlParameter("pDescrMat", mc.DescriMateriali));
-                cmd.Parameters.Add(new SqlParameter("pQta", mc.Qta));
-                cmd.Parameters.Add(new SqlParameter("pTipologia", mc.Tipologia));
-                cmd.Parameters.Add(new SqlParameter("pzzoUnit", mc.PzzoUniCantiere));
-                cmd.Parameters.Add(new SqlParameter("protocollo", mc.ProtocolloInterno));
-                cmd.Parameters.Add(new SqlParameter("bolla", mc.NumeroBolla));
-                cmd.Parameters.Add(new SqlParameter("fascia", mc.Fascia));
-                cmd.Parameters.Add(new SqlParameter("pVisibile", mc.Visibile));
-                cmd.Parameters.Add(new SqlParameter("pRicalcolo", mc.Ricalcolo));
-                cmd.Parameters.Add(new SqlParameter("pRicarico", mc.RicaricoSiNo));
-                cmd.Parameters.Add(new SqlParameter("pData", mc.Data));
-                cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
-                cmd.Parameters.Add(new SqlParameter("note2", mc.Note2));
-
-                int row = cmd.ExecuteNonQuery();
-
-                if (row > 0)
-                    return true;
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante l'inserimento di una manodopera", ex);
-            }
-            finally { cn.Close(); }
-        }
-
-        //UPDATE
         public static bool UpdateOperaioPagato(string dataInizio, string dataFine, string idOperaio)
         {
             SqlConnection cn = GetConnection();
@@ -1030,6 +918,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "UPDATE TblMaterialiCantieri " +
                       "SET IdTblCantieri = @idCant " +
+                      "IdTblOperaio = @idOper " +
                       ",DescriMateriali = @descrMat " +
                       ",Qta = @qta " +
                       ",Visibile = @visibile " +
@@ -1053,6 +942,7 @@ namespace GestioneCantieri.DAO
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("id", id));
                 cmd.Parameters.Add(new SqlParameter("idCant", mc.IdTblCantieri));
+                cmd.Parameters.Add(new SqlParameter("idOper", mc.IdOperaio));
                 cmd.Parameters.Add(new SqlParameter("descrMat", mc.DescriMateriali));
                 cmd.Parameters.Add(new SqlParameter("qta", mc.Qta));
                 cmd.Parameters.Add(new SqlParameter("visibile", mc.Visibile));

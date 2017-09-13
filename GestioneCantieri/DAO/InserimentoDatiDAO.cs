@@ -259,19 +259,23 @@ namespace GestioneCantieri.DAO
         /* Fine Clienti */
 
         /* Fornitori */
-        public static DataTable GetAllFornitori()
+        public static DataTable GetFornitori(string ragSoc)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
+
+            ragSoc = "%" + ragSoc + "%";
 
             try
             {
                 sql = "SELECT IdFornitori,RagSocForni,Indirizzo,cap, " +
                       "Città,Tel1,Cell1,PartitaIva,CodFiscale,Abbreviato " +
                       "FROM TblForitori " +
+                      "WHERE RagSocForni LIKE @pRagSoc " +
                       "ORDER BY RagSocForni ASC ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pRagSoc", ragSoc));
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
                 DataTable table = new DataTable();
