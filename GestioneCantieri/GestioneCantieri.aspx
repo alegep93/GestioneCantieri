@@ -38,7 +38,8 @@
             font-size: 20px !important;
             min-height: 40px;
         }
-        h2{
+
+        h2 {
             margin-top: 0 !important;
         }
     </style>
@@ -72,7 +73,7 @@
                         <asp:CheckBox ID="chkFiltroCantRiscosso" CssClass="form-control" Checked="false" runat="server" />
                     </div>
                     <div class="col-md-4">
-                        <asp:Button ID="btnFiltroCant" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnFiltroCant_Click" runat="server" Text="Filtra" />
+                        <asp:Button ID="btnFiltroCant" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnFiltroCant_Click" runat="server" Text="Filtra" Style="margin-right: 10px;" />
                         <asp:Button ID="btnSvuotaIntestazione" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnSvuotaIntestazione_Click" runat="server" Text="Svuota Intestazione" />
                     </div>
                 </asp:Panel>
@@ -754,6 +755,10 @@
             <asp:Panel ID="pnlGestSpese" CssClass="col-md-12" runat="server">
                 <div class="row">
                     <div class="col-md-offset-1">
+                        <div class="col-md-12">
+                            <asp:Label ID="lblScegliSpesa" Text="Scegli Spesa" runat="server" />
+                            <asp:DropDownList ID="ddlScegliSpesa" CssClass="form-control" AutoPostBack="true" OnTextChanged="ddlScegliSpesa_TextChanged" runat="server"></asp:DropDownList>
+                        </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblSpeseCodArt" Text="Codice Articolo" runat="server" />
                             <asp:TextBox ID="txtSpeseCodArt" CssClass="form-control" runat="server"></asp:TextBox>
@@ -790,16 +795,15 @@
                 </div>
 
                 <div class="row">
-                </div>
-
-                <div class="row">
-                    <div class="col-md-8">
-                        <asp:Button ID="btnCalcolaPzzoUnitSpese" OnClick="btnCalcolaPzzoUnitSpese_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Calcola Prezzo Spesa" />
-                    </div>
-                    <div class="col-md-4">
-                        <asp:Button ID="btnInsSpesa" OnClick="btnInsSpesa_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Spesa" />
-                        <asp:Button ID="btnModSpesa" OnClick="btnModSpesa_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Spesa" />
-                        <asp:Label ID="lblIsSpesaInserita" Text="" CssClass="pull-right" runat="server" />
+                    <div class="col-md-offset-1">
+                        <div class="col-md-8">
+                            <asp:Button ID="btnCalcolaPzzoUnitSpese" OnClick="btnCalcolaPzzoUnitSpese_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Calcola Prezzo Spesa" />
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Button ID="btnInsSpesa" OnClick="btnInsSpesa_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Spesa" />
+                            <asp:Button ID="btnModSpesa" OnClick="btnModSpesa_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Spesa" />
+                            <asp:Label ID="lblIsSpesaInserita" Text="" CssClass="pull-right" runat="server" />
+                        </div>
                     </div>
                 </div>
 
@@ -816,7 +820,7 @@
                             <asp:TextBox ID="txtFiltroSpeseDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-3">
-                            <asp:Button ID="btnFiltraGrdSpese" OnClick="btnFiltraGrdSpese_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
+                            <asp:Button ID="btnFiltraGrdSpese" OnClick="btnFiltraGrdSpese_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" Style="position: relative; top: 10px;" />
                         </div>
                     </div>
                 </asp:Panel>

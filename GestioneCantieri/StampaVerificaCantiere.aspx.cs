@@ -97,6 +97,7 @@ namespace GestioneCantieri
                         totArrot += val;
                         break;
                     case "SPESE":
+                    case "SPESA":
                         totSpese += val;
                         break;
                     case "A CHIAMATA":

@@ -7,7 +7,7 @@ namespace GestioneCantieri.Data
 {
     public class MaterialiCantieri
     {
-        int idMaterialiCantieri, idTblCantieri, fascia, numeroBolla, protocolloInterno;
+        int idMaterialiCantieri, idTblCantieri, idOperaio, fascia, numeroBolla, protocolloInterno;
         string descriMateriali, codArt, descriCodArt, tipologia, acquirente, fornitore, note, note2, codCant, descriCodCant, ragSocCli;
         double qta;
         decimal pzzoUniCantiere, pzzoFinCli, valore, costoOperaio, valoreRicarico, valoreRicalcolo, pzzoUnitFinCli;
@@ -16,7 +16,7 @@ namespace GestioneCantieri.Data
 
         public MaterialiCantieri()
         {
-            this.idMaterialiCantieri = this.idTblCantieri = this.fascia = this.numeroBolla = this.protocolloInterno = -1;
+            this.idMaterialiCantieri = this.idTblCantieri = this.IdOperaio = this.fascia = this.numeroBolla = this.protocolloInterno = -1;
             this.descriMateriali = this.codArt = this.descriCodArt = this.tipologia = "";
             this.acquirente = this.fornitore = this.note = this.note2 = this.CodCant = this.DescriCodCant = this.RagSocCli = "";
             this.qta = -1d;
@@ -325,5 +325,6 @@ namespace GestioneCantieri.Data
         public decimal PzzoUnitFinCli { get => pzzoUnitFinCli; set => pzzoUnitFinCli = value; }
         public string RagSocCli { get => ragSocCli; set => ragSocCli = value; }
         public string Note2 { get => note2; set => note2 = value; }
+        public int IdOperaio { get => idOperaio; set => idOperaio = value; }
     }
 }

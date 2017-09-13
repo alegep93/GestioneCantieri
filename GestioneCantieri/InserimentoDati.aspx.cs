@@ -179,6 +179,10 @@ namespace GestioneCantieri
 
             BindGridFornitori();
         }
+        protected void btnFiltraGrdFornitori_Click(object sender, EventArgs e)
+        {
+            BindGridFornitori();
+        }
         //Operai
         protected void btnInsOper_Click(object sender, EventArgs e)
         {
@@ -413,7 +417,7 @@ namespace GestioneCantieri
         //Fornitori
         protected void BindGridFornitori()
         {
-            DataTable dt = InserimentoDatiDAO.GetAllFornitori();
+            DataTable dt = InserimentoDatiDAO.GetFornitori(txtFiltroRagSocForni.Text);
             List<Fornitori> fornitList = dt.DataTableToList<Fornitori>();
             grdFornitori.DataSource = fornitList;
             grdFornitori.DataBind();

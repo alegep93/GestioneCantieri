@@ -166,7 +166,7 @@
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:Button ID="btnElimCli" CommandName="ElimCli" CommandArgument="<%# BindItem.IdCliente %>"
-                                                CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo cliente?');"/>
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo cliente?');" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -225,6 +225,17 @@
                     <asp:Label ID="lblIsFornitoreInserito" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
                 </div>
 
+                <!-- Filtri su griglia Fornitori -->
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <asp:Label ID="lblFiltroRagSocForni" runat="server" Text="Filtro Rag. Soc. Fornitore" />
+                        <asp:TextBox ID="txtFiltroRagSocForni" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-4">
+                        <asp:Button ID="btnFiltraGrdFornitori" OnClick="btnFiltraGrdFornitori_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Filtra Griglia" style="position:relative;top:10px;"/>
+                    </div>
+                </div>
+
                 <!-- Griglia di visualizzazione record -->
                 <div class="col-md-12 table-container">
                     <asp:GridView ID="grdFornitori" OnRowCommand="grdFornitori_RowCommand" AutoGenerateColumns="false"
@@ -252,7 +263,7 @@
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:Button ID="btnElimFornit" CommandName="ElimFornit" CommandArgument="<%# BindItem.IdFornitori %>"
-                                                CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo fornitore?');"/>
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo fornitore?');" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -315,7 +326,7 @@
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:Button ID="btnElimOper" CommandName="ElimOper" CommandArgument="<%# BindItem.IdOperaio %>"
-                                                CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo operaio?');"/>
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo operaio?');" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>
@@ -468,7 +479,7 @@
                             <asp:TemplateField>
                                 <ItemTemplate>
                                     <asp:Button ID="btnElimCant" CommandName="ElimCant" CommandArgument="<%# BindItem.IdCantieri %>"
-                                                CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo cantiere?');"/>
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo cantiere?');" />
                                 </ItemTemplate>
                             </asp:TemplateField>
                         </Columns>

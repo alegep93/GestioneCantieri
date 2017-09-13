@@ -562,6 +562,33 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblIsFornitoreInserito;
         
         /// <summary>
+        /// Controllo lblFiltroRagSocForni.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroRagSocForni;
+        
+        /// <summary>
+        /// Controllo txtFiltroRagSocForni.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroRagSocForni;
+        
+        /// <summary>
+        /// Controllo btnFiltraGrdFornitori.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltraGrdFornitori;
+        
+        /// <summary>
         /// Controllo grdFornitori.
         /// </summary>
         /// <remarks>
