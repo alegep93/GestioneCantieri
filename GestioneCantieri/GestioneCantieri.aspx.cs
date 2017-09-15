@@ -99,7 +99,8 @@ namespace GestioneCantieri
 
             foreach (Mamg0 mmg in listMamg0)
             {
-                string show = mmg.CodArt + " | " + mmg.Desc + " | " + mmg.PrezzoNetto + " | " + mmg.PrezzoListino + " | " + mmg.Sconto1 + " | " + mmg.Sconto2 + " | " + mmg.Sconto3;
+                string show = String.Format("{0,-18} | {1,-30} | {2,-8} | {3,-8} | {4,-3} | {5,-3} | {6,-3}", 
+                    mmg.CodArt,mmg.Desc,mmg.PrezzoNetto,mmg.PrezzoListino,mmg.Sconto1,mmg.Sconto2,mmg.Sconto3);
                 ddlScegliListino.Items.Add(new ListItem(show, mmg.CodArt.ToString()));
             }
         }
