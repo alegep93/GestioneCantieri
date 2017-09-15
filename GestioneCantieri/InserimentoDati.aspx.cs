@@ -241,6 +241,9 @@ namespace GestioneCantieri
                 string fatturato = Convert.ToInt32(chkFatturato.Checked).ToString();
                 string codRiferCant = CostruisceCodRiferCant();
 
+                if(txtValPrevCant.Text == "")
+                    txtValPrevCant.Text = "0";
+
                 bool isInserito = InserimentoDatiDAO.InserisciCantiere(ddlScegliClientePerCantiere.SelectedValue, txtDataInserCant.Text,
                     txtCodCant.Text, txtDescrCodCant.Text, txtIndirizzoCant.Text, txtCittaCant.Text,
                     txtRicaricoCant.Text, Convert.ToDecimal(txtPzzoManodopCant.Text), chiuso, riscosso,
