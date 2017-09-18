@@ -659,7 +659,8 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT ((PzzoUniCantiere * @pPerc)/100) AS 'Valore Ricalcolo' " +
                       "FROM TblMaterialiCantieri " +
-                      "WHERE Visibile = 1 AND Ricalcolo = 1 AND IdTblCantieri = @pIdCant ";
+                      "WHERE Visibile = 1 AND Ricalcolo = 1 AND IdTblCantieri = @pIdCant " +
+                      "ORDER BY Data";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
@@ -693,8 +694,9 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT (((A.PzzoUniCantiere * B.Ricarico)/100)) AS 'Valore Ricarico' " +
                       "FROM TblMaterialiCantieri AS A " +
-                      "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
-                      "WHERE Visibile = 1 AND ricaricoSiNo = 1 AND IdTblCantieri = @pIdCant ";
+                      "LEFT JOIN TblCantieri AS B ON (A.IdTblCantieri = B.IdCantieri) " +
+                      "WHERE Visibile = 1 AND ricaricoSiNo = 1 AND IdTblCantieri = @pIdCant " +
+                      "ORDER BY A.Data";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
@@ -807,7 +809,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,idTblOperaio,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo,Data, " +
+                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,IdTblOperaio,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo,Data, " +
                       "PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,pzzoFinCli) " +
                       "VALUES (@pIdCant,@idOper,@pDescrMat,@pQta,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@pCodArt,@pDescriCodArt,@pTipologia,@pFascia, " +
                       "@pAcquirente,@pFornitore,@pNumBolla,@pProtocollo,@pNote,@pPzzoFinCli)";
@@ -846,40 +848,8 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool InserisciPagamento(string idCant, string operaio, string qta, string tipologia, string pzzoManodop, string descrManodop,
-            string note1, string note2, bool visibile, bool ricaricoSiNo, bool? ricalcolo = null)
-        {
-            SqlConnection cn = GetConnection();
-            string sql = "";
 
-            try
-            {
-                sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Tipologia,Visibile,Ricalcolo,ricaricoSiNo,Note,PzzoFinCli) " +
-                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pTipol,@pVisibile,@pRicalcolo,@pRicarico,@pNote,'')";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
-                cmd.Parameters.Add(new SqlParameter("pDescrMat", descrManodop));
-                cmd.Parameters.Add(new SqlParameter("pQta", qta));
-                cmd.Parameters.Add(new SqlParameter("pTipol", tipologia));
-                cmd.Parameters.Add(new SqlParameter("pVisibile", visibile));
-                cmd.Parameters.Add(new SqlParameter("pRicalcolo", ricalcolo));
-                cmd.Parameters.Add(new SqlParameter("pRicarico", ricaricoSiNo));
-                cmd.Parameters.Add(new SqlParameter("pNote", note1 + " - " + note2));
-
-                int row = cmd.ExecuteNonQuery();
-
-                if (row > 0)
-                    return true;
-
-                return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante l'inserimento di una manodopera", ex);
-            }
-            finally { cn.Close(); }
-        }
+        //UPDATE
         public static bool UpdateOperaioPagato(string dataInizio, string dataFine, string idOperaio)
         {
             SqlConnection cn = GetConnection();
@@ -918,7 +888,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "UPDATE TblMaterialiCantieri " +
                       "SET IdTblCantieri = @idCant " +
-                      "IdTblOperaio = @idOper " +
+                      ",IdTblOperaio = @idOper " +
                       ",DescriMateriali = @descrMat " +
                       ",Qta = @qta " +
                       ",Visibile = @visibile " +
