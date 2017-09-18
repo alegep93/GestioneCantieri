@@ -58,6 +58,7 @@ namespace GestioneCantieri
             List<decimal> decListRicarico = MaterialiCantieriDAO.CalcolaValoreRicarico(idCant);
 
             List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiereForRicalcoloConti(idCant);
+
             grd.DataSource = matCantList;
             grd.DataBind();
 
@@ -74,14 +75,14 @@ namespace GestioneCantieri
 
                 if (visibile == "True" && ricaricoSiNo == "True")
                 {
-                    grd.Rows[i].Cells[4].Text = decListRicarico[cRicarico].ToString(); //Math.Round(decListRicarico[cRicarico], 2).ToString();
+                    grd.Rows[i].Cells[4].Text = decListRicarico[cRicarico].ToString();
                     valRicarico = Convert.ToDecimal(grd.Rows[i].Cells[4].Text);
                     cRicarico++;
                 }
 
                 if (visibile == "True" && ricalcolo == "True")
                 {
-                    grd.Rows[i].Cells[5].Text = decListRicalcolo[cRicalcolo].ToString(); //Math.Round(decListRicalcolo[cRicalcolo], 2).ToString();
+                    grd.Rows[i].Cells[5].Text = decListRicalcolo[cRicalcolo].ToString();
                     valRicalcolo = Convert.ToDecimal(grd.Rows[i].Cells[5].Text);
                     cRicalcolo++;
                 }

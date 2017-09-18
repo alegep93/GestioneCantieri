@@ -468,15 +468,15 @@
                 <div class="row">
                     <div class="col-md-2">
                         <asp:Label ID="lblOperVisibile" Text="Visibile" runat="server" />
-                        <asp:CheckBox ID="chkOperVisibile" CssClass="form-control" Checked="true" runat="server" />
+                        <asp:CheckBox ID="chkOperVisibile" CssClass="form-control" runat="server" />
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblOperRicalcolo" Text="Ricalcolo" runat="server" />
-                        <asp:CheckBox ID="chkOperRicalcolo" CssClass="form-control" Checked="false" runat="server" />
+                        <asp:CheckBox ID="chkOperRicalcolo" CssClass="form-control" runat="server" />
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblOperRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
-                        <asp:CheckBox ID="chkOperRicaricoSiNo" CssClass="form-control" Checked="true" runat="server" />
+                        <asp:CheckBox ID="chkOperRicaricoSiNo" CssClass="form-control" runat="server" />
                     </div>
                     <div class="col-md-3">
                         <asp:Label ID="lblNuovoCostoOperaio" Text="Nuovo Costo Operaio" runat="server" />

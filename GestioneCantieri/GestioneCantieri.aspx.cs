@@ -146,37 +146,37 @@ namespace GestioneCantieri
         }
         protected void SvuotaCampi(Panel pnl)
         {
-            //Svuoto tutti i TextBox
-            foreach (Control c in pnl.Controls)
-            {
-                if (c is TextBox)
-                    ((TextBox)c).Text = "";
-            }
+            ////Svuoto tutti i TextBox
+            //foreach (Control c in pnl.Controls)
+            //{
+            //    if (c is TextBox)
+            //        ((TextBox)c).Text = "";
+            //}
 
-            //Svuoto il DDL del listino solamente se è stato popolato
-            if (ddlScegliListino.SelectedIndex != -1)
-                ddlScegliListino.SelectedIndex = 0;
+            ////Svuoto il DDL del listino solamente se è stato popolato
+            //if (ddlScegliListino.SelectedIndex != -1)
+            //    ddlScegliListino.SelectedIndex = 0;
 
-            //Visibile TRUE
-            chkVisibile.Checked = chkManodopVisibile.Checked = chkOperVisibile.Checked = chkChiamVisibile.Checked = true;
-            //Ricalcolo TRUE
-            chkRicalcolo.Checked = chkChiamRicalcolo.Checked = true;
-            //RicaricoSiNo TRUE
-            chkRicarico.Checked = chkOperRicaricoSiNo.Checked = chkChiamRicaricoSiNo.Checked = true;
+            ////Visibile TRUE
+            //chkVisibile.Checked = chkManodopVisibile.Checked = chkOperVisibile.Checked = chkChiamVisibile.Checked = true;
+            ////Ricalcolo TRUE
+            //chkRicalcolo.Checked = chkChiamRicalcolo.Checked = true;
+            ////RicaricoSiNo TRUE
+            //chkRicarico.Checked = chkOperRicaricoSiNo.Checked = chkChiamRicaricoSiNo.Checked = true;
 
-            //Visibile FALSE
-            chkArrotVisibile.Checked = false;
-            //Ricalcolo FALSE
-            chkManodopRicalcolo.Checked = chkOperRicalcolo.Checked = chkArrotRicalcolo.Checked = false;
-            //RicaricoSiNo FALSE
-            chkManodopRicaricoSiNo.Checked = chkArrotRicaricoSiNo.Checked = false;
+            ////Visibile FALSE
+            //chkArrotVisibile.Checked = false;
+            ////Ricalcolo FALSE
+            //chkManodopRicalcolo.Checked = chkOperRicalcolo.Checked = chkArrotRicalcolo.Checked = false;
+            ////RicaricoSiNo FALSE
+            //chkManodopRicaricoSiNo.Checked = chkArrotRicaricoSiNo.Checked = false;
 
-            //Reimposto i textbox ai valori di default
-            txtQta.Text = txtManodopQta.Text = txtOperQta.Text = txtArrotQta.Text = txtChiamQta.Text = txtSpesaPrezzo.Text = "0";
-            txtPzzoUnit.Text = txtChiamPzzoUnit.Text = txtSpesaPrezzoCalcolato.Text = "0.00";
+            ////Reimposto i textbox ai valori di default
+            //txtQta.Text = txtManodopQta.Text = txtOperQta.Text = txtArrotQta.Text = txtChiamQta.Text = txtSpesaPrezzo.Text = "0";
+            //txtPzzoUnit.Text = txtChiamPzzoUnit.Text = txtSpesaPrezzoCalcolato.Text = "0.00";
 
-            //Textbox Tipologia sempre Disabilitato
-            txtTipDatCant.Enabled = false;
+            ////Textbox Tipologia sempre Disabilitato
+            //txtTipDatCant.Enabled = false;
         }
         protected void EnableDisableControls(bool enableControls, Panel panelName)
         {
@@ -995,9 +995,9 @@ namespace GestioneCantieri
             txtProtocollo.Text = mc.ProtocolloInterno.ToString();
             txtManodopQta.Text = mc.Qta.ToString();
             txtPzzoManodop.Text = mc.PzzoUniCantiere.ToString();
-            chkVisibile.Checked = mc.Visibile;
-            chkRicalcolo.Checked = mc.Ricalcolo;
-            chkRicarico.Checked = mc.RicaricoSiNo;
+            chkManodopVisibile.Checked = mc.Visibile;
+            chkManodopRicalcolo.Checked = mc.Ricalcolo;
+            chkManodopRicaricoSiNo.Checked = mc.RicaricoSiNo;
             txtNote1.Text = mc.Note;
             txtNote2.Text = mc.Note2;
 
@@ -1022,9 +1022,9 @@ namespace GestioneCantieri
             mc.Qta = Convert.ToDouble(txtManodopQta.Text);
             mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoManodop.Text);
             mc.DescriMateriali = txtDescrManodop.Text;
-            mc.Visibile = chkVisibile.Checked;
-            mc.Ricalcolo = chkRicalcolo.Checked;
-            mc.RicaricoSiNo = chkRicarico.Checked;
+            mc.Visibile = chkManodopVisibile.Checked;
+            mc.Ricalcolo = chkManodopRicalcolo.Checked;
+            mc.RicaricoSiNo = chkManodopRicaricoSiNo.Checked;
         }
         private void VisualizzaDatiManodop(int idManodop)
         {
@@ -1256,9 +1256,9 @@ namespace GestioneCantieri
             txtProtocollo.Text = mc.ProtocolloInterno.ToString();
             txtOperQta.Text = mc.Qta.ToString();
             txtPzzoOper.Text = mc.PzzoUniCantiere.ToString();
-            chkVisibile.Checked = mc.Visibile;
-            chkRicalcolo.Checked = mc.Ricalcolo;
-            chkRicarico.Checked = mc.RicaricoSiNo;
+            chkOperVisibile.Checked = mc.Visibile;
+            chkOperRicalcolo.Checked = mc.Ricalcolo;
+            chkOperRicaricoSiNo.Checked = mc.RicaricoSiNo;
             txtNote1.Text = mc.Note;
             txtNote2.Text = mc.Note2;
 
@@ -1269,7 +1269,12 @@ namespace GestioneCantieri
         }
         private void PopolaObjOper(MaterialiCantieri mc)
         {
+            Operai op = OperaiDAO.GetOperaio(ddlScegliOperaio.SelectedItem.Value);
+            mc.CodArt = "Manodopera" + op.Operaio;
+            mc.DescriCodArt = "Manodopera" + op.Operaio;
+
             mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
+            mc.IdOperaio = Convert.ToInt32(ddlScegliOperaio.SelectedItem.Value);
             mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
             mc.Tipologia = txtTipDatCant.Text;
@@ -1283,9 +1288,9 @@ namespace GestioneCantieri
             mc.Qta = Convert.ToDouble(txtOperQta.Text);
             mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoOper.Text);
             mc.DescriMateriali = txtDescrOper.Text;
-            mc.Visibile = chkVisibile.Checked;
-            mc.Ricalcolo = chkRicalcolo.Checked;
-            mc.RicaricoSiNo = chkRicarico.Checked;
+            mc.Visibile = chkOperVisibile.Checked;
+            mc.Ricalcolo = chkOperRicalcolo.Checked;
+            mc.RicaricoSiNo = chkOperRicaricoSiNo.Checked;
         }
         private void VisualizzaDatiOper(int idOper)
         {
