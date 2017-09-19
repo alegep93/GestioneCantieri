@@ -50,7 +50,7 @@
                     <asp:TextBox ID="txtCodCant" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-1">
-                    <asp:Label ID="lblChiuso" runat="server" Text="Chiuso" style="width:100%; float:left;"></asp:Label>
+                    <asp:Label ID="lblChiuso" runat="server" Text="Chiuso" Style="width: 100%; float: left;"></asp:Label>
                     <asp:CheckBox ID="chkChiuso" runat="server" />
                 </div>
                 <div class="col-md-1">
@@ -66,6 +66,7 @@
                 </div>
                 <div class="col-md-12">
                     <asp:Button ID="btnStampaContoCliente" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaContoCliente_Click" runat="server" Text="Stampa Conto Finale Cliente" />
+                    <asp:Label ID="lblControlloMatVisNasc" runat="server" Text="" Style="font-size: 20px; float: right; margin-right: 10px; position: relative; top: 8px;"></asp:Label>
                 </div>
             </div>
         </div>
@@ -73,13 +74,13 @@
 
     <asp:GridView ID="grdStampaMateCant" runat="server" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="true">
         <Columns>
-            <asp:BoundField DataField="Data" HeaderText="Data"  DataFormatString="{0:d}" ApplyFormatInEditMode="True"  />
+            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
             <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. CodArt" />
             <asp:BoundField DataField="Qta" HeaderText="Qta" />
             <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." DataFormatString="{0:0.00}" />
             <asp:BoundField DataField="ValoreRicarico" HeaderText="Valore Ricarico" />
             <asp:BoundField DataField="ValoreRicalcolo" HeaderText="Valore Ricalcolo" />
-            <asp:BoundField DataField="PzzoUnitFinCli" HeaderText="Pzzo Unit Fin Cli" />
+            <asp:BoundField DataField="PzzoFinCli" HeaderText="Pzzo Fin Cli" />
             <asp:BoundField DataField="Valore" HeaderText="Valore" />
             <asp:BoundField DataField="Visibile" HeaderText="Visibile" />
             <asp:BoundField DataField="Ricalcolo" HeaderText="Ricalcolo" />

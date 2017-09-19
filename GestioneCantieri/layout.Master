@@ -12,7 +12,7 @@
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/FilterToggle.js"></script>
 
-    <link type="text/css" href="Css/style.css" rel="stylesheet" />
+    <link href="Css/style.css" rel="stylesheet" type="text/css" runat="server" media="screen"/>
     <link href="Css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="Css/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet" />

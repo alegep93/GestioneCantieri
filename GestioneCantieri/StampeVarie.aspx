@@ -9,6 +9,7 @@
             right: 10px;
             font-size: 20px;
         }
+
         input[type="checkbox"] {
             width: 20px;
             height: 20px;

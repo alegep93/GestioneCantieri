@@ -76,9 +76,9 @@ namespace GestioneCantieri
         {
             if (txtRagSocCli.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciCliente(txtRagSocCli.Text, 
-                    txtIndirizzo.Text, txtCap.Text, txtCitta.Text, txtProvincia.Text, 
-                    txtTelefono.Text, txtCellulare.Text, txtPartitaIva.Text, 
+                bool isInserito = InserimentoDatiDAO.InserisciCliente(txtRagSocCli.Text,
+                    txtIndirizzo.Text, txtCap.Text, txtCitta.Text, txtProvincia.Text,
+                    txtTelefono.Text, txtCellulare.Text, txtPartitaIva.Text,
                     txtCodiceFiscale.Text, txtDataInserimento.Text, txtNote.Text);
 
                 if (isInserito)
@@ -138,8 +138,8 @@ namespace GestioneCantieri
         {
             if (txtRagSocFornit.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciFornitore(txtRagSocFornit.Text, 
-                    txtCittaFornit.Text, txtIndirFornit.Text, txtCapFornit.Text, txtTelFornit.Text, 
+                bool isInserito = InserimentoDatiDAO.InserisciFornitore(txtRagSocFornit.Text,
+                    txtCittaFornit.Text, txtIndirFornit.Text, txtCapFornit.Text, txtTelFornit.Text,
                     txtCelFornit.Text, txtCodFiscFornit.Text, txtPartIvaFornit.Text, txtAbbrevFornit.Text);
                 if (isInserito)
                 {
@@ -241,7 +241,7 @@ namespace GestioneCantieri
                 string fatturato = Convert.ToInt32(chkFatturato.Checked).ToString();
                 string codRiferCant = CostruisceCodRiferCant();
 
-                if(txtValPrevCant.Text == "")
+                if (txtValPrevCant.Text == "")
                     txtValPrevCant.Text = "0";
 
                 bool isInserito = InserimentoDatiDAO.InserisciCantiere(ddlScegliClientePerCantiere.SelectedValue, txtDataInserCant.Text,
@@ -328,7 +328,8 @@ namespace GestioneCantieri
         {
             foreach (var control in container.Controls)
             {
-                if (control is TextBox) { 
+                if (control is TextBox)
+                {
                     ((TextBox)control).Text = string.Empty;
                     ((TextBox)control).Enabled = true;
                 }
@@ -653,35 +654,30 @@ namespace GestioneCantieri
             txtFasciaCant.Text = cant.FasciaTblCantieri.ToString();
 
             //Spunto i checkbox se necessario
-            if (cant.Chiuso)
-                chkCantChiuso.Checked = true;
-            if (cant.Riscosso)
-                chkCantRiscosso.Checked = true;
-            if (cant.Preventivo)
-                chkPreventivo.Checked = true;
-            if (cant.DaDividere)
-                chkDaDividere.Checked = true;
-            if (cant.Diviso)
-                chkDiviso.Checked = true;
-            if (cant.Fatturato)
-                chkFatturato.Checked = true;
+            chkCantChiuso.Checked = cant.Chiuso;
+            chkCantRiscosso.Checked = cant.Riscosso;
+            chkPreventivo.Checked = cant.Preventivo;
+            chkDaDividere.Checked = cant.DaDividere;
+            chkDiviso.Checked = cant.Diviso;
+            chkFatturato.Checked = cant.Fatturato;
         }
         protected void PopolaCodCantAnnoNumero(string num = "")
         {
             string numCant = "";
-            if (num == "") { 
+            if (num == "")
+            {
                 txtNumeroCant.Text = InserimentoDatiDAO.GetLastNumCantForYear(txtAnnoCant.Text);
                 numCant = txtNumeroCant.Text;
             }
             else
-               numCant = num;
+                numCant = num;
 
             DateTime date = DateTime.Now;
             string year = date.ToString("yy");
             string suffisso = "Ma";
-            if(numCant.Length == 1)
+            if (numCant.Length == 1)
                 txtCodCant.Text = year + "00" + numCant + suffisso;
-            else if(numCant.Length == 2)
+            else if (numCant.Length == 2)
                 txtCodCant.Text = year + "0" + numCant + suffisso;
             else if (numCant.Length == 3)
                 txtCodCant.Text = year + numCant + suffisso;
@@ -695,7 +691,7 @@ namespace GestioneCantieri
             char firstDescrLetter = txtDescrCodCant.Text[0];
             string lastYearDigits = date.ToString("yy");
             int ddlLength = ddlScegliClientePerCantiere.SelectedItem.Text.Length;
-            char lastRagSocLetter = ddlScegliClientePerCantiere.SelectedItem.Text[ddlLength-1];
+            char lastRagSocLetter = ddlScegliClientePerCantiere.SelectedItem.Text[ddlLength - 1];
             string dayOfYear = date.DayOfYear.ToString();
 
             string codRiferCant = Convert.ToString(numCant + descrLength) +

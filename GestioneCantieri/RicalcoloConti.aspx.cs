@@ -17,6 +17,7 @@ namespace GestioneCantieri
     {
         public static decimal totRicalcoloConti = 0m;
         public string idCant = "";
+        public decimal percentuale = 0.00m;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,9 +31,21 @@ namespace GestioneCantieri
         /* HELPERS */
         protected decimal CalcolaPercentualeTotaleMaterialiNascosti()
         {
-            decimal matVisibile = MaterialiCantieriDAO.TotMaterialeVisibile(idCant);
+            decimal matVisibileConRicalcolo = MaterialiCantieriDAO.TotMaterialeVisibile(idCant);
             decimal matNascosto = MaterialiCantieriDAO.TotNascosto(idCant);
-            decimal percentuale = ((matNascosto * 100) / matVisibile); //Math.Round(((matNascosto * 100) / matVisibile), 2);
+
+            if (matVisibileConRicalcolo != 0)
+            {
+                percentuale = ((matNascosto * 100) / matVisibileConRicalcolo);
+            }
+            else if (matNascosto == 0 && matVisibileConRicalcolo == 0)
+            {
+                percentuale = 0;
+            }
+            else if (matNascosto != 0 && matVisibileConRicalcolo == 0)
+            {
+                percentuale = -1;
+            }
 
             return percentuale;
         }
@@ -53,44 +66,55 @@ namespace GestioneCantieri
         public void BindGrid(GridView grd)
         {
             decimal perc = CalcolaPercentualeTotaleMaterialiNascosti();
-            decimal valore = 0m;
-            List<decimal> decListRicalcolo = MaterialiCantieriDAO.CalcolaValoreRicalcolo(idCant, perc);
-            List<decimal> decListRicarico = MaterialiCantieriDAO.CalcolaValoreRicarico(idCant);
 
-            List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiereForRicalcoloConti(idCant);
-
-            grd.DataSource = matCantList;
-            grd.DataBind();
-
-            int cRicalcolo = 0, cRicarico = 0;
-
-            //Imposto la colonna del valore
-            for (int i = 0; i < grd.Rows.Count; i++)
+            if (perc == -1)
             {
-                string visibile = grd.Rows[i].Cells[8].Text;
-                string ricalcolo = grd.Rows[i].Cells[9].Text;
-                string ricaricoSiNo = grd.Rows[i].Cells[10].Text;
-                decimal pzzoUnit = 0m, valRicarico = 0m, valRicalcolo = 0m;
-                pzzoUnit = Convert.ToDecimal(grd.Rows[i].Cells[3].Text);
+                return;
+            }
+            else
+            {
+                decimal valore = 0m;
+                List<decimal> decListRicalcolo = MaterialiCantieriDAO.CalcolaValoreRicalcolo(idCant, perc);
+                List<decimal> decListRicarico = MaterialiCantieriDAO.CalcolaValoreRicarico(idCant);
 
-                if (visibile == "True" && ricaricoSiNo == "True")
+                List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiereForRicalcoloConti(idCant);
+
+                grd.DataSource = matCantList;
+                grd.DataBind();
+
+                int cRicalcolo = 0, cRicarico = 0;
+
+                //Imposto la colonna del valore
+                for (int i = 0; i < grd.Rows.Count; i++)
                 {
-                    grd.Rows[i].Cells[4].Text = decListRicarico[cRicarico].ToString();
-                    valRicarico = Convert.ToDecimal(grd.Rows[i].Cells[4].Text);
-                    cRicarico++;
+                    string visibile = grd.Rows[i].Cells[8].Text;
+                    string ricalcolo = grd.Rows[i].Cells[9].Text;
+                    string ricaricoSiNo = grd.Rows[i].Cells[10].Text;
+                    decimal pzzoUnit = 0m, valRicarico = 0m, valRicalcolo = 0m;
+                    pzzoUnit = Convert.ToDecimal(grd.Rows[i].Cells[3].Text);
+
+                    if (visibile == "True" && ricaricoSiNo == "True")
+                    {
+                        grd.Rows[i].Cells[4].Text = decListRicarico[cRicarico].ToString();
+                        valRicarico = Convert.ToDecimal(grd.Rows[i].Cells[4].Text);
+                        cRicarico++;
+                    }
+
+                    if (visibile == "True" && ricalcolo == "True")
+                    {
+                        grd.Rows[i].Cells[5].Text = decListRicalcolo[cRicalcolo].ToString();
+                        valRicalcolo = Convert.ToDecimal(grd.Rows[i].Cells[5].Text);
+                        cRicalcolo++;
+                    }
+
+                    if (matCantList[i].PzzoFinCli == 0)
+                        grd.Rows[i].Cells[6].Text = (pzzoUnit + valRicalcolo + valRicarico).ToString();
+                    else
+                        grd.Rows[i].Cells[6].Text = matCantList[i].PzzoFinCli.ToString();
+
+                    valore = Convert.ToDecimal(grd.Rows[i].Cells[2].Text) * Convert.ToDecimal(grd.Rows[i].Cells[6].Text);
+                    grd.Rows[i].Cells[7].Text = valore.ToString(); //Math.Round(valore, 2).ToString();
                 }
-
-                if (visibile == "True" && ricalcolo == "True")
-                {
-                    grd.Rows[i].Cells[5].Text = decListRicalcolo[cRicalcolo].ToString();
-                    valRicalcolo = Convert.ToDecimal(grd.Rows[i].Cells[5].Text);
-                    cRicalcolo++;
-                }
-
-                grd.Rows[i].Cells[6].Text = (pzzoUnit + valRicalcolo + valRicarico).ToString();
-
-                valore = Convert.ToDecimal(grd.Rows[i].Cells[2].Text) * Convert.ToDecimal(grd.Rows[i].Cells[6].Text);
-                grd.Rows[i].Cells[7].Text = valore.ToString(); //Math.Round(valore, 2).ToString();
             }
         }
         public void BindGridPDF(GridView grd, GridView grdPDF)
@@ -268,13 +292,22 @@ namespace GestioneCantieri
             tblTotali.AddCell(totaleFinaleCell);
         }
 
-        /* EVENTI CLICK*/
+        /* EVENTI CLICK */
         protected void btnStampaContoCliente_Click(object sender, EventArgs e)
         {
             idCant = ddlScegliCant.SelectedItem.Value;
             BindGrid(grdStampaMateCant);
             BindGridPDF(grdStampaMateCant, grdStampaMateCantPDF);
-            ExportToPdfPerContoFinCli(grdStampaMateCantPDF);
+
+            if (percentuale == -1)
+            {
+                lblControlloMatVisNasc.Text = "Materiale visibile con ricalcolo = 0, ma è presente del Materiale nascosto. --- Oppure sono presenti record con PzzoFinCli.";
+                lblControlloMatVisNasc.ForeColor = Color.Red;
+                return;
+            }
+            else {
+                //ExportToPdfPerContoFinCli(grdStampaMateCantPDF);
+            }
         }
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)
         {

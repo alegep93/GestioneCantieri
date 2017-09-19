@@ -27,7 +27,7 @@
             font-size: 30px;
             font-style: italic;
         }
-            
+
         .btnPagaOperaio {
             position: relative;
             right: 10px;

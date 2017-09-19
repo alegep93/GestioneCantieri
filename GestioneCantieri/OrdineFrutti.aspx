@@ -3,7 +3,7 @@
 <asp:Content ID="title" ContentPlaceHolderID="title" runat="server">
     <title>Ordine Frutti</title>
     <style>
-        #body_lblIsGruppoInserito{
+        #body_lblIsGruppoInserito {
             margin-bottom: 30px;
             text-align: right;
         }

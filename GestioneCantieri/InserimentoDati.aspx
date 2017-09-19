@@ -232,7 +232,7 @@
                         <asp:TextBox ID="txtFiltroRagSocForni" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
-                        <asp:Button ID="btnFiltraGrdFornitori" OnClick="btnFiltraGrdFornitori_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Filtra Griglia" style="position:relative;top:10px;"/>
+                        <asp:Button ID="btnFiltraGrdFornitori" OnClick="btnFiltraGrdFornitori_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Filtra Griglia" Style="position: relative; top: 10px;" />
                     </div>
                 </div>
 

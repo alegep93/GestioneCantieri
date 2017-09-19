@@ -196,3 +196,8 @@ input[type="checkbox"] {
     position: relative;
     left: -10px;
 }
+
+.form-control:focus {
+    border-color: red !important;
+    border-width: 2px !important;
+}

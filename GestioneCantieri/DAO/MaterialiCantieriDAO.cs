@@ -80,9 +80,10 @@ namespace GestioneCantieri.DAO
                       "ricaricoSiNo,Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore, " +
                       "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli " +
                       "FROM TblMaterialiCantieri " +
-                      "WHERE CodArt LIKE @codArt AND DescriCodArt LIKE @descriCodArt ";
+                      "WHERE IdTblCantieri = @pIdCant AND CodArt LIKE @codArt AND DescriCodArt LIKE @descriCodArt ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", id));
                 cmd.Parameters.Add(new SqlParameter("CodArt", codArt));
                 cmd.Parameters.Add(new SqlParameter("descriCodArt", descr));
 
@@ -144,7 +145,7 @@ namespace GestioneCantieri.DAO
 
                 sql += "IdMaterialiCantiere,B.CodCant,DescriMateriali,Qta,Visibile,Ricalcolo, " +
                        "ricaricoSiNo,A.Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,C.NomeOp,D.RagSocForni, " +
-                       "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli,B.DescriCodCAnt " +
+                       "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli,B.DescriCodCAnt,IdTblOperaio " +
                        "FROM TblMaterialiCantieri AS A " +
                        "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = b.IdCantieri) " +
                        "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
@@ -182,6 +183,7 @@ namespace GestioneCantieri.DAO
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
                     mc.DescriCodCant = (dr.IsDBNull(19) ? "" : dr.GetString(19));
+                    mc.IdOperaio = (dr.IsDBNull(20) ? -1 : dr.GetInt32(20));
                     matList.Add(mc);
                 }
 
@@ -373,7 +375,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT IdMaterialiCantiere,IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo, " +
                       "ricaricoSiNo,A.Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,A.Acquirente,A.Fornitore, " +
-                      "NumeroBolla,ProtocolloInterno,Note,Note2,PzzoFinCli " +
+                      "NumeroBolla,ProtocolloInterno,Note,Note2,PzzoFinCli,IdTblOperaio " +
                       "FROM TblMaterialiCantieri AS A " +
                       "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = b.IdCantieri) " +
                       "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
@@ -407,6 +409,7 @@ namespace GestioneCantieri.DAO
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.Note2 = (dr.IsDBNull(18) ? "" : dr.GetString(18));
                     mc.PzzoFinCli = (dr.IsDBNull(19) ? -1.0m : dr.GetDecimal(19));
+                    mc.IdOperaio = (dr.IsDBNull(20) ? 0 : dr.GetInt32(20));
                 }
 
                 return mc;
@@ -417,7 +420,6 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
-
 
         public static List<MaterialiCantieri> GetMaterialeCantiereForRicalcoloConti(string id)
         {
@@ -591,7 +593,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT IdTblCantieri,PzzoUniCantiere,Qta,Visibile " +
                       "FROM TblMaterialiCantieri " +
-                      "WHERE Tipologia = 'MATERIALE' AND Visibile = 1 AND Ricalcolo = 1 AND IdTblCantieri = @pIdCant ";
+                      "WHERE Tipologia = 'MATERIALE' AND Visibile = 1 AND Ricalcolo = 1 AND PzzoFinCli = 0 AND IdTblCantieri = @pIdCant ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
@@ -610,6 +612,40 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il calcolo del materiale visibile", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
+        public static decimal TotMaterialeVisibileSenzaRicalcolo(string idCant)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            MaterialiCantieri mc = new MaterialiCantieri();
+            decimal totMatVisibileSenzaRicalcolo = 0m;
+            string sql;
+
+            try
+            {
+                sql = "SELECT IdTblCantieri,PzzoUniCantiere,Qta,Visibile " +
+                      "FROM TblMaterialiCantieri " +
+                      "WHERE Tipologia = 'MATERIALE' AND Visibile = 1 AND Ricalcolo = 0 AND IdTblCantieri = @pIdCant ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    mc.PzzoUniCantiere = (dr.IsDBNull(1) ? 0m : dr.GetDecimal(1));
+                    mc.Qta = (dr.IsDBNull(2) ? 0d : dr.GetDouble(2));
+                    totMatVisibileSenzaRicalcolo += mc.PzzoUniCantiere * Convert.ToInt32(mc.Qta);
+                }
+
+                return totMatVisibileSenzaRicalcolo;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del materiale visibile senza ricalcolo", ex);
             }
             finally { cn.Close(); dr.Close(); }
         }
@@ -879,7 +915,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool UpdateMatCant(string id, MaterialiCantieri mc)
+        public static bool UpdateOperaio(string id, MaterialiCantieri mc)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -945,7 +981,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool UpdateManodop(string id, MaterialiCantieri mc)
+        public static bool UpdateMatCant(string id, MaterialiCantieri mc)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -971,6 +1007,7 @@ namespace GestioneCantieri.DAO
                       ",Acquirente = @acquir " +
                       ",Fornitore = @fornit " +
                       ",Note2 = @note2 " +
+                      ",PzzoFinCli = @pzzoFinCli " +
                       "WHERE IdMaterialiCantiere = @id ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -993,6 +1030,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("acquir", mc.Acquirente));
                 cmd.Parameters.Add(new SqlParameter("fornit", mc.Fornitore));
                 cmd.Parameters.Add(new SqlParameter("note2", mc.Note2));
+                cmd.Parameters.Add(new SqlParameter("pzzoFinCli", mc.PzzoFinCli));
 
                 int rows = cmd.ExecuteNonQuery();
 
