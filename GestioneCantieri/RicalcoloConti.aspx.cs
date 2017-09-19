@@ -306,7 +306,7 @@ namespace GestioneCantieri
                 return;
             }
             else {
-                //ExportToPdfPerContoFinCli(grdStampaMateCantPDF);
+                ExportToPdfPerContoFinCli(grdStampaMateCantPDF);
             }
         }
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)
