@@ -356,6 +356,8 @@ namespace GestioneCantieri
                 lblIsRecordInserito.Text = "Inserire un valore nella casella 'Prezzo Netto Mef' per calcolare il 'Prezzo Unitario'";
                 lblIsRecordInserito.ForeColor = Color.Red;
             }
+
+            btnInserisciMatCant.Focus();
         }
 
         #region Materiali Cantieri e Rientro
@@ -1998,6 +2000,8 @@ namespace GestioneCantieri
                 lblIsSpesaInserita.Text = "Inserire un valore nella casella 'Prezzo' per calcolare il 'Prezzo Calcolato'";
                 lblIsSpesaInserita.ForeColor = Color.Red;
             }
+
+            btnInsAChiam.Focus();
         }
         protected void btnInsSpesa_Click(object sender, EventArgs e)
         {
