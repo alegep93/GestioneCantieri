@@ -10,7 +10,7 @@ namespace GestioneCantieri.Data
         int idMaterialiCantieri, idTblCantieri, idOperaio, fascia, numeroBolla, protocolloInterno;
         string descriMateriali, codArt, descriCodArt, tipologia, acquirente, fornitore, note, note2, codCant, descriCodCant, ragSocCli;
         double qta;
-        decimal pzzoUniCantiere, pzzoFinCli, valore, costoOperaio, valoreRicarico, valoreRicalcolo, pzzoUnitFinCli;
+        decimal pzzoUniCantiere, pzzoFinCli, valore, costoOperaio, valoreRicarico, valoreRicalcolo;
         bool visibile, ricalcolo, ricaricoSiNo, rientro, operaioPagato;
         DateTime data;
 
@@ -20,7 +20,7 @@ namespace GestioneCantieri.Data
             this.descriMateriali = this.codArt = this.descriCodArt = this.tipologia = "";
             this.acquirente = this.fornitore = this.note = this.note2 = this.CodCant = this.DescriCodCant = this.RagSocCli = "";
             this.qta = -1d;
-            this.pzzoUniCantiere = this.PzzoFinCli = this.Valore = this.costoOperaio = this.valoreRicarico = this.valoreRicalcolo = this.PzzoUnitFinCli = 0m;
+            this.pzzoUniCantiere = this.PzzoFinCli = this.Valore = this.costoOperaio = this.valoreRicarico = this.valoreRicalcolo = 0m;
             this.visibile = this.ricalcolo = this.ricaricoSiNo = this.rientro = this.operaioPagato = false;
             this.data = new DateTime();
         }
@@ -322,7 +322,6 @@ namespace GestioneCantieri.Data
         public decimal CostoOperaio { get => costoOperaio; set => costoOperaio = value; }
         public decimal ValoreRicarico { get => valoreRicarico; set => valoreRicarico = value; }
         public decimal ValoreRicalcolo { get => valoreRicalcolo; set => valoreRicalcolo = value; }
-        public decimal PzzoUnitFinCli { get => pzzoUnitFinCli; set => pzzoUnitFinCli = value; }
         public string RagSocCli { get => ragSocCli; set => ragSocCli = value; }
         public string Note2 { get => note2; set => note2 = value; }
         public int IdOperaio { get => idOperaio; set => idOperaio = value; }

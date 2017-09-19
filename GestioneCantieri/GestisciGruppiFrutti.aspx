@@ -15,7 +15,8 @@
         </div>
         <div class="row">
             <!-- Titolo Pagina -->
-            <h1><asp:Label ID="lblTitle" runat="server" Text=""></asp:Label></h1>
+            <h1>
+                <asp:Label ID="lblTitle" runat="server" Text=""></asp:Label></h1>
             <!-- Fine Titolo Pagina -->
 
             <!-- Filtri sulla lista di gruppi -->

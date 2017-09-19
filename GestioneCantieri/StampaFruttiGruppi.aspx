@@ -14,11 +14,13 @@
             position: relative;
             top: 20px;
         }
-        .table-container > div {
-            max-height: 500px;
-            overflow: hidden;
-            overflow-y: auto;
-        }
+
+            .table-container > div {
+                max-height: 500px;
+                overflow: hidden;
+                overflow-y: auto;
+            }
+
     </style>
 </asp:Content>
 

@@ -22,6 +22,11 @@
             top: 6px;
         }
 
+        input.btn.btn-lg.btn-primary.pull-right {
+            position: relative;
+            top: 10px;
+        }
+
         span.pull-right {
             position: relative;
             top: 13px;
@@ -189,11 +194,11 @@
                 <div class="row">
                     <div class="col-md-2">
                         <asp:Label ID="lblCodArt" Text="Codice Articolo" runat="server" />
-                        <asp:TextBox ID="txtCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtCodArt" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtCodArt_TextChanged" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblDescriCodArt" Text="Descrizione Codice Articolo" runat="server" />
-                        <asp:TextBox ID="txtDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtDescriCodArt" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtDescriCodArt_TextChanged" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblDescrMat" Text="Descrizione Materiale" runat="server" />
@@ -218,6 +223,21 @@
                         <asp:TextBox ID="txtPzzoNettoMef" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2">
+                        <asp:Button ID="btnCalcolaPrezzoUnit" OnClick="btnCalcolaPrezzoUnit_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Calcola Prezzo Unitario" />
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Button ID="btnInserisciMatCant" OnClick="btnInserisciMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Mat Cant" />
+                        <asp:Button ID="btnModMatCant" OnClick="btnModMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Mat Cant" />
+                        <asp:Button ID="btnInserisciRientro" OnClick="btnInserisciRientro_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Rientro" />
+                        <asp:Button ID="btnModRientro" OnClick="btnModRientro_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Rientro" />
+                        <asp:Label ID="lblIsRecordInserito" Text="" CssClass="pull-right" runat="server" />
+                    </div>
+                </div>
+                <div class="row">
+                    
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
                         <asp:Label ID="lblPzzoUnit" Text="Prezzo Unitario" runat="server" />
                         <asp:TextBox ID="txtPzzoUnit" Text="0.00" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
@@ -237,18 +257,6 @@
                     <div class="col-md-2">
                         <asp:Label ID="lblRicarico" Text="Ricarico Si/No" runat="server" />
                         <asp:CheckBox ID="chkRicarico" CssClass="form-control" Checked="true" runat="server" />
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <asp:Button ID="btnCalcolaPrezzoUnit" OnClick="btnCalcolaPrezzoUnit_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Calcola Prezzo Unitario" />
-                    </div>
-                    <div class="col-md-6">
-                        <asp:Button ID="btnInserisciMatCant" OnClick="btnInserisciMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Mat Cant" />
-                        <asp:Button ID="btnModMatCant" OnClick="btnModMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Mat Cant" />
-                        <asp:Button ID="btnInserisciRientro" OnClick="btnInserisciRientro_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Rientro" />
-                        <asp:Button ID="btnModRientro" OnClick="btnModRientro_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Rientro" />
-                        <asp:Label ID="lblIsRecordInserito" Text="" CssClass="pull-right" runat="server" />
                     </div>
                 </div>
 
@@ -334,7 +342,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <asp:Label ID="lblManodopQta" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="txtManodopQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtManodopQta" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtManodopQta_TextChanged" Text="0" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <asp:Label ID="lblPzzoManodop" Text="Prezzo Manodopera" runat="server" />
@@ -442,7 +450,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <asp:Label ID="lblOperQta" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="txtOperQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtOperQta" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtOperQta_TextChanged" Text="0" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <asp:Label ID="lblPzzoOper" Text="Prezzo Operaio" runat="server" />
@@ -641,11 +649,11 @@
                 <div class="row">
                     <div class="col-md-2">
                         <asp:Label ID="lblChiamCodArt" Text="Codice Articolo" runat="server" />
-                        <asp:TextBox ID="txtChiamCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtChiamCodArt" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtChiamCodArt_TextChanged" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblChiamDescriCodArt" Text="Descrizione Codice Articolo" runat="server" />
-                        <asp:TextBox ID="txtChiamDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtChiamDescriCodArt" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtChiamDescriCodArt_TextChanged" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblChiamDescrMate" Text="Descrizione Materiale" runat="server" />
@@ -754,18 +762,18 @@
             <!-- Maschera di Gestione Spese -->
             <asp:Panel ID="pnlGestSpese" CssClass="col-md-12" runat="server">
                 <div class="row">
-                    <div class="col-md-offset-1">
+                    <div class="col-md-12">
                         <div class="col-md-12">
                             <asp:Label ID="lblScegliSpesa" Text="Scegli Spesa" runat="server" />
                             <asp:DropDownList ID="ddlScegliSpesa" CssClass="form-control" AutoPostBack="true" OnTextChanged="ddlScegliSpesa_TextChanged" runat="server"></asp:DropDownList>
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblSpeseCodArt" Text="Codice Articolo" runat="server" />
-                            <asp:TextBox ID="txtSpeseCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtSpeseCodArt" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtSpeseCodArt_TextChanged" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblSpeseDescriCodArt" Text="Descrizione Codice Articolo" runat="server" />
-                            <asp:TextBox ID="txtSpeseDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtSpeseDescriCodArt" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtSpeseDescriCodArt_TextChanged" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblSpeseQta" Text="Quantità" runat="server" />
@@ -795,7 +803,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-offset-1">
+                    <div class="col-md-12">
                         <div class="col-md-8">
                             <asp:Button ID="btnCalcolaPzzoUnitSpese" OnClick="btnCalcolaPzzoUnitSpese_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Calcola Prezzo Spesa" />
                         </div>

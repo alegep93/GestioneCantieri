@@ -146,37 +146,40 @@ namespace GestioneCantieri
         }
         protected void SvuotaCampi(Panel pnl)
         {
-            ////Svuoto tutti i TextBox
-            //foreach (Control c in pnl.Controls)
-            //{
-            //    if (c is TextBox)
-            //        ((TextBox)c).Text = "";
-            //}
+            //Svuoto tutti i TextBox
+            foreach (Control c in pnl.Controls)
+            {
+                if (c is TextBox)
+                    ((TextBox)c).Text = "";
+            }
 
-            ////Svuoto il DDL del listino solamente se è stato popolato
-            //if (ddlScegliListino.SelectedIndex != -1)
-            //    ddlScegliListino.SelectedIndex = 0;
+            //Svuoto il DDL del listino solamente se è stato popolato
+            if (ddlScegliListino.SelectedIndex != -1)
+                ddlScegliListino.SelectedIndex = 0;
 
-            ////Visibile TRUE
-            //chkVisibile.Checked = chkManodopVisibile.Checked = chkOperVisibile.Checked = chkChiamVisibile.Checked = true;
-            ////Ricalcolo TRUE
-            //chkRicalcolo.Checked = chkChiamRicalcolo.Checked = true;
-            ////RicaricoSiNo TRUE
-            //chkRicarico.Checked = chkOperRicaricoSiNo.Checked = chkChiamRicaricoSiNo.Checked = true;
+            //Visibile TRUE
+            chkVisibile.Checked = chkManodopVisibile.Checked = chkOperVisibile.Checked = chkChiamVisibile.Checked = true;
+            //Ricalcolo TRUE
+            chkRicalcolo.Checked = chkChiamRicalcolo.Checked = true;
+            //RicaricoSiNo TRUE
+            chkRicarico.Checked = chkOperRicaricoSiNo.Checked = chkChiamRicaricoSiNo.Checked = true;
 
-            ////Visibile FALSE
-            //chkArrotVisibile.Checked = false;
-            ////Ricalcolo FALSE
-            //chkManodopRicalcolo.Checked = chkOperRicalcolo.Checked = chkArrotRicalcolo.Checked = false;
-            ////RicaricoSiNo FALSE
-            //chkManodopRicaricoSiNo.Checked = chkArrotRicaricoSiNo.Checked = false;
+            //Visibile FALSE
+            chkArrotVisibile.Checked = false;
+            //Ricalcolo FALSE
+            chkManodopRicalcolo.Checked = chkOperRicalcolo.Checked = chkArrotRicalcolo.Checked = false;
+            //RicaricoSiNo FALSE
+            chkManodopRicaricoSiNo.Checked = chkArrotRicaricoSiNo.Checked = false;
 
-            ////Reimposto i textbox ai valori di default
-            //txtQta.Text = txtManodopQta.Text = txtOperQta.Text = txtArrotQta.Text = txtChiamQta.Text = txtSpesaPrezzo.Text = "0";
-            //txtPzzoUnit.Text = txtChiamPzzoUnit.Text = txtSpesaPrezzoCalcolato.Text = "0.00";
+            //Reimposto i textbox ai valori di default
+            txtQta.Text = txtManodopQta.Text = txtOperQta.Text = txtArrotQta.Text = txtChiamQta.Text = txtSpesaPrezzo.Text = "0";
+            txtPzzoUnit.Text = txtChiamPzzoUnit.Text = txtSpesaPrezzoCalcolato.Text = "0.00";
 
-            ////Textbox Tipologia sempre Disabilitato
-            //txtTipDatCant.Enabled = false;
+            //Textbox Tipologia sempre Disabilitato
+            txtTipDatCant.Enabled = false;
+
+            //Reimposto il pzzoFinCli
+            txtPzzoFinCli.Text = txtChiamPzzoFinCli.Text = "0.00";
         }
         protected void EnableDisableControls(bool enableControls, Panel panelName)
         {
@@ -356,7 +359,7 @@ namespace GestioneCantieri
         }
 
         #region Materiali Cantieri e Rientro
-        int maxQtaRientro = -1;
+        decimal maxQtaRientro = -1;
 
         /* HELPERS */
         protected void FillMatCant(MaterialiCantieri mc)
@@ -462,7 +465,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCant(mc);
 
-            if (Convert.ToInt32(txtQta.Text) > 0 && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
+            if (Convert.ToDecimal(txtQta.Text) > 0 && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
                 {
@@ -513,6 +516,8 @@ namespace GestioneCantieri
 
             BindGridMatCant();
             SvuotaCampi(pnlMascheraGestCant);
+
+            txtFiltroCodFSS.Focus();
         }
         protected void btnInserisciRientro_Click(object sender, EventArgs e)
         {
@@ -544,7 +549,7 @@ namespace GestioneCantieri
                 }
                 else
                 {
-                    numeroBolla = (ddlScegliDDTMef.SelectedItem.Text).Split('-')[3];
+                    numeroBolla = (ddlScegliDDTMef.SelectedItem.Text).Split('-')[1];
                 }
 
                 if (isIntestazioneCompilata())
@@ -645,6 +650,9 @@ namespace GestioneCantieri
                 txtCodArt.Text = txtDescriCodArt.Text = txtPzzoNettoMef.Text = "";
                 txtPzzoUnit.Text = "0.00";
             }
+
+            HideMessageLabels();
+            txtQta.Focus();
         }
         protected void ddlScegliMatCant_TextChanged(object sender, EventArgs e)
         {
@@ -654,7 +662,7 @@ namespace GestioneCantieri
                 txtCodArt.Text = partiMatCant[0].Trim();
                 txtDescriCodArt.Text = partiMatCant[1].Trim();
                 txtQta.Text = partiMatCant[2].Trim();
-                maxQtaRientro = Convert.ToInt32(partiMatCant[2].Trim());
+                maxQtaRientro = Convert.ToDecimal(partiMatCant[2].Trim());
                 txtPzzoNettoMef.Text = partiMatCant[3].Trim();
                 txtPzzoUnit.Text = "0.00";
                 txtPzzoFinCli.Text = partiMatCant[4].Trim();
@@ -664,6 +672,8 @@ namespace GestioneCantieri
                 txtCodArt.Text = txtDescriCodArt.Text = txtPzzoNettoMef.Text = txtPzzoFinCli.Text = "";
                 txtPzzoUnit.Text = "0.00";
             }
+
+            HideMessageLabels();
         }
         protected void txtFiltroMatCantCodArt_TextChanged(object sender, EventArgs e)
         {
@@ -672,6 +682,14 @@ namespace GestioneCantieri
         protected void txtFiltroMatCantDescriCodArt_TextChanged(object sender, EventArgs e)
         {
             FillDdlScegliMatCant();
+        }
+        protected void txtCodArt_TextChanged(object sender, EventArgs e)
+        {
+            HideMessageLabels();
+        }
+        protected void txtDescriCodArt_TextChanged(object sender, EventArgs e)
+        {
+            HideMessageLabels();
         }
 
         /* EVENTI PER LA GESTIONE DEI ROWCOMMAND */
@@ -694,9 +712,8 @@ namespace GestioneCantieri
             //Rendo i textbox abilitati/disabilitati
             EnableDisableControls(enableControls, pnlMascheraGestCant);
 
-            ddlScegliCant.SelectedItem.Value = mc.IdTblCantieri.ToString();
-            ddlScegliAcquirente.SelectedItem.Value = mc.Acquirente;
-            ddlScegliFornit.SelectedItem.Value = mc.Fornitore;
+            ddlScegliAcquirente.SelectedValue = mc.Acquirente;
+            ddlScegliFornit.SelectedValue = mc.Fornitore;
             txtTipDatCant.Text = mc.Tipologia;
             txtNumBolla.Text = mc.NumeroBolla.ToString();
             txtDataDDT.Text = mc.Data.ToString("yyyy-MM-dd");
@@ -710,10 +727,11 @@ namespace GestioneCantieri
             txtNote_2.Text = mc.Note2;
             txtQta.Text = mc.Qta.ToString();
             txtPzzoUnit.Text = mc.PzzoUniCantiere.ToString();
-            txtPzzoFinCli.Text = mc.PzzoUnitFinCli.ToString();
+            txtPzzoFinCli.Text = mc.PzzoFinCli.ToString();
             chkVisibile.Checked = mc.Visibile;
             chkRicalcolo.Checked = mc.Ricalcolo;
             chkRicarico.Checked = mc.RicaricoSiNo;
+            txtPzzoFinCli.Text = mc.PzzoFinCli.ToString();
         }
         private void PopolaObjMatCant(MaterialiCantieri mc)
         {
@@ -732,10 +750,11 @@ namespace GestioneCantieri
             mc.Note2 = txtNote_2.Text;
             mc.Qta = Convert.ToDouble(txtQta.Text);
             mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoUnit.Text);
-            mc.PzzoUnitFinCli = Convert.ToDecimal(txtPzzoFinCli.Text);
+            mc.PzzoFinCli = Convert.ToDecimal(txtPzzoFinCli.Text);
             mc.Visibile = chkVisibile.Checked;
             mc.Ricalcolo = chkRicalcolo.Checked;
             mc.RicaricoSiNo = chkRicarico.Checked;
+            mc.PzzoFinCli = Convert.ToDecimal(txtPzzoFinCli.Text);
         }
         private void VisualizzaDatiMatCant(int id)
         {
@@ -910,7 +929,7 @@ namespace GestioneCantieri
 
             if (txtDataDDT.Text != "")
             {
-                if (Convert.ToInt32(txtManodopQta.Text) > 0)
+                if (Convert.ToDecimal(txtManodopQta.Text) > 0)
                 {
                     if (isIntestazioneCompilata())
                         isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -984,9 +1003,8 @@ namespace GestioneCantieri
             //Rendo i textbox abilitati/disabilitati
             EnableDisableControls(enableControls, pnlManodopera);
 
-            ddlScegliCant.SelectedItem.Value = mc.IdTblCantieri.ToString();
-            ddlScegliAcquirente.SelectedItem.Value = mc.Acquirente;
-            ddlScegliFornit.SelectedItem.Value = mc.Fornitore;
+            ddlScegliAcquirente.SelectedValue = mc.Acquirente;
+            ddlScegliFornit.SelectedValue = mc.Fornitore;
             txtTipDatCant.Text = mc.Tipologia;
             txtNumBolla.Text = mc.NumeroBolla.ToString();
             txtDataDDT.Text = mc.Data.ToString("yyyy-MM-dd");
@@ -1008,6 +1026,10 @@ namespace GestioneCantieri
         }
         private void PopolaObjManodop(MaterialiCantieri mc)
         {
+            Operai op = OperaiDAO.GetOperaio(ddlScegliAcquirente.SelectedItem.Value);
+            mc.CodArt = "Manodopera" + op.Operaio;
+            mc.DescriCodArt = "Manodopera" + op.Operaio;
+
             mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
             mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
@@ -1063,7 +1085,7 @@ namespace GestioneCantieri
         {
             MaterialiCantieri mc = new MaterialiCantieri();
             PopolaObjManodop(mc);
-            bool isUpdated = MaterialiCantieriDAO.UpdateManodop(hidManodop.Value, mc);
+            bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidManodop.Value, mc);
 
             if (isUpdated)
             {
@@ -1078,6 +1100,12 @@ namespace GestioneCantieri
 
             BindGridManodop();
             SvuotaCampi(pnlManodopera);
+        }
+
+        /* EVENTI TEXT-CHANGED */
+        protected void txtManodopQta_TextChanged(object sender, EventArgs e)
+        {
+            HideMessageLabels();
         }
 
         //Aggiornamento del valore della manodopera per il cantiere corrente
@@ -1173,7 +1201,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillOperMatCant(mc);
 
-            if (Convert.ToInt32(txtOperQta.Text) > 0)
+            if (Convert.ToDecimal(txtOperQta.Text) > 0)
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -1245,9 +1273,9 @@ namespace GestioneCantieri
             //Rendo i textbox abilitati/disabilitati
             EnableDisableControls(enableControls, pnlGestioneOperaio);
 
-            ddlScegliCant.SelectedItem.Value = mc.IdTblCantieri.ToString();
-            ddlScegliAcquirente.SelectedItem.Value = mc.Acquirente;
-            ddlScegliFornit.SelectedItem.Value = mc.Fornitore;
+            ddlScegliAcquirente.SelectedValue = mc.Acquirente;
+            ddlScegliFornit.SelectedValue = mc.Fornitore;
+            ddlScegliOperaio.SelectedValue = mc.IdOperaio.ToString();
             txtTipDatCant.Text = mc.Tipologia;
             txtNumBolla.Text = mc.NumeroBolla.ToString();
             txtDataDDT.Text = mc.Data.ToString("yyyy-MM-dd");
@@ -1329,7 +1357,7 @@ namespace GestioneCantieri
         {
             MaterialiCantieri mc = new MaterialiCantieri();
             PopolaObjOper(mc);
-            bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidOper.Value, mc);
+            bool isUpdated = MaterialiCantieriDAO.UpdateOperaio(hidOper.Value, mc);
 
             if (isUpdated)
             {
@@ -1371,6 +1399,13 @@ namespace GestioneCantieri
 
             BindGridOper();
         }
+
+        /* TEXT CHANGED */
+        protected void txtOperQta_TextChanged(object sender, EventArgs e)
+        {
+            HideMessageLabels();
+        }
+
         #endregion
 
         #region Arrotondamento
@@ -1386,6 +1421,8 @@ namespace GestioneCantieri
             mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
             mc.NumeroBolla = Convert.ToInt32(txtNumBolla.Text);
             mc.Fascia = Convert.ToInt32(txtFascia.Text);
+            mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
+            mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
 
             if (txtArrotPzzoUnit.Text != "")
                 mc.PzzoUniCantiere = Convert.ToDecimal(txtArrotPzzoUnit.Text);
@@ -1404,7 +1441,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillArrotMatCant(mc);
 
-            if (Convert.ToInt32(txtArrotQta.Text) > 0)
+            if (Convert.ToDecimal(txtArrotQta.Text) > 0)
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -1473,9 +1510,8 @@ namespace GestioneCantieri
             //Rendo i textbox abilitati/disabilitati
             EnableDisableControls(enableControls, pnlGestArrotond);
 
-            ddlScegliCant.SelectedItem.Value = mc.IdTblCantieri.ToString();
-            ddlScegliAcquirente.SelectedItem.Value = mc.Acquirente;
-            ddlScegliFornit.SelectedItem.Value = mc.Fornitore;
+            ddlScegliAcquirente.SelectedValue = mc.Acquirente;
+            ddlScegliFornit.SelectedValue = mc.Fornitore;
             txtTipDatCant.Text = mc.Tipologia;
             txtNumBolla.Text = mc.NumeroBolla.ToString();
             txtDataDDT.Text = mc.Data.ToString("yyyy-MM-dd");
@@ -1622,9 +1658,8 @@ namespace GestioneCantieri
             //Rendo i textbox abilitati/disabilitati
             EnableDisableControls(enableControls, pnlGestChiamata);
 
-            ddlScegliCant.SelectedItem.Value = mc.IdTblCantieri.ToString();
-            ddlScegliAcquirente.SelectedItem.Value = mc.Acquirente;
-            ddlScegliFornit.SelectedItem.Value = mc.Fornitore;
+            ddlScegliAcquirente.SelectedValue = mc.Acquirente;
+            ddlScegliFornit.SelectedValue = mc.Fornitore;
             txtTipDatCant.Text = mc.Tipologia;
             txtNumBolla.Text = mc.NumeroBolla.ToString();
             txtDataDDT.Text = mc.Data.ToString("yyyy-MM-dd");
@@ -1638,7 +1673,7 @@ namespace GestioneCantieri
             txtChiamNote.Text = mc.Note2;
             txtChiamQta.Text = mc.Qta.ToString();
             txtChiamPzzoUnit.Text = mc.PzzoUniCantiere.ToString();
-            txtChiamPzzoFinCli.Text = mc.PzzoUnitFinCli.ToString();
+            txtChiamPzzoFinCli.Text = mc.PzzoFinCli.ToString();
             chkChiamVisibile.Checked = mc.Visibile;
             chkChiamRicalcolo.Checked = mc.Ricalcolo;
             chkChiamRicaricoSiNo.Checked = mc.RicaricoSiNo;
@@ -1660,7 +1695,7 @@ namespace GestioneCantieri
             mc.Note2 = txtChiamNote2.Text;
             mc.Qta = Convert.ToDouble(txtChiamQta.Text);
             mc.PzzoUniCantiere = Convert.ToDecimal(txtChiamPzzoUnit.Text);
-            mc.PzzoUnitFinCli = Convert.ToDecimal(txtChiamPzzoFinCli.Text);
+            mc.PzzoFinCli = Convert.ToDecimal(txtChiamPzzoFinCli.Text);
             mc.Visibile = chkChiamVisibile.Checked;
             mc.Ricalcolo = chkChiamRicalcolo.Checked;
             mc.RicaricoSiNo = chkChiamRicaricoSiNo.Checked;
@@ -1692,7 +1727,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCantChiamata(mc);
 
-            if (Convert.ToInt32(txtChiamQta.Text) > 0 && Convert.ToDecimal(txtChiamPzzoUnit.Text) > 0)
+            if (Convert.ToDecimal(txtChiamQta.Text) > 0 && Convert.ToDecimal(txtChiamPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
                 {
@@ -1826,6 +1861,16 @@ namespace GestioneCantieri
         {
             BindGridChiamata();
         }
+
+        /* TEXT-CHANGED */
+        protected void txtChiamCodArt_TextChanged(object sender, EventArgs e)
+        {
+            HideMessageLabels();
+        }
+        protected void txtChiamDescriCodArt_TextChanged(object sender, EventArgs e)
+        {
+            HideMessageLabels();
+        }
         #endregion
 
         #region Spese
@@ -1891,9 +1936,8 @@ namespace GestioneCantieri
             //Rendo i textbox abilitati/disabilitati
             EnableDisableControls(enableControls, pnlGestSpese);
 
-            ddlScegliCant.SelectedItem.Value = mc.IdTblCantieri.ToString();
-            ddlScegliAcquirente.SelectedItem.Value = mc.Acquirente;
-            ddlScegliFornit.SelectedItem.Value = mc.Fornitore;
+            ddlScegliAcquirente.SelectedValue = mc.Acquirente;
+            ddlScegliFornit.SelectedValue = mc.Fornitore;
             txtTipDatCant.Text = mc.Tipologia;
             txtNumBolla.Text = mc.NumeroBolla.ToString();
             txtDataDDT.Text = mc.Data.ToString("yyyy-MM-dd");
@@ -1965,7 +2009,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCantSpese(mc);
 
-            if (Convert.ToInt32(txtSpeseQta.Text) > 0)
+            if (Convert.ToDecimal(txtSpeseQta.Text) > 0)
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -1995,6 +2039,15 @@ namespace GestioneCantieri
         protected void ddlScegliSpesa_TextChanged(object sender, EventArgs e)
         {
             txtSpeseCodArt.Text = txtSpeseDescriCodArt.Text = ddlScegliSpesa.SelectedItem.Text;
+            HideMessageLabels();
+        }
+        protected void txtSpeseCodArt_TextChanged(object sender, EventArgs e)
+        {
+            HideMessageLabels();
+        }
+        protected void txtSpeseDescriCodArt_TextChanged(object sender, EventArgs e)
+        {
+            HideMessageLabels();
         }
 
         /* EVENTI ROW-COMMAND */

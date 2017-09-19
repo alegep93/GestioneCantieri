@@ -116,7 +116,8 @@
         </div>
 
         <div class="col-md-12 text-right">
-            <asp:Label ID="lblTotOre" CssClass="lblIntestazione" runat="server" Text=""></asp:Label> <br />
+            <asp:Label ID="lblTotOre" CssClass="lblIntestazione" runat="server" Text=""></asp:Label>
+            <br />
             <asp:Label ID="lblTotale" CssClass="lblIntestazione" runat="server" Text=""></asp:Label>
         </div>
     </div>

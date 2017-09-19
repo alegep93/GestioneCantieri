@@ -19,25 +19,25 @@
                     <div class="col-md-12">
                         <asp:Label ID="lblCercaCodArt" runat="server" Text="Cerca per codice articolo"></asp:Label>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtCodArt1" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtCodArt1" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtCodArt2" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtCodArt2" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtCodArt3" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtCodArt3" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <asp:Label ID="lblCercaDescriCodArt" runat="server" Text="Cerca per Descrizione Cod. Art."></asp:Label>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtDescriCodArt1" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtDescriCodArt1" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtDescriCodArt2" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtDescriCodArt2" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-4">
-                            <asp:TextBox ID="txtDescriCodArt3" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtDescriCodArt3" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                     </div>
                 </div>
