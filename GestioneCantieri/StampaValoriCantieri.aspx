@@ -98,7 +98,7 @@
                     <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." DataFormatString="{0:0.00}" />
                     <asp:BoundField DataField="ValoreRicarico" HeaderText="Valore Ricarico" />
                     <asp:BoundField DataField="ValoreRicalcolo" HeaderText="Valore Ricalcolo" />
-                    <asp:BoundField DataField="PzzoUnitFinCli" HeaderText="Pzzo Unit Fin Cli" />
+                    <asp:BoundField DataField="PzzoFinCli" HeaderText="Pzzo Unit Fin Cli" />
                     <asp:BoundField DataField="Valore" HeaderText="Valore" />
                     <asp:BoundField DataField="Visibile" HeaderText="Visibile" />
                     <asp:BoundField DataField="Ricalcolo" HeaderText="Ricalcolo" />

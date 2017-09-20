@@ -37,7 +37,8 @@ namespace GestioneCantieri
 
             foreach (Operai op in listOperai)
             {
-                ddlScegliOperaio.Items.Add(new ListItem(op.NomeOp, op.IdOperaio.ToString()));
+                string show = op.Operaio + " - " + op.NomeOp + " - " + op.DescrOp;
+                ddlScegliOperaio.Items.Add(new ListItem(show, op.IdOperaio.ToString()));
             }
         }
         protected void BindGrid()

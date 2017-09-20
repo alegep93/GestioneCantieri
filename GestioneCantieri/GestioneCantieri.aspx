@@ -216,7 +216,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <asp:Label ID="lblQta" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="txtQta" Text="0" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtQta" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblPzzoNettoMef" Text="Prezzo Netto Mef" runat="server" />
@@ -342,7 +342,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <asp:Label ID="lblManodopQta" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="txtManodopQta" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtManodopQta_TextChanged" Text="0" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtManodopQta" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtManodopQta_TextChanged"  runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <asp:Label ID="lblPzzoManodop" Text="Prezzo Manodopera" runat="server" />
@@ -450,7 +450,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <asp:Label ID="lblOperQta" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="txtOperQta" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtOperQta_TextChanged" Text="0" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtOperQta" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtOperQta_TextChanged" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <asp:Label ID="lblPzzoOper" Text="Prezzo Operaio" runat="server" />
@@ -565,7 +565,7 @@
                     <div class="col-md-12">
                         <div class="col-md-6">
                             <asp:Label ID="lblArrotQta" Text="Quantità" runat="server" />
-                            <asp:TextBox ID="txtArrotQta" CssClass="form-control" Text="0" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtArrotQta" CssClass="form-control"  runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-6">
                             <asp:Label ID="lblArrotPzzoUnit" Text="Prezzo Unitario" runat="server" />
@@ -671,7 +671,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <asp:Label ID="lblChiamQta" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="txtChiamQta" Text="0" CssClass="form-control" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtChiamQta" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblChiamPzzoNetto" Text="Prezzo Netto Mef" runat="server" />
@@ -777,7 +777,7 @@
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblSpeseQta" Text="Quantità" runat="server" />
-                            <asp:TextBox ID="txtSpeseQta" Text="0" CssClass="form-control" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtSpeseQta" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-1">
                             <asp:Label ID="lblSpesaPrezzo" Text="Prezzo" runat="server" />
