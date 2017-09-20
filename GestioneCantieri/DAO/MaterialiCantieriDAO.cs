@@ -464,7 +464,7 @@ namespace GestioneCantieri.DAO
                     mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
-                    mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
+                    mc.PzzoFinCli = (dr.IsDBNull(18) ? 0.0m : dr.GetDecimal(18));
                     matList.Add(mc);
                 }
 
