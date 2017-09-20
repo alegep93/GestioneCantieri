@@ -215,7 +215,8 @@ namespace GestioneCantieri.DAO
                       "LEFT JOIN TblForitori AS B ON(A.Fornitore = B.IdFornitori) " +
                       "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
                       "LEFT JOIN TblCantieri AS D ON (A.IdTblCantieri = D.IdCantieri)" +
-                      "WHERE (A.Data BETWEEN Convert(date,@pDataInizio) AND Convert(date,@pDataFine)) AND C.NomeOp LIKE @pAcquirente AND B.RagSocForni LIKE @pFornitore AND NumeroBolla LIKE @pN_DDT  ";
+                      "WHERE (A.Data BETWEEN Convert(date,@pDataInizio) AND Convert(date,@pDataFine)) AND C.NomeOp LIKE @pAcquirente AND B.RagSocForni LIKE @pFornitore AND NumeroBolla LIKE @pN_DDT " +
+                      "ORDER BY A.Data, A.NumeroBolla";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
@@ -332,7 +333,7 @@ namespace GestioneCantieri.DAO
                       "FROM TblMaterialiCantieri AS A " +
                       "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
                       "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
-                      "WHERE (A.Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND C.IdOperaio LIKE @pAcquirente AND (A.OperaioPagato = 0 || A.OperaioPagato IS NULL) ";
+                      "WHERE (A.Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND C.IdOperaio LIKE @pAcquirente AND (A.OperaioPagato = 0 OR A.OperaioPagato IS NULL) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
@@ -359,7 +360,7 @@ namespace GestioneCantieri.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Errore durante il recupero dei dati per il resoconto operaio", ex);
+               throw new Exception("Errore durante il recupero dei dati per il resoconto operaio", ex);
             }
             finally { cn.Close(); dr.Close(); }
         }

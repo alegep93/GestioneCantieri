@@ -33,7 +33,7 @@ namespace GestioneCantieri
 
             foreach (Cantieri c in listCantieri)
             {
-                string show = c.Anno + " - " + c.CodCant + " - " + c.DescriCodCAnt;
+                string show = c.CodCant + " - " + c.DescriCodCAnt;
                 ddlScegliCant.Items.Add(new ListItem(show, c.IdCantieri.ToString()));
             }
         }
