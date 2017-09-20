@@ -320,7 +320,7 @@ namespace GestioneCantieri.DAO
             finally { cn.Close(); dr.Close(); }
         }
 
-        public static List<MaterialiCantieri> GetMatCantPerResocontoOperaio(string dataInizio, string dataFine, string acquirente)
+        public static List<MaterialiCantieri> GetMatCantPerResocontoOperaio(string dataInizio, string dataFine, string idOperaio)
         {
             SqlConnection cn = GetConnection();
             SqlDataReader dr = null;
@@ -331,15 +331,15 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT A.Data,C.NomeOp,B.CodCant,B.DescriCodCAnt,A.Qta,A.PzzoUniCantiere,A.OperaioPagato " +
                       "FROM TblMaterialiCantieri AS A " +
-                      "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
-                      "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
-                      "WHERE (A.Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND C.IdOperaio LIKE @pAcquirente AND (A.OperaioPagato = 0 OR A.OperaioPagato IS NULL) ";
+                      "LEFT JOIN TblCantieri AS B ON (A.IdTblCantieri = B.IdCantieri) " +
+                      "LEFT JOIN TblOperaio AS C ON (A.Acquirente = C.IdOperaio) " +
+                      "WHERE (A.Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND A.IdTblOperaio LIKE @pIdOper AND (A.OperaioPagato = 0 OR A.OperaioPagato IS NULL) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
                 cmd.Parameters.Add(new SqlParameter("pDataFine", dataFine));
-                cmd.Parameters.Add(new SqlParameter("pAcquirente", acquirente));
+                cmd.Parameters.Add(new SqlParameter("pIdOper", idOperaio));
 
                 dr = cmd.ExecuteReader();
 

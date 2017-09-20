@@ -172,7 +172,7 @@ namespace GestioneCantieri
             chkManodopRicaricoSiNo.Checked = chkArrotRicaricoSiNo.Checked = false;
 
             //Reimposto i textbox ai valori di default
-            txtQta.Text = txtManodopQta.Text = txtOperQta.Text = txtArrotQta.Text = txtChiamQta.Text = txtSpesaPrezzo.Text = "0";
+            txtQta.Text = txtManodopQta.Text = txtOperQta.Text = txtArrotQta.Text = txtChiamQta.Text = txtSpesaPrezzo.Text = "";
             txtPzzoUnit.Text = txtChiamPzzoUnit.Text = txtSpesaPrezzoCalcolato.Text = "0.00";
 
             //Textbox Tipologia sempre Disabilitato
@@ -180,6 +180,10 @@ namespace GestioneCantieri
 
             //Reimposto il pzzoFinCli
             txtPzzoFinCli.Text = txtChiamPzzoFinCli.Text = "0.00";
+
+            //Reimposto il campo Prezzo manodopera
+            Cantieri cant = CantieriDAO.GetCantiere(ddlScegliCant.SelectedItem.Value);
+            txtPzzoManodop.Text = cant.PzzoManodopera.ToString("N2");
         }
         protected void EnableDisableControls(bool enableControls, Panel panelName)
         {
@@ -324,6 +328,7 @@ namespace GestioneCantieri
                 pnlSubIntestazione.Visible = false;
                 pnlMascheraGestCant.Visible = false;
             }
+
             FillDdlScegliMatCant();
             FillDdlScegliAcquirente();
             BindAllGrid();
@@ -467,7 +472,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCant(mc);
 
-            if (Convert.ToDecimal(txtQta.Text) > 0 && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
+            if ((Convert.ToDecimal(txtQta.Text) > 0 || txtQta.Text != "") && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
                 {
@@ -536,7 +541,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCant(mc);
 
-            if (Convert.ToInt32(txtQta.Text) > 0 && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
+            if ((Convert.ToInt32(txtQta.Text) > 0 || txtQta.Text != "") && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
                 {
@@ -931,7 +936,7 @@ namespace GestioneCantieri
 
             if (txtDataDDT.Text != "")
             {
-                if (Convert.ToDecimal(txtManodopQta.Text) > 0)
+                if ((Convert.ToDecimal(txtManodopQta.Text) > 0 || txtManodopQta.Text != ""))
                 {
                     if (isIntestazioneCompilata())
                         isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -1203,7 +1208,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillOperMatCant(mc);
 
-            if (Convert.ToDecimal(txtOperQta.Text) > 0)
+            if ((Convert.ToDecimal(txtOperQta.Text) > 0 || txtOperQta.Text != ""))
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -1443,7 +1448,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillArrotMatCant(mc);
 
-            if (Convert.ToDecimal(txtArrotQta.Text) > 0)
+            if ((Convert.ToDecimal(txtArrotQta.Text) > 0 || txtArrotQta.Text != ""))
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -1729,7 +1734,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCantChiamata(mc);
 
-            if (Convert.ToDecimal(txtChiamQta.Text) > 0 && Convert.ToDecimal(txtChiamPzzoUnit.Text) > 0)
+            if ((Convert.ToDecimal(txtChiamQta.Text) > 0 || txtChiamQta.Text != "") && Convert.ToDecimal(txtChiamPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
                 {
@@ -2013,7 +2018,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCantSpese(mc);
 
-            if (Convert.ToDecimal(txtSpeseQta.Text) > 0)
+            if ((Convert.ToDecimal(txtSpeseQta.Text) > 0 || txtSpeseQta.Text != ""))
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
