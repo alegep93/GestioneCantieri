@@ -108,9 +108,9 @@ namespace GestioneCantieri
                     }
 
                     if (matCantList[i].PzzoFinCli == 0)
-                        grd.Rows[i].Cells[6].Text = (pzzoUnit + valRicalcolo + valRicarico).ToString();
+                        grd.Rows[i].Cells[6].Text = Math.Round((pzzoUnit + valRicalcolo + valRicarico),2).ToString();
                     else
-                        grd.Rows[i].Cells[6].Text = matCantList[i].PzzoFinCli.ToString();
+                        grd.Rows[i].Cells[6].Text = Math.Round(matCantList[i].PzzoFinCli,2).ToString();
 
                     valore = Convert.ToDecimal(grd.Rows[i].Cells[2].Text) * Convert.ToDecimal(grd.Rows[i].Cells[6].Text);
                     grd.Rows[i].Cells[7].Text = valore.ToString();
@@ -306,7 +306,7 @@ namespace GestioneCantieri
                 return;
             }
             else {
-                //ExportToPdfPerContoFinCli(grdStampaMateCantPDF);
+                ExportToPdfPerContoFinCli(grdStampaMateCantPDF);
             }
         }
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)
