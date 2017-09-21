@@ -593,7 +593,7 @@ namespace GestioneCantieri
                 lblIsRecordInserito.ForeColor = Color.Red;
             }
 
-            BindGridMatCant();
+            BindGridRientro();
             SvuotaCampi(pnlMascheraGestCant);
         }
         protected void btnFiltraGrdMatCant_Click(object sender, EventArgs e)
