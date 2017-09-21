@@ -561,7 +561,7 @@ namespace GestioneCantieri
 
                 if (isIntestazioneCompilata())
                 {
-                    if (Convert.ToInt32(txtQta.Text) <= maxQtaRientro)
+                    if (Convert.ToInt32(txtQta.Text) < maxQtaRientro)
                     {
                         isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
                     }
@@ -625,7 +625,7 @@ namespace GestioneCantieri
             ShowPanels(true, false, false, false, false, false);
             grdMatCant.Visible = false;
             grdRientro.Visible = true;
-            btnModRientro.Visible = false;
+            btnModMatCant.Visible = btnInserisciMatCant.Visible = btnModRientro.Visible = false;
             BindGridRientro();
             EnableDisableControls(true, pnlMascheraGestCant);
             SvuotaCampi(pnlMascheraGestCant);
