@@ -561,7 +561,10 @@ namespace GestioneCantieri
 
                 if (isIntestazioneCompilata())
                 {
-                    if (Convert.ToInt32(txtQta.Text) < maxQtaRientro)
+                    string[] partiMatCant = ddlScegliMatCant.SelectedItem.Text.Split('|');
+                    maxQtaRientro = Convert.ToDecimal(partiMatCant[2].Trim());
+
+                    if (Convert.ToInt32(txtQta.Text) <= maxQtaRientro)
                     {
                         isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
                     }
@@ -668,8 +671,7 @@ namespace GestioneCantieri
                 string[] partiMatCant = ddlScegliMatCant.SelectedItem.Text.Split('|');
                 txtCodArt.Text = partiMatCant[0].Trim();
                 txtDescriCodArt.Text = partiMatCant[1].Trim();
-                txtQta.Text = partiMatCant[2].Trim();
-                maxQtaRientro = Convert.ToDecimal(partiMatCant[2].Trim());
+                txtQta.Text = partiMatCant[2].Trim();  
                 txtPzzoNettoMef.Text = partiMatCant[3].Trim();
                 txtPzzoUnit.Text = "0.00";
                 txtPzzoFinCli.Text = partiMatCant[4].Trim();

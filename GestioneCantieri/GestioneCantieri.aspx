@@ -230,6 +230,8 @@
                         <asp:Button ID="btnModMatCant" OnClick="btnModMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Mat Cant" />
                         <asp:Button ID="btnInserisciRientro" OnClick="btnInserisciRientro_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Rientro" />
                         <asp:Button ID="btnModRientro" OnClick="btnModRientro_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Rientro" />
+                    </div>
+                    <div class="col-md-4">
                         <asp:Label ID="lblIsRecordInserito" Text="" CssClass="pull-right" runat="server" />
                     </div>
                 </div>
