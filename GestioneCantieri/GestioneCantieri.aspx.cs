@@ -362,7 +362,10 @@ namespace GestioneCantieri
                 lblIsRecordInserito.ForeColor = Color.Red;
             }
 
-            btnInserisciMatCant.Focus();
+            if (txtTipDatCant.Text == "MATERIALE")
+                btnInserisciMatCant.Focus();
+            else if (txtTipDatCant.Text == "RIENTRO")
+                btnInserisciRientro.Focus();
         }
 
         #region Materiali Cantieri e Rientro
@@ -595,6 +598,8 @@ namespace GestioneCantieri
 
             BindGridRientro();
             SvuotaCampi(pnlMascheraGestCant);
+
+            txtFiltroCodFSS.Focus();
         }
         protected void btnFiltraGrdMatCant_Click(object sender, EventArgs e)
         {
@@ -683,6 +688,7 @@ namespace GestioneCantieri
             }
 
             HideMessageLabels();
+            txtQta.Focus();
         }
         protected void txtFiltroMatCantCodArt_TextChanged(object sender, EventArgs e)
         {
@@ -865,7 +871,7 @@ namespace GestioneCantieri
                 lblIsRecordInserito.ForeColor = Color.Red;
             }
 
-            BindGridMatCant();
+            BindGridRientro();
         }
         protected void btnModRientro_Click(object sender, EventArgs e)
         {
@@ -884,7 +890,7 @@ namespace GestioneCantieri
                 lblIsRecordInserito.ForeColor = Color.Red;
             }
 
-            BindGridMatCant();
+            BindGridRientro();
             SvuotaCampi(pnlMascheraGestCant);
         }
         #endregion
