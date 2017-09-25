@@ -294,8 +294,8 @@ namespace GestioneCantieri
         {
             if (txtDataDDT.Text == "")
             {
-                lblIsRecordInserito.Text = lblIsManodopInserita.Text = lblIsOperInserita.Text = lblIsManodopInserita.Text = lblIsSpesaInserita.Text = "Inserire un valore per la data";
-                lblIsRecordInserito.ForeColor = lblIsManodopInserita.ForeColor = lblIsOperInserita.ForeColor = lblIsManodopInserita.ForeColor = lblIsSpesaInserita.ForeColor = Color.Red;
+                lblIsRecordInserito.Text = lblIsManodopInserita.Text = lblIsOperInserita.Text =  lblIsArrotondInserito.Text = lblIsAChiamInserita.Text =  lblIsSpesaInserita.Text = "Inserire un valore per la data";
+                lblIsRecordInserito.ForeColor = lblIsManodopInserita.ForeColor = lblIsOperInserita.ForeColor = lblIsArrotondInserito.ForeColor = lblIsAChiamInserita.ForeColor = lblIsSpesaInserita.ForeColor = Color.Red;
                 return true;
             }
             return false;
@@ -1440,7 +1440,7 @@ namespace GestioneCantieri
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
 
             if (txtArrotPzzoUnit.Text != "")
-                mc.PzzoUniCantiere = Convert.ToDecimal(txtArrotPzzoUnit.Text);
+                mc.PzzoUniCantiere = Convert.ToDecimal(txtArrotPzzoUnit.Text.Replace('.',','));
             else
                 mc.PzzoUniCantiere = 0;
         }
@@ -1532,6 +1532,8 @@ namespace GestioneCantieri
             txtDataDDT.Text = mc.Data.ToString("yyyy-MM-dd");
             txtDataDDT.TextMode = TextBoxMode.Date;
             txtFascia.Text = mc.Fascia.ToString();
+            txtArrotCodArt.Text = mc.CodArt;
+            txtArrotDescriCodArt.Text = mc.DescriCodArt;
             txtProtocollo.Text = mc.ProtocolloInterno.ToString();
             txtArrotQta.Text = mc.Qta.ToString();
             txtArrotPzzoUnit.Text = mc.PzzoUniCantiere.ToString();
@@ -1554,7 +1556,7 @@ namespace GestioneCantieri
             mc.Note = txtNote1.Text;
             mc.Note2 = txtNote2.Text;
             mc.Qta = Convert.ToDouble(txtArrotQta.Text);
-            mc.PzzoUniCantiere = Convert.ToDecimal(txtArrotPzzoUnit.Text);
+            mc.PzzoUniCantiere = Convert.ToDecimal(txtArrotPzzoUnit.Text.Replace('.',','));
             mc.CodArt = txtArrotCodArt.Text;
             mc.DescriCodArt = txtArrotDescriCodArt.Text;
             mc.Visibile = chkVisibile.Checked;
