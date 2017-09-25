@@ -626,7 +626,7 @@ namespace GestioneCantieri
         }
         protected void btnRientro_Click(object sender, EventArgs e)
         {
-            lblTitoloMaschera.Text = "Rientro Materiali";
+            lblTitoloMaschera.Text = "Inserisci Rientro Materiali";
             txtTipDatCant.Text = "RIENTRO";
             FillDdlScegliMatCant();
             ShowForRientro();
@@ -825,6 +825,10 @@ namespace GestioneCantieri
 
             BindGridMatCant();
             SvuotaCampi(pnlMascheraGestCant);
+
+            btnInserisciMatCant.Visible = true;
+            btnModMatCant.Visible = false;
+            lblTitoloMaschera.Text = "Inserisci Materiali Cantieri";
         }
 
         //Rientro
@@ -892,6 +896,10 @@ namespace GestioneCantieri
 
             BindGridRientro();
             SvuotaCampi(pnlMascheraGestCant);
+
+            btnInserisciRientro.Visible = true;
+            btnModRientro.Visible = false;
+            lblTitoloMaschera.Text = "Inserisci Rientro Materiali";
         }
         #endregion
 
@@ -1115,6 +1123,10 @@ namespace GestioneCantieri
 
             BindGridManodop();
             SvuotaCampi(pnlManodopera);
+
+            btnInsManodop.Visible = true;
+            btnModManodop.Visible = false;
+            lblTitoloMaschera.Text = "Inserisci Manodopera";
         }
 
         /* EVENTI TEXT-CHANGED */
@@ -1387,6 +1399,10 @@ namespace GestioneCantieri
 
             BindGridOper();
             SvuotaCampi(pnlGestioneOperaio);
+
+            btnInsOper.Visible = true;
+            btnModOper.Visible = false;
+            lblTitoloMaschera.Text = "Inserisci Operaio";
         }
 
         //Aggiornamento Costo Operaio
@@ -1616,6 +1632,10 @@ namespace GestioneCantieri
 
             BindGridArrot();
             SvuotaCampi(pnlGestArrotond);
+
+            btnModArrot.Visible = false;
+            btnInsArrot.Visible = true;
+            lblTitoloMaschera.Text = "Inserisci Arrotondamento";
         }
         #endregion
 
@@ -1873,6 +1893,10 @@ namespace GestioneCantieri
 
             BindGridChiamata();
             SvuotaCampi(pnlGestChiamata);
+
+            btnInsAChiam.Visible = true;
+            btnModAChiam.Visible = false;
+            lblTitoloMaschera.Text = "Inserisci A Chiamata";
         }
         protected void btnFiltraGrdAChiam_Click(object sender, EventArgs e)
         {
@@ -2133,6 +2157,10 @@ namespace GestioneCantieri
 
             BindGridSpese();
             SvuotaCampi(pnlGestSpese);
+
+            btnInsSpesa.Visible = true;
+            btnModSpesa.Visible = false;
+            lblTitoloMaschera.Text = "Inserisci Spese";
         }
         #endregion
     }
