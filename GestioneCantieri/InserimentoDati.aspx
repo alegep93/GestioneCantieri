@@ -53,17 +53,20 @@
 
             <!-- Pulsanti per lo switch dei pannelli -->
             <div class="col-md-offset-3 col-md-6 text-center">
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <asp:Button ID="btnShowInsClienti" OnClick="btnShowInsClienti_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Clienti" />
                 </div>
                 <div class="col-md-3">
                     <asp:Button ID="btnShowInsFornitori" OnClick="btnShowInsFornitori_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Fornitori" />
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <asp:Button ID="btnShowInsOperai" OnClick="btnShowInsOperai_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Operai" />
                 </div>
                 <div class="col-md-3">
                     <asp:Button ID="btnShowInsCantieri" OnClick="btnShowInsCantieri_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Cantieri" />
+                </div>
+                <div class="col-md-2">
+                    <asp:Button ID="btnShowInsSpese" OnClick="btnShowInsSpese_Click" CssClass="btn btn-lg btn-default" runat="server" Text="Spese" />
                 </div>
             </div>
             <!-- Fine Pulsanti per lo switch dei pannelli -->
@@ -488,6 +491,65 @@
                 <!-- Fine Griglia di visualizzazione record -->
             </asp:Panel>
             <!-- Fine Pannello inserimento Cantieri -->
+
+            <!-- Pannello inserimento spese -->
+            <asp:Panel ID="pnlInsSpese" CssClass="panel-container col-md-12" runat="server">
+                <div class="col-md-6 form-group">
+                    <asp:Label ID="lblSpeseDescr" runat="server" Text="Descrizione" />
+                    <asp:TextBox ID="txtSpeseDescr" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-6 form-group">
+                    <asp:Label ID="lblSpesePrezzo" runat="server" Text="Prezzo" />
+                    <asp:TextBox ID="txtSpesePrezzo" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                
+                <asp:HiddenField ID="hidSpese" runat="server" />
+
+                <div class="col-md-12 form-group">
+                    <asp:Button ID="btnModSpesa" OnClick="btnModSpesa_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Spesa" />
+                    <asp:Button ID="btnInsSpesa" OnClick="btnInsSpesa_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Spesa" />
+                    <asp:Label ID="lblIsSpesaInserita" CssClass="pull-right labelConferma" runat="server" Text=""></asp:Label>
+                </div>
+
+                <!-- Filtri su griglia Spese -->
+                <div class="col-md-12">
+                    <div class="col-md-4">
+                        <asp:Label ID="lblFiltroSpesaDescr" runat="server" Text="Filtro Descrizione Spesa" />
+                        <asp:TextBox ID="txtFiltroSpesaDescr" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-4">
+                        <asp:Button ID="btnFiltraGrdSpese" OnClick="btnFiltraGrdSpese_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Filtra Spese" Style="position: relative; top: 10px;" />
+                    </div>
+                </div>
+
+                <!-- Griglia di visualizzazione record Spese -->
+                <div class="col-md-12 table-container">
+                    <asp:GridView ID="grdSpese" OnRowCommand="grdSpese_RowCommand" AutoGenerateColumns="false"
+                        ItemType="GestioneCantieri.Data.Spese" runat="server" CssClass="table table-striped table-responsive text-center">
+                        <Columns>
+                            <asp:BoundField HeaderText="Descrizione" DataField="Descrizione" />
+                            <asp:BoundField HeaderText="Prezzo" DataField="Prezzo" DataFormatString="{0:0.00}" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnVisualSpesa" CommandName="VisualSpesa" CommandArgument="<%# BindItem.IdSpesa %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnModSpesa" CommandName="ModSpesa" CommandArgument="<%# BindItem.IdSpesa %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:Button ID="btnElimSpesa" CommandName="ElimSpesa" CommandArgument="<%# BindItem.IdSpesa %>"
+                                        CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questa spesa?');" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
+            </asp:Panel>
+            <!-- Fine Pannello inserimento spese-->
         </div>
     </div>
 </asp:Content>

@@ -2081,7 +2081,10 @@ namespace GestioneCantieri
         /* EVENTI TEXT-CHANGED */
         protected void ddlScegliSpesa_TextChanged(object sender, EventArgs e)
         {
-            txtSpeseCodArt.Text = txtSpeseDescriCodArt.Text = ddlScegliSpesa.SelectedItem.Text;
+            Spese spesa = new Spese();
+            spesa = SpeseDAO.GetDettagliSpesa(ddlScegliSpesa.SelectedItem.Value);
+            txtSpeseCodArt.Text = txtSpeseDescriCodArt.Text = spesa.Descrizione;
+            txtSpesaPrezzo.Text = spesa.Prezzo.ToString("N2");
             HideMessageLabels();
         }
         protected void txtSpeseCodArt_TextChanged(object sender, EventArgs e)
@@ -2118,7 +2121,7 @@ namespace GestioneCantieri
             btnInsSpesa.Visible = false;
             btnModSpesa.Visible = true;
             PopolaCampiSpese(idSpesa, true);
-            hidAChiamata.Value = idSpesa.ToString();
+            hidIdSpesa.Value = idSpesa.ToString();
             HideMessageLabels();
         }
         private void EliminaSpesa(int idSpesa)
