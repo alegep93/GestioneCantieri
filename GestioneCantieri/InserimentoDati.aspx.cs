@@ -15,11 +15,12 @@ namespace GestioneCantieri
         {
             if (!IsPostBack)
             {
-                MostraPannello(true, false, false, false);
+                MostraPannello(true, false, false, false, false);
                 lblTitoloInserimento.Text = "Inserimento Clienti";
                 BindGridClienti();
                 btnModCliente.Visible = btnModFornit.Visible = false;
                 btnModOper.Visible = btnModCantiere.Visible = false;
+                btnModSpesa.Visible = false;
             }
         }
 
@@ -29,7 +30,7 @@ namespace GestioneCantieri
         {
             lblTitoloInserimento.Text = "Inserimento Clienti";
             lblIsClienteInserito.Text = "";
-            MostraPannello(true, false, false, false);
+            MostraPannello(true, false, false, false, false);
             BindGridClienti();
             ResettaCampi(pnlInsClienti);
             btnInsCliente.Visible = true;
@@ -40,7 +41,7 @@ namespace GestioneCantieri
             BindGridFornitori();
             lblTitoloInserimento.Text = "Inserimento Fornitori";
             lblIsFornitoreInserito.Text = "";
-            MostraPannello(false, true, false, false);
+            MostraPannello(false, true, false, false, false);
             ResettaCampi(pnlInsFornitori);
             btnInsFornit.Visible = true;
             btnModFornit.Visible = false;
@@ -50,14 +51,14 @@ namespace GestioneCantieri
             BindGridOperai();
             lblTitoloInserimento.Text = "Inserimento Operai";
             lblIsOperaioInserito.Text = "";
-            MostraPannello(false, false, true, false);
+            MostraPannello(false, false, true, false, false);
             ResettaCampi(pnlInsOperai);
             btnInsOper.Visible = true;
             btnModOper.Visible = false;
         }
         protected void btnShowInsCantieri_Click(object sender, EventArgs e)
         {
-            MostraPannello(false, false, false, true);
+            MostraPannello(false, false, false, true, false);
             lblTitoloInserimento.Text = "Inserimento Cantieri";
             lblIsCantInserito.Text = "";
             BindGridCantieri();
@@ -68,6 +69,16 @@ namespace GestioneCantieri
             txtCodCant.Enabled = false;
             btnModCantiere.Visible = false;
             btnInsCantiere.Visible = true;
+        }
+        protected void btnShowInsSpese_Click(object sender, EventArgs e)
+        {
+            MostraPannello(false, false, false, false, true);
+            lblTitoloInserimento.Text = "Inserimento Spese";
+            lblIsSpesaInserita.Text = "";
+            BindGridSpese();
+            ResettaCampi(pnlInsSpese);
+            btnModSpesa.Visible = false;
+            btnInsSpesa.Visible = true;
         }
 
         /* Click dei bottoni di inserimento/modifica */
@@ -315,14 +326,77 @@ namespace GestioneCantieri
             chkFiltroChiuso.Checked = chkFiltroRiscosso.Checked = false;
             BindGridCantieri();
         }
+        //Spese
+        protected void btnInsSpesa_Click(object sender, EventArgs e)
+        {
+            if (txtSpeseDescr.Text != "")
+            {
+                if (txtSpesePrezzo.Text != "")
+                {
+                    Spese s = new Spese();
+                    s.Descrizione = txtSpeseDescr.Text;
+                    s.Prezzo = Convert.ToDecimal(txtSpesePrezzo.Text);
+                    bool isInserito = SpeseDAO.InsertSpesa(s);
+
+                    if (isInserito)
+                    {
+                        lblIsSpesaInserita.Text = "Spesa '" + txtSpeseDescr.Text + "' inserita con successo";
+                        lblIsSpesaInserita.ForeColor = Color.Blue;
+                    }
+                    else
+                    {
+                        lblIsSpesaInserita.Text = "Errore durante l'inserimento della spesa '" + txtSpeseDescr.Text + "'";
+                        lblIsSpesaInserita.ForeColor = Color.Red;
+                    }
+
+                    BindGridSpese();
+                    ResettaCampi(pnlInsSpese);
+                }
+                else
+                {
+                    lblIsSpesaInserita.Text = "È necessario inserire un valore nel campo \"Prezzo\"";
+                    lblIsSpesaInserita.ForeColor = Color.Red;
+                }
+            }
+            else
+            {
+                lblIsSpesaInserita.Text = "Il campo 'Descrizione' deve essere compilato";
+                lblIsSpesaInserita.ForeColor = Color.Red;
+            }
+        }
+        protected void btnModSpesa_Click(object sender, EventArgs e)
+        {
+            Spese s = new Spese();
+            s.Descrizione = txtSpeseDescr.Text;
+            s.Prezzo = Convert.ToDecimal(txtSpesePrezzo.Text);
+            bool isUpdated = SpeseDAO.UpdateSpesa(hidSpese.Value, s);
+
+            if (isUpdated)
+            {
+                lblIsSpesaInserita.Text = "Spesa '" + txtSpeseDescr.Text + "' modificata con successo";
+                lblIsSpesaInserita.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsSpesaInserita.Text = "Errore durante la modifica della spesa '" + txtSpeseDescr.Text + "'";
+                lblIsSpesaInserita.ForeColor = Color.Red;
+            }
+
+            BindGridSpese();
+        }
+        protected void btnFiltraGrdSpese_Click(object sender, EventArgs e)
+        {
+            BindGridSpese();
+        }
 
         /* HELPERS */
-        protected void MostraPannello(bool pnlClienti, bool pnlFornitori, bool pnlOperai, bool pnlCantieri)
+        protected void MostraPannello(bool pnlClienti, bool pnlFornitori, bool pnlOperai, bool pnlCantieri, bool pnlSpese)
         {
             pnlInsClienti.Visible = pnlClienti;
             pnlInsFornitori.Visible = pnlFornitori;
             pnlInsOperai.Visible = pnlOperai;
             pnlInsCantieri.Visible = pnlCantieri;
+            pnlInsSpese.Visible = pnlSpese;
         }
         protected void ResettaCampi(Control container)
         {
@@ -699,6 +773,66 @@ namespace GestioneCantieri
 
             return codRiferCant;
         }
+        //Spese
+        private void BindGridSpese()
+        {
+            DataTable dt = SpeseDAO.GetSpeseFromDescr(txtFiltroSpesaDescr.Text);
+            List<Spese> speseList = dt.DataTableToList<Spese>();
+            grdSpese.DataSource = speseList;
+            grdSpese.DataBind();
+        }
+        private void VisualizzaDatiSpesa(int idSpese)
+        {
+            lblTitoloInserimento.Text = "Visualizza Spesa";
+            lblIsSpesaInserita.Text = "";
+            PopolaCampiSpesa(idSpese, false);
+            btnInsSpesa.Visible = btnModSpesa.Visible = false;
+        }
+        private void ModificaDatiSpesa(int idSpese)
+        {
+            lblTitoloInserimento.Text = "Modifica Spesa";
+            lblIsSpesaInserita.Text = "";
+            btnModSpesa.Visible = true;
+            btnInsSpesa.Visible = false;
+            PopolaCampiSpesa(idSpese, true);
+            hidSpese.Value = idSpese.ToString();
+        }
+        private void EliminaSpesa(int idSpese)
+        {
+            bool isEliminato = SpeseDAO.DeleteSpesa(idSpese);
+            if (isEliminato)
+            {
+                lblIsSpesaInserita.Text = "Spesa eliminata con successo";
+                lblIsSpesaInserita.ForeColor = Color.Blue;
+            }
+            else
+            {
+                lblIsSpesaInserita.Text = "Errore durante l'eliminazione della spesa";
+                lblIsSpesaInserita.ForeColor = Color.Red;
+            }
+
+            BindGridSpese();
+
+            ResettaCampi(pnlInsSpese);
+            btnModSpesa.Visible = false;
+            btnInsSpesa.Visible = true;
+            lblTitoloInserimento.Text = "Inserimento Spese";
+        }
+        protected void PopolaCampiSpesa(int idSpesa, bool isControlEnabled)
+        {
+            Spese sp = SpeseDAO.GetDettagliSpesa(idSpesa.ToString());
+
+            //Rendo i textbox disabilitati
+            foreach (Control c in pnlInsSpese.Controls)
+            {
+                if (c is TextBox)
+                    ((TextBox)c).Enabled = isControlEnabled;
+            }
+
+            //Popolo i textbox
+            txtSpeseDescr.Text = sp.Descrizione;
+            txtSpesePrezzo.Text = sp.Prezzo.ToString("N2");
+        }
 
         /* EVENTI ROW-COMMAND */
         /* In base al pulsante premuto eseguo azioni diversificate sul record selezionato */
@@ -745,6 +879,17 @@ namespace GestioneCantieri
                 ModificaDatiCant(idCant);
             else if (e.CommandName == "ElimCant")
                 EliminaCantiere(idCant);
+        }
+        protected void grdSpese_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int idSpesa = Convert.ToInt32(e.CommandArgument.ToString());
+
+            if (e.CommandName == "VisualSpesa")
+                VisualizzaDatiSpesa(idSpesa);
+            else if (e.CommandName == "ModSpesa")
+                ModificaDatiSpesa(idSpesa);
+            else if (e.CommandName == "ElimSpesa")
+                EliminaSpesa(idSpesa);
         }
 
         /* EVENTI TEXT-CHANGED */
