@@ -40,42 +40,6 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Panel pnlInserisciDati;
         
         /// <summary>
-        /// Controllo lblDataOrdine.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDataOrdine;
-        
-        /// <summary>
-        /// Controllo txtDataOrdine.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDataOrdine;
-        
-        /// <summary>
-        /// Controllo lblAppartamento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAppartamento;
-        
-        /// <summary>
-        /// Controllo txtAppartamento.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAppartamento;
-        
-        /// <summary>
         /// Controllo lblScegliLocale.
         /// </summary>
         /// <remarks>
@@ -202,6 +166,60 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblIsGruppoInserito;
         
         /// <summary>
+        /// Controllo lblScegliFrutto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblScegliFrutto;
+        
+        /// <summary>
+        /// Controllo ddlScegliFrutto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlScegliFrutto;
+        
+        /// <summary>
+        /// Controllo lblQtaFrutto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQtaFrutto;
+        
+        /// <summary>
+        /// Controllo txtQtaFrutto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtQtaFrutto;
+        
+        /// <summary>
+        /// Controllo btnInserisciFrutto.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnInserisciFrutto;
+        
+        /// <summary>
+        /// Controllo lblIsFruttoInserito.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblIsFruttoInserito;
+        
+        /// <summary>
         /// Controllo pnlMostraGruppiInseriti.
         /// </summary>
         /// <remarks>
@@ -218,5 +236,14 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblQtaDescr;
+        
+        /// <summary>
+        /// Controllo lblQtaDescrFrutti.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblQtaDescrFrutti;
     }
 }

@@ -99,8 +99,8 @@ namespace GestioneCantieri
 
             foreach (Mamg0 mmg in listMamg0)
             {
-                string show = String.Format("{0,-18} | {1,-30} | {2,-8} | {3,-8} | {4,-3} | {5,-3} | {6,-3}", 
-                    mmg.CodArt,mmg.Desc,mmg.PrezzoNetto,mmg.PrezzoListino,mmg.Sconto1,mmg.Sconto2,mmg.Sconto3);
+                string show = String.Format("{0,-18} | {1,-30} | {2,-8} | {3,-8} | {4,-3} | {5,-3} | {6,-3}",
+                    mmg.CodArt, mmg.Desc, mmg.PrezzoNetto, mmg.PrezzoListino, mmg.Sconto1, mmg.Sconto2, mmg.Sconto3);
                 ddlScegliListino.Items.Add(new ListItem(show, mmg.CodArt.ToString()));
             }
         }
@@ -236,7 +236,7 @@ namespace GestioneCantieri
         }
         protected void HideMessageLabels()
         {
-            lblIsRecordInserito.Text = lblIsManodopInserita.Text = lblIsOperInserita.Text = 
+            lblIsRecordInserito.Text = lblIsManodopInserita.Text = lblIsOperInserita.Text =
                lblIsArrotondInserito.Text = lblIsSpesaInserita.Text = lblIsAChiamInserita.Text = "";
         }
 
@@ -294,7 +294,7 @@ namespace GestioneCantieri
         {
             if (txtDataDDT.Text == "")
             {
-                lblIsRecordInserito.Text = lblIsManodopInserita.Text = lblIsOperInserita.Text =  lblIsArrotondInserito.Text = lblIsAChiamInserita.Text =  lblIsSpesaInserita.Text = "Inserire un valore per la data";
+                lblIsRecordInserito.Text = lblIsManodopInserita.Text = lblIsOperInserita.Text = lblIsArrotondInserito.Text = lblIsAChiamInserita.Text = lblIsSpesaInserita.Text = "Inserire un valore per la data";
                 lblIsRecordInserito.ForeColor = lblIsManodopInserita.ForeColor = lblIsOperInserita.ForeColor = lblIsArrotondInserito.ForeColor = lblIsAChiamInserita.ForeColor = lblIsSpesaInserita.ForeColor = Color.Red;
                 return true;
             }
@@ -475,7 +475,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCant(mc);
 
-            if ((Convert.ToDecimal(txtQta.Text) > 0 || txtQta.Text != "") && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
+            if ((Convert.ToDecimal(txtQta.Text) > 0 && txtQta.Text != "") && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
                 {
@@ -544,7 +544,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCant(mc);
 
-            if ((Convert.ToInt32(txtQta.Text) > 0 || txtQta.Text != "") && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
+            if (txtQta.Text != "" && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
                 {
@@ -676,7 +676,7 @@ namespace GestioneCantieri
                 string[] partiMatCant = ddlScegliMatCant.SelectedItem.Text.Split('|');
                 txtCodArt.Text = partiMatCant[0].Trim();
                 txtDescriCodArt.Text = partiMatCant[1].Trim();
-                txtQta.Text = partiMatCant[2].Trim();  
+                txtQta.Text = partiMatCant[2].Trim();
                 txtPzzoNettoMef.Text = partiMatCant[3].Trim();
                 txtPzzoUnit.Text = "0.00";
                 txtPzzoFinCli.Text = partiMatCant[4].Trim();
@@ -763,13 +763,17 @@ namespace GestioneCantieri
             mc.DescriMateriali = txtDescrMat.Text;
             mc.Note = txtNote.Text;
             mc.Note2 = txtNote_2.Text;
-            mc.Qta = Convert.ToDouble(txtQta.Text);
             mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoUnit.Text);
             mc.PzzoFinCli = Convert.ToDecimal(txtPzzoFinCli.Text);
             mc.Visibile = chkVisibile.Checked;
             mc.Ricalcolo = chkRicalcolo.Checked;
             mc.RicaricoSiNo = chkRicarico.Checked;
             mc.PzzoFinCli = Convert.ToDecimal(txtPzzoFinCli.Text);
+
+            if (mc.Tipologia == "MATERIALE")
+                mc.Qta = Convert.ToDouble(txtQta.Text);
+            else if (mc.Tipologia == "RIENTRO")
+                mc.Qta = (Convert.ToDouble(txtQta.Text)) * (-1);
         }
         private void VisualizzaDatiMatCant(int id)
         {
@@ -808,27 +812,35 @@ namespace GestioneCantieri
         }
         protected void btnModMatCant_Click(object sender, EventArgs e)
         {
-            MaterialiCantieri mc = new MaterialiCantieri();
-            PopolaObjMatCant(mc);
-            bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidIdMatCant.Value, mc);
-
-            if (isUpdated)
+            if ((Convert.ToDecimal(txtQta.Text) > 0 && txtQta.Text != "") && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
-                lblIsRecordInserito.Text = "Record modificato con successo";
-                lblIsRecordInserito.ForeColor = Color.Blue;
+                MaterialiCantieri mc = new MaterialiCantieri();
+                PopolaObjMatCant(mc);
+                bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidIdMatCant.Value, mc);
+
+                if (isUpdated)
+                {
+                    lblIsRecordInserito.Text = "Record modificato con successo";
+                    lblIsRecordInserito.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsRecordInserito.Text = "Errore durante la modifica del record";
+                    lblIsRecordInserito.ForeColor = Color.Red;
+                }
+
+                BindGridMatCant();
+                SvuotaCampi(pnlMascheraGestCant);
+
+                btnInserisciMatCant.Visible = true;
+                btnModMatCant.Visible = false;
+                lblTitoloMaschera.Text = "Inserisci Materiali Cantieri";
             }
             else
             {
-                lblIsRecordInserito.Text = "Errore durante la modifica del record";
+                lblIsRecordInserito.Text = "Quantità e/o Prezzo Unitario devono essere maggiori di 0";
                 lblIsRecordInserito.ForeColor = Color.Red;
             }
-
-            BindGridMatCant();
-            SvuotaCampi(pnlMascheraGestCant);
-
-            btnInserisciMatCant.Visible = true;
-            btnModMatCant.Visible = false;
-            lblTitoloMaschera.Text = "Inserisci Materiali Cantieri";
         }
 
         //Rientro
@@ -879,27 +891,35 @@ namespace GestioneCantieri
         }
         protected void btnModRientro_Click(object sender, EventArgs e)
         {
-            MaterialiCantieri mc = new MaterialiCantieri();
-            PopolaObjMatCant(mc);
-            bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidIdMatCant.Value, mc);
-
-            if (isUpdated)
+            if (txtQta.Text != "" && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
-                lblIsRecordInserito.Text = "Record modificato con successo";
-                lblIsRecordInserito.ForeColor = Color.Blue;
+                MaterialiCantieri mc = new MaterialiCantieri();
+                PopolaObjMatCant(mc);
+                bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidIdMatCant.Value, mc);
+
+                if (isUpdated)
+                {
+                    lblIsRecordInserito.Text = "Record modificato con successo";
+                    lblIsRecordInserito.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsRecordInserito.Text = "Errore durante la modifica del record";
+                    lblIsRecordInserito.ForeColor = Color.Red;
+                }
+
+                BindGridRientro();
+                SvuotaCampi(pnlMascheraGestCant);
+
+                btnInserisciRientro.Visible = true;
+                btnModRientro.Visible = false;
+                lblTitoloMaschera.Text = "Inserisci Rientro Materiali";
             }
             else
             {
-                lblIsRecordInserito.Text = "Errore durante la modifica del record";
+                lblIsRecordInserito.Text = "Quantità e/o Prezzo Unitario devono essere maggiori di 0";
                 lblIsRecordInserito.ForeColor = Color.Red;
             }
-
-            BindGridRientro();
-            SvuotaCampi(pnlMascheraGestCant);
-
-            btnInserisciRientro.Visible = true;
-            btnModRientro.Visible = false;
-            lblTitoloMaschera.Text = "Inserisci Rientro Materiali";
         }
         #endregion
 
@@ -952,7 +972,7 @@ namespace GestioneCantieri
 
             if (txtDataDDT.Text != "")
             {
-                if ((Convert.ToDecimal(txtManodopQta.Text) > 0 || txtManodopQta.Text != ""))
+                if ((Convert.ToDecimal(txtManodopQta.Text) > 0 && txtManodopQta.Text != ""))
                 {
                     if (isIntestazioneCompilata())
                         isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -1106,27 +1126,35 @@ namespace GestioneCantieri
         }
         protected void btnModManodop_Click(object sender, EventArgs e)
         {
-            MaterialiCantieri mc = new MaterialiCantieri();
-            PopolaObjManodop(mc);
-            bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidManodop.Value, mc);
-
-            if (isUpdated)
+            if ((Convert.ToDecimal(txtManodopQta.Text) > 0 && txtManodopQta.Text != ""))
             {
-                lblIsManodopInserita.Text = "Record modificato con successo";
-                lblIsManodopInserita.ForeColor = Color.Blue;
+                MaterialiCantieri mc = new MaterialiCantieri();
+                PopolaObjManodop(mc);
+                bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidManodop.Value, mc);
+
+                if (isUpdated)
+                {
+                    lblIsManodopInserita.Text = "Record modificato con successo";
+                    lblIsManodopInserita.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsManodopInserita.Text = "Errore durante la modifica del record";
+                    lblIsManodopInserita.ForeColor = Color.Red;
+                }
+
+                BindGridManodop();
+                SvuotaCampi(pnlManodopera);
+
+                btnInsManodop.Visible = true;
+                btnModManodop.Visible = false;
+                lblTitoloMaschera.Text = "Inserisci Manodopera";
             }
             else
             {
-                lblIsManodopInserita.Text = "Errore durante la modifica del record";
+                lblIsManodopInserita.Text = "La Quantità deve essere maggiore di 0";
                 lblIsManodopInserita.ForeColor = Color.Red;
             }
-
-            BindGridManodop();
-            SvuotaCampi(pnlManodopera);
-
-            btnInsManodop.Visible = true;
-            btnModManodop.Visible = false;
-            lblTitoloMaschera.Text = "Inserisci Manodopera";
         }
 
         /* EVENTI TEXT-CHANGED */
@@ -1228,7 +1256,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillOperMatCant(mc);
 
-            if ((Convert.ToDecimal(txtOperQta.Text) > 0 || txtOperQta.Text != ""))
+            if ((Convert.ToDecimal(txtOperQta.Text) > 0 && txtOperQta.Text != ""))
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -1382,27 +1410,35 @@ namespace GestioneCantieri
         }
         protected void btnModOper_Click(object sender, EventArgs e)
         {
-            MaterialiCantieri mc = new MaterialiCantieri();
-            PopolaObjOper(mc);
-            bool isUpdated = MaterialiCantieriDAO.UpdateOperaio(hidOper.Value, mc);
-
-            if (isUpdated)
+            if ((Convert.ToDecimal(txtOperQta.Text) > 0 && txtOperQta.Text != ""))
             {
-                lblIsOperInserita.Text = "Record modificato con successo";
-                lblIsOperInserita.ForeColor = Color.Blue;
+                MaterialiCantieri mc = new MaterialiCantieri();
+                PopolaObjOper(mc);
+                bool isUpdated = MaterialiCantieriDAO.UpdateOperaio(hidOper.Value, mc);
+
+                if (isUpdated)
+                {
+                    lblIsOperInserita.Text = "Record modificato con successo";
+                    lblIsOperInserita.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsOperInserita.Text = "Errore durante la modifica del record";
+                    lblIsOperInserita.ForeColor = Color.Red;
+                }
+
+                BindGridOper();
+                SvuotaCampi(pnlGestioneOperaio);
+
+                btnInsOper.Visible = true;
+                btnModOper.Visible = false;
+                lblTitoloMaschera.Text = "Inserisci Operaio";
             }
             else
             {
-                lblIsOperInserita.Text = "Errore durante la modifica del record";
+                lblIsOperInserita.Text = "La Quantità deve essere maggiore di 0";
                 lblIsOperInserita.ForeColor = Color.Red;
             }
-
-            BindGridOper();
-            SvuotaCampi(pnlGestioneOperaio);
-
-            btnInsOper.Visible = true;
-            btnModOper.Visible = false;
-            lblTitoloMaschera.Text = "Inserisci Operaio";
         }
 
         //Aggiornamento Costo Operaio
@@ -1456,7 +1492,7 @@ namespace GestioneCantieri
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
 
             if (txtArrotPzzoUnit.Text != "")
-                mc.PzzoUniCantiere = Convert.ToDecimal(txtArrotPzzoUnit.Text.Replace('.',','));
+                mc.PzzoUniCantiere = Convert.ToDecimal(txtArrotPzzoUnit.Text.Replace('.', ','));
             else
                 mc.PzzoUniCantiere = 0;
         }
@@ -1472,7 +1508,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillArrotMatCant(mc);
 
-            if ((Convert.ToDecimal(txtArrotQta.Text) > 0 || txtArrotQta.Text != ""))
+            if ((Convert.ToDecimal(txtArrotQta.Text) > 0 && txtArrotQta.Text != ""))
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -1572,7 +1608,7 @@ namespace GestioneCantieri
             mc.Note = txtNote1.Text;
             mc.Note2 = txtNote2.Text;
             mc.Qta = Convert.ToDouble(txtArrotQta.Text);
-            mc.PzzoUniCantiere = Convert.ToDecimal(txtArrotPzzoUnit.Text.Replace('.',','));
+            mc.PzzoUniCantiere = Convert.ToDecimal(txtArrotPzzoUnit.Text.Replace('.', ','));
             mc.CodArt = txtArrotCodArt.Text;
             mc.DescriCodArt = txtArrotDescriCodArt.Text;
             mc.Visibile = chkVisibile.Checked;
@@ -1615,27 +1651,35 @@ namespace GestioneCantieri
         }
         protected void btnModArrot_Click(object sender, EventArgs e)
         {
-            MaterialiCantieri mc = new MaterialiCantieri();
-            PopolaObjArrot(mc);
-            bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidArrot.Value, mc);
-
-            if (isUpdated)
+            if ((Convert.ToDecimal(txtArrotQta.Text) > 0 && txtArrotQta.Text != ""))
             {
-                lblIsArrotondInserito.Text = "Record modificato con successo";
-                lblIsArrotondInserito.ForeColor = Color.Blue;
+                MaterialiCantieri mc = new MaterialiCantieri();
+                PopolaObjArrot(mc);
+                bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidArrot.Value, mc);
+
+                if (isUpdated)
+                {
+                    lblIsArrotondInserito.Text = "Record modificato con successo";
+                    lblIsArrotondInserito.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsArrotondInserito.Text = "Errore durante la modifica del record";
+                    lblIsArrotondInserito.ForeColor = Color.Red;
+                }
+
+                BindGridArrot();
+                SvuotaCampi(pnlGestArrotond);
+
+                btnModArrot.Visible = false;
+                btnInsArrot.Visible = true;
+                lblTitoloMaschera.Text = "Inserisci Arrotondamento";
             }
             else
             {
-                lblIsArrotondInserito.Text = "Errore durante la modifica del record";
+                lblIsArrotondInserito.Text = "La Quantità deve essere maggiore di 0";
                 lblIsArrotondInserito.ForeColor = Color.Red;
             }
-
-            BindGridArrot();
-            SvuotaCampi(pnlGestArrotond);
-
-            btnModArrot.Visible = false;
-            btnInsArrot.Visible = true;
-            lblTitoloMaschera.Text = "Inserisci Arrotondamento";
         }
         #endregion
 
@@ -1764,7 +1808,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCantChiamata(mc);
 
-            if ((Convert.ToDecimal(txtChiamQta.Text) > 0 || txtChiamQta.Text != "") && Convert.ToDecimal(txtChiamPzzoUnit.Text) > 0)
+            if ((Convert.ToDecimal(txtChiamQta.Text) > 0 && txtChiamQta.Text != "") && Convert.ToDecimal(txtChiamPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
                 {
@@ -1874,33 +1918,42 @@ namespace GestioneCantieri
 
             BindGridChiamata();
         }
-        protected void btnModAChiam_Click(object sender, EventArgs e)
-        {
-            MaterialiCantieri mc = new MaterialiCantieri();
-            PopolaObjChiamata(mc);
-            bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidAChiamata.Value, mc);
-
-            if (isUpdated)
-            {
-                lblIsAChiamInserita.Text = "Record modificato con successo";
-                lblIsAChiamInserita.ForeColor = Color.Blue;
-            }
-            else
-            {
-                lblIsAChiamInserita.Text = "Errore durante la modifica del record";
-                lblIsAChiamInserita.ForeColor = Color.Red;
-            }
-
-            BindGridChiamata();
-            SvuotaCampi(pnlGestChiamata);
-
-            btnInsAChiam.Visible = true;
-            btnModAChiam.Visible = false;
-            lblTitoloMaschera.Text = "Inserisci A Chiamata";
-        }
         protected void btnFiltraGrdAChiam_Click(object sender, EventArgs e)
         {
             BindGridChiamata();
+        }
+        protected void btnModAChiam_Click(object sender, EventArgs e)
+        {
+            if ((Convert.ToDecimal(txtChiamQta.Text) > 0 && txtChiamQta.Text != "") && Convert.ToDecimal(txtChiamPzzoUnit.Text) > 0)
+            {
+                MaterialiCantieri mc = new MaterialiCantieri();
+                PopolaObjChiamata(mc);
+                bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidAChiamata.Value, mc);
+
+                if (isUpdated)
+                {
+                    lblIsAChiamInserita.Text = "Record modificato con successo";
+                    lblIsAChiamInserita.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsAChiamInserita.Text = "Errore durante la modifica del record";
+                    lblIsAChiamInserita.ForeColor = Color.Red;
+                }
+
+                BindGridChiamata();
+                SvuotaCampi(pnlGestChiamata);
+
+                btnInsAChiam.Visible = true;
+                btnModAChiam.Visible = false;
+                lblTitoloMaschera.Text = "Inserisci A Chiamata";
+
+            }
+            else
+            {
+                lblIsAChiamInserita.Text = "Quantità e/o Prezzo Unitario devono essere maggiori di 0";
+                lblIsAChiamInserita.ForeColor = Color.Red;
+            }
         }
 
         /* TEXT-CHANGED */
@@ -2052,7 +2105,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCantSpese(mc);
 
-            if ((Convert.ToDecimal(txtSpeseQta.Text) > 0 || txtSpeseQta.Text != ""))
+            if ((Convert.ToDecimal(txtSpeseQta.Text) > 0 && txtSpeseQta.Text != ""))
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -2143,27 +2196,35 @@ namespace GestioneCantieri
         }
         protected void btnModSpesa_Click(object sender, EventArgs e)
         {
-            MaterialiCantieri mc = new MaterialiCantieri();
-            PopolaObjSpesa(mc);
-            bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidIdSpesa.Value, mc);
-
-            if (isUpdated)
+            if ((Convert.ToDecimal(txtSpeseQta.Text) > 0 && txtSpeseQta.Text != ""))
             {
-                lblIsSpesaInserita.Text = "Record modificato con successo";
-                lblIsSpesaInserita.ForeColor = Color.Blue;
+                MaterialiCantieri mc = new MaterialiCantieri();
+                PopolaObjSpesa(mc);
+                bool isUpdated = MaterialiCantieriDAO.UpdateMatCant(hidIdSpesa.Value, mc);
+
+                if (isUpdated)
+                {
+                    lblIsSpesaInserita.Text = "Record modificato con successo";
+                    lblIsSpesaInserita.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblIsSpesaInserita.Text = "Errore durante la modifica del record";
+                    lblIsSpesaInserita.ForeColor = Color.Red;
+                }
+
+                BindGridSpese();
+                SvuotaCampi(pnlGestSpese);
+
+                btnInsSpesa.Visible = true;
+                btnModSpesa.Visible = false;
+                lblTitoloMaschera.Text = "Inserisci Spese";
             }
             else
             {
-                lblIsSpesaInserita.Text = "Errore durante la modifica del record";
+                lblIsSpesaInserita.Text = "La Quantità deve essere maggiore di 0";
                 lblIsSpesaInserita.ForeColor = Color.Red;
             }
-
-            BindGridSpese();
-            SvuotaCampi(pnlGestSpese);
-
-            btnInsSpesa.Visible = true;
-            btnModSpesa.Visible = false;
-            lblTitoloMaschera.Text = "Inserisci Spese";
         }
         #endregion
     }

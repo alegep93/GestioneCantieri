@@ -88,6 +88,42 @@ namespace GestioneCantieri.DAO
             finally { cn.Close(); }
 
         }
+        public static List<StampaOrdFrutCantLoc> GetAllFruttiNonInGruppo(string idCant)
+        {
+            SqlConnection cn = GetConnection();
+            List<StampaOrdFrutCantLoc> list = new List<StampaOrdFrutCantLoc>();
+            SqlDataReader dr = null;
+            try
+            {
+                string sql = "select F.descr001, SUM(MOF.QtaFrutti) " +
+                             "FROM TblMatOrdFrut AS MOF " +
+                             "LEFT JOIN TblFrutti AS F ON(MOF.IdFrutto = F.ID1) " +
+                             "where IdCantiere = @pIdCant AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
+                             "GROUP BY F.descr001 " +
+                             "ORDER BY F.descr001 ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    StampaOrdFrutCantLoc scLoc = new StampaOrdFrutCantLoc();
+                    scLoc.DescrFrutto = (dr.IsDBNull(0) ? null : dr.GetString(0));
+                    scLoc.Qta = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
+
+                    list.Add(scLoc);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante la stampa dei frutti in un locale.", ex);
+            }
+            finally { cn.Close(); }
+
+        }
         public static List<Cantieri> GetListCantieri()
         {
             SqlConnection cn = GetConnection();

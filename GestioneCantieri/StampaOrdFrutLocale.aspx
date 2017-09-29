@@ -47,6 +47,13 @@
                     </Columns>
                 </asp:GridView>
             </div>
+
+            <asp:GridView ID="grdFruttiNonInGruppo" AutoGenerateColumns="false" ItemType="GestioneCantieri.Data.StampaCantiere" runat="server" CssClass="table table-striped table-responsive" Visible="false">
+                    <Columns>
+                        <asp:BoundField HeaderText="Descrizione Frutto" DataField="DescrFrutto" />
+                        <asp:BoundField HeaderText="Quantità (tot.)" DataField="Qta" />
+                    </Columns>
+                </asp:GridView>
         </div>
     </div>
 </asp:Content>

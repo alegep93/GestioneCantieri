@@ -112,22 +112,20 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool InserisciGruppo(string idCantiere, string idGruppoFrutto, string idLocale, string data, string appart)
+        public static bool InserisciGruppo(string idCantiere, string idGruppoFrutto, string idLocale)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
 
             try
             {
-                sql = "INSERT INTO TblMatOrdFrut(IdCantiere,IdGruppiFrutti,IdLocale,DataOrdine,Appartamento) " +
-                      "VALUES (@pIdCantiere,@pIdGruppoFrutto,@pIdLocale,@pData,@pAppart) ";
+                sql = "INSERT INTO TblMatOrdFrut(IdCantiere,IdGruppiFrutti,IdLocale) " +
+                      "VALUES (@pIdCantiere,@pIdGruppoFrutto,@pIdLocale) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("@pIdCantiere", idCantiere));
                 cmd.Parameters.Add(new SqlParameter("@pIdGruppoFrutto", idGruppoFrutto));
                 cmd.Parameters.Add(new SqlParameter("@pIdLocale", idLocale));
-                cmd.Parameters.Add(new SqlParameter("@pData", data));
-                cmd.Parameters.Add(new SqlParameter("@pAppart", appart));
 
                 int rows = cmd.ExecuteNonQuery();
 
@@ -139,6 +137,35 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'inserimento di un gruppo", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static bool InserisciFruttoNonInGruppo(string idCantiere, string idLocale, string idFrutto, string qtaFrutti)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "INSERT INTO TblMatOrdFrut(IdCantiere,IdLocale,IdFrutto,QtaFrutti) " +
+                      "VALUES (@pIdCantiere,@pIdLocale,@idFrutto,@qtaFrutti) ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@pIdCantiere", idCantiere));
+                cmd.Parameters.Add(new SqlParameter("@pIdLocale", idLocale));
+                cmd.Parameters.Add(new SqlParameter("@idFrutto", idFrutto));
+                cmd.Parameters.Add(new SqlParameter("@qtaFrutti", qtaFrutti));
+
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'inserimento di un frutto non appartenente ad un gruppo", ex);
             }
             finally { cn.Close(); }
         }
@@ -175,6 +202,41 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero dei gruppi", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static List<MatOrdFrut> GetFruttiNonInGruppo(string idCant)
+        {
+            SqlConnection cn = GetConnection();
+            List<MatOrdFrut> list = new List<MatOrdFrut>();
+            SqlDataReader dr = null;
+            try
+            {
+                string sql = "select F.descr001, SUM(MOF.QtaFrutti) " +
+                             "FROM TblMatOrdFrut AS MOF " +
+                             "LEFT JOIN TblFrutti AS F ON(MOF.IdFrutto = F.ID1) " +
+                             "where IdCantiere = @pIdCant AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
+                             "GROUP BY F.descr001 " +
+                             "ORDER BY F.descr001 ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    MatOrdFrut mof = new MatOrdFrut();
+                    mof.Descrizione = (dr.IsDBNull(0) ? "" : dr.GetString(0));
+                    mof.QtaFrutti = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
+
+                    list.Add(mof);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante la stampa dei frutti in un locale.", ex);
             }
             finally { cn.Close(); }
         }
