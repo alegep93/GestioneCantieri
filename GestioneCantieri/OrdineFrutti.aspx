@@ -7,6 +7,12 @@
             margin-bottom: 30px;
             text-align: right;
         }
+
+        span.pull-right {
+            position: relative;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </asp:Content>
 
@@ -22,18 +28,6 @@
         </div>
         <div class="row">
             <asp:Panel ID="pnlInserisciDati" runat="server">
-                <!-- Scegli Data Ordine -->
-                <!--<div class="col-md-4">
-                    <asp:Label ID="lblDataOrdine" runat="server" Text="Data Ordine"></asp:Label>
-                    <asp:TextBox ID="txtDataOrdine" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
-                </div> -->
-
-                <!-- Inserisci Appartamento -->
-                <!--<div class="col-md-4">
-                    <asp:Label ID="lblAppartamento" runat="server" Text="Appartamento"></asp:Label>
-                    <asp:TextBox ID="txtAppartamento" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>-->
-
                 <!-- Scegli Locale -->
                 <div class="col-md-offset-3 col-md-6">
                     <asp:Label ID="lblScegliLocale" runat="server" Text="Scegli Locale"></asp:Label>
@@ -43,37 +37,49 @@
         </div>
         <div class="row">
             <asp:Panel ID="pnlScegliGruppo" runat="server">
-                <div class="col-md-12">
-                    <!-- Filtri sui nomi dei gruppi presenti su DB -->
-                    <div class="col-md-4">
-                        <asp:Label ID="lblFiltro1" runat="server" Text="Filtro 1"></asp:Label>
-                        <asp:TextBox ID="txtFiltroGruppo1" placeholder="Filtro 1" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:Label ID="lblFiltro2" runat="server" Text="Filtro 2"></asp:Label>
-                        <asp:TextBox ID="txtFiltroGruppo2" placeholder="Filtro 2" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-4">
-                        <asp:Label ID="lblFiltro3" runat="server" Text="Filtro 3"></asp:Label>
-                        <asp:TextBox ID="txtFiltroGruppo3" placeholder="Filtro 3" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-12">
-                        <asp:Button ID="btnFiltroGruppi" CssClass="btn btn-primary btn-lg pull-right" OnClick="btnFiltroGruppi_Click" runat="server" Text="Filtra Gruppi" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Filtri sui nomi dei gruppi presenti su DB -->
+                        <div class="col-md-4">
+                            <asp:Label ID="lblFiltro1" runat="server" Text="Filtro 1"></asp:Label>
+                            <asp:TextBox ID="txtFiltroGruppo1" placeholder="Filtro 1" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Label ID="lblFiltro2" runat="server" Text="Filtro 2"></asp:Label>
+                            <asp:TextBox ID="txtFiltroGruppo2" placeholder="Filtro 2" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Label ID="lblFiltro3" runat="server" Text="Filtro 3"></asp:Label>
+                            <asp:TextBox ID="txtFiltroGruppo3" placeholder="Filtro 3" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-12">
+                            <asp:Button ID="btnFiltroGruppi" CssClass="btn btn-primary btn-lg pull-right" OnClick="btnFiltroGruppi_Click" runat="server" Text="Filtra Gruppi" />
+                        </div>
                     </div>
                 </div>
                 <!-- Lista dei gruppi (filtrati o non) -->
-                <div class="col-md-offset-3 col-md-6">
+                <div class="col-md-6">
                     <asp:Label ID="lblScegliGruppo" runat="server" Text="Scegli Gruppo"></asp:Label>
                     <asp:DropDownList ID="ddlScegliGruppo" CssClass="form-control" AutoPostBack="true" OnTextChanged="ddlScegliGruppo_TextChanged" runat="server"></asp:DropDownList>
                     <asp:Button ID="btnInserisciGruppo" CssClass="btn btn-primary btn-lg pull-right" OnClick="btnInserisciGruppo_Click" runat="server" Text="Inserisci Gruppo" />
                     <asp:Label ID="lblIsGruppoInserito" CssClass="pull-right" runat="server" Text=""></asp:Label>
+                </div>
+
+                <!-- Lista e Qta dei frutti da inserire -->
+                <div class="col-md-6">
+                    <asp:Label ID="lblScegliFrutto" runat="server" Text="Scegli Frutto"></asp:Label>
+                    <asp:DropDownList ID="ddlScegliFrutto" CssClass="form-control" AutoPostBack="true" OnTextChanged="ddlScegliFrutto_TextChanged" runat="server"></asp:DropDownList>
+                    <asp:Label ID="lblQtaFrutto" runat="server" Text="Quantità Frutto"></asp:Label>
+                    <asp:TextBox ID="txtQtaFrutto" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:Button ID="btnInserisciFrutto" CssClass="btn btn-primary btn-lg pull-right" OnClick="btnInserisciFrutto_Click" runat="server" Text="Inserisci Frutto" />
+                    <asp:Label ID="lblIsFruttoInserito" CssClass="pull-right" runat="server" Text=""></asp:Label>
                 </div>
             </asp:Panel>
         </div>
 
         <div class="row">
             <asp:Panel ID="pnlMostraGruppiInseriti" runat="server">
-                <div class="col-md-offset-3 col-md-6">
+                <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Mostra contenuto gruppo selezionato</h3>
@@ -84,6 +90,22 @@
                                 <% foreach (var item in compList)
                                     {%>
                                 <li class="list-group-item"><%= item.NomeGruppo + " - " + item.Descrizione %></li>
+                                <%} %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Frutti aggiunti all'ordine</h3>
+                        </div>
+                        <div class="panel-body">
+                            <asp:Label ID="lblQtaDescrFrutti" runat="server" Text="Qta - Descrizione"></asp:Label>
+                            <ul class="list-group">
+                                <% foreach (var item in fruttiList)
+                                    {%>
+                                <li class="list-group-item"><%= item.QtaFrutti + " - " + item.Descrizione %></li>
                                 <%} %>
                             </ul>
                         </div>

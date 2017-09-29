@@ -36,3 +36,4 @@ C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\itextsharp.dll
 C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\itextsharp.xml
 C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.dll
 C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
+C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csprojResolveAssemblyReference.cache

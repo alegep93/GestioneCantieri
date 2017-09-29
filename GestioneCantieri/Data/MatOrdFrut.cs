@@ -7,7 +7,7 @@ namespace GestioneCantieri.Data
 {
     public class MatOrdFrut
     {
-        int id, idCantiere, idGruppiFrutti, idLocali;
+        int id, idCantiere, idGruppiFrutti, idLocali, idFrutto, qtaFrutti;
         DateTime dataOrdine;
         string appartamento, nomeGruppo, descrizione;
 
@@ -115,9 +115,12 @@ namespace GestioneCantieri.Data
             }
         }
 
+        public int IdFrutto { get { return idFrutto; } set { idFrutto = value; } }
+        public int QtaFrutti { get { return qtaFrutti; } set { qtaFrutti = value; } }
+
         public MatOrdFrut()
         {
-            Id = IdCantiere = IdGruppiFrutti = IdLocali = -1;
+            Id = IdCantiere = IdGruppiFrutti = IdLocali = idFrutto = qtaFrutti -1;
             DataOrdine = new DateTime();
             Appartamento = NomeGruppo = Descrizione = "";
         }

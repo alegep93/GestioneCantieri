@@ -27,6 +27,8 @@ namespace GestioneCantieri
         /* HELPERS */
         protected void BindGrid()
         {
+            int i = 0;
+
             List<StampaOrdFrutCantLoc> listGruppi = StampaOrdFrutCantLocDAO.GetAllGruppiInLocale(ddlScegliCantiere.SelectedItem.Value);
             grdGruppiInLocale.DataSource = listGruppi;
             grdGruppiInLocale.DataBind();
@@ -34,6 +36,29 @@ namespace GestioneCantieri
             List<StampaOrdFrutCantLoc> listFrutti = StampaOrdFrutCantLocDAO.GetAllFruttiInLocale(ddlScegliCantiere.SelectedItem.Value);
             grdFruttiInLocale.DataSource = listFrutti;
             grdFruttiInLocale.DataBind();
+
+            List<StampaOrdFrutCantLoc> listFruttiNonInGruppo = StampaOrdFrutCantLocDAO.GetAllFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value);
+            grdFruttiNonInGruppo.DataSource = listFruttiNonInGruppo;
+            grdFruttiNonInGruppo.DataBind();
+
+            //Sommo le quantità della griglia "FruttiNonInGruppo" con le qta della griglia "FruttiInLocale" se la descrizione del frutto è la stessa
+            for (int j = 0; j < grdFruttiInLocale.Rows.Count; j++)
+            {
+                while (i < grdFruttiNonInGruppo.Rows.Count)
+                {
+                    string testoGrdFruttiInLocale = grdFruttiInLocale.Rows[j].Cells[0].Text;
+                    string testoGrdFruttiNonInGruppo = grdFruttiNonInGruppo.Rows[i].Cells[0].Text;
+                    if (testoGrdFruttiInLocale == testoGrdFruttiNonInGruppo)
+                    {
+                        grdFruttiInLocale.Rows[j].Cells[1].Text = (Convert.ToInt32(grdFruttiInLocale.Rows[j].Cells[1].Text) +
+                            Convert.ToInt32(grdFruttiNonInGruppo.Rows[i].Cells[1].Text)).ToString();
+                        i++;
+
+                        break;
+                    }
+                    else { break; }
+                }
+            }
         }
         protected void FillDdlScegliCantiere()
         {
