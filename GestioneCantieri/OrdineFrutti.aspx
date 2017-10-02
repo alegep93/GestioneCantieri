@@ -56,7 +56,27 @@
                             <asp:Button ID="btnFiltroGruppi" CssClass="btn btn-primary btn-lg pull-right" OnClick="btnFiltroGruppi_Click" runat="server" Text="Filtra Gruppi" />
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <!-- Filtri sui nomi dei gruppi presenti su DB -->
+                        <div class="col-md-4">
+                            <asp:Label ID="lblFiltroFrutto1" runat="server" Text="Filtro Frutto 1"></asp:Label>
+                            <asp:TextBox ID="txtFiltroFrutto1" placeholder="Filtro Frutto 1" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Label ID="lblFiltroFrutto2" runat="server" Text="Filtro Frutto 2"></asp:Label>
+                            <asp:TextBox ID="txtFiltroFrutto2" placeholder="Filtro Frutto 2" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Label ID="lblFiltroFrutto3" runat="server" Text="Filtro Frutto 3"></asp:Label>
+                            <asp:TextBox ID="txtFiltroFrutto3" placeholder="Filtro Frutto 3" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-12">
+                            <asp:Button ID="btnFiltraFrutti" CssClass="btn btn-primary btn-lg pull-right" OnClick="btnFiltraFrutti_Click" runat="server" Text="Filtra Frutti" />
+                        </div>
+                    </div>
                 </div>
+
                 <!-- Lista dei gruppi (filtrati o non) -->
                 <div class="col-md-6">
                     <asp:Label ID="lblScegliGruppo" runat="server" Text="Scegli Gruppo"></asp:Label>

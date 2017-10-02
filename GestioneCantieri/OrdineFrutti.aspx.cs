@@ -35,6 +35,14 @@ namespace GestioneCantieri
         protected void btnFiltroGruppi_Click(object sender, EventArgs e)
         {
             FillDdlGruppi();
+            PopolaListe();
+            ddlScegliGruppo.SelectedIndex = 0;
+        }
+        protected void btnFiltraFrutti_Click(object sender, EventArgs e)
+        {
+            FillDdlFrutti();
+            PopolaListe();
+            ddlScegliFrutto.SelectedIndex = 0;
         }
         protected void btnInserisciGruppo_Click(object sender, EventArgs e)
         {
@@ -51,8 +59,7 @@ namespace GestioneCantieri
                 lblIsGruppoInserito.ForeColor = System.Drawing.Color.Red;
             }
 
-            fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value);
-            compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
+            PopolaListe();
             ddlScegliGruppo.SelectedIndex = 0;
         }
         protected void btnInserisciFrutto_Click(object sender, EventArgs e)
@@ -70,8 +77,7 @@ namespace GestioneCantieri
                 lblIsFruttoInserito.ForeColor = System.Drawing.Color.Red;
             }
 
-            fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value);
-            compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
+            PopolaListe();
             ddlScegliFrutto.SelectedIndex = 0;
             txtQtaFrutto.Text = "";
         }
@@ -88,35 +94,32 @@ namespace GestioneCantieri
             {
                 pnlScegliGruppo.Visible = true;
                 pnlMostraGruppiInseriti.Visible = true;
-                fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value);
-                compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
+                PopolaListe();
             }
         }
-        /*protected void txtFiltroGruppo1_TextChanged(object sender, EventArgs e)
-        {
-            FillDdlGruppi();
-        }
-        protected void txtFiltroGruppo2_TextChanged(object sender, EventArgs e)
-        {
-            FillDdlGruppi();
-        }
-        protected void txtFiltroGruppo3_TextChanged(object sender, EventArgs e)
-        {
-            FillDdlGruppi();
-        }*/
+        //protected void txtFiltroGruppo1_TextChanged(object sender, EventArgs e)
+        //{
+        //    FillDdlGruppi();
+        //}
+        //protected void txtFiltroGruppo2_TextChanged(object sender, EventArgs e)
+        //{
+        //    FillDdlGruppi();
+        //}
+        //protected void txtFiltroGruppo3_TextChanged(object sender, EventArgs e)
+        //{
+        //    FillDdlGruppi();
+        //}
         protected void ddlScegliGruppo_TextChanged(object sender, EventArgs e)
         {
             if (ddlScegliGruppo.SelectedItem.Text != "")
             {
-                compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
-                fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value);
+                PopolaListe();
                 btnInserisciGruppo.Visible = true;
                 lblIsGruppoInserito.Text = "";
             }
             else
             {
-                compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
-                fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value);
+                PopolaListe();
                 btnInserisciGruppo.Visible = false;
             }
         }
@@ -125,14 +128,12 @@ namespace GestioneCantieri
             if (ddlScegliFrutto.SelectedItem.Text != "")
             {
                 lblQtaFrutto.Visible = txtQtaFrutto.Visible = btnInserisciFrutto.Visible = true;
-                fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value);
-                compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
+                PopolaListe();
             }
             else
             {
                 lblQtaFrutto.Visible = txtQtaFrutto.Visible = btnInserisciFrutto.Visible = false;
-                fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value);
-                compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
+                PopolaListe();
             }
         }
 
@@ -183,13 +184,18 @@ namespace GestioneCantieri
         }
         protected void FillDdlFrutti()
         {
-            List<Frutti> listFrutti = GestisciGruppiFruttiDAO.getFrutti();
+            List<Frutti> listFrutti = GestisciGruppiFruttiDAO.getFruttiWithSearch(txtFiltroFrutto1.Text, txtFiltroFrutto2.Text, txtFiltroFrutto3.Text);
             ddlScegliFrutto.Items.Clear();
 
             ddlScegliFrutto.Items.Add(new ListItem("", "-1"));
 
             foreach (Frutti f in listFrutti)
                 ddlScegliFrutto.Items.Add(new ListItem(f.Descr, f.Id.ToString()));
+        }
+        protected void PopolaListe()
+        {
+            fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
+            compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
         }
     }
 }

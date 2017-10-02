@@ -130,6 +130,69 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnFiltroGruppi;
         
         /// <summary>
+        /// Controllo lblFiltroFrutto1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroFrutto1;
+        
+        /// <summary>
+        /// Controllo txtFiltroFrutto1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroFrutto1;
+        
+        /// <summary>
+        /// Controllo lblFiltroFrutto2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroFrutto2;
+        
+        /// <summary>
+        /// Controllo txtFiltroFrutto2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroFrutto2;
+        
+        /// <summary>
+        /// Controllo lblFiltroFrutto3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroFrutto3;
+        
+        /// <summary>
+        /// Controllo txtFiltroFrutto3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroFrutto3;
+        
+        /// <summary>
+        /// Controllo btnFiltraFrutti.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltraFrutti;
+        
+        /// <summary>
         /// Controllo lblScegliGruppo.
         /// </summary>
         /// <remarks>

@@ -311,6 +311,14 @@ namespace GestioneCantieri
         {
             SvuotaIntestazione();
         }
+        protected void btnGenetaNumBolla_Click(object sender, EventArgs e)
+        {
+            if (txtDataDDT.Text != "")
+            {
+                string[] datePart = txtDataDDT.Text.Split('-');
+                txtNumBolla.Text = datePart[2].Trim() + datePart[1].Trim() + datePart[0].Trim();
+            }
+        }
 
         /* EVENTI TEXT-CHANGED */
         protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
@@ -544,7 +552,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCant(mc);
 
-            if (txtQta.Text != "" && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
+            if ((txtQta.Text != "" && txtQta.Text != "0") && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
                 if (ddlScegliDDTMef.SelectedItem == null || ddlScegliDDTMef.SelectedItem.Text == "")
                 {
@@ -740,13 +748,17 @@ namespace GestioneCantieri
             txtDescrMat.Text = mc.DescriMateriali;
             txtNote.Text = mc.Note;
             txtNote_2.Text = mc.Note2;
-            txtQta.Text = mc.Qta.ToString();
             txtPzzoUnit.Text = mc.PzzoUniCantiere.ToString();
             txtPzzoFinCli.Text = mc.PzzoFinCli.ToString();
             chkVisibile.Checked = mc.Visibile;
             chkRicalcolo.Checked = mc.Ricalcolo;
             chkRicarico.Checked = mc.RicaricoSiNo;
             txtPzzoFinCli.Text = mc.PzzoFinCli.ToString();
+
+            if (txtTipDatCant.Text == "MATERIALE")
+                txtQta.Text = mc.Qta.ToString();
+            else if (txtTipDatCant.Text == "RIENTRO")
+                txtQta.Text = (mc.Qta * (-1)).ToString();
         }
         private void PopolaObjMatCant(MaterialiCantieri mc)
         {
@@ -891,7 +903,7 @@ namespace GestioneCantieri
         }
         protected void btnModRientro_Click(object sender, EventArgs e)
         {
-            if (txtQta.Text != "" && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
+            if ((txtQta.Text != "" && txtQta.Text != "0") && Convert.ToDecimal(txtPzzoUnit.Text) > 0)
             {
                 MaterialiCantieri mc = new MaterialiCantieri();
                 PopolaObjMatCant(mc);
@@ -933,6 +945,7 @@ namespace GestioneCantieri
 
             mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
             mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
+            mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
             mc.Qta = Convert.ToDouble(txtManodopQta.Text);
             mc.Tipologia = txtTipDatCant.Text;
             mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
@@ -1199,6 +1212,8 @@ namespace GestioneCantieri
             mc.DescriCodArt = "Manodopera" + op.Operaio;
 
             mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
+            mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
+            mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
             mc.DescriMateriali = txtDescrOper.Text;
             mc.Qta = Convert.ToDouble(txtOperQta.Text);
             mc.Visibile = chkOperVisibile.Checked;

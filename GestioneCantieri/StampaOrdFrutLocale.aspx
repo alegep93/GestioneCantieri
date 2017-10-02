@@ -42,7 +42,7 @@
             <div class="col-md-6 table-container">
                 <asp:GridView ID="grdFruttiInLocale" AutoGenerateColumns="false" ItemType="GestioneCantieri.Data.StampaCantiere" runat="server" CssClass="table table-striped table-responsive">
                     <Columns>
-                        <asp:BoundField HeaderText="Descrizione Frutto" DataField="DescrFrutto" />
+                        <asp:BoundField HeaderText="Descrizione Frutto" DataField="Descr001" />
                         <asp:BoundField HeaderText="Quantità (tot.)" DataField="Qta" />
                     </Columns>
                 </asp:GridView>
@@ -50,7 +50,7 @@
 
             <asp:GridView ID="grdFruttiNonInGruppo" AutoGenerateColumns="false" ItemType="GestioneCantieri.Data.StampaCantiere" runat="server" CssClass="table table-striped table-responsive" Visible="false">
                     <Columns>
-                        <asp:BoundField HeaderText="Descrizione Frutto" DataField="DescrFrutto" />
+                        <asp:BoundField HeaderText="Descrizione Frutto" DataField="Descr001" />
                         <asp:BoundField HeaderText="Quantità (tot.)" DataField="Qta" />
                     </Columns>
                 </asp:GridView>
