@@ -205,7 +205,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static List<MatOrdFrut> GetFruttiNonInGruppo(string idCant)
+        public static List<MatOrdFrut> GetFruttiNonInGruppo(string idCant, string idLocale)
         {
             SqlConnection cn = GetConnection();
             List<MatOrdFrut> list = new List<MatOrdFrut>();
@@ -215,12 +215,13 @@ namespace GestioneCantieri.DAO
                 string sql = "select F.descr001, SUM(MOF.QtaFrutti) " +
                              "FROM TblMatOrdFrut AS MOF " +
                              "LEFT JOIN TblFrutti AS F ON(MOF.IdFrutto = F.ID1) " +
-                             "where IdCantiere = @pIdCant AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
+                             "where IdCantiere = @pIdCant AND IdLocale = @pIdLocale AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
                              "GROUP BY F.descr001 " +
                              "ORDER BY F.descr001 ASC ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+                cmd.Parameters.Add(new SqlParameter("pIdLocale", idLocale));
                 dr = cmd.ExecuteReader();
 
                 while (dr.Read())

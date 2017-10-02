@@ -80,6 +80,7 @@
                     <div class="col-md-4">
                         <asp:Button ID="btnFiltroCant" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnFiltroCant_Click" runat="server" Text="Filtra" Style="margin-right: 10px;" />
                         <asp:Button ID="btnSvuotaIntestazione" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnSvuotaIntestazione_Click" runat="server" Text="Svuota Intestazione" />
+                        <asp:Button ID="btnGenetaNumBolla" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnGenetaNumBolla_Click" runat="server" Text="Genera num. bolla" />
                     </div>
                 </asp:Panel>
                 <div class="col-md-offset-2 col-md-8">

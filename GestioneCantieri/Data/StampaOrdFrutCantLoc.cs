@@ -8,7 +8,7 @@ namespace GestioneCantieri.Data
     public class StampaOrdFrutCantLoc
     {
         int qta;
-        string descrFrutto, nomeLocale, nomeGruppo;
+        string descr001, nomeLocale, nomeGruppo;
 
         public int Qta
         {
@@ -16,10 +16,10 @@ namespace GestioneCantieri.Data
             set { qta = value; }
         }
 
-        public string DescrFrutto
+        public string Descr001
         {
-            get { return descrFrutto; }
-            set { descrFrutto = value; }
+            get { return descr001; }
+            set { descr001 = value; }
         }
 
         public string NomeLocale
@@ -37,13 +37,13 @@ namespace GestioneCantieri.Data
         public StampaOrdFrutCantLoc()
         {
             this.Qta = -1;
-            this.DescrFrutto = this.NomeLocale = this.NomeGruppo = "";
+            this.Descr001 = this.NomeLocale = this.NomeGruppo = "";
         }
 
         public StampaOrdFrutCantLoc(int qta, string descrFrutto, string nomeLocale, string nomeGruppo)
         {
             this.Qta = qta;
-            this.DescrFrutto = descrFrutto;
+            this.Descr001 = descrFrutto;
             this.NomeLocale = nomeLocale;
             this.NomeGruppo = nomeGruppo;
         }

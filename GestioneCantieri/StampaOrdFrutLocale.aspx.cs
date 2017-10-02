@@ -2,6 +2,7 @@
 using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
@@ -41,22 +42,51 @@ namespace GestioneCantieri
             grdFruttiNonInGruppo.DataSource = listFruttiNonInGruppo;
             grdFruttiNonInGruppo.DataBind();
 
-            //Sommo le quantità della griglia "FruttiNonInGruppo" con le qta della griglia "FruttiInLocale" se la descrizione del frutto è la stessa
-            for (int j = 0; j < grdFruttiInLocale.Rows.Count; j++)
-            {
-                while (i < grdFruttiNonInGruppo.Rows.Count)
-                {
-                    string testoGrdFruttiInLocale = grdFruttiInLocale.Rows[j].Cells[0].Text;
-                    string testoGrdFruttiNonInGruppo = grdFruttiNonInGruppo.Rows[i].Cells[0].Text;
-                    if (testoGrdFruttiInLocale == testoGrdFruttiNonInGruppo)
-                    {
-                        grdFruttiInLocale.Rows[j].Cells[1].Text = (Convert.ToInt32(grdFruttiInLocale.Rows[j].Cells[1].Text) +
-                            Convert.ToInt32(grdFruttiNonInGruppo.Rows[i].Cells[1].Text)).ToString();
-                        i++;
+            DataTable dt = StampaOrdFrutCantLocDAO.GetAllFruttiInLocaleDataTable(ddlScegliCantiere.SelectedItem.Value);
 
+            if (CheckIfFruttoIsInListaFrutti(grdFruttiNonInGruppo.Rows[i].Cells[0].Text))
+            {
+                //Sommo le quantità della griglia "FruttiNonInGruppo" con le qta della griglia "FruttiInLocale" se la descrizione del frutto è la stessa
+                for (int j = 0; j < grdFruttiInLocale.Rows.Count; j++)
+                {
+                    while (i < grdFruttiNonInGruppo.Rows.Count)
+                    {
+                        string testoGrdFruttiInLocale = grdFruttiInLocale.Rows[j].Cells[0].Text;
+                        string testoGrdFruttiNonInGruppo = grdFruttiNonInGruppo.Rows[i].Cells[0].Text;
+
+                        if (testoGrdFruttiInLocale == testoGrdFruttiNonInGruppo)
+                        {
+                            string totQta = (Convert.ToInt32(grdFruttiInLocale.Rows[j].Cells[1].Text) + Convert.ToInt32(grdFruttiNonInGruppo.Rows[i].Cells[1].Text)).ToString();
+                            grdFruttiInLocale.Rows[j].Cells[1].Text = totQta;
+                            i++;
+
+                            break;
+                        }
+                        else { break; }
+                    }
+                }
+            }
+            else
+            {
+                //Aggiungo una nuova riga popolandola con il testo e la qta del frutto non presente
+                for (int j = 0; j < grdFruttiInLocale.Rows.Count; j++)
+                {
+                    while (i < grdFruttiNonInGruppo.Rows.Count)
+                    {
+                        int numberOfRows = 0;
+                        DataRow dr = dt.NewRow();
+                        dt.Rows.Add(dr);
+                        dt.AcceptChanges();
+                        grdFruttiInLocale.DataSource = dt;
+                        grdFruttiInLocale.DataBind();
+
+                        numberOfRows = grdFruttiInLocale.Rows.Count - 1;
+
+                        grdFruttiInLocale.Rows[numberOfRows].Cells[0].Text = grdFruttiNonInGruppo.Rows[i].Cells[0].Text;
+                        grdFruttiInLocale.Rows[numberOfRows].Cells[1].Text = grdFruttiNonInGruppo.Rows[i].Cells[1].Text;
+                        i++;
                         break;
                     }
-                    else { break; }
                 }
             }
         }
@@ -80,6 +110,16 @@ namespace GestioneCantieri
             GridViewHelper helper = new GridViewHelper(grdGruppiInLocale);
             helper.RegisterGroup("NomeLocale", true, true);
             helper.ApplyGroupSort();
+        }
+        protected bool CheckIfFruttoIsInListaFrutti(string nomeFrutto)
+        {
+            for (int j = 0; j < grdFruttiInLocale.Rows.Count; j++)
+            {
+                string testoGrdFruttiInLocale = grdFruttiInLocale.Rows[j].Cells[0].Text;
+                if (testoGrdFruttiInLocale == nomeFrutto)
+                    return true;
+            }
+            return false;
         }
 
         /* Override per il corretto funzionamento di tutte le funzionalità della pagina */
