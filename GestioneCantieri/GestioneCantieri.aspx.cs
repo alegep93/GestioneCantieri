@@ -315,8 +315,21 @@ namespace GestioneCantieri
         {
             if (txtDataDDT.Text != "")
             {
-                string[] datePart = txtDataDDT.Text.Split('-');
-                txtNumBolla.Text = datePart[2].Trim() + datePart[1].Trim() + datePart[0].Trim();
+                if (txtProtocollo.Text != "")
+                {
+                    string[] datePart = txtDataDDT.Text.Split('-');
+                    txtNumBolla.Text = datePart[0].Trim() + datePart[1].Trim() + datePart[2].Trim() + txtProtocollo.Text;
+                }
+                else
+                {
+                    lblErroreGeneraNumBolla.Text = "Devi prima compilare il campo Protocollo";
+                    lblErroreGeneraNumBolla.ForeColor = Color.Red;
+                }
+            }
+            else
+            {
+                lblErroreGeneraNumBolla.Text = "Devi prima compilare il campo Data DDT";
+                lblErroreGeneraNumBolla.ForeColor = Color.Red;
             }
         }
 
@@ -1274,7 +1287,7 @@ namespace GestioneCantieri
             if ((Convert.ToDecimal(txtOperQta.Text) > 0 && txtOperQta.Text != ""))
             {
                 if (isIntestazioneCompilata())
-                    isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
+                    isInserito = MaterialiCantieriDAO.InserisciOperaio(mc);
 
                 if (isInserito)
                 {

@@ -127,7 +127,7 @@ namespace GestioneCantieri.DAO
             SqlDataReader dr = null;
             try
             {
-                string sql = "select F.descr001, SUM(MOF.QtaFrutti) AS Qta " +
+                string sql = "SELECT F.descr001, SUM(MOF.QtaFrutti) AS Qta " +
                              "FROM TblMatOrdFrut AS MOF " +
                              "LEFT JOIN TblFrutti AS F ON(MOF.IdFrutto = F.ID1) " +
                              "where IdCantiere = @pIdCant AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +

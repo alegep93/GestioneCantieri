@@ -29,6 +29,10 @@ namespace GestioneCantieri
         protected void BindGrid()
         {
             int i = 0;
+            int c = 0;
+            int numberOfRows = 0;
+            int lastRow = 0;
+            List<int> indiciFruttiDaInserire = new List<int>();
 
             List<StampaOrdFrutCantLoc> listGruppi = StampaOrdFrutCantLocDAO.GetAllGruppiInLocale(ddlScegliCantiere.SelectedItem.Value);
             grdGruppiInLocale.DataSource = listGruppi;
@@ -44,12 +48,14 @@ namespace GestioneCantieri
 
             DataTable dt = StampaOrdFrutCantLocDAO.GetAllFruttiInLocaleDataTable(ddlScegliCantiere.SelectedItem.Value);
 
-            if (CheckIfFruttoIsInListaFrutti(grdFruttiNonInGruppo.Rows[i].Cells[0].Text))
+            lastRow = grdFruttiInLocale.Rows.Count - 1;
+
+            while (i < grdFruttiNonInGruppo.Rows.Count)
             {
-                //Sommo le quantità della griglia "FruttiNonInGruppo" con le qta della griglia "FruttiInLocale" se la descrizione del frutto è la stessa
-                for (int j = 0; j < grdFruttiInLocale.Rows.Count; j++)
+                if (CheckIfFruttoIsInListaFrutti(grdFruttiNonInGruppo.Rows[i].Cells[0].Text))
                 {
-                    while (i < grdFruttiNonInGruppo.Rows.Count)
+                    //Sommo le quantità della griglia "FruttiNonInGruppo" con le qta della griglia "FruttiInLocale" se la descrizione del frutto è la stessa
+                    for (int j = 0; j < grdFruttiInLocale.Rows.Count; j++)
                     {
                         string testoGrdFruttiInLocale = grdFruttiInLocale.Rows[j].Cells[0].Text;
                         string testoGrdFruttiNonInGruppo = grdFruttiNonInGruppo.Rows[i].Cells[0].Text;
@@ -65,29 +71,36 @@ namespace GestioneCantieri
                         else { break; }
                     }
                 }
-            }
-            else
-            {
-                //Aggiungo una nuova riga popolandola con il testo e la qta del frutto non presente
-                for (int j = 0; j < grdFruttiInLocale.Rows.Count; j++)
+                else
                 {
-                    while (i < grdFruttiNonInGruppo.Rows.Count)
-                    {
-                        int numberOfRows = 0;
-                        DataRow dr = dt.NewRow();
-                        dt.Rows.Add(dr);
-                        dt.AcceptChanges();
-                        grdFruttiInLocale.DataSource = dt;
-                        grdFruttiInLocale.DataBind();
+                    //Aggiungo una nuova riga
+                    DataRow dr = dt.NewRow();
+                    dt.Rows.Add(dr);
+                    dt.AcceptChanges();
+                    grdFruttiInLocale.DataSource = dt;
+                    grdFruttiInLocale.DataBind();
 
-                        numberOfRows = grdFruttiInLocale.Rows.Count - 1;
+                    indiciFruttiDaInserire.Add(i);
 
-                        grdFruttiInLocale.Rows[numberOfRows].Cells[0].Text = grdFruttiNonInGruppo.Rows[i].Cells[0].Text;
-                        grdFruttiInLocale.Rows[numberOfRows].Cells[1].Text = grdFruttiNonInGruppo.Rows[i].Cells[1].Text;
-                        i++;
-                        break;
-                    }
+                    //Incremento i contatori
+                    i++;
+                    numberOfRows++;
                 }
+            }
+
+            while(numberOfRows != 0)
+            {
+                while (c < indiciFruttiDaInserire.Count)
+                {
+                    //Popolo le righe vuote con descr e qta del frutto
+                    grdFruttiInLocale.Rows[lastRow + numberOfRows].Cells[0].Text = grdFruttiNonInGruppo.Rows[indiciFruttiDaInserire[c]].Cells[0].Text;
+                    grdFruttiInLocale.Rows[lastRow + numberOfRows].Cells[1].Text = grdFruttiNonInGruppo.Rows[indiciFruttiDaInserire[c]].Cells[1].Text;
+                    c++;
+
+                    break;
+                }
+
+                numberOfRows--;
             }
         }
         protected void FillDdlScegliCantiere()

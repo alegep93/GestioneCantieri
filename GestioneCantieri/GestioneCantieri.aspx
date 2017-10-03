@@ -80,7 +80,11 @@
                     <div class="col-md-4">
                         <asp:Button ID="btnFiltroCant" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnFiltroCant_Click" runat="server" Text="Filtra" Style="margin-right: 10px;" />
                         <asp:Button ID="btnSvuotaIntestazione" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnSvuotaIntestazione_Click" runat="server" Text="Svuota Intestazione" />
-                        <asp:Button ID="btnGenetaNumBolla" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnGenetaNumBolla_Click" runat="server" Text="Genera num. bolla" />
+                    </div>
+
+                    <div class="col-md-12">
+                        <asp:Button ID="btnGenetaNumBolla" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnGenetaNumBolla_Click" runat="server" Text="Genera num. bolla" />
+                        <asp:Label ID="lblErroreGeneraNumBolla" Text="" CssClass="pull-right" runat="server" style="position:relative;top:10px;right:10px;"/>
                     </div>
                 </asp:Panel>
                 <div class="col-md-offset-2 col-md-8">
