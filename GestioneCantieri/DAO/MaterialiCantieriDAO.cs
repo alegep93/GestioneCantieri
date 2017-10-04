@@ -122,7 +122,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
-        public static List<MaterialiCantieri> GetMaterialeCantiereForGridView(string idCant, string codArt, string descr, string tipol)
+        public static List<MaterialiCantieri> GetMaterialeCantiereForGridView(string idCant, string codArt, string descr, string protocollo, string tipol)
         {
             SqlConnection cn = GetConnection();
             SqlDataReader dr = null;
@@ -131,6 +131,7 @@ namespace GestioneCantieri.DAO
 
             codArt = "%" + codArt + "%";
             descr = "%" + descr + "%";
+            //protocollo = "%" + protocollo + "%";
 
             try
             {
@@ -150,13 +151,19 @@ namespace GestioneCantieri.DAO
                        "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = b.IdCantieri) " +
                        "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
                        "LEFT JOIN TblForitori AS D ON(A.Fornitore = D.IdFornitori) " +
-                       "WHERE A.IdTblCantieri = @idCant AND ISNULL(A.CodArt,'') LIKE @codArt AND ISNULL(A.DescriCodArt,'') LIKE @descriCodArt AND Tipologia = @tipol ";
+                       "WHERE A.IdTblCantieri = @idCant AND ISNULL(A.CodArt,'') LIKE @codArt " +
+                       "AND ISNULL(A.DescriCodArt,'') LIKE @descriCodArt AND ISNULL(A.ProtocolloInterno,'') LIKE @protocollo AND Tipologia = @tipol ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("idCant", idCant));
                 cmd.Parameters.Add(new SqlParameter("codArt", codArt));
                 cmd.Parameters.Add(new SqlParameter("descriCodArt", descr));
                 cmd.Parameters.Add(new SqlParameter("tipol", tipol));
+
+                if(protocollo == "")
+                    cmd.Parameters.Add(new SqlParameter("protocollo", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("protocollo", protocollo));
 
                 dr = cmd.ExecuteReader();
 
