@@ -280,6 +280,10 @@
                             <asp:TextBox ID="txtFiltroDescriCodArtGrdMatCant" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-3">
+                            <asp:Label ID="lblFiltroProtocolloGrdMatCant" runat="server" Text="Filtro Protocollo"></asp:Label>
+                            <asp:TextBox ID="txtFiltroProtocolloGrdMatCant" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
                             <asp:Button ID="btnFiltraGrdMatCant" OnClick="btnFiltraGrdMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
                         </div>
                     </div>
@@ -410,6 +414,10 @@
                             <asp:TextBox ID="txtFiltroManodopDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-3">
+                            <asp:Label ID="lblFiltroManodopProtocollo" runat="server" Text="Filtro Protocollo"></asp:Label>
+                            <asp:TextBox ID="txtFiltroManodopProtocollo" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
                             <asp:Button ID="btnFiltraGrdManodop" OnClick="btnFiltraGrdManodop_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
                         </div>
                     </div>
@@ -518,6 +526,10 @@
                             <asp:TextBox ID="txtFiltroOperDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-3">
+                            <asp:Label ID="lblFiltroOperProtocollo" runat="server" Text="Filtro Protocollo"></asp:Label>
+                            <asp:TextBox ID="txtFiltroOperProtocollo" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
                             <asp:Button ID="btnOperFiltraGrd" OnClick="btnOperFiltraGrd_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
                         </div>
                     </div>
@@ -614,6 +626,10 @@
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroArrotDescriCodArt" runat="server" Text="Filtro Descri Cod Art"></asp:Label>
                             <asp:TextBox ID="txtFiltroArrotDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroArrotProtocollo" runat="server" Text="Filtro Protocollo"></asp:Label>
+                            <asp:TextBox ID="txtFiltroArrotProtocollo" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-3">
                             <asp:Button ID="btnArrotFiltraGrd" OnClick="btnArrotFiltraGrd_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
@@ -730,6 +746,10 @@
                             <asp:TextBox ID="txtFiltroAChiamDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-3">
+                            <asp:Label ID="lblFiltroAChiamProtocollo" runat="server" Text="Filtro Protocollo"></asp:Label>
+                            <asp:TextBox ID="txtFiltroAChiamProtocollo" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
                             <asp:Button ID="btnFiltraGrdAChiam" OnClick="btnFiltraGrdAChiam_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
                         </div>
                     </div>
@@ -833,6 +853,10 @@
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroSpeseDescriCodArt" runat="server" Text="Filtro Descri Cod Art"></asp:Label>
                             <asp:TextBox ID="txtFiltroSpeseDescriCodArt" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3">
+                            <asp:Label ID="lblFiltroSpeseProtocollo" runat="server" Text="Filtro Protocollo"></asp:Label>
+                            <asp:TextBox ID="txtFiltroSpeseProtocollo" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-3">
                             <asp:Button ID="btnFiltraGrdSpese" OnClick="btnFiltraGrdSpese_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" Style="position: relative; top: 10px;" />

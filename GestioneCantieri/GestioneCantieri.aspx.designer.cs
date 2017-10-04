@@ -886,6 +886,24 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtFiltroDescriCodArtGrdMatCant;
         
         /// <summary>
+        /// Controllo lblFiltroProtocolloGrdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroProtocolloGrdMatCant;
+        
+        /// <summary>
+        /// Controllo txtFiltroProtocolloGrdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroProtocolloGrdMatCant;
+        
+        /// <summary>
         /// Controllo btnFiltraGrdMatCant.
         /// </summary>
         /// <remarks>
@@ -1172,6 +1190,24 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFiltroManodopDescriCodArt;
+        
+        /// <summary>
+        /// Controllo lblFiltroManodopProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroManodopProtocollo;
+        
+        /// <summary>
+        /// Controllo txtFiltroManodopProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroManodopProtocollo;
         
         /// <summary>
         /// Controllo btnFiltraGrdManodop.
@@ -1471,6 +1507,24 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtFiltroOperDescriCodArt;
         
         /// <summary>
+        /// Controllo lblFiltroOperProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroOperProtocollo;
+        
+        /// <summary>
+        /// Controllo txtFiltroOperProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroOperProtocollo;
+        
+        /// <summary>
         /// Controllo btnOperFiltraGrd.
         /// </summary>
         /// <remarks>
@@ -1703,6 +1757,24 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFiltroArrotDescriCodArt;
+        
+        /// <summary>
+        /// Controllo lblFiltroArrotProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroArrotProtocollo;
+        
+        /// <summary>
+        /// Controllo txtFiltroArrotProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroArrotProtocollo;
         
         /// <summary>
         /// Controllo btnArrotFiltraGrd.
@@ -2038,6 +2110,24 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtFiltroAChiamDescriCodArt;
         
         /// <summary>
+        /// Controllo lblFiltroAChiamProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroAChiamProtocollo;
+        
+        /// <summary>
+        /// Controllo txtFiltroAChiamProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroAChiamProtocollo;
+        
+        /// <summary>
         /// Controllo btnFiltraGrdAChiam.
         /// </summary>
         /// <remarks>
@@ -2315,6 +2405,24 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFiltroSpeseDescriCodArt;
+        
+        /// <summary>
+        /// Controllo lblFiltroSpeseProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroSpeseProtocollo;
+        
+        /// <summary>
+        /// Controllo txtFiltroSpeseProtocollo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroSpeseProtocollo;
         
         /// <summary>
         /// Controllo btnFiltraGrdSpese.
