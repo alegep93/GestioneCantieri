@@ -273,7 +273,7 @@ namespace GestioneCantieri
                 }
 
                 BindGridCantieri();
-                ResettaCampi(pnlInsCantieri);
+                ResettaCampi(pnlTxtBoxCantContainer);
                 PopolaCodCantAnnoNumero();
             }
             else
@@ -412,8 +412,10 @@ namespace GestioneCantieri
                     ((CheckBox)control).Checked = false;
                     ((CheckBox)control).Enabled = true;
                 }
-                if (control is DropDownList)
+                if (control is DropDownList) { 
                     ((DropDownList)control).Enabled = true;
+                    ((DropDownList)control).SelectedIndex = 0;
+                }
             }
         }
         //Clienti

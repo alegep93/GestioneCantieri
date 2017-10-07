@@ -810,7 +810,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo,Data, " +
                       "PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,pzzoFinCli) " +
-                      "VALUES (@pIdCant,@pIdOper,@pDescrMat,@pQta,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@pCodArt,@pDescriCodArt,@pTipologia,@pFascia, " +
+                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@pCodArt,@pDescriCodArt,@pTipologia,@pFascia, " +
                       "@pAcquirente,@pFornitore,@pNumBolla,@pProtocollo,@pNote,@pPzzoFinCli)";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);

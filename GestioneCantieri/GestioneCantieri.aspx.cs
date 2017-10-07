@@ -2032,7 +2032,13 @@ namespace GestioneCantieri
             mc.Tipologia = txtTipDatCant.Text;
             mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
-            mc.Qta = Convert.ToDouble(txtSpeseQta.Text);
+
+            if (txtSpeseQta.Text != "")
+                mc.Qta = Convert.ToDouble(txtSpeseQta.Text);
+            else { 
+                mc.Qta = 0;
+                txtSpeseQta.Text = "0";
+            }
 
             if (txtFascia.Text != "")
                 mc.Fascia = Convert.ToInt32(txtFascia.Text);
@@ -2133,7 +2139,7 @@ namespace GestioneCantieri
             MaterialiCantieri mc = new MaterialiCantieri();
             FillMatCantSpese(mc);
 
-            if ((Convert.ToDecimal(txtSpeseQta.Text) > 0 && txtSpeseQta.Text != ""))
+            if ((Convert.ToDecimal(txtSpeseQta.Text) > 0 && txtSpeseQta.Text != "") && Convert.ToDecimal(txtSpesaPrezzoCalcolato.Text) > 0)
             {
                 if (isIntestazioneCompilata())
                     isInserito = MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
@@ -2147,16 +2153,19 @@ namespace GestioneCantieri
                 {
                     lblIsSpesaInserita.Text = "Errore durante l'inserimento del record. L'intestazione deve essere interamente compilata.";
                     lblIsSpesaInserita.ForeColor = Color.Red;
+                    return;
                 }
             }
             else
             {
-                lblIsSpesaInserita.Text = "Il valore della quantità deve essere maggiore di '0'";
+                lblIsSpesaInserita.Text = "Il valore della quantità e/o del prezzo devono essere maggiori di '0'";
                 lblIsSpesaInserita.ForeColor = Color.Red;
+                return;
             }
 
             BindGridSpese();
             SvuotaCampi(pnlGestSpese);
+            ddlScegliSpesa.SelectedIndex = 0;
         }
 
         /* EVENTI TEXT-CHANGED */
