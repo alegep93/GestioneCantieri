@@ -19,6 +19,7 @@ namespace GestioneCantieri
             {
                 FillDdlScegliCant();
                 pnlGestPagam.Visible = false;
+                btnModPagam.Visible = false;
             }
         }
 
@@ -48,7 +49,6 @@ namespace GestioneCantieri
 
             //Acconto e Saldo FALSE
             chkSaldo.Checked = chkAcconto.Checked = false;
-
             txtImportoPagam.Text = "0";
         }
         protected void EnableDisableControls(bool enableControls, Panel panelName)
@@ -120,6 +120,7 @@ namespace GestioneCantieri
             if (ddlScegliCant.SelectedIndex != 0)
             {
                 pnlGestPagam.Visible = true;
+                btnModPagam.Visible = false;
                 BindGridPagam();
             }
             else
@@ -230,7 +231,6 @@ namespace GestioneCantieri
         private void VisualizzaDatiPagam(int idPagam)
         {
             lblTitoloMaschera.Text = "Visualizza Pagamento";
-            btnInsPagam.Visible = btnModPagam.Visible = false;
             PopolaCampiPagam(idPagam, false);
             btnInsPagam.Visible = btnModPagam.Visible = false;
         }
