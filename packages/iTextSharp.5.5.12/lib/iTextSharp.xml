@@ -7817,8 +7817,13 @@
         <member name="F:iTextSharp.text.pdf.BarcodeDatamatrix.DM_B256">
             Binary encodation.
         </member>
-        <member name="F:iTextSharp.text.pdf.BarcodeDatamatrix.DM_X21">
+        <member name="F:iTextSharp.text.pdf.BarcodeDatamatrix.DM_X12">
             X21 encodation.
+        </member>
+        <member name="F:iTextSharp.text.pdf.BarcodeDatamatrix.DM_X21">
+             X12 encodation.
+            
+             @deprecated Use {@link BarcodeDataMatrix#DM_X12} instead.
         </member>
         <member name="F:iTextSharp.text.pdf.BarcodeDatamatrix.DM_EDIFACT">
             EDIFACT encodation.
@@ -7836,6 +7841,7 @@
             Creates an instance of this class.
         </member>
         <!-- Badly formed XML comment ignored for member "M:iTextSharp.text.pdf.BarcodeDatamatrix.Generate(System.String)" -->
+        <!-- Badly formed XML comment ignored for member "M:iTextSharp.text.pdf.BarcodeDatamatrix.Generate(System.String,System.String)" -->
         <!-- Badly formed XML comment ignored for member "M:iTextSharp.text.pdf.BarcodeDatamatrix.Generate(System.Byte[],System.Int32,System.Int32)" -->
         <member name="M:iTextSharp.text.pdf.BarcodeDatamatrix.CreateImage">
             Gets an <CODE>Image</CODE> with the barcode. A successful call to the method <CODE>generate()</CODE>
@@ -9970,6 +9976,14 @@
             @return the new index subset version 
             @throws IOException
         </member>
+        <member name="M:iTextSharp.text.pdf.CFFFontSubset.BuildNewIndexAndCopyAllGSubrs(System.Int32[],System.Byte)">
+            Function builds the new offset array, object array and assembles the index.
+            used for creating the glyph and subrs subsetted index 
+            @param Offsets the offset array of the original index  
+            @param OperatorForUnusedEntries the operator inserted into the data stream for unused entries
+            @return the new index subset version 
+            @throws IOException
+        </member>
         <member name="M:iTextSharp.text.pdf.CFFFontSubset.AssembleIndex(System.Int32[],System.Byte[])">
             Function creates the new index, inserting the count,offsetsize,offset array
             and object array.
@@ -12004,6 +12018,11 @@
             @param char2 the second char
             @param kern the kerning to apply in normalized 1000 units
             @return <code>true</code> if the kerning was applied, <code>false</code> otherwise
+        </member>
+        <member name="M:iTextSharp.text.pdf.TrueTypeFont.IsWinAnsiSupported">
+             Checks whether this font may be used with winansi encoding.
+            
+             @return <CODE>true</CODE> if the font can be correctly used with winansi encodings
         </member>
         <member name="P:iTextSharp.text.pdf.TrueTypeFont.BaseFont">
             Gets the Postscript font name.
@@ -51310,6 +51329,9 @@
         </member>
         <member name="F:iTextSharp.text.pdf.security.TSAClientBouncyCastle.digestAlgorithm">
             Hash algorithm 
+        </member>
+        <member name="F:iTextSharp.text.pdf.security.TSAClientBouncyCastle.tsaReqPolicy">
+            TSA request policy 
         </member>
         <member name="M:iTextSharp.text.pdf.security.TSAClientBouncyCastle.#ctor(System.String)">
             Creates an instance of a TSAClient that will use BouncyCastle.
