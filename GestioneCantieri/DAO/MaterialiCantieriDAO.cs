@@ -601,7 +601,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT IdTblCantieri,PzzoUniCantiere,Qta,Visibile " +
                       "FROM TblMaterialiCantieri " +
-                      "WHERE Tipologia = 'MATERIALE' AND Visibile = 1 AND Ricalcolo = 1 AND PzzoFinCli = 0 AND IdTblCantieri = @pIdCant ";
+                      "WHERE (Tipologia = 'MATERIALE' OR Tipologia = 'A CHIAMATA') AND Visibile = 1 AND Ricalcolo = 1 AND PzzoFinCli = 0 AND IdTblCantieri = @pIdCant ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));

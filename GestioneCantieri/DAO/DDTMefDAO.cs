@@ -96,7 +96,8 @@ namespace GestioneCantieri.DAO
                 sql = "SELECT IdDDTMef, Anno, Data, N_DDT, CodArt, " +
                       "DescriCodArt, Qta, Importo, Acquirente, PrezzoUnitario, AnnoN_DDT " +
                       "FROM TblDDTMef " +
-                      "WHERE (Data BETWEEN Convert(date,@pDataInizio) AND Convert(date,@pDataFine)) AND Acquirente LIKE @pAcquirente AND N_DDT LIKE @pN_DDT ";
+                      "WHERE (Data BETWEEN Convert(date,@pDataInizio) AND Convert(date,@pDataFine)) AND Acquirente LIKE @pAcquirente AND N_DDT LIKE @pN_DDT " +
+                      "ORDER BY N_DDT, CodArt";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
