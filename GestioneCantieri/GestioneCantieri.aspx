@@ -383,7 +383,7 @@
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblManodopRicalcolo" Text="Ricalcolo" runat="server" />
-                        <asp:CheckBox ID="chkManodopRicalcolo" CssClass="form-control" runat="server" />
+                        <asp:CheckBox ID="chkManodopRicalcolo" CssClass="form-control" Enabled="false" runat="server" />
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblManodopRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
@@ -495,7 +495,7 @@
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblOperRicalcolo" Text="Ricalcolo" runat="server" />
-                        <asp:CheckBox ID="chkOperRicalcolo" CssClass="form-control" runat="server" />
+                        <asp:CheckBox ID="chkOperRicalcolo" CssClass="form-control" Enabled="false" runat="server" />
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblOperRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
@@ -601,7 +601,7 @@
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblArrotRicalcolo" Text="Ricalcolo" runat="server" />
-                            <asp:CheckBox ID="chkArrotRicalcolo" CssClass="form-control" runat="server" />
+                            <asp:CheckBox ID="chkArrotRicalcolo" CssClass="form-control" Enabled="false" runat="server" />
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblArrotRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
@@ -820,7 +820,7 @@
                         </div>
                         <div class="col-md-1">
                             <asp:Label ID="lblSpesaRicalcolo" Text="Ricalcolo" runat="server" />
-                            <asp:CheckBox ID="chkSpesaRicalcolo" CssClass="form-control" Checked="false" runat="server" />
+                            <asp:CheckBox ID="chkSpesaRicalcolo" CssClass="form-control" Checked="false" Enabled="false" runat="server" />
                         </div>
                         <div class="col-md-2">
                             <asp:Label ID="lblSpesaRicarico" Text="Ricarico Si/No" runat="server" />
