@@ -277,6 +277,7 @@ namespace GestioneCantieri
             }
 
             BindGridPagam();
+            SvuotaCampi(pnlGestPagam);
         }
         #endregion
     }
