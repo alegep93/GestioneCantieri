@@ -68,7 +68,10 @@ namespace GestioneCantieri
 
                             break;
                         }
-                        else { break; }
+                        else
+                        {
+                            continue;
+                        }
                     }
                 }
                 else
@@ -88,7 +91,7 @@ namespace GestioneCantieri
                 }
             }
 
-            while(numberOfRows != 0)
+            while (numberOfRows != 0)
             {
                 while (c < indiciFruttiDaInserire.Count)
                 {
