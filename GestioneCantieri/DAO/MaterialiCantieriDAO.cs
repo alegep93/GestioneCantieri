@@ -902,8 +902,8 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblMaterialiCantieri " +
-                      "SET OperaioPagato=1 " +
-                      "WHERE (Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND Acquirente=@pIdOperaio ";
+                      "SET OperaioPagato = 1 " +
+                      "WHERE (Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND Acquirente = @pIdOperaio ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
@@ -1090,7 +1090,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "UPDATE TblMaterialiCantieri " +
                       "SET PzzoUniCantiere = @pzzoOper " +
-                      "WHERE IdTblCantieri = @id AND Acquirente = @idOper AND Tipologia = 'OPERAIO' ";
+                      "WHERE IdTblCantieri = @id AND IdTblOperaio = @idOper AND Tipologia = 'OPERAIO' ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("id", idCant));
