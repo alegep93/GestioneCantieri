@@ -184,6 +184,9 @@ namespace GestioneCantieri
             //Reimposto il campo Prezzo manodopera
             Cantieri cant = CantieriDAO.GetCantiere(ddlScegliCant.SelectedItem.Value);
             txtPzzoManodop.Text = cant.PzzoManodopera.ToString("N2");
+
+            //Reimposto il DDLScegliOperaio del pannello GestioneOperaio
+            ddlScegliOperaio.SelectedIndex = 0;
         }
         protected void EnableDisableControls(bool enableControls, Panel panelName)
         {
@@ -1472,24 +1475,32 @@ namespace GestioneCantieri
         //Aggiornamento Costo Operaio
         protected void btnNuovoCostoOperaio_Click(object sender, EventArgs e)
         {
-            if (txtNuovoCostoOperaio.Text != "" && txtNuovoCostoOperaio.Text != "0")
+            if (ddlScegliOperaio.SelectedIndex != 0)
             {
-                bool isUpdated = MaterialiCantieriDAO.UpdateCostoOperaio(ddlScegliCant.SelectedItem.Value, txtAggiornaValManodop.Text, ddlScegliOperaio.SelectedItem.Value);
-                if (isUpdated)
+                if (txtNuovoCostoOperaio.Text != "" && txtNuovoCostoOperaio.Text != "0")
                 {
-                    lblIsManodopInserita.Text = "Costo operaio modificato con successo";
-                    lblIsManodopInserita.ForeColor = Color.Blue;
+                    bool isUpdated = MaterialiCantieriDAO.UpdateCostoOperaio(ddlScegliCant.SelectedItem.Value, txtNuovoCostoOperaio.Text, ddlScegliOperaio.SelectedItem.Value);
+                    if (isUpdated)
+                    {
+                        lblIsOperInserita.Text = "Costo operaio modificato con successo";
+                        lblIsOperInserita.ForeColor = Color.Blue;
+                    }
+                    else
+                    {
+                        lblIsOperInserita.Text = "Errore durante la modifica del costo operaio";
+                        lblIsOperInserita.ForeColor = Color.Red;
+                    }
                 }
                 else
                 {
-                    lblIsManodopInserita.Text = "Errore durante la modifica del costo operaio";
-                    lblIsManodopInserita.ForeColor = Color.Red;
+                    lblIsOperInserita.Text = "Il campo \"Nuovo Costo Operaio\" NON può essere nè vuoto nè 0";
+                    lblIsOperInserita.ForeColor = Color.Red;
                 }
             }
             else
             {
-                lblIsManodopInserita.Text = "Il campo \"Nuovo Costo Operaio\" NON può essere nè vuoto nè 0";
-                lblIsManodopInserita.ForeColor = Color.Red;
+                lblIsOperInserita.Text = "È necessario scegliere un Operaio prima di modificarne il costo";
+                lblIsOperInserita.ForeColor = Color.Red;
             }
 
             BindGridOper();
@@ -2035,7 +2046,8 @@ namespace GestioneCantieri
 
             if (txtSpeseQta.Text != "")
                 mc.Qta = Convert.ToDouble(txtSpeseQta.Text);
-            else { 
+            else
+            {
                 mc.Qta = 0;
                 txtSpeseQta.Text = "0";
             }

@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {
-    public partial class StampaExcell : System.Web.UI.Page
+    public partial class StampaExcell : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -164,7 +164,7 @@ namespace GestioneCantieri
         }
 
         /* Override per il corretto funzionamento della creazione del foglio Excel */
-        public override void VerifyRenderingInServerForm(System.Web.UI.Control control)
+        public override void VerifyRenderingInServerForm(Control control)
         {
             //Do nothing
         }
