@@ -158,6 +158,7 @@
     <Compile Include="DAO\DDTMefDAO.cs" />
     <Compile Include="DAO\GestisciGruppiFruttiDAO.cs" />
     <Compile Include="DAO\PagamentiDAO.cs" />
+    <Compile Include="DAO\RicalcoloContiStampaPdfDAO.cs" />
     <Compile Include="DAO\SpeseDAO.cs" />
     <Compile Include="DAO\StampaFruttiPerGruppiDAO.cs" />
     <Compile Include="DAO\StampaOrdFrutCantLocDAO.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="DAO\TipDatCantDAO.cs" />
     <Compile Include="Data\MaterialiCantieri.cs" />
     <Compile Include="Data\Pagamenti.cs" />
+    <Compile Include="Data\RicalcoloContiStampaPDF.cs" />
     <Compile Include="Data\Spese.cs" />
     <Compile Include="Data\Stampe.cs" />
     <Compile Include="Data\TipDatCant.cs" />
