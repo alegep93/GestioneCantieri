@@ -119,7 +119,7 @@ namespace GestioneCantieri.DAO
         }
 
         /*** Mostro la lista dei DDT in base ai campi compilati ***/
-        public static List<DDTMef> searchFilter(string inizio, string fine, string dataInizio, string dataFine, string qta,
+        public static List<DDTMef> searchFilter(string inizio, string fine, string dataInizio, string dataFine, string qta, string n_ddt,
             string codArt1, string codArt2, string codArt3, string descriCodArt1, string descriCodArt2, string descriCodArt3)
         {
             List<DDTMef> retList = new List<DDTMef>();
@@ -148,12 +148,13 @@ namespace GestioneCantieri.DAO
                 if (inizio != "" && fine != "")
                 {
                     sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
                 else if (dataInizio != "" && dataFine != ""){
                     sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
-                           "AND Qta LIKE @pQta "+
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
@@ -164,13 +165,13 @@ namespace GestioneCantieri.DAO
                     dataInizio = "2010-01-01";
                     dataFine = DateTime.Now.ToString();
 
-                    sql += "WHERE Qta LIKE @pQta " +
+                    sql += "WHERE Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
                 else { 
                     sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
-                           "AND Qta LIKE @pQta " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
@@ -189,6 +190,11 @@ namespace GestioneCantieri.DAO
                     cmd.Parameters.Add(new SqlParameter("pQta", "%%"));
                 else
                     cmd.Parameters.Add(new SqlParameter("pQta", qta));
+
+                if (n_ddt == "")
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", n_ddt));
 
                 if (dataInizio != "" && dataFine != "")
                 {
@@ -255,7 +261,7 @@ namespace GestioneCantieri.DAO
         }
         
         /*** Media dei prezzi con filtro ***/
-        public static decimal calcolaMediaPrezzoUnitarioWithSearch(string inizio, string fine, string dataInizio, string dataFine,
+        public static decimal calcolaMediaPrezzoUnitarioWithSearch(string inizio, string fine, string dataInizio, string dataFine, string qta, string n_ddt,
             string codArt1, string codArt2, string codArt3, string descriCodArt1, string descriCodArt2, string descriCodArt3)
         {
             decimal media = 0m;
@@ -278,12 +284,14 @@ namespace GestioneCantieri.DAO
                 if (inizio != "" && fine != "")
                 {
                     sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
                 else if (dataInizio != "" && dataFine != "")
                 {
                     sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
@@ -295,11 +303,13 @@ namespace GestioneCantieri.DAO
                     dataFine = DateTime.Now.ToString();
 
                     sql += "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
                 else
                 {
                     sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
@@ -314,6 +324,16 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", descriCodArt1));
                 cmd.Parameters.Add(new SqlParameter("pDescriCodArt2", descriCodArt2));
                 cmd.Parameters.Add(new SqlParameter("pDescriCodArt3", descriCodArt3));
+
+                if (qta == "")
+                    cmd.Parameters.Add(new SqlParameter("pQta", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("pQta", qta));
+
+                if (n_ddt == "")
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", n_ddt));
 
                 if (dataInizio != "" && dataFine != "")
                 {
