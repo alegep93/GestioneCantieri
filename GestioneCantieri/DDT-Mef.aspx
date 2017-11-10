@@ -48,10 +48,14 @@
 
                 <!-- Ricerca Per Quantità -->
                 <div class="searchFilterContainer col-md-2">
-                    <asp:Label ID="lblCercaQta" runat="server" Text="Cerca per Quantità"></asp:Label>
+                    <asp:Label ID="lblCercaQta" runat="server" Text="Cerca per Qta o N_DDT"></asp:Label>
                     <div class="col-md-12">
                         <asp:Label ID="lblQta" runat="server" Text="Quantità"></asp:Label>
                         <asp:TextBox ID="txtQta" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-12">
+                        <asp:Label ID="lblN_DDT" runat="server" Text="N_DDT"></asp:Label>
+                        <asp:TextBox ID="txtN_DDT" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
                 </div>
 
