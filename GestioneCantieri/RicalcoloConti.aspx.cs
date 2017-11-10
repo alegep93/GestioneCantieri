@@ -63,9 +63,20 @@ namespace GestioneCantieri
                 ddlScegliCant.Items.Add(new System.Web.UI.WebControls.ListItem(show, c.IdCantieri.ToString()));
             }
         }
+        protected RicalcoloContiStampaPDF FillRicalcoloContiStampaPDF(string dataNote, string descriCodArt, string qta, string pzzoUniCant, string val)
+        {
+            RicalcoloContiStampaPDF rcs = new RicalcoloContiStampaPDF();
+            rcs.Data_O_Note = dataNote;
+            rcs.DescrCodArt = descriCodArt;
+            rcs.Qta = Convert.ToDouble(qta);
+            rcs.PzzoUniCantiere = Convert.ToDecimal(pzzoUniCant);
+            rcs.Valore = Convert.ToDecimal(val);
+            return rcs;
+        }
         public void BindGrid(GridView grd)
         {
             decimal perc = CalcolaPercentualeTotaleMaterialiNascosti();
+            RicalcoloContiStampaPdfDAO.EliminaRicalcoloContiStampaPDF();
 
             if (perc == -1)
             {
@@ -87,6 +98,7 @@ namespace GestioneCantieri
                 //Imposto la colonna del valore
                 for (int i = 0; i < grd.Rows.Count; i++)
                 {
+                    RicalcoloContiStampaPDF rcs = new RicalcoloContiStampaPDF();
                     string visibile = grd.Rows[i].Cells[8].Text;
                     string ricalcolo = grd.Rows[i].Cells[9].Text;
                     string ricaricoSiNo = grd.Rows[i].Cells[10].Text;
@@ -108,29 +120,48 @@ namespace GestioneCantieri
                     }
 
                     if (matCantList[i].PzzoFinCli == 0)
-                        grd.Rows[i].Cells[6].Text = Math.Round((pzzoUnit + valRicalcolo + valRicarico),2).ToString();
+                        grd.Rows[i].Cells[6].Text = Math.Round((pzzoUnit + valRicalcolo + valRicarico), 2).ToString();
                     else
-                        grd.Rows[i].Cells[6].Text = Math.Round(matCantList[i].PzzoFinCli,2).ToString();
+                        grd.Rows[i].Cells[6].Text = Math.Round(matCantList[i].PzzoFinCli, 2).ToString();
 
                     valore = Convert.ToDecimal(grd.Rows[i].Cells[2].Text) * Convert.ToDecimal(grd.Rows[i].Cells[6].Text);
                     grd.Rows[i].Cells[7].Text = valore.ToString();
+
+                    //Popolo la tabella RicalcoloContiStampaPDF per poter costruire la gridView da stampare
+                    if (matCantList[i].Note != "" || matCantList[i].Note != null)
+                    {
+                        rcs = FillRicalcoloContiStampaPDF(matCantList[i].Note, "-1", "-1", "-1", "-1");
+                        RicalcoloContiStampaPdfDAO.InserisciRicalcoloContiStampaPDF(rcs);
+                    }
+                    else
+                    {
+                        rcs = FillRicalcoloContiStampaPDF(grd.Rows[i].Cells[0].Text, grd.Rows[i].Cells[1].Text,
+                            grd.Rows[i].Cells[2].Text, grd.Rows[i].Cells[6].Text, grd.Rows[i].Cells[7].Text);
+                        RicalcoloContiStampaPdfDAO.InserisciRicalcoloContiStampaPDF(rcs);
+                    }
                 }
             }
         }
         public void BindGridPDF(GridView grd, GridView grdPDF)
         {
-            grdPDF.DataSource = grd.DataSource;
-            grdPDF.DataBind();
+            //grdPDF.DataSource = grd.DataSource;
+            //grdPDF.DataBind();
+            //
+            ////Imposto la colonna del valore
+            //for (int i = 0; i < grd.Rows.Count; i++)
+            //{
+            //    grdPDF.Rows[i].Cells[0].Text = grd.Rows[i].Cells[0].Text;
+            //    grdPDF.Rows[i].Cells[1].Text = grd.Rows[i].Cells[1].Text;
+            //    grdPDF.Rows[i].Cells[2].Text = grd.Rows[i].Cells[2].Text;
+            //    grdPDF.Rows[i].Cells[3].Text = grd.Rows[i].Cells[6].Text;
+            //    grdPDF.Rows[i].Cells[4].Text = grd.Rows[i].Cells[7].Text;
+            //}
+            List<RicalcoloContiStampaPDF> rcsList = new List<RicalcoloContiStampaPDF>();
+            DataTable dt = RicalcoloContiStampaPdfDAO.GetRicalcoloContiStampaPDFDataTable();
+            rcsList = RicalcoloContiStampaPdfDAO.GetRicalcoloContiStampaPDF();
 
-            //Imposto la colonna del valore
-            for (int i = 0; i < grd.Rows.Count; i++)
-            {
-                grdPDF.Rows[i].Cells[0].Text = grd.Rows[i].Cells[0].Text;
-                grdPDF.Rows[i].Cells[1].Text = grd.Rows[i].Cells[1].Text;
-                grdPDF.Rows[i].Cells[2].Text = grd.Rows[i].Cells[2].Text;
-                grdPDF.Rows[i].Cells[3].Text = grd.Rows[i].Cells[6].Text;
-                grdPDF.Rows[i].Cells[4].Text = grd.Rows[i].Cells[7].Text;
-            }
+            grdStampaMateCantPDF.DataSource = dt;
+            grdStampaMateCantPDF.DataBind();
         }
         protected decimal CalcolaTotAcconti()
         {
@@ -305,8 +336,9 @@ namespace GestioneCantieri
                 lblControlloMatVisNasc.ForeColor = Color.Red;
                 return;
             }
-            else {
-                ExportToPdfPerContoFinCli(grdStampaMateCantPDF);
+            else
+            {
+                //ExportToPdfPerContoFinCli(grdStampaMateCantPDF);
             }
         }
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)

@@ -85,11 +85,12 @@ namespace GestioneCantieri
         {
             List<DDTMef> listaDDT = new List<DDTMef>();
             listaDDT = DDTMefDAO.searchFilter(txtAnnoInizio.Text, txtAnnoFine.Text, txtDataInizio.Text, txtDataFine.Text, txtQta.Text, txtN_DDT.Text,
-                                              txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text, txtDescriCodArt1.Text, txtDescriCodArt2.Text, txtDescriCodArt3.Text);
+                                              txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text, txtDescriCodArt1.Text, 
+                                              txtDescriCodArt2.Text, txtDescriCodArt3.Text);
             grdListaDDTMef.DataSource = listaDDT;
             grdListaDDTMef.DataBind();
-            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitarioWithSearch(txtAnnoInizio.Text, txtAnnoFine.Text, txtDataInizio.Text, txtDataFine.Text, txtQta.Text, txtN_DDT.Text,
-                                                                           txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text,
+            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitarioWithSearch(txtAnnoInizio.Text, txtAnnoFine.Text, txtDataInizio.Text, txtDataFine.Text, 
+                                                                           txtQta.Text, txtN_DDT.Text,txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text,
                                                                            txtDescriCodArt1.Text, txtDescriCodArt2.Text, txtDescriCodArt3.Text).ToString("0.00");
         }
     }

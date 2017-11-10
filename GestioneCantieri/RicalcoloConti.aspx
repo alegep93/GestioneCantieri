@@ -88,9 +88,9 @@
         </Columns>
     </asp:GridView>
 
-    <asp:GridView ID="grdStampaMateCantPDF" runat="server" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="true">
+    <asp:GridView ID="grdStampaMateCantPDF" runat="server" ItemType="GestioneCantieri.Data.RicalcoloContiStampaPDF" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="true">
         <Columns>
-            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+            <asp:BoundField DataField="Data_O_Note" HeaderText="Data" />
             <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. CodArt" />
             <asp:BoundField DataField="Qta" HeaderText="Qta" />
             <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." DataFormatString="{0:0.00}" />

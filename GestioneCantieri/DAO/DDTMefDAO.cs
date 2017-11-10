@@ -35,7 +35,7 @@ namespace GestioneCantieri.DAO
                     tmpDDTMef.Data           = (dr.IsDBNull(2) ? emptyData : dr.GetDateTime(2));
                     tmpDDTMef.N_ddt          = (dr.IsDBNull(3) ? -1 : dr.GetInt32(3));
                     tmpDDTMef.CodArt         = (dr.IsDBNull(4) ? null : dr.GetString(4));
-                    tmpDDTMef.DescriCodArt    = (dr.IsDBNull(5) ? null : dr.GetString(5));
+                    tmpDDTMef.DescriCodArt   = (dr.IsDBNull(5) ? null : dr.GetString(5));
                     tmpDDTMef.Qta            = (dr.IsDBNull(6) ? -1 : dr.GetInt32(6));
                     tmpDDTMef.Importo        = (dr.IsDBNull(7) ? -1m : dr.GetDecimal(7));
                     tmpDDTMef.Acquirente     = (dr.IsDBNull(8) ? null : dr.GetString(8));
