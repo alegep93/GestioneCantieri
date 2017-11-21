@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace GestioneCantieri {
-    
-    
-    public partial class RicalcoloConti {
-        
+namespace GestioneCantieri
+{
+
+
+    public partial class RicalcoloConti
+    {
+
         /// <summary>
         /// lblAnno control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAnno;
-        
+
         /// <summary>
         /// txtAnno control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAnno;
-        
+
         /// <summary>
         /// lblCodCant control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCodCant;
-        
+
         /// <summary>
         /// txtCodCant control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCodCant;
-        
+
         /// <summary>
         /// lblChiuso control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblChiuso;
-        
+
         /// <summary>
         /// chkChiuso control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkChiuso;
-        
+
         /// <summary>
         /// lblRiscosso control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblRiscosso;
-        
+
         /// <summary>
         /// chkRiscosso control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkRiscosso;
-        
+
         /// <summary>
         /// btnFiltraCantieri control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnFiltraCantieri;
-        
+
         /// <summary>
         /// lblScegliCantiere control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblScegliCantiere;
-        
+
         /// <summary>
         /// ddlScegliCant control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlScegliCant;
-        
+
         /// <summary>
         /// btnStampaContoCliente control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnStampaContoCliente;
-        
+
         /// <summary>
         /// lblControlloMatVisNasc control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblControlloMatVisNasc;
-        
+
         /// <summary>
         /// grdStampaMateCant control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace GestioneCantieri {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdStampaMateCant;
-        
+
         /// <summary>
         /// grdStampaMateCantPDF control.
         /// </summary>
