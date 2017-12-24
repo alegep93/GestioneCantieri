@@ -904,6 +904,24 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtFiltroProtocolloGrdMatCant;
         
         /// <summary>
+        /// Controllo lblFiltroFornitoreGrdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroFornitoreGrdMatCant;
+        
+        /// <summary>
+        /// Controllo txtFiltroFornitoreGrdMatCant.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroFornitoreGrdMatCant;
+        
+        /// <summary>
         /// Controllo btnFiltraGrdMatCant.
         /// </summary>
         /// <remarks>

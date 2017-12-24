@@ -122,7 +122,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
-        public static List<MaterialiCantieri> GetMaterialeCantiereForGridView(string idCant, string codArt, string descr, string protocollo, string tipol)
+        public static List<MaterialiCantieri> GetMaterialeCantiereForGridView(string idCant, string codArt, string descr, string protocollo, string fornitore, string tipol)
         {
             SqlConnection cn = GetConnection();
             SqlDataReader dr = null;
@@ -131,7 +131,6 @@ namespace GestioneCantieri.DAO
 
             codArt = "%" + codArt + "%";
             descr = "%" + descr + "%";
-            //protocollo = "%" + protocollo + "%";
 
             try
             {
@@ -152,7 +151,7 @@ namespace GestioneCantieri.DAO
                        "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
                        "LEFT JOIN TblForitori AS D ON(A.Fornitore = D.IdFornitori) " +
                        "WHERE A.IdTblCantieri = @idCant AND ISNULL(A.CodArt,'') LIKE @codArt " +
-                       "AND ISNULL(A.DescriCodArt,'') LIKE @descriCodArt AND ISNULL(A.ProtocolloInterno,'') LIKE @protocollo AND Tipologia = @tipol ";
+                       "AND ISNULL(A.DescriCodArt,'') LIKE @descriCodArt AND ISNULL(A.ProtocolloInterno,'') LIKE @protocollo AND ISNULL(A.Fornitore,'') LIKE @fornitore AND Tipologia = @tipol ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("idCant", idCant));
@@ -160,10 +159,15 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("descriCodArt", descr));
                 cmd.Parameters.Add(new SqlParameter("tipol", tipol));
 
-                if(protocollo == "")
+                if (protocollo == "")
                     cmd.Parameters.Add(new SqlParameter("protocollo", "%%"));
                 else
                     cmd.Parameters.Add(new SqlParameter("protocollo", protocollo));
+
+                if(fornitore == "")
+                    cmd.Parameters.Add(new SqlParameter("fornitore", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("fornitore", fornitore));
 
                 dr = cmd.ExecuteReader();
 

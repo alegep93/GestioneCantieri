@@ -471,14 +471,14 @@ namespace GestioneCantieri
         protected void BindGridMatCant()
         {
             List<MaterialiCantieri> mcList = MaterialiCantieriDAO.GetMaterialeCantiereForGridView(ddlScegliCant.SelectedItem.Value, txtFiltroCodArtGrdMatCant.Text,
-                txtFiltroDescriCodArtGrdMatCant.Text, txtFiltroProtocolloGrdMatCant.Text, "MATERIALE");
+                txtFiltroDescriCodArtGrdMatCant.Text, txtFiltroProtocolloGrdMatCant.Text, txtFiltroFornitoreGrdMatCant.Text, "MATERIALE");
             grdMatCant.DataSource = mcList;
             grdMatCant.DataBind();
         }
         protected void BindGridRientro()
         {
             List<MaterialiCantieri> mcList = MaterialiCantieriDAO.GetMaterialeCantiereForGridView(ddlScegliCant.SelectedItem.Value, txtFiltroCodArtGrdMatCant.Text,
-                txtFiltroDescriCodArtGrdMatCant.Text, txtFiltroProtocolloGrdMatCant.Text, "RIENTRO");
+                txtFiltroDescriCodArtGrdMatCant.Text, txtFiltroProtocolloGrdMatCant.Text, txtFiltroFornitoreGrdMatCant.Text, "RIENTRO");
             grdRientro.DataSource = mcList;
             grdRientro.DataBind();
         }
@@ -983,7 +983,7 @@ namespace GestioneCantieri
         protected void BindGridManodop()
         {
             List<MaterialiCantieri> mcList = MaterialiCantieriDAO.GetMaterialeCantiereForGridView(ddlScegliCant.SelectedItem.Value, txtFiltroManodopCodArt.Text,
-                txtFiltroManodopDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, "MANODOPERA");
+                txtFiltroManodopDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, txtFiltroFornitoreGrdMatCant.Text, "MANODOPERA");
             grdManodop.DataSource = mcList;
             grdManodop.DataBind();
         }
@@ -1269,7 +1269,7 @@ namespace GestioneCantieri
         protected void BindGridOper()
         {
             List<MaterialiCantieri> mcList = MaterialiCantieriDAO.GetMaterialeCantiereForGridView(ddlScegliCant.SelectedItem.Value, txtFiltroOperCodArt.Text,
-                txtFiltroOperDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, "OPERAIO");
+                txtFiltroOperDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, txtFiltroFornitoreGrdMatCant.Text, "OPERAIO");
             grdOperai.DataSource = mcList;
             grdOperai.DataBind();
         }
@@ -1538,7 +1538,7 @@ namespace GestioneCantieri
         protected void BindGridArrot()
         {
             List<MaterialiCantieri> mcList = MaterialiCantieriDAO.GetMaterialeCantiereForGridView(ddlScegliCant.SelectedItem.Value, txtFiltroArrotCodArt.Text,
-                txtFiltroArrotDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, "ARROTONDAMENTO");
+                txtFiltroArrotDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, txtFiltroFornitoreGrdMatCant.Text, "ARROTONDAMENTO");
             grdArrot.DataSource = mcList;
             grdArrot.DataBind();
         }
@@ -1727,7 +1727,7 @@ namespace GestioneCantieri
         protected void BindGridChiamata()
         {
             List<MaterialiCantieri> mcList = MaterialiCantieriDAO.GetMaterialeCantiereForGridView(ddlScegliCant.SelectedItem.Value, txtFiltroAChiamCodArt.Text,
-                txtFiltroAChiamDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, "A CHIAMATA");
+                txtFiltroAChiamDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, txtFiltroFornitoreGrdMatCant.Text, "A CHIAMATA");
             grdAChiam.DataSource = mcList;
             grdAChiam.DataBind();
         }
@@ -2011,7 +2011,7 @@ namespace GestioneCantieri
         protected void BindGridSpese()
         {
             List<MaterialiCantieri> mcList = MaterialiCantieriDAO.GetMaterialeCantiereForGridView(ddlScegliCant.SelectedItem.Value, txtFiltroAChiamCodArt.Text,
-                txtFiltroAChiamDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, "SPESE");
+                txtFiltroAChiamDescriCodArt.Text, txtFiltroProtocolloGrdMatCant.Text, txtFiltroFornitoreGrdMatCant.Text, "SPESE");
             grdSpese.DataSource = mcList;
             grdSpese.DataBind();
         }
