@@ -22,7 +22,8 @@
             top: 6px;
         }
 
-        input.btn.btn-lg.btn-primary.pull-right {
+        input.btn.btn-lg.btn-primary.pull-right,
+        #body_pnlFiltriMatCant input.btn {
             position: relative;
             top: 10px;
         }
@@ -270,21 +271,25 @@
                 <asp:HiddenField ID="hidIdMatCant" runat="server" />
 
                 <asp:Panel ID="pnlFiltriMatCant" CssClass="col-md-12" runat="server">
-                    <div class="col-md-offset-3 col-md-6">
-                        <div class="col-md-3">
+                    <div class="col-md-12">
+                        <div class="col-md-2">
                             <asp:Label ID="lblFiltroCodArtGrdMatCant" runat="server" Text="Filtro Cod Art"></asp:Label>
                             <asp:TextBox ID="txtFiltroCodArtGrdMatCant" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <asp:Label ID="lblFiltroDescriCodArtGrdMatCant" runat="server" Text="Filtro Descri Cod Art"></asp:Label>
                             <asp:TextBox ID="txtFiltroDescriCodArtGrdMatCant" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <asp:Label ID="lblFiltroProtocolloGrdMatCant" runat="server" Text="Filtro Protocollo"></asp:Label>
                             <asp:TextBox ID="txtFiltroProtocolloGrdMatCant" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
-                        <div class="col-md-3">
-                            <asp:Button ID="btnFiltraGrdMatCant" OnClick="btnFiltraGrdMatCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra Record" />
+                        <div class="col-md-2">
+                            <asp:Label ID="lblFiltroFornitoreGrdMatCant" runat="server" Text="Filtro Fornitore"></asp:Label>
+                            <asp:TextBox ID="txtFiltroFornitoreGrdMatCant" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Button ID="btnFiltraGrdMatCant" OnClick="btnFiltraGrdMatCant_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Filtra Record" />
                         </div>
                     </div>
                 </asp:Panel>
