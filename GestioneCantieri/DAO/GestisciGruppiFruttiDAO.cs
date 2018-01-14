@@ -229,7 +229,42 @@ namespace GestioneCantieri.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Errore durante il recupero dei frutti", ex);
+                throw new Exception("Errore durante il recupero dei gruppi non compleatati", ex);
+            }
+            finally { cn.Close(); }
+        }
+        public static List<GruppiFrutti> getGruppiNonControllati()
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            string sql = "";
+            List<GruppiFrutti> gruppiFruttiList = new List<GruppiFrutti>();
+
+            try
+            {
+                sql = "SELECT Id,NomeGruppo,Descrizione,Completato,Controllato FROM TblGruppiFrutti " +
+                      "WHERE Controllato = 0 " +
+                      "ORDER BY NomeGruppo ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    GruppiFrutti gf = new GruppiFrutti();
+                    gf.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
+                    gf.NomeGruppo = (dr.IsDBNull(1) ? null : dr.GetString(1));
+                    gf.Descr = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    gf.Completato = (dr.IsDBNull(3) ? false : dr.GetBoolean(3));
+                    gf.Controllato = (dr.IsDBNull(4) ? false : dr.GetBoolean(4));
+                    gruppiFruttiList.Add(gf);
+                }
+
+                return gruppiFruttiList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei gruppi non controllati", ex);
             }
             finally { cn.Close(); }
         }
@@ -513,6 +548,59 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il controllo su gruppo aperto/chiuso", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
+        public static bool UpdateFlagControllato(int idGruppo)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+            bool ret = false;
+
+            try
+            {
+                sql = "UPDATE TblGruppiFrutti SET Controllato = 1 WHERE Id = @idGruppo";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@idGruppo", idGruppo));
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    ret = true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'aggiornamento del flag controllato del gruppo " + idGruppo, ex);
+            }
+            finally { cn.Close(); }
+
+            return ret;
+        }
+        public static int GetNumeroGruppiNonControllati()
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            string sql = "";
+            int numGruppi = 0;
+
+            try
+            {
+                sql = "SELECT COUNT(id) " +
+                      "FROM TblGruppiFrutti " +
+                      "WHERE Controllato = 0 ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    numGruppi = dr.GetInt32(0); 
+                }
+
+                return numGruppi;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero del totale gruppi non controllati", ex);
             }
             finally { cn.Close(); dr.Close(); }
         }

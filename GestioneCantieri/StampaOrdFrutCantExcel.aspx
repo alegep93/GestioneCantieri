@@ -17,7 +17,7 @@
     <h1>Stampa Ord Frut Cant Excel</h1>
     <div class="container-fluid">
         <div class="row">
-            <div class="ddlContainer">
+            <div class="ddlContainer col-md-6">
                 <asp:Label ID="lblScegliCantiere" runat="server" Text="Scegli Cantiere"></asp:Label>
                 <asp:DropDownList ID="ddlScegliCantiere" CssClass="form-control" OnTextChanged="ddlScegliCantiere_TextChanged" AutoPostBack="true" runat="server"></asp:DropDownList>
                 <asp:Button ID="btnPrint" CssClass="btn btn-primary btn-lg pull-right" OnClick="btnPrint_Click" runat="server" Text="Stampa" />
