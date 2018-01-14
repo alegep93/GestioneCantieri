@@ -56,5 +56,11 @@ namespace GestioneCantieri
             grdListino.DataSource = listaDDT;
             grdListino.DataBind();
         }
+
+        protected void btnEliminaListino_Click(object sender, EventArgs e)
+        {
+            Mamg0DAO.EliminaListino();
+            Response.Redirect("~/Listino.aspx");
+        }
     }
 }
