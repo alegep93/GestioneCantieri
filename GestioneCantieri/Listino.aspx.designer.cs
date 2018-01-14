@@ -112,6 +112,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnSvuotaTxt;
         
         /// <summary>
+        /// Controllo btnEliminaListino.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEliminaListino;
+        
+        /// <summary>
         /// Controllo grdListino.
         /// </summary>
         /// <remarks>

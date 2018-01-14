@@ -50,6 +50,9 @@
                     <div class="col-md-12 text-center">
                         <asp:Button ID="btnSvuotaTxt" runat="server" OnClick="btnSvuotaTxt_Click" Text="Svuota Caselle di Testo" CssClass="btn btn-default btn-lg" />
                     </div>
+                    <div class="col-md-12 text-center">
+                        <asp:Button ID="btnEliminaListino" runat="server" OnClick="btnEliminaListino_Click" Text="ELIMINA LISTINO" CssClass="btn btn-danger btn-lg" OnClientClick="return confirm('Vuoi veramente eliminare TUTTO il listino?');" />
+                    </div>
                 </div>
             </div>
         </div>

@@ -163,5 +163,29 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+
+        //DELETE
+        public static bool EliminaListino()
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "DELETE FROM MAMG0";
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    return true;
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'eliminazione del listino", ex);
+            }
+            finally { cn.Close(); }
+        }
     }
 }
