@@ -151,7 +151,7 @@ namespace GestioneCantieri.DAO
                        "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
                        "LEFT JOIN TblForitori AS D ON(A.Fornitore = D.IdFornitori) " +
                        "WHERE A.IdTblCantieri = @idCant AND ISNULL(A.CodArt,'') LIKE @codArt " +
-                       "AND ISNULL(A.DescriCodArt,'') LIKE @descriCodArt AND ISNULL(A.ProtocolloInterno,'') LIKE @protocollo AND ISNULL(A.Fornitore,'') LIKE @fornitore AND Tipologia = @tipol ";
+                       "AND ISNULL(A.DescriCodArt,'') LIKE @descriCodArt AND ISNULL(A.ProtocolloInterno,'') LIKE @protocollo AND ISNULL(D.RagSocForni,'') LIKE @fornitore AND Tipologia = @tipol ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("idCant", idCant));

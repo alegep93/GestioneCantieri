@@ -9,6 +9,7 @@ namespace GestioneCantieri.Data
     {
         int id;
         string nomeGruppo, descr;
+        bool completato, controllato;
 
         public GruppiFrutti()
         {
@@ -36,5 +37,7 @@ namespace GestioneCantieri.Data
         }
 
         public string Descr { get; set; }
+        public bool Completato { get => completato; set => completato = value; }
+        public bool Controllato { get => controllato; set => controllato = value; }
     }
 }

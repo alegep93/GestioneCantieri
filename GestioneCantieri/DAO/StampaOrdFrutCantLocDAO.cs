@@ -191,5 +191,53 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+        public static List<StampaOrdFrutCantLoc> GetFruttiPerStampaExcel(string idCant)
+        {
+            SqlConnection cn = GetConnection();
+            List<StampaOrdFrutCantLoc> list = new List<StampaOrdFrutCantLoc>();
+            SqlDataReader dr = null;
+
+            try
+            {
+                string sql = "SELECT descr, SUM(Qta) FROM " +
+                             "(SELECT F.descr001 AS descr, SUM(CGF.Qta) As Qta " +
+                             "FROM TblMatOrdFrut AS MOF " +
+                             "JOIN TblLocali AS L ON(MOF.IdLocale = L.IdLocali) " +
+                             "JOIN TblGruppiFrutti AS GF ON(MOF.IdGruppiFrutti = GF.Id) " +
+                             "JOIN TblCompGruppoFrut AS CGF ON(CGF.IdTblGruppo = GF.Id) " +
+                             "JOIN TblFrutti AS F ON(CGF.IdTblFrutto = F.ID1) " +
+                             "WHERE IdCantiere = @pIdCant " +
+                             "GROUP BY F.descr001 " +
+                             "UNION " +
+                             "SELECT F.descr001 AS descr, SUM(MOF.QtaFrutti) AS Qta " +
+                             "FROM TblMatOrdFrut AS MOF " +
+                             "LEFT JOIN TblFrutti AS F ON(MOF.IdFrutto = F.ID1) " +
+                             "where IdCantiere = @pIdCant AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
+                             "GROUP BY F.descr001) AS A " +
+                             "GROUP BY descr " +
+                             "ORDER BY descr ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@pIdCant", idCant));
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    StampaOrdFrutCantLoc scLoc = new StampaOrdFrutCantLoc();
+                    scLoc.Descr001 = (dr.IsDBNull(0) ? null : dr.GetString(0));
+                    scLoc.Qta = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
+
+                    list.Add(scLoc);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante la stampa dei gruppi in un locale.", ex);
+            }
+            finally { cn.Close(); }
+
+        }
     }
 }

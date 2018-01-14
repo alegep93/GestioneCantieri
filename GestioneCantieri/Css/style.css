@@ -201,3 +201,9 @@ input[type="checkbox"] {
     border-color: red !important;
     border-width: 2px !important;
 }
+
+.compGruppoFixed {
+    position: fixed !important;
+    right: 0;
+    padding-left: 5px !important;
+}
