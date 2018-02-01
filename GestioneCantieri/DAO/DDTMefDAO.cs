@@ -22,7 +22,8 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT TOP 500 IdDDTMef, Anno, Data, N_DDT, CodArt, " + 
                       "DescriCodArt, Qta, Importo, Acquirente, PrezzoUnitario, AnnoN_DDT " + 
-                      "FROM TblDDTMef ";
+                      "FROM TblDDTMef " +
+                      "ORDER BY Anno, Data, N_DDT, CodArt";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
@@ -50,6 +51,7 @@ namespace GestioneCantieri.DAO
                 throw new Exception("Errore durante il recupero dell'elenco dei DDT", ex);
             }
         }
+
         public static DataTable GetDDT(string anno, string n_ddt)
         {
             SqlConnection cn = GetConnection();
@@ -64,7 +66,7 @@ namespace GestioneCantieri.DAO
                       "FROM TblDDTMef " +
                       "WHERE Anno LIKE @pAnno AND N_DDT LIKE @pN_DDT " +
                       "GROUP BY N_DDT, Data " +
-                      "ORDER BY Data ";
+                      "ORDER BY Data, N_DDT ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pAnno", anno));
@@ -175,6 +177,8 @@ namespace GestioneCantieri.DAO
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
+
+                sql += "ORDER BY Anno, Data, N_DDT, CodArt ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pAnnoInizio", inizio));

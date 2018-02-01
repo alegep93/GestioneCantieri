@@ -132,6 +132,23 @@ namespace GestioneCantieri
                 grdPDF.Rows[i].Cells[4].Text = grd.Rows[i].Cells[7].Text;
             }
         }
+        public void BindGridExcel(GridView grd, GridView grdExcel)
+        {
+            grdExcel.DataSource = grd.DataSource;
+            grdExcel.DataBind();
+
+            //Imposto la colonna del valore
+            for (int i = 0; i < grd.Rows.Count; i++)
+            {
+                grdExcel.Rows[i].Cells[0].Text = grd.Rows[i].Cells[0].Text;
+                grdExcel.Rows[i].Cells[1].Text = grd.Rows[i].Cells[1].Text;
+                grdExcel.Rows[i].Cells[2].Text = grd.Rows[i].Cells[2].Text;
+                grdExcel.Rows[i].Cells[3].Text = grd.Rows[i].Cells[6].Text;
+                grdExcel.Rows[i].Cells[4].Text = grd.Rows[i].Cells[7].Text;
+                grdExcel.Rows[i].Cells[5].Text = grd.Rows[i].Cells[11].Text;
+                grdExcel.Rows[i].Cells[6].Text = grd.Rows[i].Cells[12].Text;
+            }
+        }
         protected decimal CalcolaTotAcconti()
         {
             decimal totAcconti = 0m;
@@ -143,6 +160,25 @@ namespace GestioneCantieri
             }
 
             return totAcconti;
+        }
+        protected void CreateExcel()
+        {
+            Response.Clear();
+            Response.AddHeader("content-disposition", "attachment;filename=RicalcoloConti-" + ddlScegliCant.SelectedItem.Text + ".xls");
+            Response.Charset = "";
+            Response.ContentType = "application/vnd.xls";
+
+            System.IO.StringWriter stringWrite = new System.IO.StringWriter();
+
+            HtmlTextWriter htmlWrite = new HtmlTextWriter(stringWrite);
+
+            htmlWrite.WriteLine("<strong><font size='4'>" + ddlScegliCant.SelectedItem.Text + "</font></strong>");
+
+            // viene reindirizzato il rendering verso la stringa in uscita
+            grdStampaMateCantExcel.RenderControl(htmlWrite);
+            Response.Write(stringWrite.ToString());
+
+            Response.End();
         }
 
         //Stampa PDF
@@ -167,7 +203,7 @@ namespace GestioneCantieri
 
             PdfPTable table = InitializePdfTableDDT(grdStampaMateCantPDF);
 
-            Phrase title = new Phrase("Ragione Sociale Cliente: " + mc.RagSocCli, FontFactory.GetFont("Arial", 20, iTextSharp.text.Font.BOLD, BaseColor.RED));
+            Phrase title = new Phrase("Ragione Sociale Cliente: " + mc.RagSocCli, FontFactory.GetFont("Arial", 16, iTextSharp.text.Font.BOLD, BaseColor.BLACK));
             pdfDoc.Add(title);
 
             GeneraPDFPerContoFinCli(pdfDoc, mc, table, grd, totale);
@@ -262,7 +298,7 @@ namespace GestioneCantieri
             string descriCodCant = "Descrizione Codice Cantiere: " + mc.DescriCodCant;
             string intestazioneObj = codCant + "    -    " + descriCodCant;
 
-            Phrase intestazione = new Phrase(intestazioneObj, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
+            Phrase intestazione = new Phrase(intestazioneObj, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLACK));
 
             return intestazione;
         }
@@ -272,13 +308,13 @@ namespace GestioneCantieri
             totRicalcoloConti = totale;
 
             //Totale No Iva
-            Phrase totContoFinCli = new Phrase("Totale Senza IVA: " + String.Format("{0:n}", totale), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
+            Phrase totContoFinCli = new Phrase("Totale: " + String.Format("{0:n}", totale), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLACK));
             PdfPCell totContoFinCliCell = new PdfPCell(totContoFinCli);
 
             //Totale Acconti
-            Phrase totAcconti = new Phrase("Totale Acconti : " + String.Format("{0:n}", totValAcconti), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
+            Phrase totAcconti = new Phrase("Totale Acconti: " + String.Format("{0:n}", totValAcconti), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLACK));
             PdfPCell totAccontiCell = new PdfPCell(totAcconti);
-            Phrase totaleFinale = new Phrase("Totale Finale: " + String.Format("{0:n}", totale - totValAcconti), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLUE));
+            Phrase totaleFinale = new Phrase("Totale Finale Escluso IVA: " + String.Format("{0:n}", totale - totValAcconti), FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.ITALIC, BaseColor.BLACK));
             PdfPCell totaleFinaleCell = new PdfPCell(totaleFinale);
 
             totContoFinCliCell.HorizontalAlignment = totAccontiCell.HorizontalAlignment = totaleFinaleCell.HorizontalAlignment = Element.ALIGN_RIGHT;
@@ -314,6 +350,13 @@ namespace GestioneCantieri
         {
             FillDdlScegliCantiere();
         }
+        protected void btnStampaExcel_Click(object sender, EventArgs e)
+        {
+            idCant = ddlScegliCant.SelectedItem.Value;
+            BindGrid(grdStampaMateCant);
+            BindGridExcel(grdStampaMateCant, grdStampaMateCantExcel);
+            CreateExcel();
+        }
 
         /* EVENTI TEXT-CHANGED */
         protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
@@ -326,6 +369,13 @@ namespace GestioneCantieri
             {
                 btnStampaContoCliente.Visible = false;
             }
+        }
+
+
+        /* Override per il corretto funzionamento della creazione del foglio Excel */
+        public override void VerifyRenderingInServerForm(Control control)
+        {
+            //Do nothing
         }
     }
 }

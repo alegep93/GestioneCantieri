@@ -24,7 +24,8 @@ namespace GestioneCantieri.DAO
                       "ricaricoSiNo,Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore, " +
                       "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli " +
                       "FROM TblMaterialiCantieri " +
-                      "WHERE IdTblCantieri = @Id ";
+                      "WHERE IdTblCantieri = @Id " +
+                      "ORDER BY Tipologia, Data";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("Id", id));
@@ -131,6 +132,7 @@ namespace GestioneCantieri.DAO
 
             codArt = "%" + codArt + "%";
             descr = "%" + descr + "%";
+            fornitore = "%" + fornitore + "%";
 
             try
             {
@@ -158,16 +160,12 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("codArt", codArt));
                 cmd.Parameters.Add(new SqlParameter("descriCodArt", descr));
                 cmd.Parameters.Add(new SqlParameter("tipol", tipol));
+                cmd.Parameters.Add(new SqlParameter("fornitore", fornitore));
 
                 if (protocollo == "")
                     cmd.Parameters.Add(new SqlParameter("protocollo", "%%"));
                 else
                     cmd.Parameters.Add(new SqlParameter("protocollo", protocollo));
-
-                if(fornitore == "")
-                    cmd.Parameters.Add(new SqlParameter("fornitore", "%%"));
-                else
-                    cmd.Parameters.Add(new SqlParameter("fornitore", fornitore));
 
                 dr = cmd.ExecuteReader();
 
@@ -371,7 +369,7 @@ namespace GestioneCantieri.DAO
             }
             catch (Exception ex)
             {
-               throw new Exception("Errore durante il recupero dei dati per il resoconto operaio", ex);
+                throw new Exception("Errore durante il recupero dei dati per il resoconto operaio", ex);
             }
             finally { cn.Close(); dr.Close(); }
         }

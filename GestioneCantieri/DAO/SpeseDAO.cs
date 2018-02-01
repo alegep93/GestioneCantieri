@@ -18,7 +18,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT IdSpesa,Descrizione,Prezzo FROM TblSpese";
+                sql = "SELECT IdSpesa,Descrizione,Prezzo FROM TblSpese ORDER BY Descrizione";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
