@@ -66,6 +66,7 @@
                 </div>
                 <div class="col-md-12">
                     <asp:Button ID="btnStampaContoCliente" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaContoCliente_Click" runat="server" Text="Stampa Conto Finale Cliente" />
+                    <asp:Button ID="btnStampaExcel" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaExcel_Click" runat="server" Text="Stampa Excel" />
                     <asp:Label ID="lblControlloMatVisNasc" runat="server" Text="" Style="font-size: 20px; float: right; margin-right: 10px; position: relative; top: 8px;"></asp:Label>
                 </div>
             </div>
@@ -85,7 +86,9 @@
             <asp:BoundField DataField="Visibile" HeaderText="Visibile" />
             <asp:BoundField DataField="Ricalcolo" HeaderText="Ricalcolo" />
             <asp:BoundField DataField="RicaricoSiNo" HeaderText="RicaricoSiNo" />
-                </Columns>
+            <asp:BoundField DataField="Note" HeaderText="Note" />
+            <asp:BoundField DataField="Note2" HeaderText="Note2" />
+        </Columns>
     </asp:GridView>
 
     <asp:GridView ID="grdStampaMateCantPDF" runat="server" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="true">
@@ -95,6 +98,18 @@
             <asp:BoundField DataField="Qta" HeaderText="Qta" />
             <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." DataFormatString="{0:0.00}" />
             <asp:BoundField DataField="Valore" HeaderText="Valore" />
+        </Columns>
+    </asp:GridView>
+
+    <asp:GridView ID="grdStampaMateCantExcel" runat="server" ItemType="GestioneCantieri.Data.MaterialiCantieri" AutoGenerateColumns="False" CssClass="table table-striped table-responsive text-center" Visible="true">
+        <Columns>
+            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+            <asp:BoundField DataField="DescriCodArt" HeaderText="Descr. CodArt" />
+            <asp:BoundField DataField="Qta" HeaderText="Qta" />
+            <asp:BoundField DataField="PzzoUniCantiere" HeaderText="Pzzo Unit." DataFormatString="{0:0.00}" />
+            <asp:BoundField DataField="Valore" HeaderText="Valore" />
+            <asp:BoundField DataField="Note" HeaderText="Note" />
+            <asp:BoundField DataField="Note2" HeaderText="Note2" />
         </Columns>
     </asp:GridView>
 </asp:Content>
