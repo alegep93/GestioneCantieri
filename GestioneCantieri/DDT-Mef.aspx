@@ -16,7 +16,12 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <div class="col-md-offset-3 col-md-6">
-                    <h1 id="filterToggle" class="btn btn-default btn-lg"></h1>
+                    <div class="col-md-6">
+                        <h1 id="filterToggle" class="btn btn-default btn-lg"></h1>
+                    </div>
+                    <div class="col-md-6">
+                        <asp:Button ID="btn_GeneraDdtDaDbf" class="btn btn-info btn-lg" OnClick="btn_GeneraDdtDaDbf_Click" Text="Importa DBF" runat="server" style="margin: 20px auto; padding:10px 50px;"/>
+                    </div>
                 </div>
             </div>
             <div id="filterContainer">
