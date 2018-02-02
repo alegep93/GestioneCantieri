@@ -21,6 +21,7 @@
                     </div>
                     <div class="col-md-6">
                         <asp:Button ID="btn_GeneraDdtDaDbf" class="btn btn-info btn-lg" OnClick="btn_GeneraDdtDaDbf_Click" Text="Importa DBF" runat="server" style="margin: 20px auto; padding:10px 50px;"/>
+                        <img id="spinnerImg" src="Images/spinner.gif" alt="spinner" runat="server" />
                     </div>
                 </div>
             </div>
