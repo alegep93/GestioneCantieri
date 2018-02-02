@@ -91,6 +91,7 @@
     <Content Include="GestisciFrutti.aspx" />
     <Content Include="GestisciGruppiFrutti.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Images\spinner.gif" />
     <Content Include="InserimentoDati.aspx" />
     <Content Include="layout.Master" />
     <Content Include="Listino.aspx" />

@@ -22,6 +22,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btn_GeneraDdtDaDbf;
         
         /// <summary>
+        /// spinnerImg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage spinnerImg;
+        
+        /// <summary>
         /// lblCercaAnno control.
         /// </summary>
         /// <remarks>

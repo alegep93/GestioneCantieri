@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using GestioneCantieri.Data;
 using GestioneCantieri.DAO;
 using System.Data.OleDb;
+using System.Data;
 
 namespace GestioneCantieri
 {
@@ -16,6 +17,7 @@ namespace GestioneCantieri
         {
             if (!IsPostBack)
             {
+                spinnerImg.Visible = false;
                 BindGrid();
             }
         }
@@ -97,27 +99,24 @@ namespace GestioneCantieri
 
         protected void btn_GeneraDdtDaDbf_Click(object sender, EventArgs e)
         {
-            string pathFile = @"C:\Users\AlessandroGeppi\Downloads\D_DDT.xlsx";
-            //string excelConnection = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + pathFile + "; Extended Properties = 'Excel 12.0;HDR=Yes;IMEX=1';";
-            string excelConnection = "Provider = vfpoledb; Data Source = " + pathFile + "; Collating Sequence = machine;";
-            OleDbConnection ExcelConection = null;
-            OleDbCommand ExcelCommand = null;
-            OleDbDataReader ExcelReader = null;
-            OleDbConnectionStringBuilder OleStringBuilder = new OleDbConnectionStringBuilder(excelConnection);
+            string pathFile = @"C:\Users\AlessandroGeppi\Downloads\D_DDT.DBF";
+            List<DDTMef> ddtList = DDTMefDAO.GetListinoFromDBF(pathFile);
 
-            OleStringBuilder.DataSource = pathFile;
-            ExcelConection = new OleDbConnection();
-            ExcelConection.ConnectionString = OleStringBuilder.ConnectionString;
-            ExcelCommand = new OleDbCommand();
-            ExcelCommand.Connection = ExcelConection;
-            ExcelCommand.CommandText = "SELECT * FROM DBF";
-            ExcelConection.Open();
-            ExcelReader = ExcelCommand.ExecuteReader();
-
-            while (ExcelReader.Read())
+            spinnerImg.Visible = true;
+            foreach (DDTMef ddt in ddtList)
             {
-
+                if (DDTMefDAO.CheckIfRowExist(ddt.Anno, ddt.N_ddt, ddt.CodArt))
+                {
+                    DDTMefDAO.UpdateDdt(ddt);
+                }
+                else
+                {
+                    DDTMefDAO.InsertNewDdt(ddt);
+                }
             }
+
+            spinnerImg.Visible = false;
+            BindGrid();
         }
     }
 }
