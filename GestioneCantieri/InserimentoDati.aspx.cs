@@ -21,6 +21,7 @@ namespace GestioneCantieri
                 btnModCliente.Visible = btnModFornit.Visible = false;
                 btnModOper.Visible = btnModCantiere.Visible = false;
                 btnModSpesa.Visible = false;
+                PopolaCodCantAnnoNumero();
             }
         }
 
@@ -312,6 +313,11 @@ namespace GestioneCantieri
                 BindGridCantieriWithSearch();
             else
                 BindGridCantieri();
+
+            ResettaCampi(pnlTxtBoxCantContainer);
+            PopolaCodCantAnnoNumero();
+            btnModCantiere.Visible = false;
+            btnInsCantiere.Visible = true;
         }
         protected void btnFiltraCant_Click(object sender, EventArgs e)
         {
@@ -742,7 +748,7 @@ namespace GestioneCantieri
             string numCant = "";
             if (num == "")
             {
-                txtNumeroCant.Text = InserimentoDatiDAO.GetLastNumCantForYear(txtAnnoCant.Text);
+                txtNumeroCant.Text = InserimentoDatiDAO.GetLastNumCantForYear(DateTime.Now.Year.ToString());
                 numCant = txtNumeroCant.Text;
             }
             else

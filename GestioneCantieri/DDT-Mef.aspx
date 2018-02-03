@@ -17,7 +17,11 @@
             <div class="col-md-12 text-center">
                 <div class="col-md-offset-3 col-md-6">
                     <div class="col-md-6">
-                        <h1 id="filterToggle" class="btn btn-default btn-lg"></h1>
+                        <%--<h1 id="filterToggle" class="btn btn-default btn-lg"></h1>--%>
+                        <asp:Label ID="lblAcquirente" runat="server" Text="Acquirente"></asp:Label>
+                        <asp:TextBox ID="txtAcquirente" CssClass="form-control" runat="server" Text="Mau"></asp:TextBox><br />
+                        <asp:Label ID="lblFornitore" runat="server" Text="Fornitore"></asp:Label>
+                        <asp:DropDownList ID="ddlFornitore" CssClass="form-control" runat="server"></asp:DropDownList>
                     </div>
                     <div class="col-md-6">
                         <asp:Button ID="btn_GeneraDdtDaDbf" class="btn btn-info btn-lg" OnClick="btn_GeneraDdtDaDbf_Click" Text="Importa DBF" runat="server" style="margin: 20px auto; padding:10px 50px;"/>

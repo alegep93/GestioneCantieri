@@ -7,7 +7,7 @@ namespace GestioneCantieri.Data
 {
     public class DDTMef
     {
-        int id, anno, n_ddt, qta, annoN_ddt;
+        int id, anno, n_ddt, qta, annoN_ddt, idFornitore;
         DateTime data;
         string codArt, descriCodArt, acquirente;
         decimal importo, prezzoUnitario, valore;
@@ -103,5 +103,6 @@ namespace GestioneCantieri.Data
         }
 
         public decimal Valore { get => valore; set => valore = value; }
+        public int IdFornitore { get => idFornitore; set => idFornitore = value; }
     }
 }
