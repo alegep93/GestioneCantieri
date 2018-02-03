@@ -1,0 +1,1 @@
+ALTER TABLE TblDDTMef ADD IdFornitore int NULL

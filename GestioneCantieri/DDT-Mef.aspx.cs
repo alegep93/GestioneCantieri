@@ -54,6 +54,28 @@ namespace GestioneCantieri
             }
             BindGridWithSearch();
         }
+        protected void btn_GeneraDdtDaDbf_Click(object sender, EventArgs e)
+        {
+            //string pathFile = @"C:\Users\Alessandro\Downloads";
+            //int idFornitore = FornitoriDAO.GetIdFornitore("Mef");
+            //List<DDTMef> ddtList = DDTMefDAO.GetDdtFromDBF(pathFile, txtAcquirente.Text, idFornitore);
+
+            //spinnerImg.Visible = true;
+            //foreach (DDTMef ddt in ddtList)
+            //{
+            //    if (DDTMefDAO.CheckIfRowExist(ddt.Anno, ddt.N_ddt, ddt.CodArt))
+            //    {
+            //        DDTMefDAO.UpdateDdt(ddt);
+            //    }
+            //    else
+            //    {
+            //        DDTMefDAO.InsertNewDdt(ddt);
+            //    }
+            //}
+
+            //spinnerImg.Visible = false;
+            //BindGrid();
+        }
 
         /*** INIZIO EVENTI GRIDVIEW ***/
         protected void grdListaDDTMef_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -97,26 +119,16 @@ namespace GestioneCantieri
                                                                            txtDescriCodArt1.Text, txtDescriCodArt2.Text, txtDescriCodArt3.Text).ToString("0.00");
         }
 
-        protected void btn_GeneraDdtDaDbf_Click(object sender, EventArgs e)
+        /*** HELPERS ***/
+        protected void FillDdlClienti()
         {
-            string pathFile = @"C:\Users\AlessandroGeppi\Downloads\D_DDT.DBF";
-            List<DDTMef> ddtList = DDTMefDAO.GetListinoFromDBF(pathFile);
+            List<Fornitori> listClienti = FornitoriDAO.GetFornitori();
 
-            spinnerImg.Visible = true;
-            foreach (DDTMef ddt in ddtList)
-            {
-                if (DDTMefDAO.CheckIfRowExist(ddt.Anno, ddt.N_ddt, ddt.CodArt))
-                {
-                    DDTMefDAO.UpdateDdt(ddt);
-                }
-                else
-                {
-                    DDTMefDAO.InsertNewDdt(ddt);
-                }
-            }
+            ddlFornitore.Items.Clear();
+            ddlFornitore.Items.Add(new ListItem("", "-1"));
 
-            spinnerImg.Visible = false;
-            BindGrid();
+            foreach (Fornitori f in listClienti)
+                ddlFornitore.Items.Add(new ListItem(f.RagSocForni, f.IdFornitori.ToString()));
         }
     }
 }

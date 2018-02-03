@@ -366,11 +366,11 @@ namespace GestioneCantieri.DAO
             }
         }
 
-        public static List<DDTMef> GetListinoFromDBF(string pathFile)
+        public static List<DDTMef> GetDdtFromDBF(string pathFile, string acquirente, int idFornitore)
         {
             int i = 0;
             string excelConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + pathFile + "; Extended Properties = 'Excel 12.0;HDR=Yes;IMEX=1';";
-            string commandText = "SELECT [FTANNO], [FTDT], [FTNR], [FTAFO], [FTDEX1], [FTQTA], 'Mef', [FTPUN] FROM [D_DDT$] ";
+            string commandText = "SELECT [FTANNO], [FTDT], [FTNR], [FTAFO], [FTDEX1], [FTQTA], [FTPU] FROM [D_DDT$] ";
             OleDbConnection ExcelConection = null;
             List<DDTMef> list = new List<DDTMef>();
 
@@ -393,7 +393,7 @@ namespace GestioneCantieri.DAO
                         {
                             DateTime date = Convert.ToDateTime(row.ItemArray[1].ToString().Substring(0, 4) + "-" + row.ItemArray[1].ToString().Substring(4, 2) + "-" + row.ItemArray[1].ToString().Substring(6, 2));
 
-                            decimal importo = Convert.ToInt32(row.ItemArray[5]) * Convert.ToDecimal(row.ItemArray[7]);
+                            decimal prezzoUnitario = Convert.ToDecimal(row.ItemArray[6]) / Convert.ToInt32(row.ItemArray[5]);
                             int annoN_ddt = Convert.ToInt32(row.ItemArray[0].ToString() + row.ItemArray[2].ToString());
 
                             DDTMef ddt = new DDTMef();
@@ -403,10 +403,11 @@ namespace GestioneCantieri.DAO
                             ddt.CodArt = row.ItemArray[3].ToString();
                             ddt.DescriCodArt = row.ItemArray[4].ToString();
                             ddt.Qta = Convert.ToInt32(row.ItemArray[5]);
-                            ddt.Importo = importo;
-                            ddt.Acquirente = row.ItemArray[6].ToString();
-                            ddt.PrezzoUnitario = Convert.ToDecimal(row.ItemArray[7]);
+                            ddt.Importo = Convert.ToDecimal(row.ItemArray[6]);
+                            ddt.Acquirente = acquirente;
+                            ddt.PrezzoUnitario = prezzoUnitario;
                             ddt.AnnoN_ddt = annoN_ddt;
+                            ddt.IdFornitore = idFornitore;
 
                             list.Add(ddt);
                         }

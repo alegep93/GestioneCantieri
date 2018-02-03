@@ -149,6 +149,7 @@
     <Content Include="StampaValoriCantieri.aspx" />
     <Content Include="StampaVerificaCantiere.aspx" />
     <Content Include="StampeVarie.aspx" />
+    <Content Include="Update.sql" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
