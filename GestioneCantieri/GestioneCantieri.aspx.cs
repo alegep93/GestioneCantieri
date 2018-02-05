@@ -64,7 +64,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlScegliFornit()
         {
-            DataTable dt = FornitoriDAO.GetFornitori();
+            DataTable dt = FornitoriDAO.GetFornitoriDataTable();
             List<Fornitori> listFornitori = dt.DataTableToList<Fornitori>();
 
             ddlScegliFornit.Items.Clear();

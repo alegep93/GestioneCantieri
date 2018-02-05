@@ -393,7 +393,7 @@ namespace GestioneCantieri.DAO
                         {
                             DateTime date = Convert.ToDateTime(row.ItemArray[1].ToString().Substring(0, 4) + "-" + row.ItemArray[1].ToString().Substring(4, 2) + "-" + row.ItemArray[1].ToString().Substring(6, 2));
 
-                            decimal prezzoUnitario = Convert.ToDecimal(row.ItemArray[6]) / Convert.ToInt32(row.ItemArray[5]);
+                            decimal prezzoUnitario = Convert.ToDecimal(row.ItemArray[6]) / Convert.ToInt32(row.ItemArray[5].ToString() == "0" ? 1 : row.ItemArray[5]);
                             int annoN_ddt = Convert.ToInt32(row.ItemArray[0].ToString() + row.ItemArray[2].ToString());
 
                             DDTMef ddt = new DDTMef();
@@ -501,9 +501,88 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "UPDATE TblDDTMef SET Anno = @anno, Data = @data, N_DDT = @nDdt, CodArt = @codArt, DescriCodArt = @descriCodArt," +
-                      "Qta = @qta, Importo = @importo, Acquirente = @acquirente, PrezzoUnitario = @prezzoUni, AnnoN_DDT = @annoNddt " +
-                      "WHERE Anno = @anno AND N_DDT = @nDdt AND CodArt = @codArt ";
+                sql = "UPDATE TblDDTMef SET Importo = @importo " +
+                      "WHERE Anno = @anno AND DATEPART(MONTH, data) = @mese AND N_DDT = @nDdt AND CodArt = @codArt ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@anno", ddt.Anno));
+                cmd.Parameters.Add(new SqlParameter("@mese", DateTime.Now.Month));
+                cmd.Parameters.Add(new SqlParameter("@nDdt", ddt.N_ddt));
+                cmd.Parameters.Add(new SqlParameter("@codArt", ddt.CodArt));
+                cmd.Parameters.Add(new SqlParameter("@importo", ddt.Importo));
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'aggiornamento di un record del DDTMef", ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+
+        public static List<DDTMef> GetNewDDT()
+        {
+            string sql = "";
+            SqlDataReader dr = null;
+            SqlConnection cn = GetConnection();
+            List<DDTMef> list = new List<DDTMef>();
+
+            try
+            {
+                sql = "SELECT A.IdDDTMef, A.Anno, A.Data, A.N_DDT, A.CodArt, A.DescriCodArt, A.Qta, A.Importo, A.Acquirente, A.PrezzoUnitario, A.AnnoN_DDT " +
+                      "FROM TblDDTMefTemp AS A " +
+                      "LEFT JOIN TblDDTMef AS B ON A.AnnoN_DDT = B.AnnoN_DDT " +
+                      "WHERE B.IdDDTMef IS NULL ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    DDTMef ddt = new DDTMef();
+                    ddt.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
+                    ddt.Anno = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
+                    ddt.Data = (dr.IsDBNull(2) ? DateTime.Now : dr.GetDateTime(2));
+                    ddt.N_ddt = (dr.IsDBNull(3) ? -1 : dr.GetInt32(3));
+                    ddt.CodArt = (dr.IsDBNull(4) ? null : dr.GetString(4));
+                    ddt.DescriCodArt = (dr.IsDBNull(5) ? null : dr.GetString(5));
+                    ddt.Qta = (dr.IsDBNull(6) ? -1 : dr.GetInt32(6));
+                    ddt.Importo = (dr.IsDBNull(7) ? -1m : dr.GetDecimal(7));
+                    ddt.Acquirente = (dr.IsDBNull(8) ? null : dr.GetString(8));
+                    ddt.PrezzoUnitario = (dr.IsDBNull(9) ? -1m : dr.GetDecimal(9));
+                    ddt.AnnoN_ddt = (dr.IsDBNull(10) ? -1 : dr.GetInt32(10));
+                    list.Add(ddt);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei nuovi DDT da aggiungere all'anagrafica", ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
+
+            return list;
+        }
+
+        // Metodi per la tabella DDT Temporanea
+        public static bool InsertIntoDdtTemp(DDTMef ddt)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "INSERT INTO TblDDTMefTemp (Anno,Data,N_DDT,CodArt,DescriCodArt,Qta,Importo,Acquirente,PrezzoUnitario,AnnoN_DDT) " +
+                      "VALUES (@anno,@data,@nDdt,@codArt,@descriCodArt,@qta,@importo,@acquirente,@prezzoUni,@annoNddt) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("@anno", ddt.Anno));
@@ -525,7 +604,33 @@ namespace GestioneCantieri.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Errore durante l'aggiornamento di un record del DDTMef", ex);
+                throw new Exception("Errore durante l'inserimento di un nuovo record nella tabella TblDDTMefTemp ", ex);
+            }
+            finally
+            {
+                cn.Close();
+            }
+        }
+        public static bool DeleteFromDdtTemp()
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "DELETE FROM TblDDTMefTemp ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                int rows = cmd.ExecuteNonQuery();
+
+                if (rows > 0)
+                    return true;
+                else
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'eliminazione della tabella TblDDTMefTemp ", ex);
             }
             finally
             {
