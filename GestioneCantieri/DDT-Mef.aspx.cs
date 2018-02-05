@@ -17,7 +17,6 @@ namespace GestioneCantieri
         {
             if (!IsPostBack)
             {
-                spinnerImg.Visible = false;
                 BindGrid();
             }
         }
@@ -56,25 +55,30 @@ namespace GestioneCantieri
         }
         protected void btn_GeneraDdtDaDbf_Click(object sender, EventArgs e)
         {
-            //string pathFile = @"C:\Users\Alessandro\Downloads";
-            //int idFornitore = FornitoriDAO.GetIdFornitore("Mef");
-            //List<DDTMef> ddtList = DDTMefDAO.GetDdtFromDBF(pathFile, txtAcquirente.Text, idFornitore);
+            string pathFile = @"C:\Users\AlessandroGeppi\Downloads\D_DDT.DBF";
+            int idFornitore = FornitoriDAO.GetIdFornitore("Mef");
 
             //spinnerImg.Visible = true;
-            //foreach (DDTMef ddt in ddtList)
-            //{
-            //    if (DDTMefDAO.CheckIfRowExist(ddt.Anno, ddt.N_ddt, ddt.CodArt))
-            //    {
-            //        DDTMefDAO.UpdateDdt(ddt);
-            //    }
-            //    else
-            //    {
-            //        DDTMefDAO.InsertNewDdt(ddt);
-            //    }
-            //}
 
-            //spinnerImg.Visible = false;
-            //BindGrid();
+            // Genero una lista a partire dai dati contenuti nel nuovo file DBF
+            List<DDTMef> ddtList = DDTMefDAO.GetDdtFromDBF(pathFile, txtAcquirente.Text, idFornitore);
+
+            // Popolo la tabella temporanea
+            InsertIntoDdtTemp(ddtList);
+
+            //Prendo la lista dei DDT non presenti sulla tabella TblDDTMef
+            List<DDTMef> ddtMancanti = DDTMefDAO.GetNewDDT();
+
+            foreach (DDTMef ddt in ddtMancanti)
+            {
+                // Inserisco i nuovi DDT
+                DDTMefDAO.InsertNewDdt(ddt);
+            }
+
+            //Aggiorno i prezzi del mese corrente
+            UpdatePrezzi(ddtList);
+
+            BindGrid();
         }
 
         /*** INIZIO EVENTI GRIDVIEW ***/
@@ -129,6 +133,30 @@ namespace GestioneCantieri
 
             foreach (Fornitori f in listClienti)
                 ddlFornitore.Items.Add(new ListItem(f.RagSocForni, f.IdFornitori.ToString()));
+        }
+        protected void InsertIntoDdtTemp(List<DDTMef> ddtList)
+        {
+            // Svuoto la tabella DDTMefTemp
+            DDTMefDAO.DeleteFromDdtTemp();
+
+            // Per ogni elemento della lista
+            foreach (DDTMef ddt in ddtList)
+            {
+                // Popolo la tabella temporanea con i nuovi dati
+                DDTMefDAO.InsertIntoDdtTemp(ddt);
+            }
+        }
+        private void UpdatePrezzi(List<DDTMef> ddtList)
+        {
+            foreach(DDTMef ddt in ddtList)
+            {
+                if(ddt.Anno == DateTime.Now.Year && ddt.Data.Month == DateTime.Now.Month)
+                {
+                    // Aggiorno il prezzo di ogni DDT appartenente al mese e all'anno corrente
+                    DDTMefDAO.UpdateDdt(ddt);
+                }
+            }
+
         }
     }
 }

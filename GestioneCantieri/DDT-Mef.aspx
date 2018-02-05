@@ -8,7 +8,20 @@
             overflow: hidden;
             overflow-y: auto;
         }
+        #body_spinnerImg{
+            width: 20px;
+            height: auto;
+        }
     </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#body_spinnerImg").hide();
+        });
+
+        function ShowHideLoader() {
+            $("#body_spinnerImg").show();
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="body" ContentPlaceHolderID="body" runat="server">
     <h1>DDT Mef</h1>
@@ -24,7 +37,7 @@
                         <asp:DropDownList ID="ddlFornitore" CssClass="form-control" runat="server"></asp:DropDownList>
                     </div>
                     <div class="col-md-6">
-                        <asp:Button ID="btn_GeneraDdtDaDbf" class="btn btn-info btn-lg" OnClick="btn_GeneraDdtDaDbf_Click" Text="Importa DBF" runat="server" style="margin: 20px auto; padding:10px 50px;"/>
+                        <asp:Button ID="btn_GeneraDdtDaDbf" class="btn btn-info btn-lg" OnClick="btn_GeneraDdtDaDbf_Click" OnClientClick="javascript:ShowHideLoader()" Text="Importa DBF" runat="server" Style="margin: 20px auto; padding: 10px 50px;" />
                         <img id="spinnerImg" src="Images/spinner.gif" alt="spinner" runat="server" />
                     </div>
                 </div>
