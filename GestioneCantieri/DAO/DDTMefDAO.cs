@@ -501,7 +501,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "UPDATE TblDDTMef SET Importo = @importo " +
+                sql = "UPDATE TblDDTMef SET Importo = @importo, PrezzoUnitario = @pzzoUnit " +
                       "WHERE Anno = @anno AND DATEPART(MONTH, data) = @mese AND N_DDT = @nDdt AND CodArt = @codArt ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -510,6 +510,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("@nDdt", ddt.N_ddt));
                 cmd.Parameters.Add(new SqlParameter("@codArt", ddt.CodArt));
                 cmd.Parameters.Add(new SqlParameter("@importo", ddt.Importo));
+				cmd.Parameters.Add(new SqlParameter("@pzzoUnit", (ddt.Importo / (ddt.Qta == 0 ? 1 : ddt.Qta)));
                 int rows = cmd.ExecuteNonQuery();
 
                 if (rows > 0)

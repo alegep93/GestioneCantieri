@@ -55,7 +55,7 @@ namespace GestioneCantieri
         }
         protected void btn_GeneraDdtDaDbf_Click(object sender, EventArgs e)
         {
-            string pathFile = @"C:\Users\AlessandroGeppi\Downloads\D_DDT.DBF";
+            string pathFile = @"C:\MEF\ORDINI\D_DDT.DBF";
             int idFornitore = FornitoriDAO.GetIdFornitore("Mef");
 
             //spinnerImg.Visible = true;
