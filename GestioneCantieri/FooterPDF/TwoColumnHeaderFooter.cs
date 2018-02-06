@@ -60,10 +60,10 @@ namespace GestioneCantieri.FooterPDF
                 cb = writer.DirectContent;
                 template = cb.CreateTemplate(50, 50);
             }
-            catch (DocumentException de)
+            catch (DocumentException)
             {
             }
-            catch (System.IO.IOException ioe)
+            catch (System.IO.IOException)
             {
             }
         }

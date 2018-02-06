@@ -21,4 +21,5 @@ CREATE TABLE [dbo].[TblDDTMefTemp](
 ) ON [PRIMARY]
 GO
 
-
+-- Cambio tipologia di dato per la colonna NumeroBolla in stringa
+ALTER TABLE TblMaterialiCantieri ALTER COLUMN NumeroBolla nvarchar(50)

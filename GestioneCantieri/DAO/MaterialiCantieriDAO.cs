@@ -50,7 +50,7 @@ namespace GestioneCantieri.DAO
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
                     mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
                     mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
-                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? "" : dr.GetString(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
@@ -108,7 +108,7 @@ namespace GestioneCantieri.DAO
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
                     mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
                     mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
-                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? "" : dr.GetString(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
@@ -187,7 +187,7 @@ namespace GestioneCantieri.DAO
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
                     mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
                     mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
-                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? "" : dr.GetString(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
@@ -254,7 +254,7 @@ namespace GestioneCantieri.DAO
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
                     mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
                     mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
-                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? "" : dr.GetString(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
@@ -312,7 +312,7 @@ namespace GestioneCantieri.DAO
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
                     mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
                     mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
-                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? "" : dr.GetString(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
@@ -414,7 +414,7 @@ namespace GestioneCantieri.DAO
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
                     mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
                     mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
-                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? "" : dr.GetString(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.Note2 = (dr.IsDBNull(18) ? "" : dr.GetString(18));
@@ -470,7 +470,7 @@ namespace GestioneCantieri.DAO
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
                     mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
                     mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
-                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? "" : dr.GetString(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? 0.0m : dr.GetDecimal(18));
@@ -540,7 +540,7 @@ namespace GestioneCantieri.DAO
                     mc.Fascia = (dr.IsDBNull(12) ? -1 : dr.GetInt32(12));
                     mc.Acquirente = (dr.IsDBNull(13) ? "" : dr.GetString(13));
                     mc.Fornitore = (dr.IsDBNull(14) ? "" : dr.GetString(14));
-                    mc.NumeroBolla = (dr.IsDBNull(15) ? -1 : dr.GetInt32(15));
+                    mc.NumeroBolla = (dr.IsDBNull(15) ? "" : dr.GetString(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
                     mc.PzzoFinCli = (dr.IsDBNull(18) ? -1.0m : dr.GetDecimal(18));
