@@ -326,9 +326,9 @@ namespace GestioneCantieri
             Phrase intestazione = new Phrase();
             for (int k = 0; k < matCantList.Count; k++)
             {
-                if (numDdtAttuale != matCantList[k].NumeroBolla)
+                if (numDdtAttuale != Convert.ToInt32(matCantList[k].NumeroBolla))
                 {
-                    numDdtAttuale = matCantList[k].NumeroBolla;
+                    numDdtAttuale = Convert.ToInt32(matCantList[k].NumeroBolla);
                     intestazione = GeneraIntestazioneMatCant(matCantList, k);
 
                     //Transfer rows from GridView to table
