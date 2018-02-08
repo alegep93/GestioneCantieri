@@ -142,9 +142,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
-        public static bool InserisciCliente(string ragSoc, string indirizzo, string cap,
-            string citta, string prov, string tel, string cel, string pIva,
-            string codFisc, string data, string note)
+        public static bool InserisciCliente(Clienti c)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -156,17 +154,17 @@ namespace GestioneCantieri.DAO
                       "VALUES (@pRagSoc,@pIndir,@pCap,@pCitta,@pProvincia,@pTel,@pCel,@pPartIva,@pCodFisc,CONVERT(date,@pData),@pNote) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pRagSoc", ragSoc));
-                cmd.Parameters.Add(new SqlParameter("pIndir", indirizzo));
-                cmd.Parameters.Add(new SqlParameter("pCap", cap));
-                cmd.Parameters.Add(new SqlParameter("pCitta", citta));
-                cmd.Parameters.Add(new SqlParameter("pProvincia", prov));
-                cmd.Parameters.Add(new SqlParameter("pTel", tel));
-                cmd.Parameters.Add(new SqlParameter("pCel", cel));
-                cmd.Parameters.Add(new SqlParameter("pPartIva", pIva));
-                cmd.Parameters.Add(new SqlParameter("pCodFisc", codFisc));
-                cmd.Parameters.Add(new SqlParameter("pData", data));
-                cmd.Parameters.Add(new SqlParameter("pNote", note));
+                cmd.Parameters.Add(new SqlParameter("pRagSoc", c.RagSocCli));
+                cmd.Parameters.Add(new SqlParameter("pIndir", c.Indirizzo));
+                cmd.Parameters.Add(new SqlParameter("pCap", c.Cap));
+                cmd.Parameters.Add(new SqlParameter("pCitta", c.Città));
+                cmd.Parameters.Add(new SqlParameter("pProvincia", c.Provincia));
+                cmd.Parameters.Add(new SqlParameter("pTel", c.Tel1));
+                cmd.Parameters.Add(new SqlParameter("pCel", c.Cell1));
+                cmd.Parameters.Add(new SqlParameter("pPartIva", c.PartitaIva));
+                cmd.Parameters.Add(new SqlParameter("pCodFisc", c.CodFiscale));
+                cmd.Parameters.Add(new SqlParameter("pData", c.Data));
+                cmd.Parameters.Add(new SqlParameter("pNote", c.Note));
 
                 int ret = cmd.ExecuteNonQuery();
 
@@ -181,9 +179,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool UpdateCliente(string idCliente, string ragSoc, string indirizzo, string cap,
-            string citta, string prov, string tel, string cel, string pIva,
-            string codFisc, string data, string note)
+        public static bool UpdateCliente(string idCliente, Clienti c)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -204,17 +200,17 @@ namespace GestioneCantieri.DAO
                       "WHERE IdCliente = @pId ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pRagSoc", ragSoc));
-                cmd.Parameters.Add(new SqlParameter("pIndir", indirizzo));
-                cmd.Parameters.Add(new SqlParameter("pCap", cap));
-                cmd.Parameters.Add(new SqlParameter("pCitta", citta));
-                cmd.Parameters.Add(new SqlParameter("pTel", tel));
-                cmd.Parameters.Add(new SqlParameter("pCel", cel));
-                cmd.Parameters.Add(new SqlParameter("pPartIva", pIva));
-                cmd.Parameters.Add(new SqlParameter("pCodFisc", codFisc));
-                cmd.Parameters.Add(new SqlParameter("pData", data));
-                cmd.Parameters.Add(new SqlParameter("pProv", prov));
-                cmd.Parameters.Add(new SqlParameter("pNote", note));
+                cmd.Parameters.Add(new SqlParameter("pRagSoc", c.RagSocCli));
+                cmd.Parameters.Add(new SqlParameter("pIndir", c.Indirizzo));
+                cmd.Parameters.Add(new SqlParameter("pCap", c.Cap));
+                cmd.Parameters.Add(new SqlParameter("pCitta", c.Città));
+                cmd.Parameters.Add(new SqlParameter("pTel", c.Tel1));
+                cmd.Parameters.Add(new SqlParameter("pCel", c.Cell1));
+                cmd.Parameters.Add(new SqlParameter("pPartIva", c.PartitaIva));
+                cmd.Parameters.Add(new SqlParameter("pCodFisc", c.CodFiscale));
+                cmd.Parameters.Add(new SqlParameter("pData", c.Data));
+                cmd.Parameters.Add(new SqlParameter("pProv", c.Provincia));
+                cmd.Parameters.Add(new SqlParameter("pNote", c.Note));
                 cmd.Parameters.Add(new SqlParameter("pId", idCliente));
 
                 int row = cmd.ExecuteNonQuery();
@@ -331,8 +327,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
-        public static bool InserisciFornitore(string ragSoc, string citta, string indir,
-            string cap, string tel, string cel, string codFisc, string pIva, string abbrev)
+        public static bool InserisciFornitore(Fornitori f)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -345,15 +340,15 @@ namespace GestioneCantieri.DAO
                       "VALUES (@pRagSoc, @pIndir, @pCap, @pCitta, @pTel, @pCel, @pPIva, @pCodFisc, @pAbbrev) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pRagSoc", ragSoc));
-                cmd.Parameters.Add(new SqlParameter("pIndir", indir));
-                cmd.Parameters.Add(new SqlParameter("pCap", cap));
-                cmd.Parameters.Add(new SqlParameter("pCitta", citta));
-                cmd.Parameters.Add(new SqlParameter("pTel", tel));
-                cmd.Parameters.Add(new SqlParameter("pCel", cel));
-                cmd.Parameters.Add(new SqlParameter("pPIva", pIva));
-                cmd.Parameters.Add(new SqlParameter("pCodFisc", codFisc));
-                cmd.Parameters.Add(new SqlParameter("pAbbrev", abbrev));
+                cmd.Parameters.Add(new SqlParameter("pRagSoc", f.RagSocForni));
+                cmd.Parameters.Add(new SqlParameter("pIndir", f.Indirizzo));
+                cmd.Parameters.Add(new SqlParameter("pCap", f.Cap));
+                cmd.Parameters.Add(new SqlParameter("pCitta", f.Città));
+                cmd.Parameters.Add(new SqlParameter("pTel", f.Tel1));
+                cmd.Parameters.Add(new SqlParameter("pCel", f.Cell1));
+                cmd.Parameters.Add(new SqlParameter("pPIva", f.PartitaIva));
+                cmd.Parameters.Add(new SqlParameter("pCodFisc", f.CodFiscale));
+                cmd.Parameters.Add(new SqlParameter("pAbbrev", f.Abbreviato));
                 int ret = cmd.ExecuteNonQuery();
 
                 if (ret > 0)
@@ -367,8 +362,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool UpdateFornitore(string idFornit, string ragSoc, string citta, string indir,
-            string cap, string tel, string cel, string codFisc, string pIva, string abbrev)
+        public static bool UpdateFornitore(string idFornit, Fornitori f)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -382,21 +376,21 @@ namespace GestioneCantieri.DAO
                       "Città = @pCitta, " +
                       "Tel1 = @pTel, " +
                       "Cell1 = @pCel, " +
-                      "PartitaIva = @pPartIva, " +
+                      "PartitaIva = @pPIva, " +
                       "CodFiscale = @pCodFisc, " +
                       "Abbreviato = @pAbbrev " +
                       "WHERE IdFornitori = @pId ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pRagSoc", ragSoc));
-                cmd.Parameters.Add(new SqlParameter("pIndir", indir));
-                cmd.Parameters.Add(new SqlParameter("pCap", cap));
-                cmd.Parameters.Add(new SqlParameter("pCitta", citta));
-                cmd.Parameters.Add(new SqlParameter("pTel", tel));
-                cmd.Parameters.Add(new SqlParameter("pCel", cel));
-                cmd.Parameters.Add(new SqlParameter("pPartIva", pIva));
-                cmd.Parameters.Add(new SqlParameter("pCodFisc", codFisc));
-                cmd.Parameters.Add(new SqlParameter("pAbbrev", abbrev));
+                cmd.Parameters.Add(new SqlParameter("pRagSoc", f.RagSocForni));
+                cmd.Parameters.Add(new SqlParameter("pIndir", f.Indirizzo));
+                cmd.Parameters.Add(new SqlParameter("pCap", f.Cap));
+                cmd.Parameters.Add(new SqlParameter("pCitta", f.Città));
+                cmd.Parameters.Add(new SqlParameter("pTel", f.Tel1));
+                cmd.Parameters.Add(new SqlParameter("pCel", f.Cell1));
+                cmd.Parameters.Add(new SqlParameter("pPIva", f.PartitaIva));
+                cmd.Parameters.Add(new SqlParameter("pCodFisc", f.CodFiscale));
+                cmd.Parameters.Add(new SqlParameter("pAbbrev", f.Abbreviato));
                 cmd.Parameters.Add(new SqlParameter("pId", idFornit));
 
                 int row = cmd.ExecuteNonQuery();
@@ -744,10 +738,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
-        public static bool InserisciCantiere(string idCliente, string data, string codCant,
-            string descrCodCant, string indirizzo, string citta, string ricarico, decimal pzzoManodop,
-            string chiuso, string riscosso, string numeroCant, decimal valPrev, string iva, string anno,
-            string preventivo, string daDividere, string diviso, string fatturato, string fasciaCantiere, string codRiferCant)
+        public static bool InserisciCantiere(Cantieri c)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -763,26 +754,26 @@ namespace GestioneCantieri.DAO
                       "@pDaDividere,@pDiviso,@pFatturato,@pCodRiferCant) ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdTblClienti", idCliente));
-                cmd.Parameters.Add(new SqlParameter("pData", data));
-                cmd.Parameters.Add(new SqlParameter("pCodCant", codCant));
-                cmd.Parameters.Add(new SqlParameter("pDescCodCant", descrCodCant));
-                cmd.Parameters.Add(new SqlParameter("pIndir", indirizzo));
-                cmd.Parameters.Add(new SqlParameter("pCitta", citta));
-                cmd.Parameters.Add(new SqlParameter("pRicar", ricarico));
-                cmd.Parameters.Add(new SqlParameter("pPzzoManod", pzzoManodop));
-                cmd.Parameters.Add(new SqlParameter("pChiuso", chiuso));
-                cmd.Parameters.Add(new SqlParameter("pRiscosso", riscosso));
-                cmd.Parameters.Add(new SqlParameter("pNumero", numeroCant));
-                cmd.Parameters.Add(new SqlParameter("pValPrev", valPrev));
-                cmd.Parameters.Add(new SqlParameter("pIva", iva));
-                cmd.Parameters.Add(new SqlParameter("pAnno", anno));
-                cmd.Parameters.Add(new SqlParameter("pPrev", preventivo));
-                cmd.Parameters.Add(new SqlParameter("pFasciaCant", fasciaCantiere));
-                cmd.Parameters.Add(new SqlParameter("pDaDividere", daDividere));
-                cmd.Parameters.Add(new SqlParameter("pDiviso", diviso));
-                cmd.Parameters.Add(new SqlParameter("pFatturato", fatturato));
-                cmd.Parameters.Add(new SqlParameter("pCodRiferCant", codRiferCant));
+                cmd.Parameters.Add(new SqlParameter("pIdTblClienti", c.IdtblClienti));
+                cmd.Parameters.Add(new SqlParameter("pData", c.Data));
+                cmd.Parameters.Add(new SqlParameter("pCodCant", c.CodCant));
+                cmd.Parameters.Add(new SqlParameter("pDescCodCant", c.DescriCodCAnt));
+                cmd.Parameters.Add(new SqlParameter("pIndir", c.Indirizzo));
+                cmd.Parameters.Add(new SqlParameter("pCitta", c.Città));
+                cmd.Parameters.Add(new SqlParameter("pRicar", c.Ricarico));
+                cmd.Parameters.Add(new SqlParameter("pPzzoManod", c.PzzoManodopera));
+                cmd.Parameters.Add(new SqlParameter("pChiuso", c.Chiuso));
+                cmd.Parameters.Add(new SqlParameter("pRiscosso", c.Riscosso));
+                cmd.Parameters.Add(new SqlParameter("pNumero", c.Numero));
+                cmd.Parameters.Add(new SqlParameter("pValPrev", c.ValorePreventivo));
+                cmd.Parameters.Add(new SqlParameter("pIva", c.Iva));
+                cmd.Parameters.Add(new SqlParameter("pAnno", c.Anno));
+                cmd.Parameters.Add(new SqlParameter("pPrev", c.Preventivo));
+                cmd.Parameters.Add(new SqlParameter("pFasciaCant", c.FasciaTblCantieri));
+                cmd.Parameters.Add(new SqlParameter("pDaDividere", c.DaDividere));
+                cmd.Parameters.Add(new SqlParameter("pDiviso", c.Diviso));
+                cmd.Parameters.Add(new SqlParameter("pFatturato", c.Fatturato));
+                cmd.Parameters.Add(new SqlParameter("pCodRiferCant", c.CodRiferCant));
 
                 int ret = cmd.ExecuteNonQuery();
 
@@ -842,10 +833,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool UpdateCantiere(string idCant, string idCliente, string data, string codCant,
-            string descrCodCant, string indirizzo, string citta, string ricarico, decimal pzzoManodop,
-            string chiuso, string riscosso, string numeroCant, decimal valPrev, string iva, string anno,
-            string preventivo, string daDividere, string diviso, string fatturato, string fasciaCantiere)
+        public static bool UpdateCantiere(string idCant, Cantieri c)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -866,25 +854,25 @@ namespace GestioneCantieri.DAO
                       "WHERE IdCantieri = @pId ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdClienti", idCliente));
-                cmd.Parameters.Add(new SqlParameter("pData", data));
-                cmd.Parameters.Add(new SqlParameter("pCodCant", codCant));
-                cmd.Parameters.Add(new SqlParameter("pDescrCant", descrCodCant));
-                cmd.Parameters.Add(new SqlParameter("pIndir", indirizzo));
-                cmd.Parameters.Add(new SqlParameter("pCitta", citta));
-                cmd.Parameters.Add(new SqlParameter("pRicarico", ricarico));
-                cmd.Parameters.Add(new SqlParameter("pPrezzoManodop", pzzoManodop));
-                cmd.Parameters.Add(new SqlParameter("pChiuso", chiuso));
-                cmd.Parameters.Add(new SqlParameter("pRiscosso", riscosso));
-                cmd.Parameters.Add(new SqlParameter("pNumero", numeroCant));
-                cmd.Parameters.Add(new SqlParameter("pValPrev", valPrev));
-                cmd.Parameters.Add(new SqlParameter("pIva", iva));
-                cmd.Parameters.Add(new SqlParameter("pAnno", anno));
-                cmd.Parameters.Add(new SqlParameter("pPrev", preventivo));
-                cmd.Parameters.Add(new SqlParameter("pFascia", fasciaCantiere));
-                cmd.Parameters.Add(new SqlParameter("pDaDividere", daDividere));
-                cmd.Parameters.Add(new SqlParameter("pDiviso", diviso));
-                cmd.Parameters.Add(new SqlParameter("pFatturato", fatturato));
+                cmd.Parameters.Add(new SqlParameter("pIdClienti", c.IdtblClienti));
+                cmd.Parameters.Add(new SqlParameter("pData", c.Data));
+                cmd.Parameters.Add(new SqlParameter("pCodCant", c.CodCant));
+                cmd.Parameters.Add(new SqlParameter("pDescrCant", c.DescriCodCAnt));
+                cmd.Parameters.Add(new SqlParameter("pIndir", c.Indirizzo));
+                cmd.Parameters.Add(new SqlParameter("pCitta", c.Città));
+                cmd.Parameters.Add(new SqlParameter("pRicarico", c.Ricarico));
+                cmd.Parameters.Add(new SqlParameter("pPrezzoManodop", c.PzzoManodopera));
+                cmd.Parameters.Add(new SqlParameter("pChiuso", c.Chiuso));
+                cmd.Parameters.Add(new SqlParameter("pRiscosso", c.Riscosso));
+                cmd.Parameters.Add(new SqlParameter("pNumero", c.Numero));
+                cmd.Parameters.Add(new SqlParameter("pValPrev", c.ValorePreventivo));
+                cmd.Parameters.Add(new SqlParameter("pIva", c.Iva));
+                cmd.Parameters.Add(new SqlParameter("pAnno", c.Anno));
+                cmd.Parameters.Add(new SqlParameter("pPrev", c.Preventivo));
+                cmd.Parameters.Add(new SqlParameter("pFascia", c.FasciaTblCantieri));
+                cmd.Parameters.Add(new SqlParameter("pDaDividere", c.DaDividere));
+                cmd.Parameters.Add(new SqlParameter("pDiviso", c.Diviso));
+                cmd.Parameters.Add(new SqlParameter("pFatturato", c.Fatturato));
                 cmd.Parameters.Add(new SqlParameter("pId", idCant));
 
                 int row = cmd.ExecuteNonQuery();
@@ -896,7 +884,7 @@ namespace GestioneCantieri.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Errore durante l'eliminazione del cantiere", ex);
+                throw new Exception("Errore durante l'aggiornamento del cantiere " + idCant, ex);
             }
             finally { cn.Close(); }
         }

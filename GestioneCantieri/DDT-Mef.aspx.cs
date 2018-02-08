@@ -113,17 +113,36 @@ namespace GestioneCantieri
         protected void BindGridWithSearch()
         {
             List<DDTMef> listaDDT = new List<DDTMef>();
-            listaDDT = DDTMefDAO.searchFilter(txtAnnoInizio.Text, txtAnnoFine.Text, txtDataInizio.Text, txtDataFine.Text, txtQta.Text, txtN_DDT.Text,
-                                              txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text, txtDescriCodArt1.Text,
-                                              txtDescriCodArt2.Text, txtDescriCodArt3.Text);
+            DDTMefObject ddt = FillDdtObject();
+
+            // Rigenero la griglia
+            listaDDT = DDTMefDAO.searchFilter(ddt);
             grdListaDDTMef.DataSource = listaDDT;
             grdListaDDTMef.DataBind();
-            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitarioWithSearch(txtAnnoInizio.Text, txtAnnoFine.Text, txtDataInizio.Text, txtDataFine.Text,
-                                                                           txtQta.Text, txtN_DDT.Text, txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text,
-                                                                           txtDescriCodArt1.Text, txtDescriCodArt2.Text, txtDescriCodArt3.Text).ToString("0.00");
+
+            //Rigenero il valore della media dei prezzi unitari
+            ddt = FillDdtObject();
+            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitarioWithSearch(ddt).ToString("0.00");
         }
 
         /*** HELPERS ***/
+        protected DDTMefObject FillDdtObject()
+        {
+            DDTMefObject ddt = new DDTMefObject();
+            ddt.AnnoInizio = txtAnnoInizio.Text;
+            ddt.AnnoFine = txtAnnoFine.Text;
+            ddt.DataInizio = txtDataInizio.Text;
+            ddt.DataFine = txtDataFine.Text;
+            ddt.Qta = txtQta.Text;
+            ddt.NDdt = txtN_DDT.Text;
+            ddt.CodArt1 = txtCodArt1.Text;
+            ddt.CodArt2 = txtCodArt2.Text;
+            ddt.CodArt3 = txtCodArt3.Text;
+            ddt.DescriCodArt1 = txtDescriCodArt1.Text;
+            ddt.DescriCodArt2 = txtDescriCodArt2.Text;
+            ddt.DescriCodArt3 = txtDescriCodArt3.Text;
+            return ddt;
+        }
         protected void FillDdlClienti()
         {
             List<Fornitori> listClienti = FornitoriDAO.GetFornitori();
@@ -148,9 +167,9 @@ namespace GestioneCantieri
         }
         private void UpdatePrezzi(List<DDTMef> ddtList)
         {
-            foreach(DDTMef ddt in ddtList)
+            foreach (DDTMef ddt in ddtList)
             {
-                if(ddt.Anno == DateTime.Now.Year && ddt.Data.Month == DateTime.Now.Month)
+                if (ddt.Anno == DateTime.Now.Year && ddt.Data.Month == DateTime.Now.Month)
                 {
                     // Aggiorno il prezzo di ogni DDT appartenente al mese e all'anno corrente
                     DDTMefDAO.UpdateDdt(ddt);
