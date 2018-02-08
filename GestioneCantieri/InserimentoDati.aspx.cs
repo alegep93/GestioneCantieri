@@ -86,12 +86,10 @@ namespace GestioneCantieri
         //Clienti
         protected void btnInsCliente_Click(object sender, EventArgs e)
         {
+            Clienti cliente = FillObjCliente();
             if (txtRagSocCli.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciCliente(txtRagSocCli.Text,
-                    txtIndirizzo.Text, txtCap.Text, txtCitta.Text, txtProvincia.Text,
-                    txtTelefono.Text, txtCellulare.Text, txtPartitaIva.Text,
-                    txtCodiceFiscale.Text, txtDataInserimento.Text, txtNote.Text);
+                bool isInserito = InserimentoDatiDAO.InserisciCliente(cliente);
 
                 if (isInserito)
                 {
@@ -113,12 +111,26 @@ namespace GestioneCantieri
                 lblIsClienteInserito.ForeColor = Color.Red;
             }
         }
+        private Clienti FillObjCliente()
+        {
+            Clienti c = new Clienti();
+            c.RagSocCli = txtRagSocCli.Text;
+            c.Indirizzo = txtIndirizzo.Text;
+            c.Cap = txtCap.Text;
+            c.Città = txtCitta.Text;
+            c.Provincia = txtProvincia.Text;
+            c.Tel1 = Convert.ToInt32(txtTelefono.Text);
+            c.Cell1 = Convert.ToInt32(txtCellulare.Text);
+            c.PartitaIva = txtPartitaIva.Text;
+            c.CodFiscale = txtCodiceFiscale.Text;
+            c.Data = Convert.ToDateTime(txtDataInserimento.Text);
+            c.Note = txtNote.Text;
+            return c;
+        }
         protected void btnModCliente_Click(object sender, EventArgs e)
         {
-            bool isUpdated = InserimentoDatiDAO.UpdateCliente(hidIdClienti.Value, txtRagSocCli.Text,
-                    txtIndirizzo.Text, txtCap.Text, txtCitta.Text, txtProvincia.Text,
-                    txtTelefono.Text, txtCellulare.Text, txtPartitaIva.Text,
-                    txtCodiceFiscale.Text, txtDataInserimento.Text, txtNote.Text);
+            Clienti cliente = FillObjCliente();
+            bool isUpdated = InserimentoDatiDAO.UpdateCliente(hidIdClienti.Value, cliente);
 
             if (isUpdated)
             {
@@ -131,7 +143,10 @@ namespace GestioneCantieri
                 lblIsClienteInserito.ForeColor = Color.Red;
             }
 
+            ResettaCampi(pnlInsClienti);
             BindGridClienti();
+            btnModCliente.Visible = false;
+            btnInsCliente.Visible = true;
         }
         protected void btnFiltraClienti_Click(object sender, EventArgs e)
         {
@@ -145,14 +160,14 @@ namespace GestioneCantieri
             ResettaCampi(pnlFiltriCliente);
             BindGridClienti();
         }
+        
         //Fornitori
         protected void btnInsFornit_Click(object sender, EventArgs e)
         {
             if (txtRagSocFornit.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciFornitore(txtRagSocFornit.Text,
-                    txtCittaFornit.Text, txtIndirFornit.Text, txtCapFornit.Text, txtTelFornit.Text,
-                    txtCelFornit.Text, txtCodFiscFornit.Text, txtPartIvaFornit.Text, txtAbbrevFornit.Text);
+                Fornitori fornitore = FillObjFornitore();
+                bool isInserito = InserimentoDatiDAO.InserisciFornitore(fornitore);
                 if (isInserito)
                 {
                     lblIsFornitoreInserito.Text = "Fornitore '" + txtRagSocFornit.Text + "' inserito correttamente";
@@ -172,11 +187,24 @@ namespace GestioneCantieri
                 lblIsFornitoreInserito.ForeColor = Color.Red;
             }
         }
+        private Fornitori FillObjFornitore()
+        {
+            Fornitori f = new Fornitori();
+            f.RagSocForni = txtRagSocFornit.Text;
+            f.Città = txtCittaFornit.Text;
+            f.Indirizzo = txtIndirFornit.Text;
+            f.Cap = txtCapFornit.Text;
+            f.Tel1 = Convert.ToInt32(txtTelFornit.Text);
+            f.Cell1 = Convert.ToInt32(txtCelFornit.Text);
+            f.CodFiscale = txtCodFiscFornit.Text;
+            f.PartitaIva = Convert.ToDouble(txtPartIvaFornit.Text);
+            f.Abbreviato = txtAbbrevFornit.Text;
+            return f;
+        }
         protected void btnModFornit_Click(object sender, EventArgs e)
         {
-            bool isUpdated = InserimentoDatiDAO.UpdateFornitore(hidIdFornit.Value, txtRagSocFornit.Text,
-                    txtCittaFornit.Text, txtIndirFornit.Text, txtCapFornit.Text, txtTelFornit.Text,
-                    txtCelFornit.Text, txtCodFiscFornit.Text, txtPartIvaFornit.Text, txtAbbrevFornit.Text);
+            Fornitori fornitore = FillObjFornitore();
+            bool isUpdated = InserimentoDatiDAO.UpdateFornitore(hidIdFornit.Value, fornitore);
 
             if (isUpdated)
             {
@@ -189,12 +217,16 @@ namespace GestioneCantieri
                 lblIsFornitoreInserito.ForeColor = Color.Red;
             }
 
+            ResettaCampi(pnlInsFornitori);
             BindGridFornitori();
+            btnModFornit.Visible = false;
+            btnInsFornit.Visible = true;
         }
         protected void btnFiltraGrdFornitori_Click(object sender, EventArgs e)
         {
             BindGridFornitori();
         }
+        
         //Operai
         protected void btnInsOper_Click(object sender, EventArgs e)
         {
@@ -238,8 +270,12 @@ namespace GestioneCantieri
                 lblIsOperaioInserito.ForeColor = Color.Red;
             }
 
+            ResettaCampi(pnlInsOperai);
             BindGridOperai();
+            btnModOper.Visible = false;
+            btnInsOper.Visible = true;
         }
+        
         //Cantieri
         protected void btnInsCantiere_Click(object sender, EventArgs e)
         {
@@ -256,11 +292,9 @@ namespace GestioneCantieri
                 if (txtValPrevCant.Text == "")
                     txtValPrevCant.Text = "0";
 
-                bool isInserito = InserimentoDatiDAO.InserisciCantiere(ddlScegliClientePerCantiere.SelectedValue, txtDataInserCant.Text,
-                    txtCodCant.Text, txtDescrCodCant.Text, txtIndirizzoCant.Text, txtCittaCant.Text,
-                    txtRicaricoCant.Text, Convert.ToDecimal(txtPzzoManodopCant.Text), chiuso, riscosso,
-                    txtNumeroCant.Text, Convert.ToDecimal(txtValPrevCant.Text), txtIvaCant.Text, txtAnnoCant.Text,
-                    preventivo, daDividere, diviso, fatturato, txtFasciaCant.Text, codRiferCant);
+                Cantieri cant = FillObjCantiere(chiuso, riscosso, preventivo, daDividere, diviso, fatturato, codRiferCant);
+
+                bool isInserito = InserimentoDatiDAO.InserisciCantiere(cant);
 
                 if (isInserito)
                 {
@@ -283,6 +317,34 @@ namespace GestioneCantieri
                 lblIsCantInserito.ForeColor = Color.Red;
             }
         }
+        private Cantieri FillObjCantiere(string chiuso, string riscosso, string preventivo, string daDividere, string diviso, string fatturato, string codRiferCant)
+        {
+            Cantieri c = new Cantieri();
+            c.IdtblClienti = Convert.ToInt32(ddlScegliClientePerCantiere.SelectedValue);
+            c.Data = Convert.ToDateTime(txtDataInserCant.Text);
+            c.CodCant = txtCodCant.Text;
+            c.DescriCodCAnt = txtDescrCodCant.Text;
+            c.Indirizzo = txtIndirizzoCant.Text;
+            c.Città = txtCittaCant.Text;
+            c.Ricarico = Convert.ToInt32(txtRicaricoCant.Text);
+            c.PzzoManodopera = Convert.ToDecimal(txtPzzoManodopCant.Text);
+            c.Chiuso = Convert.ToBoolean(chiuso);
+            c.Riscosso = Convert.ToBoolean(riscosso);
+            c.Numero = txtNumeroCant.Text;
+            c.ValorePreventivo = Convert.ToDecimal(txtValPrevCant.Text);
+            c.Iva = Convert.ToInt32(txtIvaCant.Text);
+            c.Anno = Convert.ToInt32(txtAnnoCant.Text);
+            c.Preventivo = Convert.ToBoolean(preventivo);
+            c.DaDividere = Convert.ToBoolean(daDividere);
+            c.Diviso = Convert.ToBoolean(diviso);
+            c.Fatturato = Convert.ToBoolean(fatturato);
+            c.FasciaTblCantieri = Convert.ToInt32(txtFasciaCant.Text);
+
+            if(codRiferCant != "")
+                c.CodRiferCant = codRiferCant;
+
+            return c;
+        }
         protected void btnModCantiere_Click(object sender, EventArgs e)
         {
             string chiuso = Convert.ToInt32(chkCantChiuso.Checked).ToString();
@@ -292,11 +354,9 @@ namespace GestioneCantieri
             string diviso = Convert.ToInt32(chkDiviso.Checked).ToString();
             string fatturato = Convert.ToInt32(chkFatturato.Checked).ToString();
 
-            bool isUpdated = InserimentoDatiDAO.UpdateCantiere(hidIdCant.Value, ddlScegliClientePerCantiere.SelectedValue, txtDataInserCant.Text,
-                    txtCodCant.Text, txtDescrCodCant.Text, txtIndirizzoCant.Text, txtCittaCant.Text,
-                    txtRicaricoCant.Text, Convert.ToDecimal(txtPzzoManodopCant.Text), chiuso, riscosso,
-                    txtNumeroCant.Text, Convert.ToDecimal(txtValPrevCant.Text), txtIvaCant.Text, txtAnnoCant.Text,
-                    preventivo, daDividere, diviso, fatturato, txtFasciaCant.Text);
+            Cantieri cant = FillObjCantiere(chiuso, riscosso, preventivo, daDividere, diviso, fatturato, "");
+
+            bool isUpdated = InserimentoDatiDAO.UpdateCantiere(hidIdCant.Value, cant);
 
             if (isUpdated)
             {
@@ -332,6 +392,7 @@ namespace GestioneCantieri
             chkFiltroChiuso.Checked = chkFiltroRiscosso.Checked = false;
             BindGridCantieri();
         }
+        
         //Spese
         protected void btnInsSpesa_Click(object sender, EventArgs e)
         {
@@ -388,7 +449,10 @@ namespace GestioneCantieri
                 lblIsSpesaInserita.ForeColor = Color.Red;
             }
 
+            ResettaCampi(pnlInsSpese);
             BindGridSpese();
+            btnModSpesa.Visible = false;
+            btnInsSpesa.Visible = true;
         }
         protected void btnFiltraGrdSpese_Click(object sender, EventArgs e)
         {
@@ -418,7 +482,8 @@ namespace GestioneCantieri
                     ((CheckBox)control).Checked = false;
                     ((CheckBox)control).Enabled = true;
                 }
-                if (control is DropDownList) { 
+                if (control is DropDownList)
+                {
                     ((DropDownList)control).Enabled = true;
                     ((DropDownList)control).SelectedIndex = 0;
                 }
@@ -498,6 +563,7 @@ namespace GestioneCantieri
             txtCodiceFiscale.Text = cli.CodFiscale;
             txtDataInserimento.Text = cli.Data.ToString();
             txtProvincia.Text = cli.Provincia;
+            txtDataInserimento.Text = cli.Data.ToString("yyyy-MM-dd");
             txtNote.Text = cli.Note;
         }
         //Fornitori

@@ -178,6 +178,7 @@
     <Compile Include="DAO\StampaOrdFrutCantDAO.cs" />
     <Compile Include="DAO\StampeDAO.cs" />
     <Compile Include="DAO\TipDatCantDAO.cs" />
+    <Compile Include="Data\DDTMefObject.cs" />
     <Compile Include="Data\MaterialiCantieri.cs" />
     <Compile Include="Data\Pagamenti.cs" />
     <Compile Include="Data\RicalcoloContiStampaPDF.cs" />

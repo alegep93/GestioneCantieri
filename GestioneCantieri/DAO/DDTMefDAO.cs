@@ -122,8 +122,7 @@ namespace GestioneCantieri.DAO
         }
 
         /*** Mostro la lista dei DDT in base ai campi compilati ***/
-        public static List<DDTMef> searchFilter(string inizio, string fine, string dataInizio, string dataFine, string qta, string n_ddt,
-            string codArt1, string codArt2, string codArt3, string descriCodArt1, string descriCodArt2, string descriCodArt3)
+        public static List<DDTMef> searchFilter(DDTMefObject ddt)
         {
             List<DDTMef> retList = new List<DDTMef>();
             string sql = "";
@@ -131,12 +130,12 @@ namespace GestioneCantieri.DAO
             SqlConnection cn = GetConnection();
             DateTime emptyData = new DateTime();
 
-            codArt1 = "%" + codArt1 + "%";
-            codArt2 = "%" + codArt2 + "%";
-            codArt3 = "%" + codArt3 + "%";
-            descriCodArt1 = "%" + descriCodArt1 + "%";
-            descriCodArt2 = "%" + descriCodArt2 + "%";
-            descriCodArt3 = "%" + descriCodArt3 + "%";
+            ddt.CodArt1 = "%" + ddt.CodArt1 + "%";
+            ddt.CodArt2 = "%" + ddt.CodArt2 + "%";
+            ddt.CodArt3 = "%" + ddt.CodArt3 + "%";
+            ddt.DescriCodArt1 = "%" + ddt.DescriCodArt1 + "%";
+            ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
+            ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
             try
             {
@@ -148,26 +147,26 @@ namespace GestioneCantieri.DAO
                 //Controllo i casi in cui entrambi gli anni o le date siano
                 //state valorizzate, oppure quanto tutti quanti sono vuoti
                 //altrimenti faccio una where generica per tutti gli altri casi
-                if (inizio != "" && fine != "")
+                if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
                     sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) " +
                            "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
-                else if (dataInizio != "" && dataFine != "")
+                else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
                     sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
                            "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
-                else if (inizio == "" && fine == "" && dataInizio == "" && dataFine == "")
+                else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
-                    inizio = "%" + inizio + "%";
-                    fine = "%" + fine + "%";
-                    dataInizio = "2010-01-01";
-                    dataFine = DateTime.Now.ToString();
+                    ddt.AnnoInizio = "%" + ddt.AnnoInizio + "%";
+                    ddt.AnnoFine = "%" + ddt.AnnoFine + "%";
+                    ddt.DataInizio = "2010-01-01";
+                    ddt.DataFine = DateTime.Now.ToString();
 
                     sql += "WHERE Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
@@ -184,34 +183,34 @@ namespace GestioneCantieri.DAO
                 sql += "ORDER BY Anno, Data, N_DDT, CodArt ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pAnnoInizio", inizio));
-                cmd.Parameters.Add(new SqlParameter("pAnnoFine", fine));
-                cmd.Parameters.Add(new SqlParameter("pCodArt1", codArt1));
-                cmd.Parameters.Add(new SqlParameter("pCodArt2", codArt2));
-                cmd.Parameters.Add(new SqlParameter("pCodArt3", codArt3));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", descriCodArt1));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt2", descriCodArt2));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt3", descriCodArt3));
+                cmd.Parameters.Add(new SqlParameter("pAnnoInizio", ddt.AnnoInizio));
+                cmd.Parameters.Add(new SqlParameter("pAnnoFine", ddt.AnnoFine));
+                cmd.Parameters.Add(new SqlParameter("pCodArt1", ddt.CodArt1));
+                cmd.Parameters.Add(new SqlParameter("pCodArt2", ddt.CodArt2));
+                cmd.Parameters.Add(new SqlParameter("pCodArt3", ddt.CodArt3));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", ddt.DescriCodArt1));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt2", ddt.DescriCodArt2));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt3", ddt.DescriCodArt3));
 
-                if (qta == "")
+                if (ddt.Qta == "")
                     cmd.Parameters.Add(new SqlParameter("pQta", "%%"));
                 else
-                    cmd.Parameters.Add(new SqlParameter("pQta", qta));
+                    cmd.Parameters.Add(new SqlParameter("pQta", ddt.Qta));
 
-                if (n_ddt == "")
+                if (ddt.NDdt == "")
                     cmd.Parameters.Add(new SqlParameter("pN_DDT", "%%"));
                 else
-                    cmd.Parameters.Add(new SqlParameter("pN_DDT", n_ddt));
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", ddt.NDdt));
 
-                if (dataInizio != "" && dataFine != "")
+                if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    cmd.Parameters.Add(new SqlParameter("pDataInizio", Convert.ToDateTime(dataInizio)));
-                    cmd.Parameters.Add(new SqlParameter("pDataFine", Convert.ToDateTime(dataFine)));
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", Convert.ToDateTime(ddt.DataInizio)));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", Convert.ToDateTime(ddt.DataFine)));
                 }
                 else
                 {
-                    cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
-                    cmd.Parameters.Add(new SqlParameter("pDataFine", dataFine));
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", ddt.DataInizio));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", ddt.DataFine));
                 }
 
                 dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
@@ -268,46 +267,45 @@ namespace GestioneCantieri.DAO
         }
 
         /*** Media dei prezzi con filtro ***/
-        public static decimal calcolaMediaPrezzoUnitarioWithSearch(string inizio, string fine, string dataInizio, string dataFine, string qta, string n_ddt,
-            string codArt1, string codArt2, string codArt3, string descriCodArt1, string descriCodArt2, string descriCodArt3)
+        public static decimal calcolaMediaPrezzoUnitarioWithSearch(DDTMefObject ddt)
         {
             decimal media = 0m;
             string sql = "";
             SqlDataReader dr = null;
             SqlConnection cn = GetConnection();
 
-            codArt1 = "%" + codArt1 + "%";
-            codArt2 = "%" + codArt2 + "%";
-            codArt3 = "%" + codArt3 + "%";
-            descriCodArt1 = "%" + descriCodArt1 + "%";
-            descriCodArt2 = "%" + descriCodArt2 + "%";
-            descriCodArt3 = "%" + descriCodArt3 + "%";
+            ddt.CodArt1 = "%" + ddt.CodArt1 + "%";
+            ddt.CodArt2 = "%" + ddt.CodArt2 + "%";
+            ddt.CodArt3 = "%" + ddt.CodArt3 + "%";
+            ddt.DescriCodArt1 = "%" + ddt.DescriCodArt1 + "%";
+            ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
+            ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
             try
             {
                 sql = "SELECT (SUM(PrezzoUnitario)) / (COUNT(PrezzoUnitario)) " +
                         "FROM TblDDTMef ";
 
-                if (inizio != "" && fine != "")
+                if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
                     sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" +
                            "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
-                else if (dataInizio != "" && dataFine != "")
+                else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
                     sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
                            "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                            "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
                 }
-                else if (inizio == "" && fine == "" && dataInizio == "" && dataFine == "")
+                else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
-                    inizio = "%" + inizio + "%";
-                    fine = "%" + fine + "%";
-                    dataInizio = "2010-01-01";
-                    dataFine = DateTime.Now.ToString();
+                    ddt.AnnoInizio = "%" + ddt.AnnoInizio + "%";
+                    ddt.AnnoFine = "%" + ddt.AnnoFine + "%";
+                    ddt.DataInizio = "2010-01-01";
+                    ddt.DataFine = DateTime.Now.ToString();
 
                     sql += "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                            "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
@@ -323,34 +321,34 @@ namespace GestioneCantieri.DAO
 
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pAnnoInizio", inizio));
-                cmd.Parameters.Add(new SqlParameter("pAnnoFine", fine));
-                cmd.Parameters.Add(new SqlParameter("pCodArt1", codArt1));
-                cmd.Parameters.Add(new SqlParameter("pCodArt2", codArt2));
-                cmd.Parameters.Add(new SqlParameter("pCodArt3", codArt3));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", descriCodArt1));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt2", descriCodArt2));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt3", descriCodArt3));
+                cmd.Parameters.Add(new SqlParameter("pAnnoInizio", ddt.AnnoInizio));
+                cmd.Parameters.Add(new SqlParameter("pAnnoFine", ddt.AnnoFine));
+                cmd.Parameters.Add(new SqlParameter("pCodArt1", ddt.CodArt1));
+                cmd.Parameters.Add(new SqlParameter("pCodArt2", ddt.CodArt2));
+                cmd.Parameters.Add(new SqlParameter("pCodArt3", ddt.CodArt3));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", ddt.DescriCodArt1));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt2", ddt.DescriCodArt2));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt3", ddt.DescriCodArt3));
 
-                if (qta == "")
+                if (ddt.Qta == "")
                     cmd.Parameters.Add(new SqlParameter("pQta", "%%"));
                 else
-                    cmd.Parameters.Add(new SqlParameter("pQta", qta));
+                    cmd.Parameters.Add(new SqlParameter("pQta", ddt.Qta));
 
-                if (n_ddt == "")
+                if (ddt.NDdt == "")
                     cmd.Parameters.Add(new SqlParameter("pN_DDT", "%%"));
                 else
-                    cmd.Parameters.Add(new SqlParameter("pN_DDT", n_ddt));
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", ddt.NDdt));
 
-                if (dataInizio != "" && dataFine != "")
+                if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    cmd.Parameters.Add(new SqlParameter("pDataInizio", Convert.ToDateTime(dataInizio)));
-                    cmd.Parameters.Add(new SqlParameter("pDataFine", Convert.ToDateTime(dataFine)));
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", Convert.ToDateTime(ddt.DataInizio)));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", Convert.ToDateTime(ddt.DataFine)));
                 }
                 else
                 {
-                    cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
-                    cmd.Parameters.Add(new SqlParameter("pDataFine", dataFine));
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", ddt.DataInizio));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", ddt.DataFine));
                 }
 
                 dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader

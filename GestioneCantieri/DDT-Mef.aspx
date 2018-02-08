@@ -70,7 +70,7 @@
                 </div>
 
                 <!-- Ricerca Per Quantità -->
-                <div class="searchFilterContainer col-md-2">
+                <div class="searchFilterContainer col-md-3">
                     <asp:Label ID="lblCercaQta" runat="server" Text="Cerca per Qta o N_DDT"></asp:Label>
                     <div class="col-md-12">
                         <asp:Label ID="lblQta" runat="server" Text="Quantità"></asp:Label>
@@ -83,7 +83,7 @@
                 </div>
 
                 <!-- Ricerca Per CodArt e DescriCodArt -->
-                <div class="searchFilterContainer col-md-4">
+                <div class="searchFilterContainer col-md-3">
                     <asp:Label ID="Label1" runat="server" Text="CodArt & DescriCodArt"></asp:Label>
                     <div class="col-md-12">
                         <asp:Label ID="lblCercaCodArt" runat="server" Text="Cerca per codice articolo"></asp:Label>
