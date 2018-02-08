@@ -45,3 +45,5 @@ C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.pdb
 C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\AjaxControlToolkit.dll
 C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\AjaxMin.dll
 C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csproj.CoreCompileInputs.cache
+C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\itextsharp.dll
+C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\itextsharp.xml
