@@ -160,7 +160,7 @@ namespace GestioneCantieri
             ResettaCampi(pnlFiltriCliente);
             BindGridClienti();
         }
-        
+
         //Fornitori
         protected void btnInsFornit_Click(object sender, EventArgs e)
         {
@@ -226,7 +226,7 @@ namespace GestioneCantieri
         {
             BindGridFornitori();
         }
-        
+
         //Operai
         protected void btnInsOper_Click(object sender, EventArgs e)
         {
@@ -275,18 +275,18 @@ namespace GestioneCantieri
             btnModOper.Visible = false;
             btnInsOper.Visible = true;
         }
-        
+
         //Cantieri
         protected void btnInsCantiere_Click(object sender, EventArgs e)
         {
             if (ddlScegliClientePerCantiere.SelectedIndex != 0)
             {
-                string chiuso = Convert.ToInt32(chkCantChiuso.Checked).ToString();
-                string riscosso = Convert.ToInt32(chkCantRiscosso.Checked).ToString();
-                string preventivo = Convert.ToInt32(chkPreventivo.Checked).ToString();
-                string daDividere = Convert.ToInt32(chkDaDividere.Checked).ToString();
-                string diviso = Convert.ToInt32(chkDiviso.Checked).ToString();
-                string fatturato = Convert.ToInt32(chkFatturato.Checked).ToString();
+                bool chiuso = chkCantChiuso.Checked;
+                bool riscosso = chkCantRiscosso.Checked;
+                bool preventivo = chkPreventivo.Checked;
+                bool daDividere = chkDaDividere.Checked;
+                bool diviso = chkDiviso.Checked;
+                bool fatturato = chkFatturato.Checked;
                 string codRiferCant = CostruisceCodRiferCant();
 
                 if (txtValPrevCant.Text == "")
@@ -317,7 +317,7 @@ namespace GestioneCantieri
                 lblIsCantInserito.ForeColor = Color.Red;
             }
         }
-        private Cantieri FillObjCantiere(string chiuso, string riscosso, string preventivo, string daDividere, string diviso, string fatturato, string codRiferCant)
+        private Cantieri FillObjCantiere(bool chiuso, bool riscosso, bool preventivo, bool daDividere, bool diviso, bool fatturato, string codRiferCant)
         {
             Cantieri c = new Cantieri();
             c.IdtblClienti = Convert.ToInt32(ddlScegliClientePerCantiere.SelectedValue);
@@ -328,31 +328,31 @@ namespace GestioneCantieri
             c.Città = txtCittaCant.Text;
             c.Ricarico = Convert.ToInt32(txtRicaricoCant.Text);
             c.PzzoManodopera = Convert.ToDecimal(txtPzzoManodopCant.Text);
-            c.Chiuso = Convert.ToBoolean(chiuso);
-            c.Riscosso = Convert.ToBoolean(riscosso);
+            c.Chiuso = chiuso;
+            c.Riscosso = riscosso;
             c.Numero = txtNumeroCant.Text;
             c.ValorePreventivo = Convert.ToDecimal(txtValPrevCant.Text);
             c.Iva = Convert.ToInt32(txtIvaCant.Text);
             c.Anno = Convert.ToInt32(txtAnnoCant.Text);
-            c.Preventivo = Convert.ToBoolean(preventivo);
-            c.DaDividere = Convert.ToBoolean(daDividere);
-            c.Diviso = Convert.ToBoolean(diviso);
-            c.Fatturato = Convert.ToBoolean(fatturato);
+            c.Preventivo = preventivo;
+            c.DaDividere = daDividere;
+            c.Diviso = diviso;
+            c.Fatturato = fatturato;
             c.FasciaTblCantieri = Convert.ToInt32(txtFasciaCant.Text);
 
-            if(codRiferCant != "")
+            if (codRiferCant != "")
                 c.CodRiferCant = codRiferCant;
 
             return c;
         }
         protected void btnModCantiere_Click(object sender, EventArgs e)
         {
-            string chiuso = Convert.ToInt32(chkCantChiuso.Checked).ToString();
-            string riscosso = Convert.ToInt32(chkCantRiscosso.Checked).ToString();
-            string preventivo = Convert.ToInt32(chkPreventivo.Checked).ToString();
-            string daDividere = Convert.ToInt32(chkDaDividere.Checked).ToString();
-            string diviso = Convert.ToInt32(chkDiviso.Checked).ToString();
-            string fatturato = Convert.ToInt32(chkFatturato.Checked).ToString();
+            bool chiuso = chkCantChiuso.Checked;
+            bool riscosso = chkCantRiscosso.Checked;
+            bool preventivo = chkPreventivo.Checked;
+            bool daDividere = chkDaDividere.Checked;
+            bool diviso = chkDiviso.Checked;
+            bool fatturato = chkFatturato.Checked;
 
             Cantieri cant = FillObjCantiere(chiuso, riscosso, preventivo, daDividere, diviso, fatturato, "");
 
@@ -392,7 +392,7 @@ namespace GestioneCantieri
             chkFiltroChiuso.Checked = chkFiltroRiscosso.Checked = false;
             BindGridCantieri();
         }
-        
+
         //Spese
         protected void btnInsSpesa_Click(object sender, EventArgs e)
         {
