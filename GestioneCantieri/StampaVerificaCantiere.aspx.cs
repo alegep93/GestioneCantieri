@@ -125,7 +125,7 @@ namespace GestioneCantieri
             decimal totGuadConManodop = totGuadagno + totManodop;
             lblTotGuadagnoConManodop.Text = "<strong>Tot. Guadagno Con Manodopopera</strong>: " + totGuadConManodop;
 
-            decimal totGuadOrarioManodop = totGuadConManodop / totOreManodop;
+            decimal totGuadOrarioManodop = totGuadConManodop / (totOreManodop == 0 ? 1 : totOreManodop);
             lblTotGuadagnoOrarioManodop.Text = "<strong>Tot. Guadagno Orario Manodopopera</strong>: " + String.Format("{0:n}", totGuadOrarioManodop);
         }
 
