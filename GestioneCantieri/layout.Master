@@ -6,14 +6,15 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <%--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>--%>
+    <script src="Scripts/jquery-3.3.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/FilterToggle.js"></script>
 
     <link href="Css/style.css" rel="stylesheet" type="text/css" runat="server" media="screen"/>
     <link href="Css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="Css/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet" />
+    <%--<link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet" />--%>
     <asp:ContentPlaceHolder ID="title" runat="server">
     </asp:ContentPlaceHolder>
 </head>
