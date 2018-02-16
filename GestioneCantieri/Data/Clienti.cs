@@ -7,19 +7,19 @@ namespace GestioneCantieri.Data
 {
     public class Clienti
     {
-        int idCliente, tel1, cell1;
-        string ragSocCli, indirizzo, cap, città, partitaIva, codFiscale, provincia, note;
+        int idCliente;
+        string ragSocCli, indirizzo, cap, città, tel1, cell1, partitaIva, codFiscale, provincia, note;
         DateTime data;
 
         public Clienti()
         {
-            this.idCliente = this.tel1 = this.cell1 = -1;
-            this.ragSocCli = this.indirizzo = this.cap = this.città = this.partitaIva = "";
+            this.idCliente = -1;
+            this.ragSocCli = this.tel1 = this.cell1 = this.indirizzo = this.cap = this.città = this.partitaIva = "";
             this.codFiscale = this.provincia = this.note = "";
             this.data = new DateTime();
         }
 
-        public Clienti(int idCliente, int tel1, int cell1, string ragSocCli, string indirizzo, string cap, string città, string partitaIva, string codFiscale, string provincia, string note, DateTime data)
+        public Clienti(int idCliente, string tel1, string cell1, string ragSocCli, string indirizzo, string cap, string città, string partitaIva, string codFiscale, string provincia, string note, DateTime data)
         {
             this.idCliente = idCliente;
             this.tel1 = tel1;
@@ -45,32 +45,6 @@ namespace GestioneCantieri.Data
             set
             {
                 idCliente = value;
-            }
-        }
-
-        public int Tel1
-        {
-            get
-            {
-                return tel1;
-            }
-
-            set
-            {
-                tel1 = value;
-            }
-        }
-
-        public int Cell1
-        {
-            get
-            {
-                return cell1;
-            }
-
-            set
-            {
-                cell1 = value;
             }
         }
 
@@ -190,5 +164,8 @@ namespace GestioneCantieri.Data
                 data = value;
             }
         }
+
+        public string Tel1 { get => tel1; set => tel1 = value; }
+        public string Cell1 { get => cell1; set => cell1 = value; }
     }
 }

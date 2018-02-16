@@ -119,8 +119,8 @@ namespace GestioneCantieri
             c.Cap = txtCap.Text;
             c.Città = txtCitta.Text;
             c.Provincia = txtProvincia.Text;
-            c.Tel1 = Convert.ToInt32(txtTelefono.Text);
-            c.Cell1 = Convert.ToInt32(txtCellulare.Text);
+            c.Tel1 = txtTelefono.Text;
+            c.Cell1 = txtCellulare.Text;
             c.PartitaIva = txtPartitaIva.Text;
             c.CodFiscale = txtCodiceFiscale.Text;
             c.Data = Convert.ToDateTime(txtDataInserimento.Text);
