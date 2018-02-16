@@ -93,8 +93,8 @@ namespace GestioneCantieri.DAO
                     cliente.Indirizzo = (dr.IsDBNull(2) ? null : dr.GetString(2));
                     cliente.Cap = (dr.IsDBNull(3) ? null : dr.GetString(3));
                     cliente.Città = (dr.IsDBNull(4) ? null : dr.GetString(4));
-                    cliente.Tel1 = (dr.IsDBNull(5) ? -1 : dr.GetInt32(5));
-                    cliente.Cell1 = (dr.IsDBNull(6) ? -1 : dr.GetInt32(6));
+                    cliente.Tel1 = (dr.IsDBNull(5) ? "" : dr.GetString(5));
+                    cliente.Cell1 = (dr.IsDBNull(6) ? "" : dr.GetString(6));
                     cliente.PartitaIva = (dr.IsDBNull(7) ? null : dr.GetString(7));
                     cliente.CodFiscale = (dr.IsDBNull(8) ? null : dr.GetString(8));
                     cliente.Data = (dr.IsDBNull(9) ? new DateTime() : dr.GetDateTime(9));

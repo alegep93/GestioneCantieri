@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -214,6 +215,12 @@ namespace GestioneCantieri
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Write(pdfDoc);
             Response.End();
+
+            //Sposto il file nella cartella di destinazione
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            string oldPath = @"C:\Users\" + userName + "\\Downloads\\" + mc.RagSocCli + ".pdf";
+            string newPath = @"E:\Alessandro" + mc.RagSocCli + ".pdf";
+            File.Move(oldPath, newPath);
         }
         public void GeneraPDFPerContoFinCli(Document pdfDoc, MaterialiCantieri mc, PdfPTable table, GridView grd, decimal totale)
         {
