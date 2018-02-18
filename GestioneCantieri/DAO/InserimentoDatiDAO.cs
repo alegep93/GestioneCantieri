@@ -660,7 +660,7 @@ namespace GestioneCantieri.DAO
                     c.PzzoManodopera = (dr.IsDBNull(8) ? -1m : dr.GetDecimal(8));
                     c.Chiuso = (dr.IsDBNull(9) ? false : dr.GetBoolean(9));
                     c.Riscosso = (dr.IsDBNull(10) ? false : dr.GetBoolean(10));
-                    c.Numero = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    c.Numero = (dr.IsDBNull(11) ? -1 : dr.GetInt32(11));
                     c.ValorePreventivo = (dr.IsDBNull(12) ? -1m : dr.GetDecimal(12));
                     c.Iva = (dr.IsDBNull(13) ? -1 : dr.GetInt32(13));
                     c.Anno = (dr.IsDBNull(14) ? -1 : dr.GetInt32(14));

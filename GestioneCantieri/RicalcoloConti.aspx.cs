@@ -195,7 +195,8 @@ namespace GestioneCantieri
         public void ExportToPdfPerContoFinCli(GridView grd)
         {
             decimal totale = 0m;
-            MaterialiCantieri mc = MaterialiCantieriDAO.GetDataPerIntestazione(idCant);
+            MaterialiCantieri mc = new MaterialiCantieri();
+            mc = MaterialiCantieriDAO.GetDataPerIntestazione(idCant);
 
             //Apro lo stream verso il file PDF
             Document pdfDoc = new Document(PageSize.A4, 8f, 2f, 2f, 2f);
@@ -215,12 +216,16 @@ namespace GestioneCantieri
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Write(pdfDoc);
             Response.End();
+            //Response.Flush();
+
+            //Recupero il nome del file generato
+            //string fileName = Response.Headers["Content-Disposition"].ToString().Split('=')[1];
 
             //Sposto il file nella cartella di destinazione
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            string oldPath = @"C:\Users\" + userName + "\\Downloads\\" + mc.RagSocCli + ".pdf";
-            string newPath = @"E:\Alessandro" + mc.RagSocCli + ".pdf";
-            File.Move(oldPath, newPath);
+            //string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split('\\')[1];
+            //string oldPath = @"C:\Users\" + userName + "\\Downloads\\" + fileName;
+            //string newPath = @"D:\Alessandro\" + fileName;
+            //File.Move(oldPath, newPath);
         }
         public void GeneraPDFPerContoFinCli(Document pdfDoc, MaterialiCantieri mc, PdfPTable table, GridView grd, decimal totale)
         {

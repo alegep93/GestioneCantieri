@@ -48,7 +48,7 @@ namespace GestioneCantieri.DAO
                     cant.PzzoManodopera = (dr.IsDBNull(8) ? 0.0m : dr.GetDecimal(8));
                     cant.Chiuso = (dr.IsDBNull(9) ? false : dr.GetBoolean(9));
                     cant.Riscosso = (dr.IsDBNull(10) ? false : dr.GetBoolean(10));
-                    cant.Numero = (dr.IsDBNull(11) ? null : dr.GetString(11));
+                    cant.Numero = (dr.IsDBNull(11) ? -1 : dr.GetInt32(11));
                     cant.ValorePreventivo = (dr.IsDBNull(12) ? 0.0m : dr.GetDecimal(12));
                     cant.Iva = (dr.IsDBNull(13) ? -1 : dr.GetInt32(13));
                     cant.Anno = (dr.IsDBNull(14) ? -1 : dr.GetInt32(14));
