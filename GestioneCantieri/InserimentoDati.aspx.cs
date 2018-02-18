@@ -87,23 +87,32 @@ namespace GestioneCantieri
         protected void btnInsCliente_Click(object sender, EventArgs e)
         {
             Clienti cliente = FillObjCliente();
+
             if (txtRagSocCli.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciCliente(cliente);
-
-                if (isInserito)
+                if (txtDataInserimento.Text != "")
                 {
-                    lblIsClienteInserito.Text = "Cliente '" + txtRagSocCli.Text + "' inserito correttamente";
-                    lblIsClienteInserito.ForeColor = Color.Blue;
+                    bool isInserito = InserimentoDatiDAO.InserisciCliente(cliente);
+
+                    if (isInserito)
+                    {
+                        lblIsClienteInserito.Text = "Cliente '" + txtRagSocCli.Text + "' inserito correttamente";
+                        lblIsClienteInserito.ForeColor = Color.Blue;
+                    }
+                    else
+                    {
+                        lblIsClienteInserito.Text = "Errore durante l'inserimento del cliente '" + txtRagSocCli.Text + "'";
+                        lblIsClienteInserito.ForeColor = Color.Red;
+                    }
+
+                    ResettaCampi(pnlInsClienti);
+                    BindGridClienti();
                 }
                 else
                 {
-                    lblIsClienteInserito.Text = "Errore durante l'inserimento del cliente '" + txtRagSocCli.Text + "'";
+                    lblIsClienteInserito.Text = "Il campo 'Data' deve essere compilato";
                     lblIsClienteInserito.ForeColor = Color.Red;
                 }
-
-                ResettaCampi(pnlInsClienti);
-                BindGridClienti();
             }
             else
             {
@@ -330,7 +339,7 @@ namespace GestioneCantieri
             c.PzzoManodopera = Convert.ToDecimal(txtPzzoManodopCant.Text);
             c.Chiuso = chiuso;
             c.Riscosso = riscosso;
-            c.Numero = txtNumeroCant.Text;
+            c.Numero = Convert.ToInt32(txtNumeroCant.Text);
             c.ValorePreventivo = Convert.ToDecimal(txtValPrevCant.Text);
             c.Iva = Convert.ToInt32(txtIvaCant.Text);
             c.Anno = Convert.ToInt32(txtAnnoCant.Text);
@@ -795,7 +804,7 @@ namespace GestioneCantieri
             txtCittaCant.Text = cant.Città;
             txtRicaricoCant.Text = cant.Ricarico.ToString();
             txtPzzoManodopCant.Text = cant.PzzoManodopera.ToString("N2");
-            txtNumeroCant.Text = cant.Numero;
+            txtNumeroCant.Text = cant.Numero.ToString();
             txtValPrevCant.Text = cant.ValorePreventivo.ToString("N2");
             txtIvaCant.Text = cant.Iva.ToString();
             txtAnnoCant.Text = cant.Anno.ToString();

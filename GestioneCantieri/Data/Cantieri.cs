@@ -7,22 +7,25 @@ namespace GestioneCantieri.Data
 {
     public class Cantieri
     {
-        int idCantieri, idtblClienti, ricarico, iva, anno, fasciaTblCantieri;
-        string codCant, descriCodCAnt, indirizzo, città, numero, ragSocCli, codRiferCant;
+        int idCantieri, idtblClienti, ricarico, iva, anno, fasciaTblCantieri, numero;
+        string codCant, descriCodCAnt, indirizzo, città, ragSocCli, codRiferCant;
         decimal pzzoManodopera, valorePreventivo;
         bool chiuso, riscosso, preventivo, daDividere, diviso, fatturato;
         DateTime data;
 
         public Cantieri()
         {
-            this.idCantieri = this.idtblClienti = this.ricarico = this.iva = this.anno = this.fasciaTblCantieri = -1;
-            this.codCant = this.descriCodCAnt = this.indirizzo = this.città = this.numero = this.ragSocCli = this.CodRiferCant = "";
+            this.idCantieri = this.idtblClienti = this.ricarico = this.iva = this.anno = this.numero = this.fasciaTblCantieri = -1;
+            this.codCant = this.descriCodCAnt = this.indirizzo = this.città = this.ragSocCli = this.CodRiferCant = "";
             this.pzzoManodopera = this.valorePreventivo = -1m;
             this.chiuso = this.riscosso = this.preventivo = this.daDividere = this.diviso = this.fatturato = false;
             this.data = new DateTime();
         }
 
-        public Cantieri(int idCantieri, int idtblClienti, int ricarico, int iva, int anno, int fasciaTblCantieri, string codCant, string descriCodCAnt, string indirizzo, string città, string numero, string ragSocCli, string codRiferCant, decimal pzzoManodopera, decimal valorePreventivo, bool chiuso, bool riscosso, bool preventivo, bool daDividere, bool diviso, bool fatturato, DateTime data)
+        public Cantieri(int idCantieri, int idtblClienti, int ricarico, int iva, int anno, int fasciaTblCantieri, string codCant, 
+                        string descriCodCAnt, string indirizzo, string città, int numero, string ragSocCli, string codRiferCant, 
+                        decimal pzzoManodopera, decimal valorePreventivo, bool chiuso, bool riscosso, bool preventivo, bool daDividere, 
+                        bool diviso, bool fatturato, DateTime data)
         {
             this.idCantieri = idCantieri;
             this.idtblClienti = idtblClienti;
@@ -178,7 +181,7 @@ namespace GestioneCantieri.Data
             }
         }
 
-        public string Numero
+        public int Numero
         {
             get
             {

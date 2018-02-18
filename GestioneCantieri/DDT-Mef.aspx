@@ -8,7 +8,8 @@
             overflow: hidden;
             overflow-y: auto;
         }
-        #body_spinnerImg{
+
+        #body_spinnerImg {
             width: 20px;
             height: auto;
         }
@@ -42,87 +43,89 @@
                     </div>
                 </div>
             </div>
-            <div id="filterContainer">
-                <!-- Ricerca Per Anno -->
-                <div class="searchFilterContainer col-md-2">
-                    <asp:Label ID="lblCercaAnno" runat="server" Text="Cerca per anno"></asp:Label>
-                    <div class="col-md-12">
-                        <asp:Label ID="lblAnnoInizio" runat="server" Text="Anno Iniziale"></asp:Label>
-                        <asp:TextBox ID="txtAnnoInizio" runat="server" CssClass="form-control"></asp:TextBox>
+            <asp:Panel ID="pnlFiltriDDT" runat="server">
+                <div id="filterContainer">
+                    <!-- Ricerca Per Anno -->
+                    <div class="searchFilterContainer col-md-2">
+                        <asp:Label ID="lblCercaAnno" runat="server" Text="Cerca per anno"></asp:Label>
+                        <div class="col-md-12">
+                            <asp:Label ID="lblAnnoInizio" runat="server" Text="Anno Iniziale"></asp:Label>
+                            <asp:TextBox ID="txtAnnoInizio" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
+                        <div class="col-md-12">
+                            <asp:Label ID="lblAnnoFine" runat="server" Text="Anno Finale"></asp:Label>
+                            <asp:TextBox ID="txtAnnoFine" runat="server" CssClass="form-control"></asp:TextBox>
+                        </div>
                     </div>
-                    <div class="col-md-12">
-                        <asp:Label ID="lblAnnoFine" runat="server" Text="Anno Finale"></asp:Label>
-                        <asp:TextBox ID="txtAnnoFine" runat="server" CssClass="form-control"></asp:TextBox>
-                    </div>
-                </div>
 
-                <!-- Ricerca Per Data -->
-                <div class="searchFilterContainer col-md-2">
-                    <asp:Label ID="lblCercaData" runat="server" Text="Cerca per data"></asp:Label>
-                    <div class="col-md-12">
-                        <asp:Label ID="lblDataInizio" runat="server" Text="Data Inizio"></asp:Label>
-                        <asp:TextBox ID="txtDataInizio" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
+                    <!-- Ricerca Per Data -->
+                    <div class="searchFilterContainer col-md-2">
+                        <asp:Label ID="lblCercaData" runat="server" Text="Cerca per data"></asp:Label>
+                        <div class="col-md-12">
+                            <asp:Label ID="lblDataInizio" runat="server" Text="Data Inizio"></asp:Label>
+                            <asp:TextBox ID="txtDataInizio" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-12">
+                            <asp:Label ID="lblDataFine" runat="server" Text="Data Fine"></asp:Label>
+                            <asp:TextBox ID="txtDataFine" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
                     </div>
-                    <div class="col-md-12">
-                        <asp:Label ID="lblDataFine" runat="server" Text="Data Fine"></asp:Label>
-                        <asp:TextBox ID="txtDataFine" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
 
-                <!-- Ricerca Per Quantità -->
-                <div class="searchFilterContainer col-md-3">
-                    <asp:Label ID="lblCercaQta" runat="server" Text="Cerca per Qta o N_DDT"></asp:Label>
-                    <div class="col-md-12">
-                        <asp:Label ID="lblQta" runat="server" Text="Quantità"></asp:Label>
-                        <asp:TextBox ID="txtQta" CssClass="form-control" runat="server"></asp:TextBox>
+                    <!-- Ricerca Per Quantità -->
+                    <div class="searchFilterContainer col-md-3">
+                        <asp:Label ID="lblCercaQta" runat="server" Text="Cerca per Qta o N_DDT"></asp:Label>
+                        <div class="col-md-12">
+                            <asp:Label ID="lblQta" runat="server" Text="Quantità"></asp:Label>
+                            <asp:TextBox ID="txtQta" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-12">
+                            <asp:Label ID="lblN_DDT" runat="server" Text="N_DDT"></asp:Label>
+                            <asp:TextBox ID="txtN_DDT" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
                     </div>
-                    <div class="col-md-12">
-                        <asp:Label ID="lblN_DDT" runat="server" Text="N_DDT"></asp:Label>
-                        <asp:TextBox ID="txtN_DDT" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                </div>
 
-                <!-- Ricerca Per CodArt e DescriCodArt -->
-                <div class="searchFilterContainer col-md-3">
-                    <asp:Label ID="Label1" runat="server" Text="CodArt & DescriCodArt"></asp:Label>
-                    <div class="col-md-12">
-                        <asp:Label ID="lblCercaCodArt" runat="server" Text="Cerca per codice articolo"></asp:Label>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="txtCodArt1" CssClass="form-control" runat="server"></asp:TextBox>
+                    <!-- Ricerca Per CodArt e DescriCodArt -->
+                    <div class="searchFilterContainer col-md-3">
+                        <asp:Label ID="Label1" runat="server" Text="CodArt & DescriCodArt"></asp:Label>
+                        <div class="col-md-12">
+                            <asp:Label ID="lblCercaCodArt" runat="server" Text="Cerca per codice articolo"></asp:Label>
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtCodArt1" CssClass="form-control" runat="server"></asp:TextBox>
+                            </div>
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtCodArt2" CssClass="form-control" runat="server"></asp:TextBox>
+                            </div>
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtCodArt3" CssClass="form-control" runat="server"></asp:TextBox>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="txtCodArt2" CssClass="form-control" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="txtCodArt3" CssClass="form-control" runat="server"></asp:TextBox>
+                        <div class="col-md-12">
+                            <asp:Label ID="lblCercaDescriCodArt" runat="server" Text="Cerca per Descrizione Cod. Art."></asp:Label>
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtDescriCodArt1" CssClass="form-control" runat="server"></asp:TextBox>
+                            </div>
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtDescriCodArt2" CssClass="form-control" runat="server"></asp:TextBox>
+                            </div>
+                            <div class="col-md-4">
+                                <asp:TextBox ID="txtDescriCodArt3" CssClass="form-control" runat="server"></asp:TextBox>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <asp:Label ID="lblCercaDescriCodArt" runat="server" Text="Cerca per Descrizione Cod. Art."></asp:Label>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="txtDescriCodArt1" CssClass="form-control" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="txtDescriCodArt2" CssClass="form-control" runat="server"></asp:TextBox>
-                        </div>
-                        <div class="col-md-4">
-                            <asp:TextBox ID="txtDescriCodArt3" CssClass="form-control" runat="server"></asp:TextBox>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Svuota e Media -->
-                <div class="searchFilterContainer col-md-2 text-center">
-                    <asp:Label ID="lblMedia" runat="server" Text="Media Prezzo Unitario"></asp:Label>
-                    <asp:TextBox ID="txtMedia" Enabled="false" runat="server" Style="width: 70%;"></asp:TextBox>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" CssClass="btn btn-primary btn-lg" Text="Cerca" />
-                    </div>
-                    <div class="col-md-12 text-center">
-                        <asp:Button ID="btnSvuotaTxt" runat="server" OnClick="btnSvuotaTxt_Click" Text="Svuota Caselle di Testo" CssClass="btn btn-default btn-lg" />
+                    <!-- Svuota e Media -->
+                    <div class="searchFilterContainer col-md-2 text-center">
+                        <asp:Label ID="lblMedia" runat="server" Text="Media Prezzo Unitario"></asp:Label>
+                        <asp:TextBox ID="txtMedia" Enabled="false" runat="server" Style="width: 70%;"></asp:TextBox>
+                        <div class="col-md-12 text-center">
+                            <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" CssClass="btn btn-primary btn-lg" Text="Cerca" />
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <asp:Button ID="btnSvuotaTxt" runat="server" OnClick="btnSvuotaTxt_Click" Text="Svuota Caselle di Testo" CssClass="btn btn-default btn-lg" />
+                        </div>
                     </div>
                 </div>
-            </div>
+            </asp:Panel>
         </div>
         <div class="row">
             <div class="col-md-12 tableContainer">
