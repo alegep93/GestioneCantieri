@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            <asp:Panel ID="pnlFiltriDDT" runat="server">
+            <asp:Panel ID="pnlFiltriDDT" DefaultButton="btnSearch" runat="server">
                 <div id="filterContainer">
                     <!-- Ricerca Per Anno -->
                     <div class="searchFilterContainer col-md-2">
