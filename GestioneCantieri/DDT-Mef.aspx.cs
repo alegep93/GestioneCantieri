@@ -15,8 +15,6 @@ namespace GestioneCantieri
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            btnSearch.Attributes.Add("onkeypress", "button_click(this,'" + btnSearch.ClientID + "')");
-
             if (!IsPostBack)
             {
                 BindGrid();
