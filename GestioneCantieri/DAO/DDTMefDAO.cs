@@ -367,7 +367,8 @@ namespace GestioneCantieri.DAO
         public static List<DDTMef> GetDdtFromDBF(string pathFile, string acquirente, int idFornitore)
         {
             int i = 0;
-            string excelConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + pathFile + "; Extended Properties = 'Excel 12.0;HDR=Yes;IMEX=1';";
+            //string excelConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + pathFile + "; Extended Properties = 'Excel 12.0;HDR=Yes;IMEX=1';";
+            string excelConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + pathFile + ";Extended Properties=\"Excel 12.0 Xml;HDR=YES;IMEX=1\";";
             string commandText = "SELECT [FTANNO], [FTDT], [FTNR], [FTAFO], [FTDEX1], [FTQTA], [FTPU] FROM [D_DDT$] ";
             OleDbConnection ExcelConection = null;
             List<DDTMef> list = new List<DDTMef>();
