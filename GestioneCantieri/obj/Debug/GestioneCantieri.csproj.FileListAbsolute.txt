@@ -1,42 +1,3 @@
-D:\Alessandro\Programmazione\ASP.Net\Nuova cartella\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll.config
-D:\Alessandro\Programmazione\ASP.Net\Nuova cartella\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll
-D:\Alessandro\Programmazione\ASP.Net\Nuova cartella\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.pdb
-D:\Alessandro\Programmazione\ASP.Net\Nuova cartella\GestioneCantieri\GestioneCantieri\bin\AjaxControlToolkit.dll
-D:\Alessandro\Programmazione\ASP.Net\Nuova cartella\GestioneCantieri\GestioneCantieri\bin\AjaxMin.dll
-D:\Alessandro\Programmazione\ASP.Net\Nuova cartella\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.dll
-D:\Alessandro\Programmazione\ASP.Net\Nuova cartella\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
-E:\C#\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll.config
-E:\C#\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll
-E:\C#\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.pdb
-E:\C#\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csprojResolveAssemblyReference.cache
-E:\C#\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.dll
-E:\C#\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
-D:\Alessandro\Programmazione\ASP.Net\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll.config
-D:\Alessandro\Programmazione\ASP.Net\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll
-D:\Alessandro\Programmazione\ASP.Net\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.pdb
-D:\Alessandro\Programmazione\ASP.Net\GestioneCantieri\GestioneCantieri\bin\AjaxControlToolkit.dll
-D:\Alessandro\Programmazione\ASP.Net\GestioneCantieri\GestioneCantieri\bin\AjaxMin.dll
-D:\Alessandro\Programmazione\ASP.Net\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.dll
-D:\Alessandro\Programmazione\ASP.Net\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
-D:\Alessandro\Programmazione\ASP.Net\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csprojResolveAssemblyReference.cache
-C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll.config
-C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll
-C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.pdb
-C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\bin\AjaxControlToolkit.dll
-C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\bin\AjaxMin.dll
-C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.dll
-C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
-C:\Users\AlessandroGeppi\Documents\Visual Studio 2015\Projects\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csprojResolveAssemblyReference.cache
-C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll.config
-C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll
-C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.pdb
-C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\AjaxControlToolkit.dll
-C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\AjaxMin.dll
-C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\itextsharp.dll
-C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\itextsharp.xml
-C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csproj.CoreCompileInputs.cache
-C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.dll
-C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
 C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll.config
 C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.dll
 C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\GestioneCantieri.pdb
@@ -44,6 +5,7 @@ C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\AjaxControlToolkit.dll
 C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\AjaxMin.dll
 C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\itextsharp.dll
 C:\gitRepository\GestioneCantieri\GestioneCantieri\bin\itextsharp.xml
+C:\gitRepository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csprojResolveAssemblyReference.cache
 C:\gitRepository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csproj.CoreCompileInputs.cache
 C:\gitRepository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.dll
 C:\gitRepository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
