@@ -366,10 +366,8 @@ namespace GestioneCantieri.DAO
 
         public static List<DDTMef> GetDdtFromDBF(string pathFile, string acquirente, int idFornitore)
         {
-            int i = 0;
-            //string excelConnectionString = "Provider = Microsoft.ACE.OLEDB.12.0; Data Source = " + pathFile + "; Extended Properties = 'Excel 12.0;HDR=Yes;IMEX=1';";
-            string excelConnectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + pathFile + ";Extended Properties=\"Excel 12.0 Xml;HDR=YES;IMEX=1\";";
-            string commandText = "SELECT [FTANNO], [FTDT], [FTNR], [FTAFO], [FTDEX1], [FTQTA], [FTPU] FROM [D_DDT$] ";
+            string excelConnectionString = "Provider = vfpoledb; Data Source = " + pathFile + "; Collating Sequence = machine";
+            string commandText = "SELECT FTANNO, FTDT, FTNR, FTAFO, FTDEX1, FTQTA, FTPU FROM " + pathFile + "\\D_DDT.DBF";
             OleDbConnection ExcelConection = null;
             List<DDTMef> list = new List<DDTMef>();
 
@@ -388,7 +386,7 @@ namespace GestioneCantieri.DAO
 
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
-                        if (i > 0)
+                        if (Convert.ToInt32(row.ItemArray[5]) != 0)
                         {
                             DateTime date = Convert.ToDateTime(row.ItemArray[1].ToString().Substring(0, 4) + "-" + row.ItemArray[1].ToString().Substring(4, 2) + "-" + row.ItemArray[1].ToString().Substring(6, 2));
 
@@ -399,8 +397,8 @@ namespace GestioneCantieri.DAO
                             ddt.Anno = Convert.ToInt32(row.ItemArray[0]);
                             ddt.Data = date;
                             ddt.N_ddt = Convert.ToInt32(row.ItemArray[2]);
-                            ddt.CodArt = row.ItemArray[3].ToString();
-                            ddt.DescriCodArt = row.ItemArray[4].ToString();
+                            ddt.CodArt = row.ItemArray[3].ToString().Trim();
+                            ddt.DescriCodArt = row.ItemArray[4].ToString().Trim();
                             ddt.Qta = Convert.ToInt32(row.ItemArray[5]);
                             ddt.Importo = Convert.ToDecimal(row.ItemArray[6]);
                             ddt.Acquirente = acquirente;
@@ -409,10 +407,6 @@ namespace GestioneCantieri.DAO
                             ddt.IdFornitore = idFornitore;
 
                             list.Add(ddt);
-                        }
-                        else
-                        {
-                            i++;
                         }
                     }
                 }
