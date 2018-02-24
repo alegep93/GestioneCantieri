@@ -132,7 +132,7 @@ namespace GestioneCantieri
             c.Cell1 = txtCellulare.Text;
             c.PartitaIva = txtPartitaIva.Text;
             c.CodFiscale = txtCodiceFiscale.Text;
-            c.Data = Convert.ToDateTime(txtDataInserimento.Text);
+            c.Data = Convert.ToDateTime(txtDataInserimento.Text != "" ? txtDataInserimento.Text : DateTime.Now.ToString("dd-MM-yyyy"));
             c.Note = txtNote.Text;
             return c;
         }
