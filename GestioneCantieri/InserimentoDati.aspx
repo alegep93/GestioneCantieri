@@ -73,7 +73,7 @@
         </div>
         <div class="row">
             <!-- Pannello inserimento Clienti -->
-            <asp:Panel ID="pnlInsClienti" CssClass="panel-container col-md-12" runat="server" Style="margin-top: 20px;">
+            <asp:Panel ID="pnlInsClienti" DefaultButton="btnInsCliente" CssClass="panel-container col-md-12" runat="server" Style="margin-top: 20px;">
                 <div class="col-md-3 form-group">
                     <asp:Label ID="lblRagSocCLi" runat="server" Text="Ragione Sociale Cliente" />
                     <asp:TextBox ID="txtRagSocCli" CssClass="form-control" runat="server"></asp:TextBox>

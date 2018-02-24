@@ -1905,6 +1905,7 @@ namespace GestioneCantieri
             lblTitoloMaschera.Text = "Inserisci A Chiamata";
             txtTipDatCant.Text = "A CHIAMATA";
             ShowPanels(false, false, false, false, false, true);
+            btnInsAChiam.Visible = true;
             btnModAChiam.Visible = false;
             BindGridChiamata();
             EnableDisableControls(true, pnlGestChiamata);
