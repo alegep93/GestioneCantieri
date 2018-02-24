@@ -69,9 +69,9 @@ namespace GestioneCantieri
             //Visibile TRUE
             chkVisibile.Checked = chkManodopVisibile.Checked = chkOperVisibile.Checked = chkChiamVisibile.Checked = true;
             //Ricalcolo TRUE
-            chkRicalcolo.Checked = chkChiamRicalcolo.Checked = true;
+            chkRicalcolo.Checked = true;
             //RicaricoSiNo TRUE
-            chkRicarico.Checked = chkOperRicaricoSiNo.Checked = chkChiamRicaricoSiNo.Checked = true;
+            chkRicarico.Checked = chkOperRicaricoSiNo.Checked = true;
 
             //Visibile FALSE
             chkArrotVisibile.Checked = false;

@@ -720,11 +720,11 @@
                     </div>
                     <div class="col-md-1">
                         <asp:Label ID="lblChiamRicalcolo" Text="Ricalcolo" runat="server" />
-                        <asp:CheckBox ID="chkChiamRicalcolo" CssClass="form-control" Checked="true" runat="server" />
+                        <asp:CheckBox ID="chkChiamRicalcolo" CssClass="form-control" Checked="false" runat="server" />
                     </div>
                     <div class="col-md-2">
                         <asp:Label ID="lblChiamRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
-                        <asp:CheckBox ID="chkChiamRicaricoSiNo" CssClass="form-control" Checked="true" runat="server" />
+                        <asp:CheckBox ID="chkChiamRicaricoSiNo" CssClass="form-control" Checked="false" runat="server" />
                     </div>
                 </div>
                 <div class="row">
