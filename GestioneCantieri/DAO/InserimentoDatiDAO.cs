@@ -624,6 +624,38 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+        public static DataTable GetAllCantieri(bool chiuso, bool riscosso)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "SELECT Cant.IdCantieri, Cli.RagSocCli, Cant.CodCant, Cant.DescriCodCAnt, " +
+                      "Cant.Data, Cant.Indirizzo, Cant.Città, Cant.Ricarico, " +
+                      "Cant.PzzoManodopera, Cant.Chiuso, Cant.Riscosso, Cant.Numero, " +
+                      "Cant.ValorePreventivo, Cant.IVA, Cant.Anno, Cant.Preventivo, " +
+                      "Cant.FasciaTblCantieri, Cant.DaDividere, Cant.Diviso, Cant.Fatturato " +
+                      "FROM TblCantieri AS Cant " +
+                      "JOIN TblClienti AS Cli ON(Cant.IdTblClienti = Cli.IdCliente) " +
+                      "WHERE Cant.Chiuso = 0 AND Cant.Riscosso = 0 " +
+                      "ORDER BY Cant.CodCant ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei cantieri", ex);
+            }
+            finally { cn.Close(); }
+        }
         public static Cantieri GetSingleCantiere(int idCant)
         {
             SqlConnection cn = GetConnection();
@@ -788,8 +820,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static DataTable FiltraCantieri(string anno, string codCant, string descr, string cliente,
-            bool chiuso, bool riscosso)
+        public static DataTable FiltraCantieri(string anno, string codCant, string descr, string cliente, bool chiuso, bool riscosso)
         {
             SqlConnection cn = GetConnection();
             string sql = "";

@@ -66,6 +66,7 @@
                             <li><a href="RicalcoloConti.aspx">Ricalcolo Conti</a></li>
                             <li><a href="StampaVerificaCantiere.aspx">Stampa Verifica Cantiere</a></li>
                             <li><a href="StampaValoriCantieri.aspx">Stampa Valori Cantieri</a></li>
+                            <li><a href="StampaValoriCantieriConOpzioni.aspx">Stampa Valori Cantieri Con Opzioni</a></li>
                             <li><a href="StampaPerTipologia.aspx">Stampa Per Tipologia</a></li>
                         </ul>
                     </li>

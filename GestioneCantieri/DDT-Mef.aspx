@@ -29,17 +29,31 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 text-center">
-                <div class="col-md-offset-3 col-md-6">
-                    <div class="col-md-6">
+                <div class="col-md-offset-2 col-md-8">
+                    <div class="col-md-3">
                         <%--<h1 id="filterToggle" class="btn btn-default btn-lg"></h1>--%>
                         <asp:Label ID="lblAcquirente" runat="server" Text="Acquirente"></asp:Label>
                         <asp:TextBox ID="txtAcquirente" CssClass="form-control" runat="server" Text="Mau"></asp:TextBox><br />
                         <asp:Label ID="lblFornitore" runat="server" Text="Fornitore"></asp:Label>
                         <asp:DropDownList ID="ddlFornitore" CssClass="form-control" runat="server"></asp:DropDownList>
                     </div>
-                    <div class="col-md-6">
-                        <asp:Button ID="btn_GeneraDdtDaDbf" class="btn btn-info btn-lg" OnClick="btn_GeneraDdtDaDbf_Click" OnClientClick="javascript:ShowHideLoader()" Text="Importa DBF" runat="server" Style="margin: 20px auto; padding: 10px 50px;" />
+                    <div class="col-md-3">
+                        <asp:Button ID="btn_GeneraDdtDaDbf" class="btn btn-info btn-lg" OnClick="btn_GeneraDdtDaDbf_Click" OnClientClick="javascript:ShowHideLoader()" Text="Importa DBF" runat="server" />
                         <img id="spinnerImg" src="Images/spinner.gif" alt="spinner" runat="server" />
+                    </div>
+                    <div class="col-md-3 recapContainer">
+                        <asp:Label ID="lblMedia" runat="server" Text="Media Prezzo Unitario"></asp:Label>
+                        <asp:TextBox ID="txtMedia" Enabled="false" runat="server"></asp:TextBox>
+
+                        <asp:Label ID="lblTotDDT" runat="server" Text="Totale DDT"></asp:Label>
+                        <asp:TextBox ID="txtTotDDT" Enabled="false" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3 recapContainer">
+                        <asp:Label ID="lblIvaDDT" runat="server" Text="Iva DDT"></asp:Label>
+                        <asp:TextBox ID="txtIvaDDT" Enabled="false" runat="server"></asp:TextBox>
+
+                        <asp:Label ID="lblImponibileDDT" runat="server" Text="Imponibile DDT"></asp:Label>
+                        <asp:TextBox ID="txtImponibileDDT" Enabled="false" runat="server"></asp:TextBox>
                     </div>
                 </div>
             </div>
@@ -115,8 +129,6 @@
 
                     <!-- Svuota e Media -->
                     <div class="searchFilterContainer col-md-2 text-center">
-                        <asp:Label ID="lblMedia" runat="server" Text="Media Prezzo Unitario"></asp:Label>
-                        <asp:TextBox ID="txtMedia" Enabled="false" runat="server" Style="width: 70%;"></asp:TextBox>
                         <div class="col-md-12 text-center">
                             <asp:Button ID="btnSearch" runat="server" OnClick="btnSearch_Click" CssClass="btn btn-primary btn-lg" Text="Cerca" />
                         </div>

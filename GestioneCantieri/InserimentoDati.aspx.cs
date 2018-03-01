@@ -393,7 +393,7 @@ namespace GestioneCantieri
             if (!(txtFiltroAnno.Text == "" && txtFiltroCodCant.Text == "" && txtFiltroDescr.Text == "" && txtFiltroCliente.Text == "" && chkFiltroChiuso.Checked == false && chkFiltroRiscosso.Checked == false))
                 BindGridCantieriWithSearch();
             else
-                BindGridCantieri();
+                BindGridCantieri(false,false);
         }
         protected void btnSvuotaFiltri_Click(object sender, EventArgs e)
         {
@@ -709,6 +709,13 @@ namespace GestioneCantieri
         protected void BindGridCantieri()
         {
             DataTable dt = InserimentoDatiDAO.GetAllCantieri();
+            List<Cantieri> cantList = dt.DataTableToList<Cantieri>();
+            grdCantieri.DataSource = cantList;
+            grdCantieri.DataBind();
+        }
+        protected void BindGridCantieri(bool chiuso, bool riscosso)
+        {
+            DataTable dt = InserimentoDatiDAO.GetAllCantieri(chiuso, riscosso);
             List<Cantieri> cantList = dt.DataTableToList<Cantieri>();
             grdCantieri.DataSource = cantList;
             grdCantieri.DataBind();
