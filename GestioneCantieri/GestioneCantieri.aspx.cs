@@ -963,7 +963,7 @@ namespace GestioneCantieri
             mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
             mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
-            mc.Qta = Convert.ToDouble(txtManodopQta.Text);
+            mc.Qta = Convert.ToDouble(txtManodopQta.Text.Replace(".",","));
             mc.Tipologia = txtTipDatCant.Text;
             mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
             mc.DescriMateriali = txtDescrManodop.Text;
@@ -977,7 +977,7 @@ namespace GestioneCantieri
             mc.Fascia = Convert.ToInt32(txtFascia.Text);
 
             if (txtPzzoManodop.Text != "")
-                mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoManodop.Text);
+                mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoManodop.Text.Replace(".", ","));
             else
                 mc.PzzoUniCantiere = 0;
         }
@@ -1114,8 +1114,8 @@ namespace GestioneCantieri
             mc.DescriMateriali = txtDescrManodop.Text;
             mc.Note = txtNote1.Text;
             mc.Note2 = txtNote2.Text;
-            mc.Qta = Convert.ToDouble(txtManodopQta.Text);
-            mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoManodop.Text);
+            mc.Qta = Convert.ToDouble(txtManodopQta.Text.Replace(".", ","));
+            mc.PzzoUniCantiere = Convert.ToDecimal(txtPzzoManodop.Text.Replace(".", ","));
             mc.DescriMateriali = txtDescrManodop.Text;
             mc.Visibile = chkManodopVisibile.Checked;
             mc.Ricalcolo = chkManodopRicalcolo.Checked;

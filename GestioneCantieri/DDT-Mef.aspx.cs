@@ -130,8 +130,11 @@ namespace GestioneCantieri
             //Rigenero il valore della media dei prezzi unitari
             ddt = FillDdtObject();
             txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitarioWithSearch(ddt).ToString("0.00") + " €";
+            ddt = FillDdtObject();
             txtTotDDT.Text = DDTMefDAO.GetTotalDDT(ddt).ToString("N2") + " €";
+            ddt = FillDdtObject();
             txtImponibileDDT.Text = DDTMefDAO.GetImponibileDDT(ddt).ToString("N2") + " €";
+            ddt = FillDdtObject();
             txtIvaDDT.Text = DDTMefDAO.GetIvaDDT(ddt).ToString("N2") + " €";
         }
 
