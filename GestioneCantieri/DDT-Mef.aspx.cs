@@ -38,7 +38,10 @@ namespace GestioneCantieri
             txtDescriCodArt2.Text = "";
             txtDescriCodArt3.Text = "";
             BindGrid();
-            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitario().ToString("0.00");
+            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitario().ToString("0.00") + " €";
+            txtTotDDT.Text = DDTMefDAO.GetTotalDDT().ToString("N2") + " €";
+            txtImponibileDDT.Text = DDTMefDAO.GetImponibileDDT().ToString("N2") + " €";
+            txtIvaDDT.Text = DDTMefDAO.GetIvaDDT().ToString("N2") + " €";
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -109,7 +112,10 @@ namespace GestioneCantieri
             listaDDT = DDTMefDAO.getDDTList();
             grdListaDDTMef.DataSource = listaDDT;
             grdListaDDTMef.DataBind();
-            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitario().ToString("0.00");
+            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitario().ToString("0.00") + " €";
+            txtTotDDT.Text = DDTMefDAO.GetTotalDDT().ToString("N2") + " €";
+            txtImponibileDDT.Text = DDTMefDAO.GetImponibileDDT().ToString("N2") + " €";
+            txtIvaDDT.Text = DDTMefDAO.GetIvaDDT().ToString("N2") + " €";
         }
         protected void BindGridWithSearch()
         {
@@ -123,7 +129,10 @@ namespace GestioneCantieri
 
             //Rigenero il valore della media dei prezzi unitari
             ddt = FillDdtObject();
-            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitarioWithSearch(ddt).ToString("0.00");
+            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitarioWithSearch(ddt).ToString("0.00") + " €";
+            txtTotDDT.Text = DDTMefDAO.GetTotalDDT(ddt).ToString("N2") + " €";
+            txtImponibileDDT.Text = DDTMefDAO.GetImponibileDDT(ddt).ToString("N2") + " €";
+            txtIvaDDT.Text = DDTMefDAO.GetIvaDDT(ddt).ToString("N2") + " €";
         }
 
         /*** HELPERS ***/

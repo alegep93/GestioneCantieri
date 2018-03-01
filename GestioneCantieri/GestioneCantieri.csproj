@@ -178,6 +178,7 @@
     <Content Include="StampaOrdFrutCantExcel.aspx" />
     <Content Include="StampaPerTipologia.aspx" />
     <Content Include="StampaValoriCantieri.aspx" />
+    <Content Include="StampaValoriCantieriConOpzioni.aspx" />
     <Content Include="StampaVerificaCantiere.aspx" />
     <Content Include="StampeVarie.aspx" />
     <Content Include="Update.sql" />
@@ -192,6 +193,7 @@
       <DependentUpon>ControlloGruppi.aspx</DependentUpon>
     </Compile>
     <Compile Include="DAO\BaseDAO.cs" />
+    <Compile Include="DAO\ClientiDAO.cs" />
     <Compile Include="DAO\CantieriDAO.cs" />
     <Compile Include="DAO\FornitoriDAO.cs" />
     <Compile Include="DAO\InserimentoDatiDAO.cs" />
@@ -209,6 +211,7 @@
     <Compile Include="DAO\StampaOrdFrutCantDAO.cs" />
     <Compile Include="DAO\StampeDAO.cs" />
     <Compile Include="DAO\TipDatCantDAO.cs" />
+    <Compile Include="Data\StampaValoriCantieriConOpzioni.cs" />
     <Compile Include="Data\DDTMefObject.cs" />
     <Compile Include="Data\MaterialiCantieri.cs" />
     <Compile Include="Data\Pagamenti.cs" />
@@ -258,6 +261,13 @@
     </Compile>
     <Compile Include="StampaValoriCantieri.aspx.designer.cs">
       <DependentUpon>StampaValoriCantieri.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StampaValoriCantieriConOpzioni.aspx.cs">
+      <DependentUpon>StampaValoriCantieriConOpzioni.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StampaValoriCantieriConOpzioni.aspx.designer.cs">
+      <DependentUpon>StampaValoriCantieriConOpzioni.aspx</DependentUpon>
     </Compile>
     <Compile Include="StampaVerificaCantiere.aspx.cs">
       <DependentUpon>StampaVerificaCantiere.aspx</DependentUpon>

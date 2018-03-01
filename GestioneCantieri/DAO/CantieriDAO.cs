@@ -107,7 +107,7 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'applicazione dei filtri sui cantieri", ex);
             }
-            finally { cn.Close();}
+            finally { cn.Close(); }
         }
         public static DataTable GetCantieri(string anno, string codCant, bool fatturato, bool chiuso, bool riscosso)
         {
@@ -148,7 +148,80 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'applicazione dei filtri sui cantieri", ex);
             }
-            finally { cn.Close();}
+            finally { cn.Close(); }
+        }
+
+        public static List<Cantieri> GetCantieri(string anno, int idCliente, bool fatturato, bool chiuso, bool riscosso)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            List<Cantieri> list = new List<Cantieri>();
+            string sql = "";
+
+            anno = "%" + anno + "%";
+
+            try
+            {
+                sql = "SELECT Cant.IdCantieri, Cli.RagSocCli, Cant.CodCant, Cant.DescriCodCAnt, " +
+                      "Cant.Data, Cant.Indirizzo, Cant.Città, Cant.Ricarico, " +
+                      "Cant.PzzoManodopera, Cant.Chiuso, Cant.Riscosso, Cant.Numero, " +
+                      "Cant.ValorePreventivo, Cant.IVA, Cant.Anno, Cant.Preventivo, " +
+                      "Cant.FasciaTblCantieri, Cant.DaDividere, Cant.Diviso, Cant.Fatturato " +
+                      "FROM TblCantieri AS Cant " +
+                      "JOIN TblClienti AS Cli ON (Cant.IdTblClienti = Cli.IdCliente) " +
+                      "WHERE Anno LIKE @pAnno " +
+                      "AND Chiuso = @pChiuso AND Riscosso = @pRiscosso AND Fatturato = @pFatturato ";
+
+                if (idCliente != -1)
+                {
+                    sql += "AND IdTblClienti = @idCliente ";
+                }
+
+                sql += "ORDER BY Cant.CodCant ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pAnno", anno));
+                cmd.Parameters.Add(new SqlParameter("pFatturato", fatturato));
+                cmd.Parameters.Add(new SqlParameter("pChiuso", chiuso));
+                cmd.Parameters.Add(new SqlParameter("pRiscosso", riscosso));
+                cmd.Parameters.Add(new SqlParameter("idCliente", idCliente));
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Cantieri c = new Cantieri();
+                    c.IdCantieri = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
+                    c.RagSocCli = (dr.IsDBNull(1) ? null : dr.GetString(1));
+                    c.CodCant = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    c.DescriCodCAnt = (dr.IsDBNull(3) ? null : dr.GetString(3));
+                    c.Data = (dr.IsDBNull(4) ? new DateTime() : dr.GetDateTime(4));
+                    c.Indirizzo = (dr.IsDBNull(5) ? null : dr.GetString(5));
+                    c.Città = (dr.IsDBNull(6) ? null : dr.GetString(6));
+                    c.Ricarico = (dr.IsDBNull(7) ? -1 : dr.GetInt32(7));
+                    c.PzzoManodopera = (dr.IsDBNull(8) ? 0.0m : dr.GetDecimal(8));
+                    c.Chiuso = (dr.IsDBNull(9) ? false : dr.GetBoolean(9));
+                    c.Riscosso = (dr.IsDBNull(10) ? false : dr.GetBoolean(10));
+                    c.Numero = (dr.IsDBNull(11) ? -1 : dr.GetInt32(11));
+                    c.ValorePreventivo = (dr.IsDBNull(12) ? 0.0m : dr.GetDecimal(12));
+                    c.Iva = (dr.IsDBNull(13) ? -1 : dr.GetInt32(13));
+                    c.Anno = (dr.IsDBNull(14) ? -1 : dr.GetInt32(14));
+                    c.Preventivo = (dr.IsDBNull(15) ? false : dr.GetBoolean(15));
+                    c.FasciaTblCantieri = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
+                    c.DaDividere = (dr.IsDBNull(17) ? false : dr.GetBoolean(17));
+                    c.Diviso = (dr.IsDBNull(18) ? false : dr.GetBoolean(18));
+                    c.Fatturato = (dr.IsDBNull(19) ? false : dr.GetBoolean(19));
+
+                    list.Add(c);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero della lista dei cantieri", ex);
+            }
+            finally { cn.Close(); }
+
+            return list;
         }
     }
 }

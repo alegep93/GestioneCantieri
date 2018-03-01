@@ -100,7 +100,7 @@ namespace GestioneCantieri.DAO
                       "DescriCodArt, Qta, Importo, Acquirente, PrezzoUnitario, AnnoN_DDT " +
                       "FROM TblDDTMef " +
                       "WHERE (Data BETWEEN Convert(date,@pDataInizio) AND Convert(date,@pDataFine)) AND Acquirente LIKE @pAcquirente AND N_DDT LIKE @pN_DDT " +
-                      "ORDER BY N_DDT, CodArt";
+                      "ORDER BY Data, N_DDT, CodArt";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));
@@ -628,6 +628,381 @@ namespace GestioneCantieri.DAO
             finally
             {
                 cn.Close();
+            }
+        }
+
+        // Calcolo dei totali DDT
+        public static decimal GetTotalDDT()
+        {
+            decimal totale = 0m;
+            string sql = "";
+            SqlDataReader dr = null;
+            SqlConnection cn = GetConnection();
+
+            try
+            {
+                sql = "SELECT SUM(PrezzoUnitario) FROM TblDDTMef ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
+
+                if (dr.Read())
+                {
+                    totale = (dr.IsDBNull(0) ? -1m : dr.GetDecimal(0));
+                }
+
+                return totale;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del totale DDT senza filtri", ex);
+            }
+        }
+        public static decimal GetTotalDDT(DDTMefObject ddt)
+        {
+            decimal totale = 0m;
+            string sql = "";
+            SqlDataReader dr = null;
+            SqlConnection cn = GetConnection();
+
+            ddt.CodArt1 = "%" + ddt.CodArt1 + "%";
+            ddt.CodArt2 = "%" + ddt.CodArt2 + "%";
+            ddt.CodArt3 = "%" + ddt.CodArt3 + "%";
+            ddt.DescriCodArt1 = "%" + ddt.DescriCodArt1 + "%";
+            ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
+            ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
+
+            try
+            {
+                sql = "SELECT SUM(PrezzoUnitario) FROM TblDDTMef ";
+
+                if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
+                {
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+                else if (ddt.DataInizio != "" && ddt.DataFine != "")
+                {
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+                else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
+                {
+                    ddt.AnnoInizio = "%" + ddt.AnnoInizio + "%";
+                    ddt.AnnoFine = "%" + ddt.AnnoFine + "%";
+                    ddt.DataInizio = "2010-01-01";
+                    ddt.DataFine = DateTime.Now.ToString();
+
+                    sql += "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+                else
+                {
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pAnnoInizio", ddt.AnnoInizio));
+                cmd.Parameters.Add(new SqlParameter("pAnnoFine", ddt.AnnoFine));
+                cmd.Parameters.Add(new SqlParameter("pCodArt1", ddt.CodArt1));
+                cmd.Parameters.Add(new SqlParameter("pCodArt2", ddt.CodArt2));
+                cmd.Parameters.Add(new SqlParameter("pCodArt3", ddt.CodArt3));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", ddt.DescriCodArt1));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt2", ddt.DescriCodArt2));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt3", ddt.DescriCodArt3));
+
+                if (ddt.Qta == "")
+                    cmd.Parameters.Add(new SqlParameter("pQta", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("pQta", ddt.Qta));
+
+                if (ddt.NDdt == "")
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", ddt.NDdt));
+
+                if (ddt.DataInizio != "" && ddt.DataFine != "")
+                {
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", Convert.ToDateTime(ddt.DataInizio)));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", Convert.ToDateTime(ddt.DataFine)));
+                }
+                else
+                {
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", ddt.DataInizio));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", ddt.DataFine));
+                }
+
+                dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
+
+                if (dr.Read())
+                {
+                    totale = (dr.IsDBNull(0) ? -1m : dr.GetDecimal(0));
+                }
+
+                return totale;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del totale DDT con filtri", ex);
+            }
+        }
+
+        // Calcolo dell'imponibile DDT
+        public static decimal GetImponibileDDT()
+        {
+            decimal totale = 0m;
+            string sql = "";
+            SqlDataReader dr = null;
+            SqlConnection cn = GetConnection();
+
+            try
+            {
+                sql = "SELECT SUM((PrezzoUnitario * 100) / CONVERT(decimal(10,2), 122)) FROM TblDDTMef ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
+
+                if (dr.Read())
+                {
+                    totale = (dr.IsDBNull(0) ? -1m : dr.GetDecimal(0));
+                }
+
+                return totale;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del totale DDT senza filtri", ex);
+            }
+        }
+        public static decimal GetImponibileDDT(DDTMefObject ddt)
+        {
+            decimal totale = 0m;
+            string sql = "";
+            SqlDataReader dr = null;
+            SqlConnection cn = GetConnection();
+
+            ddt.CodArt1 = "%" + ddt.CodArt1 + "%";
+            ddt.CodArt2 = "%" + ddt.CodArt2 + "%";
+            ddt.CodArt3 = "%" + ddt.CodArt3 + "%";
+            ddt.DescriCodArt1 = "%" + ddt.DescriCodArt1 + "%";
+            ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
+            ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
+
+            try
+            {
+                sql = "SELECT SUM((PrezzoUnitario * 100) / CONVERT(decimal(10,2), 122)) FROM TblDDTMef ";
+
+                if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
+                {
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+                else if (ddt.DataInizio != "" && ddt.DataFine != "")
+                {
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+                else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
+                {
+                    ddt.AnnoInizio = "%" + ddt.AnnoInizio + "%";
+                    ddt.AnnoFine = "%" + ddt.AnnoFine + "%";
+                    ddt.DataInizio = "2010-01-01";
+                    ddt.DataFine = DateTime.Now.ToString();
+
+                    sql += "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+                else
+                {
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pAnnoInizio", ddt.AnnoInizio));
+                cmd.Parameters.Add(new SqlParameter("pAnnoFine", ddt.AnnoFine));
+                cmd.Parameters.Add(new SqlParameter("pCodArt1", ddt.CodArt1));
+                cmd.Parameters.Add(new SqlParameter("pCodArt2", ddt.CodArt2));
+                cmd.Parameters.Add(new SqlParameter("pCodArt3", ddt.CodArt3));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", ddt.DescriCodArt1));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt2", ddt.DescriCodArt2));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt3", ddt.DescriCodArt3));
+
+                if (ddt.Qta == "")
+                    cmd.Parameters.Add(new SqlParameter("pQta", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("pQta", ddt.Qta));
+
+                if (ddt.NDdt == "")
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", ddt.NDdt));
+
+                if (ddt.DataInizio != "" && ddt.DataFine != "")
+                {
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", Convert.ToDateTime(ddt.DataInizio)));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", Convert.ToDateTime(ddt.DataFine)));
+                }
+                else
+                {
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", ddt.DataInizio));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", ddt.DataFine));
+                }
+
+                dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
+
+                if (dr.Read())
+                {
+                    totale = (dr.IsDBNull(0) ? -1m : dr.GetDecimal(0));
+                }
+
+                return totale;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del totale DDT con filtri", ex);
+            }
+        }
+
+        // Calcolo dell'iva DDT
+        public static decimal GetIvaDDT()
+        {
+            decimal totale = 0m;
+            string sql = "";
+            SqlDataReader dr = null;
+            SqlConnection cn = GetConnection();
+
+            try
+            {
+                sql = "SELECT SUM(PrezzoUnitario - (100 * PrezzoUnitario / CONVERT(decimal(10,2),122))) FROM TblDDTMef ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
+
+                if (dr.Read())
+                {
+                    totale = (dr.IsDBNull(0) ? -1m : dr.GetDecimal(0));
+                }
+
+                return totale;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del totale DDT senza filtri", ex);
+            }
+        }
+        public static decimal GetIvaDDT(DDTMefObject ddt)
+        {
+            decimal totale = 0m;
+            string sql = "";
+            SqlDataReader dr = null;
+            SqlConnection cn = GetConnection();
+
+            ddt.CodArt1 = "%" + ddt.CodArt1 + "%";
+            ddt.CodArt2 = "%" + ddt.CodArt2 + "%";
+            ddt.CodArt3 = "%" + ddt.CodArt3 + "%";
+            ddt.DescriCodArt1 = "%" + ddt.DescriCodArt1 + "%";
+            ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
+            ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
+
+            try
+            {
+                sql = "SELECT SUM(PrezzoUnitario - (100 * PrezzoUnitario / CONVERT(decimal(10,2),122))) FROM TblDDTMef ";
+
+                if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
+                {
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+                else if (ddt.DataInizio != "" && ddt.DataFine != "")
+                {
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+                else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
+                {
+                    ddt.AnnoInizio = "%" + ddt.AnnoInizio + "%";
+                    ddt.AnnoFine = "%" + ddt.AnnoFine + "%";
+                    ddt.DataInizio = "2010-01-01";
+                    ddt.DataFine = DateTime.Now.ToString();
+
+                    sql += "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+                else
+                {
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
+                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                }
+
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pAnnoInizio", ddt.AnnoInizio));
+                cmd.Parameters.Add(new SqlParameter("pAnnoFine", ddt.AnnoFine));
+                cmd.Parameters.Add(new SqlParameter("pCodArt1", ddt.CodArt1));
+                cmd.Parameters.Add(new SqlParameter("pCodArt2", ddt.CodArt2));
+                cmd.Parameters.Add(new SqlParameter("pCodArt3", ddt.CodArt3));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", ddt.DescriCodArt1));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt2", ddt.DescriCodArt2));
+                cmd.Parameters.Add(new SqlParameter("pDescriCodArt3", ddt.DescriCodArt3));
+
+                if (ddt.Qta == "")
+                    cmd.Parameters.Add(new SqlParameter("pQta", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("pQta", ddt.Qta));
+
+                if (ddt.NDdt == "")
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", "%%"));
+                else
+                    cmd.Parameters.Add(new SqlParameter("pN_DDT", ddt.NDdt));
+
+                if (ddt.DataInizio != "" && ddt.DataFine != "")
+                {
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", Convert.ToDateTime(ddt.DataInizio)));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", Convert.ToDateTime(ddt.DataFine)));
+                }
+                else
+                {
+                    cmd.Parameters.Add(new SqlParameter("pDataInizio", ddt.DataInizio));
+                    cmd.Parameters.Add(new SqlParameter("pDataFine", ddt.DataFine));
+                }
+
+                dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
+
+                if (dr.Read())
+                {
+                    totale = (dr.IsDBNull(0) ? -1m : dr.GetDecimal(0));
+                }
+
+                return totale;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il calcolo del totale DDT con filtri", ex);
             }
         }
     }
