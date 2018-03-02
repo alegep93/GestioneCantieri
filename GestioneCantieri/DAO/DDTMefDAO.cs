@@ -641,7 +641,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT SUM(PrezzoUnitario) FROM TblDDTMef ";
+                sql = "SELECT SUM(Importo) FROM TblDDTMef ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
@@ -674,7 +674,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT SUM(PrezzoUnitario) FROM TblDDTMef ";
+                sql = "SELECT SUM(Importo) FROM TblDDTMef ";
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
@@ -766,7 +766,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT SUM((PrezzoUnitario * 100) / CONVERT(decimal(10,2), 122)) FROM TblDDTMef ";
+                sql = "SELECT SUM((Importo * 100) / CONVERT(decimal(10,2), 122)) FROM TblDDTMef ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
@@ -799,7 +799,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT SUM((PrezzoUnitario * 100) / CONVERT(decimal(10,2), 122)) FROM TblDDTMef ";
+                sql = "SELECT SUM((Importo * 100) / CONVERT(decimal(10,2), 122)) FROM TblDDTMef ";
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
@@ -891,7 +891,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT SUM(PrezzoUnitario - (100 * PrezzoUnitario / CONVERT(decimal(10,2),122))) FROM TblDDTMef ";
+                sql = "SELECT SUM(Importo - (100 * Importo / CONVERT(decimal(10,2),122))) FROM TblDDTMef ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
@@ -924,7 +924,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT SUM(PrezzoUnitario - (100 * PrezzoUnitario / CONVERT(decimal(10,2),122))) FROM TblDDTMef ";
+                sql = "SELECT SUM(Importo - (100 * Importo / CONVERT(decimal(10,2),122))) FROM TblDDTMef ";
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
