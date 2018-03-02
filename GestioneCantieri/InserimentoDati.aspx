@@ -502,7 +502,7 @@
                     <asp:Label ID="lblSpesePrezzo" runat="server" Text="Prezzo" />
                     <asp:TextBox ID="txtSpesePrezzo" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
-                
+
                 <asp:HiddenField ID="hidSpese" runat="server" />
 
                 <div class="col-md-12 form-group">
