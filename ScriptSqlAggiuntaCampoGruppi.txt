@@ -1,3 +1,0 @@
-ALTER TABLE dbo.TblGruppiFrutti ADD
-	Controllato bit NOT NULL CONSTRAINT DF_TblGruppiFrutti_Controllato DEFAULT 0
-GO
