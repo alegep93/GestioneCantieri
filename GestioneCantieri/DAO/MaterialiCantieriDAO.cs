@@ -775,10 +775,9 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "SELECT C.RagSocCli,B.CodCant,B.DescriCodCAnt " +
-                      "FROM TblMaterialiCantieri AS A " +
-                      "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = B.IdCantieri) " +
-                      "LEFT JOIN TblClienti AS C ON(B.IdTblClienti = C.IdCliente) " +
-                      "WHERE IdTblCantieri = @pIdCant ";
+                      "FROM TblCantieri AS B " +
+                      "LEFT JOIN TblClienti AS C ON (B.IdTblClienti = C.IdCliente) " +
+                      "WHERE B.IdCantieri = @pIdCant ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
