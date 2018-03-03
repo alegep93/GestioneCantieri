@@ -85,22 +85,22 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtMedia;
         
         /// <summary>
-        /// Controllo lblTotDDT.
+        /// Controllo lblImponibileDDT.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTotDDT;
+        protected global::System.Web.UI.WebControls.Label lblImponibileDDT;
         
         /// <summary>
-        /// Controllo txtTotDDT.
+        /// Controllo txtImponibileDDT.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTotDDT;
+        protected global::System.Web.UI.WebControls.TextBox txtImponibileDDT;
         
         /// <summary>
         /// Controllo lblIvaDDT.
@@ -121,22 +121,22 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtIvaDDT;
         
         /// <summary>
-        /// Controllo lblImponibileDDT.
+        /// Controllo lblTotDDT.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblImponibileDDT;
+        protected global::System.Web.UI.WebControls.Label lblTotDDT;
         
         /// <summary>
-        /// Controllo txtImponibileDDT.
+        /// Controllo txtTotDDT.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtImponibileDDT;
+        protected global::System.Web.UI.WebControls.TextBox txtTotDDT;
         
         /// <summary>
         /// Controllo pnlFiltriDDT.
