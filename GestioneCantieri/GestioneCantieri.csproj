@@ -79,6 +79,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Controllers\mainController.js" />
+    <Content Include="Controllers\listinoController.js" />
     <Content Include="ControlloGruppi.aspx" />
     <Content Include="Css\bootstrap-3.3.7-dist\css\bootstrap-theme.css.map" />
     <Content Include="Css\bootstrap-3.3.7-dist\css\bootstrap-theme.min.css.map" />
@@ -105,12 +107,16 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="WebServices\ListinoService.asmx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Content Include="ResocontoOperaio.aspx" />
     <Content Include="RicalcoloConti.aspx" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -129,6 +135,7 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -182,7 +189,9 @@
     <Content Include="StampaVerificaCantiere.aspx" />
     <Content Include="StampeVarie.aspx" />
     <Content Include="Update.sql" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlloGruppi.aspx.cs">
@@ -388,6 +397,10 @@
     </Compile>
     <Compile Include="StampaOrdFrutCantExcel.aspx.designer.cs">
       <DependentUpon>StampaOrdFrutCantExcel.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebServices\ListinoService.asmx.cs">
+      <DependentUpon>ListinoService.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

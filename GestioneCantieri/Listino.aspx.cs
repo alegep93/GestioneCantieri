@@ -15,46 +15,21 @@ namespace GestioneCantieri
         {
             if (!IsPostBack)
             {
-                txtCodArt1.Text = "";
-                txtCodArt2.Text = "";
-                txtCodArt3.Text = "";
-                txtDescriCodArt1.Text = "";
-                txtDescriCodArt2.Text = "";
-                txtDescriCodArt3.Text = "";
-                BindGrid();
+                SvuotaTxt();
             }
         }
 
         /* EVENTI CLICK */
-        protected void btnSearch_Click(object sender, EventArgs e)
-        {
-            BindGridWithSearch();
-        }
         protected void btnSvuotaTxt_Click(object sender, EventArgs e)
         {
-            txtCodArt1.Text = "";
-            txtCodArt2.Text = "";
-            txtCodArt3.Text = "";
-            txtDescriCodArt1.Text = "";
-            txtDescriCodArt2.Text = "";
-            txtDescriCodArt3.Text = "";
-            BindGrid();
+            SvuotaTxt();
         }
 
         /* HELPERS */
-        protected void BindGrid()
+
+        protected void SvuotaTxt()
         {
-            List<Mamg0> listaDDT = new List<Mamg0>();
-            listaDDT = Mamg0DAO.getAll();
-            grdListino.DataSource = listaDDT;
-            grdListino.DataBind();
-        }
-        protected void BindGridWithSearch()
-        {
-            List<Mamg0> listaDDT = new List<Mamg0>();
-            listaDDT = Mamg0DAO.GetListino(txtCodArt1.Text, txtCodArt2.Text, txtCodArt3.Text, txtDescriCodArt1.Text, txtDescriCodArt2.Text, txtDescriCodArt3.Text);
-            grdListino.DataSource = listaDDT;
-            grdListino.DataBind();
+            txtCodArt1.Text = "";
         }
 
         protected void btnEliminaListino_Click(object sender, EventArgs e)

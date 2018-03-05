@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="mainModule">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -14,7 +14,10 @@
     <link href="Css/style.css" rel="stylesheet" type="text/css" runat="server" media="screen"/>
     <link href="Css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="Css/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet" />
-    <%--<link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet" />--%>
+
+    <script src="Scripts/angular.min.js"></script>
+    <script src="Controllers/mainController.js"></script>
+    <script src="Controllers/listinoController.js"></script>
     <asp:ContentPlaceHolder ID="title" runat="server">
     </asp:ContentPlaceHolder>
 </head>
