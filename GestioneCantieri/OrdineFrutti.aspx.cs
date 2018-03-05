@@ -79,7 +79,6 @@ namespace GestioneCantieri
                     lblIsFruttoInserito.ForeColor = System.Drawing.Color.Red;
                 }
 
-                PopolaListe();
                 ddlScegliFrutto.SelectedIndex = 0;
                 txtQtaFrutto.Text = "";
             }
