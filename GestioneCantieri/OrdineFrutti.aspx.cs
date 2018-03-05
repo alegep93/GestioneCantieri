@@ -64,22 +64,31 @@ namespace GestioneCantieri
         }
         protected void btnInserisciFrutto_Click(object sender, EventArgs e)
         {
-            bool isInserito = OrdineFruttiDAO.InserisciFruttoNonInGruppo(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value, ddlScegliFrutto.SelectedItem.Value, txtQtaFrutto.Text);
-
-            if (isInserito)
+            if (txtQtaFrutto.Text != "" && Convert.ToInt32(txtQtaFrutto.Text) > 0)
             {
-                lblIsFruttoInserito.Text = "Frutto inserito con successo";
-                lblIsFruttoInserito.ForeColor = System.Drawing.Color.Blue;
+                bool isInserito = OrdineFruttiDAO.InserisciFruttoNonInGruppo(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value, ddlScegliFrutto.SelectedItem.Value, txtQtaFrutto.Text);
+
+                if (isInserito)
+                {
+                    lblIsFruttoInserito.Text = "Frutto inserito con successo";
+                    lblIsFruttoInserito.ForeColor = System.Drawing.Color.Blue;
+                }
+                else
+                {
+                    lblIsFruttoInserito.Text = "Errore durante l'inserimento del frutto";
+                    lblIsFruttoInserito.ForeColor = System.Drawing.Color.Red;
+                }
+
+                PopolaListe();
+                ddlScegliFrutto.SelectedIndex = 0;
+                txtQtaFrutto.Text = "";
             }
             else
             {
-                lblIsFruttoInserito.Text = "Errore durante l'inserimento del frutto";
+                lblIsFruttoInserito.Text = "Il campo quantità deve essere compilato e deve essere inserito un valore maggiore di 0";
                 lblIsFruttoInserito.ForeColor = System.Drawing.Color.Red;
             }
-
             PopolaListe();
-            ddlScegliFrutto.SelectedIndex = 0;
-            txtQtaFrutto.Text = "";
         }
 
         /* EVENTI TEXT-CHANGED */
