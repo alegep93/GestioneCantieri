@@ -24,15 +24,17 @@ namespace GestioneCantieri
         {
             if (!IsPostBack)
             {
+                DateTime firstDayOfCurrentYear = new DateTime(DateTime.Now.Year, 1, 1);
                 FillAllDdl();
                 pnlCampiStampaDDT_MatCant.Visible = false;
                 pnlCampiStampaCliente.Visible = false;
-                txtDataDa.Text = "2010-01-01";
+                txtDataDa.Text = firstDayOfCurrentYear.ToString("yyyy-MM-dd");
                 txtDataA.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 txtDataDa.TextMode = txtDataA.TextMode = TextBoxMode.Date;
             }
         }
 
+        #region Helpers
         /* HELPERS */
         protected void FillDdlScegliStampa()
         {
@@ -109,7 +111,9 @@ namespace GestioneCantieri
             grdStampaMateCant.DataSource = matCantList;
             grdStampaMateCant.DataBind();
         }
+        #endregion
 
+        #region Stampa PDF
         protected PdfPTable InitializePdfTableDDT()
         {
             float[] columns = { 150f, 220f, 340f, 100f, 150f, 120f };
@@ -500,14 +504,24 @@ namespace GestioneCantieri
             tblTotali.AddCell(ivaCell);
             tblTotali.AddCell(totaleConIvaCell);
         }
+        #endregion
 
+        #region Eventi Click
         /* EVENTI CLICK */
         protected void btnStampaDDT_Click(object sender, EventArgs e)
         {
             if (txtNomeFile.Text != "")
             {
-                BindGridStampaDDT();
-                ExportToPdfPerDDT();
+                if (DDTMefDAO.CheckIfDdtExistBetweenData(txtNumDDT.Text, txtDataDa.Text, txtDataA.Text))
+                {
+                    BindGridStampaDDT();
+                    ExportToPdfPerDDT();
+                }
+                else
+                {
+                    lblIsNomeFileInserito.Text = "Il DDT cercato NON è presente nella lista dei DDT";
+                    lblIsNomeFileInserito.ForeColor = Color.Red;
+                }
             }
             else
             {
@@ -533,6 +547,10 @@ namespace GestioneCantieri
         {
             FillDdlScegliCantiere();
         }
+        protected void btnAggiungiNumPagine_Click(object sender, EventArgs e)
+        {
+            AddPageNumber();
+        }
 
         /*********************** INUTILIZZATO ******************************/
         protected void btnStampaCliente_Click(object sender, EventArgs e)
@@ -548,7 +566,9 @@ namespace GestioneCantieri
             //    lblIsNomeFileInserito.ForeColor = Color.Red;
             //}
         }
+        #endregion
 
+        #region Eventi TextChanged
         /* EVENTI TEXT-CHANGED */
         protected void ddlScegliStampa_TextChanged(object sender, EventArgs e)
         {
@@ -579,15 +599,11 @@ namespace GestioneCantieri
                     break;
             }
         }
+        #endregion
 
         public override void VerifyRenderingInServerForm(Control control)
         {
             //Do nothing
-        }
-
-        protected void btnAggiungiNumPagine_Click(object sender, EventArgs e)
-        {
-            AddPageNumber();
         }
     }
 }

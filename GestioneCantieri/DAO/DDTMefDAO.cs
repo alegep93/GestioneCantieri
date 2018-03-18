@@ -450,6 +450,34 @@ namespace GestioneCantieri.DAO
                 cn.Close();
             }
         }
+        public static bool CheckIfDdtExistBetweenData(string nDdt, string dataInizio, string dataFine)
+        {
+            string sql = "";
+            SqlDataReader dr = null;
+            SqlConnection cn = GetConnection();
+
+            try
+            {
+                sql = "SELECT N_DDT FROM TblDDTMef WHERE N_DDT = @nDdt AND Data BETWEEN CONVERT(date, @dataInizio) AND CONVERT(date, @dataFine) ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@nDdt", nDdt));
+                cmd.Parameters.Add(new SqlParameter("@dataInizio", dataInizio));
+                cmd.Parameters.Add(new SqlParameter("@dataFine", dataFine));
+                dr = cmd.ExecuteReader();
+
+                return dr.Read();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il controllo della presenza di un N_DDT del DDTMef", ex);
+            }
+            finally
+            {
+                cn.Close();
+                dr.Close();
+            }
+        }
         public static bool InsertNewDdt(DDTMef ddt)
         {
             SqlConnection cn = GetConnection();

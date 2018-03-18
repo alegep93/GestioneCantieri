@@ -37,10 +37,15 @@ h1#filterToggle {
     font-weight: bold;
 }
 
-.btn.btn-info.btn-lg {
+.col-md-12 .col-md-2 .btn.btn-info.btn-lg {
     padding: 10px 50px;
     position: relative;
     top: 50px;
+}
+
+.col-md-12 .btn.btn-lg.btn-primary.pull-right + .btn.btn-info.btn-lg {
+    padding: 10px 50px;
+    margin-right: 10px;
 }
 
 .searchFilterContainer {
