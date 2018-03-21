@@ -216,22 +216,14 @@ namespace GestioneCantieri
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             Response.Write(pdfDoc);
             Response.End();
-            //Response.Flush();
-
-            //Recupero il nome del file generato
-            //string fileName = Response.Headers["Content-Disposition"].ToString().Split('=')[1];
-
-            //Sposto il file nella cartella di destinazione
-            //string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name.Split('\\')[1];
-            //string oldPath = @"C:\Users\" + userName + "\\Downloads\\" + fileName;
-            //string newPath = @"D:\Alessandro\" + fileName;
-            //File.Move(oldPath, newPath);
         }
         public void GeneraPDFPerContoFinCli(Document pdfDoc, MaterialiCantieri mc, PdfPTable table, GridView grd, decimal totale)
         {
             PdfPTable tblTotali = null;
             Phrase intestazione = new Phrase();
             intestazione = GeneraIntestazioneContoFinCli(mc);
+
+            List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiereForRicalcoloConti(idCant);
 
             //Transfer rows from GridView to table
             for (int i = 0; i < grd.Columns.Count; i++)
@@ -286,6 +278,19 @@ namespace GestioneCantieri
                         }
                         table.AddCell(cell);
                     }
+
+                    // Aggiunta della riga contenente le note (Se specificate)
+                    if (matCantList[i].Note != "" && matCantList[i].Note != null)
+                    {
+                        PdfPCell noteCell = new PdfPCell(new Phrase(matCantList[i].Note));
+                        noteCell.Colspan = 5;
+                        noteCell.BorderWidth = 0;
+                        //noteCell.BorderWidthBottom = 1;
+                        //noteCell.BorderColorBottom = BaseColor.BLUE;
+                        noteCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                        table.AddCell(noteCell);
+                    }
+
                     totale += Convert.ToDecimal(grd.Rows[i].Cells[4].Text);
                 }
             }
