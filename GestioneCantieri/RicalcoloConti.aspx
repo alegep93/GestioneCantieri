@@ -61,6 +61,14 @@
                     <asp:Button ID="btnFiltraCantieri" CssClass="btn btn-lg btn-primary" OnClick="btnFiltraCantieri_Click" runat="server" Text="Filtra Cantieri" />
                 </div>
                 <div class="col-md-12">
+                    <asp:Label ID="lblScegliTipoNote" runat="server" Text="Scegli Note"></asp:Label>
+                    <asp:DropDownList ID="ddlScegliTipoNote" CssClass="form-control" runat="server">
+                        <asp:ListItem Value="noNote">Senza Note</asp:ListItem>
+                        <asp:ListItem Value="note1">Con Note 1</asp:ListItem>
+                        <asp:ListItem Value="note2">Con Note 2</asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-md-12">
                     <asp:Label ID="lblScegliCantiere" runat="server" Text="Scegli Cantiere"></asp:Label>
                     <asp:DropDownList ID="ddlScegliCant" OnTextChanged="ddlScegliCant_TextChanged" AutoPostBack="true" CssClass="form-control" runat="server"></asp:DropDownList>
                 </div>

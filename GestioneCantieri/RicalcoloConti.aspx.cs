@@ -279,16 +279,27 @@ namespace GestioneCantieri
                         table.AddCell(cell);
                     }
 
-                    // Aggiunta della riga contenente le note (Se specificate)
-                    if (matCantList[i].Note != "" && matCantList[i].Note != null)
+                    // Aggiunta della riga contenente le note in base alla scelta della DDLSCegliTipoNote
+                    if (ddlScegliTipoNote.SelectedValue != "noNote")
                     {
-                        PdfPCell noteCell = new PdfPCell(new Phrase(matCantList[i].Note));
-                        noteCell.Colspan = 5;
-                        noteCell.BorderWidth = 0;
-                        //noteCell.BorderWidthBottom = 1;
-                        //noteCell.BorderColorBottom = BaseColor.BLUE;
-                        noteCell.HorizontalAlignment = Element.ALIGN_LEFT;
-                        table.AddCell(noteCell);
+                        if (matCantList[i].Note != "" && matCantList[i].Note != null)
+                        {
+                            PdfPCell noteCell = null;
+
+                            if (ddlScegliTipoNote.SelectedValue == "note1")
+                            {
+                                noteCell = new PdfPCell(new Phrase(matCantList[i].Note, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
+                            }
+                            else if (ddlScegliTipoNote.SelectedValue == "note2")
+                            {
+                                noteCell = new PdfPCell(new Phrase(matCantList[i].Note2, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
+                            }
+
+                            noteCell.Colspan = 5;
+                            noteCell.BorderWidth = 0;
+                            noteCell.HorizontalAlignment = 0;
+                            table.AddCell(noteCell);
+                        }
                     }
 
                     totale += Convert.ToDecimal(grd.Rows[i].Cells[4].Text);
