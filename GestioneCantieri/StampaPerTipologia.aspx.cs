@@ -18,7 +18,7 @@ namespace GestioneCantieri
             }
         }
 
-        /* HELPERS */
+        #region Helpers
         protected void FillDdlScegliCantiere()
         {
             DataTable dt = CantieriDAO.GetCantieri(txtAnno.Text, txtCodCant.Text, "", chkChiuso.Checked, chkRiscosso.Checked);
@@ -78,7 +78,9 @@ namespace GestioneCantieri
             lblTotOre.Text = "<strong>Totale Ore</strong>: " + Math.Round(totaleOre, 2);
             lblTotale.Text = "<strong>Totale Valore</strong>: " + Math.Round(totale, 2);
         }
+        #endregion
 
+        #region Eventi Click
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)
         {
             FillDdlScegliCantiere();
@@ -87,5 +89,6 @@ namespace GestioneCantieri
         {
             BindGrid();
         }
+        #endregion
     }
 }

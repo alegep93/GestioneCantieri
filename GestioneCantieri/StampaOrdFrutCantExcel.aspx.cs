@@ -24,13 +24,14 @@ namespace GestioneCantieri
             }
         }
 
-        /* EVENTI CLICK */
+        #region Eventi Click
         protected void btnPrint_Click(object sender, EventArgs e)
         {
             CreateExcel();
         }
+        #endregion
 
-        /* EVENTI TEXT-CHANGED */
+        #region Eventi Text-Changed
         protected void ddlScegliCantiere_TextChanged(object sender, EventArgs e)
         {
             BindGrid();
@@ -40,8 +41,9 @@ namespace GestioneCantieri
             else
                 btnPrint.Visible = false;
         }
+        #endregion
 
-        /* HELPERS */
+        #region Helpers
         protected void BindGrid()
         {
             //int i = 0;
@@ -165,6 +167,7 @@ namespace GestioneCantieri
                 ddlScegliCantiere.Items.Add(new ListItem(cantiere, c.IdCantieri.ToString())); //new ListItem(valore, chiave);
             }
         }
+        #endregion
 
         /* Override per il corretto funzionamento della creazione del foglio Excel */
         public override void VerifyRenderingInServerForm(Control control)

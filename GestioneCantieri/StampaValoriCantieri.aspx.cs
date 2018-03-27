@@ -24,7 +24,7 @@ namespace GestioneCantieri
             }
         }
 
-        /* HELPERS */
+        #region Helpers
         protected void FillDdlScegliCantiere()
         {
             DataTable dt = CantieriDAO.GetCantieri(txtAnno.Text, txtCodCant.Text, chkFatturato.Checked, chkChiuso.Checked, chkRiscosso.Checked);
@@ -46,7 +46,7 @@ namespace GestioneCantieri
             if (c.Preventivo)
                 txtContoPreventivo.Text += String.Format("{0:n}", c.ValorePreventivo);
             else
-                txtContoPreventivo.Text += Math.Round(RicalcoloConti.totRicalcoloConti,2).ToString();
+                txtContoPreventivo.Text += Math.Round(RicalcoloConti.totRicalcoloConti, 2).ToString();
 
             //Popolo il campo Tot. Acconti
             decimal totAcconti = 0m;
@@ -62,8 +62,9 @@ namespace GestioneCantieri
             decimal totFin = totContoPreventivo - totAcconti;
             txtTotFinale.Text = String.Format("{0:n}", totFin).ToString();
         }
+        #endregion
 
-        /* EVENTI CLICK */
+        #region Eventi Click
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)
         {
             FillDdlScegliCantiere();
@@ -79,15 +80,16 @@ namespace GestioneCantieri
             pdfDoc.Open();
             rc.idCant = ddlScegliCant.SelectedItem.Value;
             rc.BindGrid(grdStampaMateCant);
-            rc.BindGridPDF(grdStampaMateCant,grdStampaMateCantPDF);
+            rc.BindGridPDF(grdStampaMateCant, grdStampaMateCantPDF);
             rc.GeneraPDFPerContoFinCli(pdfDoc, mc, pTable, grdStampaMateCantPDF, totale);
             pdfDoc.Close();
 
             //Popolo i campi di riepilogo con i dati necessari
             CompilaCampi();
         }
+        #endregion
 
-        /* EVENTI TEXT-CHANGED */
+        #region Eventi Text-Changed
         protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
         {
             if (ddlScegliCant.SelectedIndex != 0)
@@ -102,5 +104,6 @@ namespace GestioneCantieri
                 pnlRisultati.Visible = false;
             }
         }
+        #endregion
     }
 }

@@ -18,14 +18,15 @@ namespace GestioneCantieri
             }
         }
 
-        /* EVENTI TEXT-CHANGED */
+        #region Eventi Text-Changed
         protected void ddlScegliCantiere_TextChanged(object sender, EventArgs e)
         {
             BindGrid();
             GroupGridViewCells();
         }
+        #endregion
 
-        /* HELPERS */
+        #region Helpers
         protected void BindGrid()
         {
             int i = 0;
@@ -137,6 +138,7 @@ namespace GestioneCantieri
             }
             return false;
         }
+        #endregion
 
         /* Override per il corretto funzionamento di tutte le funzionalità della pagina */
         public override void VerifyRenderingInServerForm(System.Web.UI.Control control)

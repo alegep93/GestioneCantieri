@@ -810,9 +810,9 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo,Data, " +
-                      "PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,pzzoFinCli) " +
+                      "PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,Note2,pzzoFinCli) " +
                       "VALUES (@pIdCant,@pDescrMat,@pQta,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@pCodArt,@pDescriCodArt,@pTipologia,@pFascia, " +
-                      "@pAcquirente,@pFornitore,@pNumBolla,@pProtocollo,@pNote,@pPzzoFinCli)";
+                      "@pAcquirente,@pFornitore,@pNumBolla,@pProtocollo,@pNote,@pNote2,@pPzzoFinCli)";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
@@ -832,6 +832,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pNumBolla", mc.NumeroBolla));
                 cmd.Parameters.Add(new SqlParameter("pProtocollo", mc.ProtocolloInterno));
                 cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
+                cmd.Parameters.Add(new SqlParameter("pNote2", mc.Note2));
                 cmd.Parameters.Add(new SqlParameter("pPzzoFinCli", mc.PzzoFinCli));
 
                 int row = cmd.ExecuteNonQuery();
@@ -855,9 +856,9 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,IdTblOperaio,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo,Data, " +
-                      "PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,pzzoFinCli) " +
+                      "PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,Note2,pzzoFinCli) " +
                       "VALUES (@pIdCant,@idOper,@pDescrMat,@pQta,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@pCodArt,@pDescriCodArt,@pTipologia,@pFascia, " +
-                      "@pAcquirente,@pFornitore,@pNumBolla,@pProtocollo,@pNote,@pPzzoFinCli)";
+                      "@pAcquirente,@pFornitore,@pNumBolla,@pProtocollo,@pNote,@pNote2,@pPzzoFinCli)";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pIdCant", mc.IdTblCantieri));
@@ -878,6 +879,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pNumBolla", mc.NumeroBolla));
                 cmd.Parameters.Add(new SqlParameter("pProtocollo", mc.ProtocolloInterno));
                 cmd.Parameters.Add(new SqlParameter("pNote", mc.Note));
+                cmd.Parameters.Add(new SqlParameter("pNote2", mc.Note2));
                 cmd.Parameters.Add(new SqlParameter("pPzzoFinCli", mc.PzzoFinCli));
 
                 int row = cmd.ExecuteNonQuery();

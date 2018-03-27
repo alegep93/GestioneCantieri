@@ -23,7 +23,7 @@ namespace GestioneCantieri
             }
         }
 
-        /* HELPERS */
+        #region Helpers
         protected void FillDdlScegliCantiere()
         {
             DataTable dt = CantieriDAO.GetCantieri(txtAnno.Text, txtCodCant.Text, "", chkChiuso.Checked, chkRiscosso.Checked);
@@ -128,8 +128,9 @@ namespace GestioneCantieri
             decimal totGuadOrarioManodop = totGuadConManodop / (totOreManodop == 0 ? 1 : totOreManodop);
             lblTotGuadagnoOrarioManodop.Text = "<strong>Tot. Guadagno Orario Manodopopera</strong>: " + String.Format("{0:n}", totGuadOrarioManodop);
         }
+        #endregion
 
-        /* EVENTI CLICK */
+        #region Eventi Click
         protected void btnFiltraCantieri_Click(object sender, EventArgs e)
         {
             FillDdlScegliCantiere();
@@ -152,7 +153,9 @@ namespace GestioneCantieri
             BindGrid();
             GroupGridViewCells();
         }
+        #endregion
 
+        #region Eventi Text-Changed
         /* EVENTI TEXT-CHANGED */
         protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
         {
@@ -165,7 +168,9 @@ namespace GestioneCantieri
                 btnStampaVerificaCant.Visible = false;
             }
         }
+        #endregion
 
+        #region Gridview con Intestazioni dinamiche
         //Metodi per la gridView con intestazioni dinamiche
         protected void GroupGridViewCells()
         {
@@ -179,5 +184,6 @@ namespace GestioneCantieri
         {
             BindGrid();
         }
+        #endregion
     }
 }

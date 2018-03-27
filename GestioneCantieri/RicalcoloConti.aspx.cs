@@ -29,7 +29,7 @@ namespace GestioneCantieri
             }
         }
 
-        /* HELPERS */
+        #region Helpers
         protected decimal CalcolaPercentualeTotaleMaterialiNascosti()
         {
             decimal matVisibileConRicalcolo = MaterialiCantieriDAO.TotMaterialeVisibile(idCant);
@@ -181,7 +181,9 @@ namespace GestioneCantieri
 
             Response.End();
         }
+        #endregion
 
+        #region Stampa PDF
         //Stampa PDF
         public PdfPTable InitializePdfTableDDT(GridView grd)
         {
@@ -355,7 +357,9 @@ namespace GestioneCantieri
             tblTotali.AddCell(totAccontiCell);
             tblTotali.AddCell(totaleFinaleCell);
         }
+        #endregion
 
+        #region Eventi Click
         /* EVENTI CLICK */
         protected void btnStampaContoCliente_Click(object sender, EventArgs e)
         {
@@ -385,7 +389,9 @@ namespace GestioneCantieri
             BindGridExcel(grdStampaMateCant, grdStampaMateCantExcel);
             CreateExcel();
         }
+        #endregion
 
+        #region Eventi Text-Changed
         /* EVENTI TEXT-CHANGED */
         protected void ddlScegliCant_TextChanged(object sender, EventArgs e)
         {
@@ -398,7 +404,7 @@ namespace GestioneCantieri
                 btnStampaContoCliente.Visible = false;
             }
         }
-
+        #endregion
 
         /* Override per il corretto funzionamento della creazione del foglio Excel */
         public override void VerifyRenderingInServerForm(Control control)

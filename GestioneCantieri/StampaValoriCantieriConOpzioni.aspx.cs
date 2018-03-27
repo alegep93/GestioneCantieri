@@ -22,7 +22,7 @@ namespace GestioneCantieri
             }
         }
 
-        // Helpers
+        #region Helpers
         protected void FillDdlScegliCliente()
         {
             List<Clienti> listaClienti = ClientiDAO.GetClienti(txtFiltraCliente.Text);
@@ -69,8 +69,9 @@ namespace GestioneCantieri
             //Aggiungo l'oggetto alla lista
             listForGridview.Add(objStampa);
         }
+        #endregion
 
-        // Click
+        #region Eventi Click
         protected void btnStampaContoCliente_Click(object sender, EventArgs e)
         {
             List<Cantieri> listaCantieri = CantieriDAO.GetCantieri(txtAnno.Text, Convert.ToInt32(ddlScegliCliente.SelectedValue), chkFatturato.Checked, chkChiuso.Checked, chkRiscosso.Checked);
@@ -105,7 +106,7 @@ namespace GestioneCantieri
             {
                 totGen += Convert.ToDecimal(grdStampaConOpzioni.Rows[i].Cells[5].Text);
 
-                if(grdStampaConOpzioni.Rows[i].Cells[5].Text == "0")
+                if (grdStampaConOpzioni.Rows[i].Cells[5].Text == "0")
                 {
                     grdStampaConOpzioni.Rows[i].Visible = false;
                 }
@@ -117,5 +118,6 @@ namespace GestioneCantieri
         {
             FillDdlScegliCliente();
         }
+        #endregion
     }
 }
