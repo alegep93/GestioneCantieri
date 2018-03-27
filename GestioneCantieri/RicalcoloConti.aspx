@@ -66,6 +66,7 @@
                         <asp:ListItem Value="noNote">Senza Note</asp:ListItem>
                         <asp:ListItem Value="note1">Con Note 1</asp:ListItem>
                         <asp:ListItem Value="note2">Con Note 2</asp:ListItem>
+                        <asp:ListItem Value="note1note2">Con Note 1 e Note 2</asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-12">

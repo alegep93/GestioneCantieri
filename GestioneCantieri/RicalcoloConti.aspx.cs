@@ -282,7 +282,22 @@ namespace GestioneCantieri
                     }
 
                     // Aggiunta della riga contenente le note in base alla scelta della DDLSCegliTipoNote
-                    if (ddlScegliTipoNote.SelectedValue != "noNote")
+                    if (ddlScegliTipoNote.SelectedValue == "note1note2")
+                    {
+                        PdfPCell note1Cell = null;
+                        PdfPCell note2Cell = null;
+
+                        note1Cell = new PdfPCell(new Phrase(matCantList[i].Note, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
+                        note2Cell = new PdfPCell(new Phrase(matCantList[i].Note2, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
+
+                        note1Cell.Colspan = note2Cell.Colspan = 5;
+                        note1Cell.BorderWidth = note2Cell.BorderWidth = 0;
+                        note1Cell.HorizontalAlignment = note2Cell.HorizontalAlignment = 0;
+
+                        table.AddCell(note1Cell);
+                        table.AddCell(note2Cell);
+                    }
+                    else if (ddlScegliTipoNote.SelectedValue != "noNote")
                     {
                         if (matCantList[i].Note != "" && matCantList[i].Note != null)
                         {

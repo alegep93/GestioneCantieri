@@ -442,7 +442,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT IdMaterialiCantiere,IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo, " +
                       "ricaricoSiNo,Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore, " +
-                      "NumeroBolla,ProtocolloInterno,Note,PzzoFinCli " +
+                      "NumeroBolla,ProtocolloInterno,Note,Note2,PzzoFinCli " +
                       "FROM TblMaterialiCantieri " +
                       "WHERE IdTblCantieri = @Id AND Visibile != 0 " +
                       "ORDER BY Data";
@@ -473,7 +473,8 @@ namespace GestioneCantieri.DAO
                     mc.NumeroBolla = (dr.IsDBNull(15) ? "" : dr.GetString(15));
                     mc.ProtocolloInterno = (dr.IsDBNull(16) ? -1 : dr.GetInt32(16));
                     mc.Note = (dr.IsDBNull(17) ? "" : dr.GetString(17));
-                    mc.PzzoFinCli = (dr.IsDBNull(18) ? 0.0m : dr.GetDecimal(18));
+                    mc.Note2 = (dr.IsDBNull(18) ? "" : dr.GetString(18));
+                    mc.PzzoFinCli = (dr.IsDBNull(19) ? 0.0m : dr.GetDecimal(19));
                     matList.Add(mc);
                 }
 
