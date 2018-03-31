@@ -281,41 +281,44 @@ namespace GestioneCantieri
                         table.AddCell(cell);
                     }
 
-                    // Aggiunta della riga contenente le note in base alla scelta della DDLSCegliTipoNote
-                    if (ddlScegliTipoNote.SelectedValue == "note1note2")
+                    if (ddlScegliTipoNote != null)
                     {
-                        PdfPCell note1Cell = null;
-                        PdfPCell note2Cell = null;
-
-                        note1Cell = new PdfPCell(new Phrase(matCantList[i].Note, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
-                        note2Cell = new PdfPCell(new Phrase(matCantList[i].Note2, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
-
-                        note1Cell.Colspan = note2Cell.Colspan = 5;
-                        note1Cell.BorderWidth = note2Cell.BorderWidth = 0;
-                        note1Cell.HorizontalAlignment = note2Cell.HorizontalAlignment = 0;
-
-                        table.AddCell(note1Cell);
-                        table.AddCell(note2Cell);
-                    }
-                    else if (ddlScegliTipoNote.SelectedValue != "noNote")
-                    {
-                        if (matCantList[i].Note != "" && matCantList[i].Note != null)
+                        // Aggiunta della riga contenente le note in base alla scelta della DDLSCegliTipoNote
+                        if (ddlScegliTipoNote.SelectedValue == "note1note2")
                         {
-                            PdfPCell noteCell = null;
+                            PdfPCell note1Cell = null;
+                            PdfPCell note2Cell = null;
 
-                            if (ddlScegliTipoNote.SelectedValue == "note1")
-                            {
-                                noteCell = new PdfPCell(new Phrase(matCantList[i].Note, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
-                            }
-                            else if (ddlScegliTipoNote.SelectedValue == "note2")
-                            {
-                                noteCell = new PdfPCell(new Phrase(matCantList[i].Note2, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
-                            }
+                            note1Cell = new PdfPCell(new Phrase(matCantList[i].Note, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
+                            note2Cell = new PdfPCell(new Phrase(matCantList[i].Note2, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
 
-                            noteCell.Colspan = 5;
-                            noteCell.BorderWidth = 0;
-                            noteCell.HorizontalAlignment = 0;
-                            table.AddCell(noteCell);
+                            note1Cell.Colspan = note2Cell.Colspan = 5;
+                            note1Cell.BorderWidth = note2Cell.BorderWidth = 0;
+                            note1Cell.HorizontalAlignment = note2Cell.HorizontalAlignment = 0;
+
+                            table.AddCell(note1Cell);
+                            table.AddCell(note2Cell);
+                        }
+                        else if (ddlScegliTipoNote.SelectedValue != "noNote")
+                        {
+                            if (matCantList[i].Note != "" && matCantList[i].Note != null)
+                            {
+                                PdfPCell noteCell = null;
+
+                                if (ddlScegliTipoNote.SelectedValue == "note1")
+                                {
+                                    noteCell = new PdfPCell(new Phrase(matCantList[i].Note, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
+                                }
+                                else if (ddlScegliTipoNote.SelectedValue == "note2")
+                                {
+                                    noteCell = new PdfPCell(new Phrase(matCantList[i].Note2, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.ITALIC, BaseColor.BLACK)));
+                                }
+
+                                noteCell.Colspan = 5;
+                                noteCell.BorderWidth = 0;
+                                noteCell.HorizontalAlignment = 0;
+                                table.AddCell(noteCell);
+                            }
                         }
                     }
 
