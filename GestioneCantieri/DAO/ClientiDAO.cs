@@ -33,7 +33,7 @@ namespace GestioneCantieri.DAO
                 while (dr.Read())
                 {
                     Clienti c = new Clienti();
-                    c.IdCliente = dr.GetInt32(0);
+                    c.IdCliente = dr.IsDBNull(0) ? -1 : dr.GetInt32(0);
                     c.RagSocCli = dr.IsDBNull(1) ? "" : dr.GetString(1);
                     list.Add(c);
                 }
