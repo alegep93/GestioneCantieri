@@ -2,6 +2,7 @@
 using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -37,18 +38,23 @@ namespace GestioneCantieri
             grdFruttiNonControllati.DataBind();
         }
 
-        protected void MostraComponentiGruppo(int id)
+        protected void MostraComponentiGruppo(int idGruppo)
         {
-            componentiGruppo = GestisciGruppiFruttiDAO.getCompGruppo(id);
+            lblPanelTitleGroupName.Text = GestisciGruppiFruttiDAO.getNomeGruppo(idGruppo);
+            componentiGruppo = CompGruppoFrutDAO.getCompGruppo(idGruppo);
         }
 
         protected void grdFruttiNonControllati_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int id = Convert.ToInt32(e.CommandArgument.ToString());
 
+            GridViewRow row = (GridViewRow)(((Control)e.CommandSource).NamingContainer);
+            int rowIndex = row.RowIndex;
+
             if (e.CommandName == "MostraCompGruppo")
             {
                 MostraComponentiGruppo(id);
+                SelezionaRigaCorrente(rowIndex);
             }
             else if (e.CommandName == "ControllaGruppo")
             {
@@ -56,6 +62,19 @@ namespace GestioneCantieri
                 BindGrid();
                 MostraNumeroGruppiNonControllati();
             }
+        }
+
+        private void SelezionaRigaCorrente(int rowIndex)
+        {
+            for (int i = 0; i < grdFruttiNonControllati.Rows.Count; i++)
+            {
+                grdFruttiNonControllati.Rows[i].BackColor = Color.Transparent;
+            }
+            for (int i = 1; i < grdFruttiNonControllati.Rows.Count; i = i + 2)
+            {
+                grdFruttiNonControllati.Rows[i].BackColor = Color.FromArgb(249, 249, 249);
+            }
+            grdFruttiNonControllati.Rows[rowIndex].BackColor = Color.Yellow;
         }
 
         protected void grdFruttiNonControllati_RowDataBound(object sender, GridViewRowEventArgs e)

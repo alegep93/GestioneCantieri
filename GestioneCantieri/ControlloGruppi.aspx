@@ -22,7 +22,7 @@
                     </asp:TemplateField>
                     <asp:TemplateField>
                         <ItemTemplate>
-                            <asp:Button ID="btnMostraCompGruppo" CommandName="MostraCompGruppo" CommandArgument="<%# BindItem.Id %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza Componenti" />
+                            <asp:Button ID="btnMostraCompGruppo" CommandName="MostraCompGruppo" CommandArgument='<%# BindItem.Id %>' CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza Componenti" />
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField>
@@ -37,7 +37,8 @@
         <div class="col-md-2 compGruppoFixed">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Gruppi NON controllati</h3>
+                    <h3 class="panel-title">
+                        <asp:Label ID="lblPanelTitleGroupName" runat="server"></asp:Label></h3>
                 </div>
                 <div class="panel-body">
                     <asp:Label ID="lblGruppiNonControllati" runat="server" Text="Componenti Gruppo"></asp:Label>

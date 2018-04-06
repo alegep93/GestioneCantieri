@@ -268,69 +268,6 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool InserisciCompGruppo(int gruppo, int frutto, string qta)
-        {
-            SqlConnection cn = GetConnection();
-            string sql = "";
-
-            try
-            {
-                sql = "INSERT INTO TblCompGruppoFrut(IdTblGruppo,IdTblFrutto,Qta) VALUES (@pGruppo,@pFrutto,@pQta) ";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pGruppo", gruppo));
-                cmd.Parameters.Add(new SqlParameter("pFrutto", frutto));
-                cmd.Parameters.Add(new SqlParameter("pQta", qta));
-
-                int rowNumber = cmd.ExecuteNonQuery();
-
-                if (rowNumber > 0)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante l'inserimento di un frutto in un gruppo", ex);
-            }
-            finally { cn.Close(); }
-        }
-        public static List<CompGruppoFrut> getCompGruppo(int idGruppo)
-        {
-            SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
-            string sql = "";
-            List<CompGruppoFrut> compList = new List<CompGruppoFrut>();
-
-            try
-            {
-                sql = "SELECT CGF.Id,F.descr001,Qta " +
-                      "FROM TblCompGruppoFrut AS CGF " +
-                      "JOIN TblFrutti AS F ON (CGF.IdTblFrutto = F.ID1) " +
-                      "WHERE IdTblGruppo = @pIdGruppo " +
-                      "ORDER BY CGF.Id ASC ";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdGruppo", idGruppo));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    CompGruppoFrut cgf = new CompGruppoFrut();
-                    cgf.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    cgf.NomeFrutto = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    cgf.Qta = (dr.IsDBNull(2) ? -1 : dr.GetInt32(2));
-                    compList.Add(cgf);
-                }
-
-                return compList;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante il recupero dei componeti del gruppo", ex);
-            }
-            finally { cn.Close(); }
-        }
         public static string getDescrGruppo(int idGruppo)
         {
             GruppiFrutti gf = new GruppiFrutti();
@@ -364,6 +301,38 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+        public static string getNomeGruppo(int idGruppo)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            string sql = "";
+            string ret = "";
+
+            try
+            {
+                sql = "SELECT NomeGruppo " +
+                      "FROM TblGruppiFrutti " +
+                      "WHERE Id = @pIdGruppo ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pIdGruppo", idGruppo));
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    ret = (dr.IsDBNull(0) ? "" : dr.GetString(0));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero del nome del gruppo", ex);
+            }
+            finally { cn.Close(); }
+
+            return ret;
+        }
+
         public static bool UpdateGruppo(int idGruppo, string nome, string descr)
         {
             SqlConnection cn = GetConnection();
@@ -425,6 +394,7 @@ namespace GestioneCantieri.DAO
         {
             SqlConnection cn = GetConnection();
             string sql = "";
+            bool ret = false;
 
             try
             {
@@ -434,18 +404,17 @@ namespace GestioneCantieri.DAO
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pId", idGruppo));
 
-                int rowNumber = cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
 
-                if (rowNumber > 0)
-                    return true;
-                else
-                    return false;
+                ret = true;
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'eliminazione di un gruppo", ex);
             }
             finally { cn.Close(); }
+
+            return ret;
         }
         public static bool DeleteFrutto(int idFrutto)
         {
@@ -470,31 +439,6 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'eliminazione di un frutto", ex);
-            }
-            finally { cn.Close(); }
-        }
-        public static bool DeleteCompGruppo(int idCompGruppo)
-        {
-            SqlConnection cn = GetConnection();
-            string sql = "";
-
-            try
-            {
-                sql = "DELETE FROM TblCompGruppoFrut WHERE Id = @pId ";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pId", idCompGruppo));
-
-                int rowNumber = cmd.ExecuteNonQuery();
-
-                if (rowNumber > 0)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante l'eliminazione di un componente di un gruppo frutto", ex);
             }
             finally { cn.Close(); }
         }
@@ -593,7 +537,7 @@ namespace GestioneCantieri.DAO
 
                 if (dr.Read())
                 {
-                    numGruppi = dr.GetInt32(0); 
+                    numGruppi = dr.GetInt32(0);
                 }
 
                 return numGruppi;

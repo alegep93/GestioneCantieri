@@ -280,5 +280,30 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+        public static bool DeleteGruppo(int idGruppo)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+            bool ret = false;
+
+            try
+            {
+                sql = "DELETE FROM TblMatOrdFrut WHERE IdGruppiFrutti = @idGruppo";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@idGruppo", idGruppo));
+
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'eliminazione di un gruppo da un ordine", ex);
+            }
+            finally { cn.Close(); }
+
+            return ret;
+        }
     }
 }

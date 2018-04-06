@@ -195,6 +195,7 @@
     <Compile Include="DAO\BaseDAO.cs" />
     <Compile Include="DAO\ClientiDAO.cs" />
     <Compile Include="DAO\CantieriDAO.cs" />
+    <Compile Include="DAO\CompGruppoFrutDAO.cs" />
     <Compile Include="DAO\FornitoriDAO.cs" />
     <Compile Include="DAO\InserimentoDatiDAO.cs" />
     <Compile Include="DAO\Mamg0DAO.cs" />
