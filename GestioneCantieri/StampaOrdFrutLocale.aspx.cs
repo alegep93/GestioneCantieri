@@ -33,21 +33,22 @@ namespace GestioneCantieri
             int c = 0;
             int numberOfRows = 0;
             int lastRow = 0;
+            string idCant = ddlScegliCantiere.SelectedItem.Value;
             List<int> indiciFruttiDaInserire = new List<int>();
 
-            List<StampaOrdFrutCantLoc> listGruppi = StampaOrdFrutCantLocDAO.GetAllGruppiInLocale(ddlScegliCantiere.SelectedItem.Value);
+            List<StampaOrdFrutCantLoc> listGruppi = StampaOrdFrutCantLocDAO.GetAllGruppiInLocale(idCant);
             grdGruppiInLocale.DataSource = listGruppi;
             grdGruppiInLocale.DataBind();
 
-            List<StampaOrdFrutCantLoc> listFrutti = StampaOrdFrutCantLocDAO.GetAllFruttiInLocale(ddlScegliCantiere.SelectedItem.Value);
+            List<StampaOrdFrutCantLoc> listFrutti = StampaOrdFrutCantLocDAO.GetAllFruttiInLocale(idCant);
             grdFruttiInLocale.DataSource = listFrutti;
             grdFruttiInLocale.DataBind();
 
-            List<StampaOrdFrutCantLoc> listFruttiNonInGruppo = StampaOrdFrutCantLocDAO.GetAllFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value);
+            List<StampaOrdFrutCantLoc> listFruttiNonInGruppo = StampaOrdFrutCantLocDAO.GetAllFruttiNonInGruppo(idCant);
             grdFruttiNonInGruppo.DataSource = listFruttiNonInGruppo;
             grdFruttiNonInGruppo.DataBind();
 
-            DataTable dt = StampaOrdFrutCantLocDAO.GetAllFruttiInLocaleDataTable(ddlScegliCantiere.SelectedItem.Value);
+            DataTable dt = StampaOrdFrutCantLocDAO.GetAllFruttiInLocaleDataTable(idCant);
 
             lastRow = grdFruttiInLocale.Rows.Count - 1;
 

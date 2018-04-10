@@ -39,10 +39,10 @@ namespace GestioneCantieri
                 ddlScegliCant.Items.Add(new System.Web.UI.WebControls.ListItem(show, c.IdCantieri.ToString()));
             }
         }
-        protected void CompilaCampi()
+        protected void CompilaCampi(string idCantiere)
         {
             //Popolo il campo Conto/Preventivo
-            Cantieri c = CantieriDAO.GetCantiere(ddlScegliCant.SelectedItem.Value);
+            Cantieri c = CantieriDAO.GetCantiere(idCantiere);
             if (c.Preventivo)
                 txtContoPreventivo.Text += String.Format("{0:n}", c.ValorePreventivo);
             else
@@ -50,7 +50,7 @@ namespace GestioneCantieri
 
             //Popolo il campo Tot. Acconti
             decimal totAcconti = 0m;
-            List<Pagamenti> pagList = PagamentiDAO.GetPagamenti(ddlScegliCant.SelectedItem.Value);
+            List<Pagamenti> pagList = PagamentiDAO.GetPagamenti(idCantiere);
             foreach (Pagamenti p in pagList)
             {
                 totAcconti += p.Imporo;
@@ -72,7 +72,8 @@ namespace GestioneCantieri
         protected void btnStampaContoCliente_Click(object sender, EventArgs e)
         {
             //Ricreo i passaggi della "Stampa Ricalcolo Conti" per ottenere il valore del "Totale Ricalcolo"
-            MaterialiCantieri mc = MaterialiCantieriDAO.GetDataPerIntestazione(ddlScegliCant.SelectedItem.Value);
+            string idCantiere = ddlScegliCant.SelectedItem.Value;
+            MaterialiCantieri mc = MaterialiCantieriDAO.GetDataPerIntestazione(idCantiere);
             RicalcoloConti rc = new RicalcoloConti();
             decimal totale = 0m;
             PdfPTable pTable = rc.InitializePdfTableDDT(grdStampaMateCantPDF);
@@ -85,7 +86,7 @@ namespace GestioneCantieri
             pdfDoc.Close();
 
             //Popolo i campi di riepilogo con i dati necessari
-            CompilaCampi();
+            CompilaCampi(idCantiere);
         }
         #endregion
 

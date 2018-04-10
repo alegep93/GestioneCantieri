@@ -271,18 +271,19 @@ namespace GestioneCantieri
         }
 
         //Switcha classi css per bottoni di scelta pannello
-        protected void RemoveActiveClass()
-        {
-            foreach (var b in pnlScegliMaschera.Controls)
-            {
-                if (b.GetType().Name == "Button")
-                {
-                    (((Button)b).CssClass).Replace(" active", "");
-                }
-            }
-        }
+        //protected void RemoveActiveClass()
+        //{
+        //    foreach (var b in pnlScegliMaschera.Controls)
+        //    {
+        //        if (b.GetType().Name == "Button")
+        //        {
+        //            (((Button)b).CssClass).Replace(" active", "");
+        //        }
+        //    }
+        //}
 
         //Controlla che l'intestazione sia completamente compilata prima di inserire il record
+
         protected bool isIntestazioneCompilata()
         {
             if (ddlScegliCant.SelectedIndex != 0 && ddlScegliAcquirente.SelectedIndex != 0 && ddlScegliFornit.SelectedIndex != 0 && (ddlScegliDDTMef.SelectedIndex != 0 || txtNumBolla.Text != "") && txtDataDDT.Text != "" && txtFascia.Text != "" && txtProtocollo.Text != "")

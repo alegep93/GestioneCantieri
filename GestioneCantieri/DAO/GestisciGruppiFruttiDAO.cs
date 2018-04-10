@@ -470,7 +470,7 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool isGruppoAperto(string idGruppo)
+        public static bool isGruppoAperto(int idGruppo)
         {
             SqlConnection cn = GetConnection();
             SqlDataReader dr = null;

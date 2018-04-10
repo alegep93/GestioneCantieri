@@ -61,7 +61,9 @@ namespace GestioneCantieri
         }
         protected void btnInsCompgruppo_Click(object sender, EventArgs e)
         {
-            bool isAggiunto = CompGruppoFrutDAO.InserisciCompGruppo(Convert.ToInt32(ddlGruppi.SelectedItem.Value), Convert.ToInt32(ddlFrutti.SelectedItem.Value), txtQta.Text);
+            int idGruppo = Convert.ToInt32(ddlGruppi.SelectedItem.Value);
+            int idFrutto = Convert.ToInt32(ddlFrutti.SelectedItem.Value);
+            bool isAggiunto = CompGruppoFrutDAO.InserisciCompGruppo(idGruppo, idFrutto, txtQta.Text);
 
             if (isAggiunto)
             {
@@ -75,7 +77,7 @@ namespace GestioneCantieri
                 lblFruttoAggiungo.ForeColor = Color.Red;
             }
 
-            compList = CompGruppoFrutDAO.getCompGruppo(Convert.ToInt32(ddlGruppi.SelectedItem.Value));
+            compList = CompGruppoFrutDAO.getCompGruppo(idGruppo);
             ddlFrutti.SelectedIndex = 0;
             txtQta.Text = "";
             ddlFrutti.Focus();
@@ -113,7 +115,8 @@ namespace GestioneCantieri
         }
         protected void btnSaveModGruppo_Click(object sender, EventArgs e)
         {
-            bool isSaved = GestisciGruppiFruttiDAO.UpdateGruppo(Convert.ToInt32(ddlModScegliGruppo.SelectedItem.Value), txtModNomeGruppo.Text, txtModDescrGruppo.Text);
+            int idGruppo = Convert.ToInt32(ddlModScegliGruppo.SelectedItem.Value);
+            bool isSaved = GestisciGruppiFruttiDAO.UpdateGruppo(idGruppo, txtModNomeGruppo.Text, txtModDescrGruppo.Text);
             if (isSaved)
             {
                 lblSaveModGruppo.Text = "Nome gruppo modificato con successo in '" + txtModNomeGruppo.Text + "'";
@@ -132,15 +135,16 @@ namespace GestioneCantieri
         }
         protected void btnDelGruppo_Click(object sender, EventArgs e)
         {
+            int idGruppo = Convert.ToInt32(ddlDelGruppo.SelectedItem.Value);
             bool isDeleted = false;
-            isDeleted = OrdineFruttiDAO.DeleteGruppo(Convert.ToInt32(ddlDelGruppo.SelectedItem.Value));
+            isDeleted = OrdineFruttiDAO.DeleteGruppo(idGruppo);
 
             if (isDeleted)
             {
-                isDeleted = CompGruppoFrutDAO.DeleteGruppo(Convert.ToInt32(ddlDelGruppo.SelectedItem.Value));
+                isDeleted = CompGruppoFrutDAO.DeleteGruppo(idGruppo);
                 if (isDeleted)
                 {
-                    isDeleted = GestisciGruppiFruttiDAO.DeleteGruppo(Convert.ToInt32(ddlDelGruppo.SelectedItem.Value));
+                    isDeleted = GestisciGruppiFruttiDAO.DeleteGruppo(idGruppo);
                     if (isDeleted)
                     {
                         lblIsDelGruppo.Text = "Gruppo '" + ddlDelGruppo.SelectedItem.Text + "' eliminato con successo";
@@ -169,7 +173,8 @@ namespace GestioneCantieri
         }
         protected void btnDelCompGruppo_Click(object sender, EventArgs e)
         {
-            bool isDeleted = CompGruppoFrutDAO.DeleteCompGruppo(Convert.ToInt32(ddlDelCompGrup.SelectedItem.Value));
+            int idCompGruppo = Convert.ToInt32(ddlDelCompGrup.SelectedItem.Value);
+            bool isDeleted = CompGruppoFrutDAO.DeleteCompGruppo(idCompGruppo);
             if (isDeleted)
             {
                 lblIsDelCompGruppo.Text = "Componente '" + ddlDelCompGrup.SelectedItem.Text + "' eliminato con successo dal gruppo '" + ddlDelNomeGruppo.SelectedItem.Text + "'";
@@ -235,27 +240,28 @@ namespace GestioneCantieri
         }
         protected void ddlGruppi_TextChanged(object sender, EventArgs e)
         {
-
             if (ddlGruppi.SelectedItem.Text == "")
                 nuovoFruttoPanel.Visible = false;
             else
             {
-                txaShowDescrGruppo.Text = GestisciGruppiFruttiDAO.getDescrGruppo(Convert.ToInt32(ddlGruppi.SelectedItem.Value));
+                int idGruppo = Convert.ToInt32(ddlGruppi.SelectedItem.Value);
+                txaShowDescrGruppo.Text = GestisciGruppiFruttiDAO.getDescrGruppo(idGruppo);
                 nuovoFruttoPanel.Visible = true;
-                compList = CompGruppoFrutDAO.getCompGruppo(Convert.ToInt32(ddlGruppi.SelectedItem.Value));
+                compList = CompGruppoFrutDAO.getCompGruppo(idGruppo);
             }
         }
         protected void ddlModMostraGruppi_TextChanged(object sender, EventArgs e)
         {
+            int idGruppo = Convert.ToInt32(ddlModScegliGruppo.SelectedItem.Value);
             if (ddlModScegliGruppo.SelectedItem.Value != "")
             {
                 btnSaveModGruppo.Visible = true;
                 pnlModGruppo.Visible = true;
                 txtModNomeGruppo.Text = ddlModScegliGruppo.SelectedItem.Text;
-                txtModDescrGruppo.Text = GestisciGruppiFruttiDAO.getDescrGruppo(Convert.ToInt32(ddlModScegliGruppo.SelectedItem.Value));
-                compList = CompGruppoFrutDAO.getCompGruppo(Convert.ToInt32(ddlModScegliGruppo.SelectedItem.Value));
+                txtModDescrGruppo.Text = GestisciGruppiFruttiDAO.getDescrGruppo(idGruppo);
+                compList = CompGruppoFrutDAO.getCompGruppo(idGruppo);
 
-                bool isOpen = GestisciGruppiFruttiDAO.isGruppoAperto(ddlModScegliGruppo.SelectedItem.Value);
+                bool isOpen = GestisciGruppiFruttiDAO.isGruppoAperto(idGruppo);
                 if (isOpen)
                     btnRiapriGruppo.Visible = false;
                 else
@@ -264,12 +270,13 @@ namespace GestioneCantieri
         }
         protected void ddlDelNomeGruppo_TextChanged(object sender, EventArgs e)
         {
+            int idGruppo = Convert.ToInt32(ddlDelNomeGruppo.SelectedItem.Value);
             if (ddlDelNomeGruppo.SelectedItem.Value != "")
             {
                 pnlDelCompGrup.Visible = true;
-                txtDelDescrGruppo.Text = GestisciGruppiFruttiDAO.getDescrGruppo(Convert.ToInt32(ddlDelNomeGruppo.SelectedItem.Value));
+                txtDelDescrGruppo.Text = GestisciGruppiFruttiDAO.getDescrGruppo(idGruppo);
                 fillDdlCompGruppo();
-                compList = CompGruppoFrutDAO.getCompGruppo(Convert.ToInt32(ddlDelNomeGruppo.SelectedItem.Value));
+                compList = CompGruppoFrutDAO.getCompGruppo(idGruppo);
                 btnDelCompGruppo.Visible = false;
             }
             else

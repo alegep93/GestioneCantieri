@@ -202,8 +202,10 @@ namespace GestioneCantieri
         }
         protected void PopolaListe()
         {
-            fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
-            compList = OrdineFruttiDAO.getGruppi(ddlScegliCantiere.SelectedItem.Value, ddlScegliLocale.SelectedItem.Value);
+            string idCantiere = ddlScegliCantiere.SelectedItem.Value;
+            string idLocale = ddlScegliLocale.SelectedItem.Value;
+            fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(idCantiere, idLocale);
+            compList = OrdineFruttiDAO.getGruppi(idCantiere, idLocale);
         }
     }
 }

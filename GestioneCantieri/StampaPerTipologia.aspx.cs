@@ -58,20 +58,25 @@ namespace GestioneCantieri
         {
             decimal totale = 0m;
             decimal totaleOre = 0m;
+            string idCantiere = ddlScegliCant.SelectedItem.Value;
+            string idOperaio = ddlScegliOperaio.SelectedItem.Value;
             List<MaterialiCantieri> mcList = new List<MaterialiCantieri>();
 
             if (rdbManodop.Checked)
-                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, txtDataDa.Text, txtDataA.Text, ddlScegliOperaio.SelectedItem.Value, "MANODOPERA");
+                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(idCantiere, txtDataDa.Text, txtDataA.Text, idOperaio, "MANODOPERA");
             else if (rdbOper.Checked)
-                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(ddlScegliCant.SelectedItem.Value, txtDataDa.Text, txtDataA.Text, ddlScegliOperaio.SelectedItem.Value, "OPERAIO");
+                mcList = MaterialiCantieriDAO.GetMaterialeCantierePerTipologia(idCantiere, txtDataDa.Text, txtDataA.Text, idOperaio, "OPERAIO");
 
             grdStampaPerTipologia.DataSource = mcList;
             grdStampaPerTipologia.DataBind();
 
             for (int i = 0; i < grdStampaPerTipologia.Rows.Count; i++)
             {
-                decimal valore = Convert.ToDecimal(grdStampaPerTipologia.Rows[i].Cells[4].Text) * Convert.ToDecimal(grdStampaPerTipologia.Rows[i].Cells[5].Text);
-                totaleOre += Convert.ToDecimal(grdStampaPerTipologia.Rows[i].Cells[4].Text);
+                decimal qta = Convert.ToDecimal(grdStampaPerTipologia.Rows[i].Cells[4].Text);
+                decimal prezzoUnitario = Convert.ToDecimal(grdStampaPerTipologia.Rows[i].Cells[5].Text);
+                decimal valore = qta * prezzoUnitario;
+
+                totaleOre += qta;
                 totale += valore;
             }
 

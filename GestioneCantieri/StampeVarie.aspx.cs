@@ -2,8 +2,6 @@
 using GestioneCantieri.Data;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
-using iTextSharp.text.html;
-using iTextSharp.text.html.simpleparser;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,11 +10,10 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Drawing;
-using GestioneCantieri.FooterPDF;
 
 namespace GestioneCantieri
 {
-    public partial class StampeVarie : System.Web.UI.Page
+    public partial class StampeVarie : Page
     {
         protected DataTable dt = new DataTable();
 

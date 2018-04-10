@@ -3,16 +3,13 @@ using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {
-    public partial class ControlloGruppi : System.Web.UI.Page
+    public partial class ControlloGruppi : Page
     {
-        public List<GruppiFrutti> gruppiNonControllatiList = new List<GruppiFrutti>();
         public List<CompGruppoFrut> componentiGruppo = new List<CompGruppoFrut>();
 
         protected void Page_Load(object sender, EventArgs e)
@@ -33,7 +30,7 @@ namespace GestioneCantieri
 
         private void BindGrid()
         {
-            gruppiNonControllatiList = GestisciGruppiFruttiDAO.getGruppiNonControllati();
+            List<GruppiFrutti> gruppiNonControllatiList = GestisciGruppiFruttiDAO.getGruppiNonControllati();
             grdFruttiNonControllati.DataSource = gruppiNonControllatiList;
             grdFruttiNonControllati.DataBind();
         }

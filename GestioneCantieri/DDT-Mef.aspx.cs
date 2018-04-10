@@ -38,10 +38,7 @@ namespace GestioneCantieri
             txtDescriCodArt2.Text = "";
             txtDescriCodArt3.Text = "";
             BindGrid();
-            txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitario().ToString("0.00") + " €";
-            txtTotDDT.Text = DDTMefDAO.GetTotalDDT().ToString("N2") + " €";
-            txtImponibileDDT.Text = DDTMefDAO.GetImponibileDDT().ToString("N2") + " €";
-            txtIvaDDT.Text = DDTMefDAO.GetIvaDDT().ToString("N2") + " €";
+            GetBasicValuesForRecap();
         }
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -119,11 +116,17 @@ namespace GestioneCantieri
             listaDDT = DDTMefDAO.getDDTList();
             grdListaDDTMef.DataSource = listaDDT;
             grdListaDDTMef.DataBind();
+            GetBasicValuesForRecap();
+        }
+
+        private void GetBasicValuesForRecap()
+        {
             txtMedia.Text = DDTMefDAO.calcolaMediaPrezzoUnitario().ToString("0.00") + " €";
             txtTotDDT.Text = DDTMefDAO.GetTotalDDT().ToString("N2") + " €";
             txtImponibileDDT.Text = DDTMefDAO.GetImponibileDDT().ToString("N2") + " €";
             txtIvaDDT.Text = DDTMefDAO.GetIvaDDT().ToString("N2") + " €";
         }
+
         protected void BindGridWithSearch()
         {
             List<DDTMef> listaDDT = new List<DDTMef>();

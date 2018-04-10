@@ -49,18 +49,19 @@ namespace GestioneCantieri
             decimal totArrot = 0m;
             decimal totChiam = 0m;
             decimal totSpese = 0m;
+            string idCantiere = ddlScegliCant.SelectedItem.Value;
 
-            List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiere(ddlScegliCant.SelectedItem.Value);
+            List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMaterialeCantiere(idCantiere);
             grdStampaVerificaCant.DataSource = matCantList;
             grdStampaVerificaCant.DataBind();
 
-            MaterialiCantieri mc = MaterialiCantieriDAO.GetDataPerIntestazione(ddlScegliCant.SelectedItem.Value);
+            MaterialiCantieri mc = MaterialiCantieriDAO.GetDataPerIntestazione(idCantiere);
 
             lblIntestStampa.Text = "<strong>CodCant</strong>: " + mc.CodCant + " --- " +
                 "<strong>DescriCodCant</strong>: " + mc.DescriCodCant + " --- " +
                 "<strong>Cliente</strong>: " + mc.RagSocCli;
 
-            Cantieri c = CantieriDAO.GetCantiere(ddlScegliCant.SelectedItem.Value);
+            Cantieri c = CantieriDAO.GetCantiere(idCantiere);
             lblTotContoCliente.Text = "<strong>Tot. Conto/Preventivo</strong>: ";
 
             if (c.Preventivo)
@@ -138,13 +139,14 @@ namespace GestioneCantieri
         protected void btnStampaVerificaCant_Click(object sender, EventArgs e)
         {
             //Ricreo i passaggi della "Stampa Ricalcolo Conti" per ottenere il valore del "Totale Ricalcolo"
-            MaterialiCantieri mc = MaterialiCantieriDAO.GetDataPerIntestazione(ddlScegliCant.SelectedItem.Value);
+            string idCantiere = ddlScegliCant.SelectedItem.Value;
+            MaterialiCantieri mc = MaterialiCantieriDAO.GetDataPerIntestazione(idCantiere);
             RicalcoloConti rc = new RicalcoloConti();
             decimal totale = 0m;
             PdfPTable pTable = rc.InitializePdfTableDDT(grdStampaMateCantPDF);
             Document pdfDoc = new Document(PageSize.A4, 8f, 2f, 2f, 2f);
             pdfDoc.Open();
-            rc.idCant = ddlScegliCant.SelectedItem.Value;
+            rc.idCant = idCantiere;
             rc.BindGrid(grdStampaMateCant);
             rc.BindGridPDF(grdStampaMateCant, grdStampaMateCantPDF);
             rc.GeneraPDFPerContoFinCli(pdfDoc, mc, pTable, grdStampaMateCantPDF, totale);
