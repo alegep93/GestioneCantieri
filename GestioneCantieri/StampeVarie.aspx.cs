@@ -509,15 +509,23 @@ namespace GestioneCantieri
         {
             if (txtNomeFile.Text != "")
             {
-                if (DDTMefDAO.CheckIfDdtExistBetweenData(txtNumDDT.Text, txtDataDa.Text, txtDataA.Text))
+                if (txtNumDDT.Text != "")
                 {
-                    BindGridStampaDDT();
-                    ExportToPdfPerDDT();
+                    if (DDTMefDAO.CheckIfDdtExistBetweenData(txtNumDDT.Text, txtDataDa.Text, txtDataA.Text))
+                    {
+                        BindGridStampaDDT();
+                        ExportToPdfPerDDT();
+                    }
+                    else
+                    {
+                        lblIsNomeFileInserito.Text = "Il DDT cercato NON è presente nella lista dei DDT";
+                        lblIsNomeFileInserito.ForeColor = Color.Red;
+                    }
                 }
                 else
                 {
-                    lblIsNomeFileInserito.Text = "Il DDT cercato NON è presente nella lista dei DDT";
-                    lblIsNomeFileInserito.ForeColor = Color.Red;
+                    BindGridStampaDDT();
+                    ExportToPdfPerDDT();
                 }
             }
             else
