@@ -2,11 +2,6 @@
 using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -120,7 +115,7 @@ namespace GestioneCantieri
             //    numberOfRows--;
             //}
 
-            grdFruttiInLocale.DataSource = StampaOrdFrutCantLocDAO.GetFruttiPerStampaExcel(ddlScegliCantiere.SelectedItem.Value);
+            grdFruttiInLocale.DataSource = OrdineFruttiDAO.GetFruttiPerStampaExcel(ddlScegliCantiere.SelectedItem.Value);
             grdFruttiInLocale.DataBind();
         }
         protected void CreateExcel()
@@ -154,7 +149,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlScegliCantiere()
         {
-            List<Cantieri> listCantieri = OrdineFruttiDAO.GetListCantieri();
+            List<Cantieri> listCantieri = CantieriDAO.GetListCantieri();
 
             ddlScegliCantiere.Items.Clear();
 

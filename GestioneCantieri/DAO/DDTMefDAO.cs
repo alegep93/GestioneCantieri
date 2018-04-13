@@ -1,11 +1,9 @@
-﻿using System;
+﻿using GestioneCantieri.Data;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using GestioneCantieri.Data;
-using System.Data.SqlClient;
 using System.Data;
 using System.Data.OleDb;
+using System.Data.SqlClient;
 
 namespace GestioneCantieri.DAO
 {
@@ -137,6 +135,10 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
+            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                                  "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                                  "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+
             try
             {
                 /* Senza Filtro */
@@ -149,17 +151,11 @@ namespace GestioneCantieri.DAO
                 //altrimenti faccio una where generica per tutti gli altri casi
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) " + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -168,16 +164,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += "WHERE Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR(Data = CONVERT(Date, @pDataInizio) OR Data = CONVERT(Date, @pDataFine))) " + queryFilters;
                 }
 
                 sql += "ORDER BY Anno, Data, N_DDT, CodArt ";
@@ -281,6 +272,10 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
+            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                                  "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                                  "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+
             try
             {
                 sql = "SELECT (SUM(PrezzoUnitario)) / (COUNT(PrezzoUnitario)) " +
@@ -288,17 +283,11 @@ namespace GestioneCantieri.DAO
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -307,16 +296,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " + queryFilters;
                 }
 
 
@@ -700,23 +684,21 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
+            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                                  "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                                  "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+
             try
             {
                 sql = "SELECT SUM(Importo) FROM TblDDTMef ";
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -725,16 +707,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " + queryFilters;
                 }
 
 
@@ -825,23 +802,21 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
+            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                                  "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                                  "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+
             try
             {
                 sql = "SELECT SUM((Importo * 100) / CONVERT(decimal(10,2), 122)) FROM TblDDTMef ";
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -850,16 +825,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " + queryFilters;
                 }
 
 
@@ -950,23 +920,21 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
+            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+                                  "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
+                                  "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+
             try
             {
                 sql = "SELECT SUM(Importo - (100 * Importo / CONVERT(decimal(10,2),122))) FROM TblDDTMef ";
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -975,16 +943,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += "WHERE CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " +
-                           "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
-                           "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
-                           "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " + queryFilters;
                 }
 
 

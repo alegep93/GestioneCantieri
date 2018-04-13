@@ -2,11 +2,8 @@
 using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Drawing;
+using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {
@@ -36,7 +33,7 @@ namespace GestioneCantieri
         {
             if (txtInsNomeFrutto.Text != "")
             {
-                bool isAggiunto = GestisciGruppiFruttiDAO.InserisciFrutto(txtInsNomeFrutto.Text);
+                bool isAggiunto = FruttiDAO.InserisciFrutto(txtInsNomeFrutto.Text);
 
                 if (isAggiunto)
                 {
@@ -93,7 +90,7 @@ namespace GestioneCantieri
         {
             if (txtModNomeFrutto.Text != "")
             {
-                bool isSaved = GestisciGruppiFruttiDAO.UpdateFrutto(Convert.ToInt32(ddlModScegliFrutto.SelectedItem.Value), txtModNomeFrutto.Text);
+                bool isSaved = GruppiFruttiDAO.UpdateFrutto(Convert.ToInt32(ddlModScegliFrutto.SelectedItem.Value), txtModNomeFrutto.Text);
                 if (isSaved)
                 {
                     lblSaveModFrutto.Text = "Frutto modificato con successo in '" + txtModNomeFrutto.Text + "'";
@@ -116,7 +113,7 @@ namespace GestioneCantieri
         }
         protected void btnDelFrutto_Click(object sender, EventArgs e)
         {
-            bool isDeleted = GestisciGruppiFruttiDAO.DeleteFrutto(Convert.ToInt32(ddlDelFrutto.SelectedItem.Value));
+            bool isDeleted = GruppiFruttiDAO.DeleteFrutto(Convert.ToInt32(ddlDelFrutto.SelectedItem.Value));
             if (isDeleted)
             {
                 lblIsDelFrutto.Text = "Frutto '"+ ddlDelFrutto.SelectedItem.Text +"' eliminato con successo";
@@ -171,7 +168,7 @@ namespace GestioneCantieri
         /* HELPERS */
         protected void FillDdlFrutti()
         {
-            List<Frutti> listFrutti = GestisciGruppiFruttiDAO.getFrutti();
+            List<Frutti> listFrutti = FruttiDAO.getFrutti();
             ddlModScegliFrutto.Items.Clear();
             ddlDelFrutto.Items.Clear();
 
@@ -188,7 +185,7 @@ namespace GestioneCantieri
         }
         protected void MostraListaFruttiInseriti()
         {
-            fruttiList = GestisciGruppiFruttiDAO.getFruttiWithSearch(txtFiltroFrutti1.Text, txtFiltroFrutti2.Text, txtFiltroFrutti3.Text);
+            fruttiList = FruttiDAO.getFruttiWithSearch(txtFiltroFrutti1.Text, txtFiltroFrutti2.Text, txtFiltroFrutti3.Text);
         }
     }
 }

@@ -197,29 +197,23 @@
     <Compile Include="DAO\CantieriDAO.cs" />
     <Compile Include="DAO\CompGruppoFrutDAO.cs" />
     <Compile Include="DAO\FornitoriDAO.cs" />
-    <Compile Include="DAO\InserimentoDatiDAO.cs" />
+    <Compile Include="DAO\FruttiDAO.cs" />
+    <Compile Include="DAO\LocaliDAO.cs" />
     <Compile Include="DAO\Mamg0DAO.cs" />
     <Compile Include="DAO\MaterialiCantieriDAO.cs" />
     <Compile Include="DAO\OperaiDAO.cs" />
     <Compile Include="DAO\OrdineFruttiDAO.cs" />
     <Compile Include="DAO\DDTMefDAO.cs" />
-    <Compile Include="DAO\GestisciGruppiFruttiDAO.cs" />
+    <Compile Include="DAO\GruppiFruttiDAO.cs" />
     <Compile Include="DAO\PagamentiDAO.cs" />
-    <Compile Include="DAO\RicalcoloContiStampaPdfDAO.cs" />
     <Compile Include="DAO\SpeseDAO.cs" />
-    <Compile Include="DAO\StampaFruttiPerGruppiDAO.cs" />
-    <Compile Include="DAO\StampaOrdFrutCantLocDAO.cs" />
-    <Compile Include="DAO\StampaOrdFrutCantDAO.cs" />
     <Compile Include="DAO\StampeDAO.cs" />
-    <Compile Include="DAO\TipDatCantDAO.cs" />
     <Compile Include="Data\StampaValoriCantieriConOpzioni.cs" />
     <Compile Include="Data\DDTMefObject.cs" />
     <Compile Include="Data\MaterialiCantieri.cs" />
     <Compile Include="Data\Pagamenti.cs" />
-    <Compile Include="Data\RicalcoloContiStampaPDF.cs" />
     <Compile Include="Data\Spese.cs" />
     <Compile Include="Data\Stampe.cs" />
-    <Compile Include="Data\TipDatCant.cs" />
     <Compile Include="FooterPDF\TwoColumnHeaderFooter.cs" />
     <Compile Include="GestioneCantieri.aspx.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
@@ -298,7 +292,6 @@
     <Compile Include="Data\Operai.cs" />
     <Compile Include="Data\StampaFruttiPerGruppi.cs" />
     <Compile Include="Data\StampaOrdFrutCantLoc.cs" />
-    <Compile Include="Data\StampaOrdFrutCant.cs" />
     <Compile Include="DDT-Mef.aspx.cs">
       <DependentUpon>DDT-Mef.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

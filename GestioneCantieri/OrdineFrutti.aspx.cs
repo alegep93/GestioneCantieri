@@ -2,11 +2,6 @@
 using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
@@ -148,7 +143,7 @@ namespace GestioneCantieri
         /* HELPERS */
         protected void FillDdlScegliCantiere()
         {
-            List<Cantieri> listCantieri = OrdineFruttiDAO.GetListCantieri();
+            List<Cantieri> listCantieri = CantieriDAO.GetListCantieri();
 
             ddlScegliCantiere.Items.Clear();
 
@@ -163,7 +158,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlScegliLocale()
         {
-            List<Locali> listLocali = OrdineFruttiDAO.GetListLocali();
+            List<Locali> listLocali = LocaliDAO.GetListLocali();
 
             ddlScegliLocale.Items.Clear();
 
@@ -177,7 +172,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlGruppi()
         {
-            List<GruppiFrutti> listGruppiFrutti = OrdineFruttiDAO.GetGruppiWithSearch(txtFiltroGruppo1.Text, txtFiltroGruppo2.Text, txtFiltroGruppo3.Text);
+            List<GruppiFrutti> listGruppiFrutti = GruppiFruttiDAO.GetGruppiWithSearch(txtFiltroGruppo1.Text, txtFiltroGruppo2.Text, txtFiltroGruppo3.Text);
 
             ddlScegliGruppo.Items.Clear();
 
@@ -192,7 +187,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlFrutti()
         {
-            List<Frutti> listFrutti = GestisciGruppiFruttiDAO.getFruttiWithSearch(txtFiltroFrutto1.Text, txtFiltroFrutto2.Text, txtFiltroFrutto3.Text);
+            List<Frutti> listFrutti = FruttiDAO.getFruttiWithSearch(txtFiltroFrutto1.Text, txtFiltroFrutto2.Text, txtFiltroFrutto3.Text);
             ddlScegliFrutto.Items.Clear();
 
             ddlScegliFrutto.Items.Add(new ListItem("", "-1"));

@@ -36,19 +36,19 @@ namespace GestioneCantieri
             string idCant = ddlScegliCantiere.SelectedItem.Value;
             List<int> indiciFruttiDaInserire = new List<int>();
 
-            List<StampaOrdFrutCantLoc> listGruppi = StampaOrdFrutCantLocDAO.GetAllGruppiInLocale(idCant);
+            List<StampaOrdFrutCantLoc> listGruppi = OrdineFruttiDAO.GetAllGruppiInLocale(idCant);
             grdGruppiInLocale.DataSource = listGruppi;
             grdGruppiInLocale.DataBind();
 
-            List<StampaOrdFrutCantLoc> listFrutti = StampaOrdFrutCantLocDAO.GetAllFruttiInLocale(idCant);
+            List<StampaOrdFrutCantLoc> listFrutti = OrdineFruttiDAO.GetAllFruttiInLocale(idCant);
             grdFruttiInLocale.DataSource = listFrutti;
             grdFruttiInLocale.DataBind();
 
-            List<StampaOrdFrutCantLoc> listFruttiNonInGruppo = StampaOrdFrutCantLocDAO.GetAllFruttiNonInGruppo(idCant);
+            List<StampaOrdFrutCantLoc> listFruttiNonInGruppo = OrdineFruttiDAO.GetAllFruttiNonInGruppo(idCant);
             grdFruttiNonInGruppo.DataSource = listFruttiNonInGruppo;
             grdFruttiNonInGruppo.DataBind();
 
-            DataTable dt = StampaOrdFrutCantLocDAO.GetAllFruttiInLocaleDataTable(idCant);
+            DataTable dt = OrdineFruttiDAO.GetAllFruttiInLocaleDataTable(idCant);
 
             lastRow = grdFruttiInLocale.Rows.Count - 1;
 
@@ -110,7 +110,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlScegliCantiere()
         {
-            List<Cantieri> listCantieri = OrdineFruttiDAO.GetListCantieri();
+            List<Cantieri> listCantieri = CantieriDAO.GetListCantieri();
 
             ddlScegliCantiere.Items.Clear();
 

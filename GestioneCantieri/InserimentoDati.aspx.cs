@@ -92,7 +92,7 @@ namespace GestioneCantieri
             {
                 if (txtDataInserimento.Text != "")
                 {
-                    bool isInserito = InserimentoDatiDAO.InserisciCliente(cliente);
+                    bool isInserito = ClientiDAO.InserisciCliente(cliente);
 
                     if (isInserito)
                     {
@@ -139,7 +139,7 @@ namespace GestioneCantieri
         protected void btnModCliente_Click(object sender, EventArgs e)
         {
             Clienti cliente = FillObjCliente();
-            bool isUpdated = InserimentoDatiDAO.UpdateCliente(hidIdClienti.Value, cliente);
+            bool isUpdated = ClientiDAO.UpdateCliente(hidIdClienti.Value, cliente);
 
             if (isUpdated)
             {
@@ -176,7 +176,7 @@ namespace GestioneCantieri
             if (txtRagSocFornit.Text != "")
             {
                 Fornitori fornitore = FillObjFornitore();
-                bool isInserito = InserimentoDatiDAO.InserisciFornitore(fornitore);
+                bool isInserito = FornitoriDAO.InserisciFornitore(fornitore);
                 if (isInserito)
                 {
                     lblIsFornitoreInserito.Text = "Fornitore '" + txtRagSocFornit.Text + "' inserito correttamente";
@@ -213,7 +213,7 @@ namespace GestioneCantieri
         protected void btnModFornit_Click(object sender, EventArgs e)
         {
             Fornitori fornitore = FillObjFornitore();
-            bool isUpdated = InserimentoDatiDAO.UpdateFornitore(hidIdFornit.Value, fornitore);
+            bool isUpdated = FornitoriDAO.UpdateFornitore(hidIdFornit.Value, fornitore);
 
             if (isUpdated)
             {
@@ -241,7 +241,7 @@ namespace GestioneCantieri
         {
             if (txtNomeOper.Text != "")
             {
-                bool isInserito = InserimentoDatiDAO.InserisciOperaio(txtNomeOper.Text, txtDescrOper.Text, txtSuffOper.Text, txtOperaio.Text, txtCostoOperaio.Text);
+                bool isInserito = OperaiDAO.InserisciOperaio(txtNomeOper.Text, txtDescrOper.Text, txtSuffOper.Text, txtOperaio.Text, txtCostoOperaio.Text);
 
                 if (isInserito)
                 {
@@ -265,7 +265,7 @@ namespace GestioneCantieri
         }
         protected void btnModOper_Click(object sender, EventArgs e)
         {
-            bool isUpdated = InserimentoDatiDAO.UpdateOperaio(hidIdOper.Value, txtNomeOper.Text,
+            bool isUpdated = OperaiDAO.UpdateOperaio(hidIdOper.Value, txtNomeOper.Text,
                 txtDescrOper.Text, txtSuffOper.Text, txtOperaio.Text, txtCostoOperaio.Text);
 
             if (isUpdated)
@@ -303,7 +303,7 @@ namespace GestioneCantieri
 
                 Cantieri cant = FillObjCantiere(chiuso, riscosso, preventivo, daDividere, diviso, fatturato, codRiferCant);
 
-                bool isInserito = InserimentoDatiDAO.InserisciCantiere(cant);
+                bool isInserito = CantieriDAO.InserisciCantiere(cant);
 
                 if (isInserito)
                 {
@@ -365,7 +365,7 @@ namespace GestioneCantieri
 
             Cantieri cant = FillObjCantiere(chiuso, riscosso, preventivo, daDividere, diviso, fatturato, "");
 
-            bool isUpdated = InserimentoDatiDAO.UpdateCantiere(hidIdCant.Value, cant);
+            bool isUpdated = CantieriDAO.UpdateCantiere(hidIdCant.Value, cant);
 
             if (isUpdated)
             {
@@ -501,14 +501,14 @@ namespace GestioneCantieri
         //Clienti
         protected void BindGridClienti()
         {
-            DataTable dt = InserimentoDatiDAO.GetAllClienti();
+            DataTable dt = ClientiDAO.GetAllClienti();
             List<Clienti> clientiList = dt.DataTableToList<Clienti>();
             grdClienti.DataSource = clientiList;
             grdClienti.DataBind();
         }
         protected void BindGridClientiWithSearch()
         {
-            DataTable dt = InserimentoDatiDAO.FiltraClienti(txtFiltroRagSocCli.Text);
+            DataTable dt = ClientiDAO.FiltraClienti(txtFiltroRagSocCli.Text);
             List<Clienti> clientiList = dt.DataTableToList<Clienti>();
             grdClienti.DataSource = clientiList;
             grdClienti.DataBind();
@@ -531,7 +531,7 @@ namespace GestioneCantieri
         }
         protected void EliminaCliente(int idCli)
         {
-            bool isEliminato = InserimentoDatiDAO.EliminaCliente(idCli);
+            bool isEliminato = ClientiDAO.EliminaCliente(idCli);
             if (isEliminato)
             {
                 lblIsClienteInserito.Text = "Cliente eliminato con successo";
@@ -552,7 +552,7 @@ namespace GestioneCantieri
         }
         protected void PopolaCampiCliente(int idCli, bool isControlEnabled)
         {
-            Clienti cli = InserimentoDatiDAO.GetSingleCliente(idCli);
+            Clienti cli = ClientiDAO.GetSingleCliente(idCli);
 
             //Rendo i textbox disabilitati
             foreach (Control c in pnlInsClienti.Controls)
@@ -578,7 +578,7 @@ namespace GestioneCantieri
         //Fornitori
         protected void BindGridFornitori()
         {
-            DataTable dt = InserimentoDatiDAO.GetFornitori(txtFiltroRagSocForni.Text);
+            DataTable dt = FornitoriDAO.GetFornitori(txtFiltroRagSocForni.Text);
             List<Fornitori> fornitList = dt.DataTableToList<Fornitori>();
             grdFornitori.DataSource = fornitList;
             grdFornitori.DataBind();
@@ -601,7 +601,7 @@ namespace GestioneCantieri
         }
         protected void EliminaFornitore(int idFornitore)
         {
-            bool isEliminato = InserimentoDatiDAO.EliminaFornitore(idFornitore);
+            bool isEliminato = FornitoriDAO.EliminaFornitore(idFornitore);
             if (isEliminato)
             {
                 lblIsFornitoreInserito.Text = "Fornitore eliminato con successo";
@@ -622,7 +622,7 @@ namespace GestioneCantieri
         }
         protected void PopolaCampiFornitore(int idFornitore, bool isControlEnabled)
         {
-            Fornitori fornitore = InserimentoDatiDAO.GetSingleFornitore(idFornitore);
+            Fornitori fornitore = FornitoriDAO.GetSingleFornitore(idFornitore);
 
             //Rendo i textbox disabilitati
             foreach (Control c in pnlInsFornitori.Controls)
@@ -645,7 +645,7 @@ namespace GestioneCantieri
         //Operai
         protected void BindGridOperai()
         {
-            DataTable dt = InserimentoDatiDAO.GetAllOperai();
+            DataTable dt = OperaiDAO.GetAllOperai();
             List<Operai> opList = dt.DataTableToList<Operai>();
             grdOperai.DataSource = opList;
             grdOperai.DataBind();
@@ -668,7 +668,7 @@ namespace GestioneCantieri
         }
         protected void EliminaOperaio(int idOperaio)
         {
-            bool isEliminato = InserimentoDatiDAO.EliminaOperaio(idOperaio);
+            bool isEliminato = OperaiDAO.EliminaOperaio(idOperaio);
             if (isEliminato)
             {
                 lblIsOperaioInserito.Text = "Operaio eliminato con successo";
@@ -689,7 +689,7 @@ namespace GestioneCantieri
         }
         protected void PopolaCampiOperaio(int idOperaio, bool isControlEnabled)
         {
-            Operai operaio = InserimentoDatiDAO.GetSingleOperaio(idOperaio);
+            Operai operaio = OperaiDAO.GetSingleOperaio(idOperaio);
 
             //Rendo i textbox disabilitati
             foreach (Control c in pnlInsOperai.Controls)
@@ -708,28 +708,28 @@ namespace GestioneCantieri
         //Cantieri
         protected void BindGridCantieri()
         {
-            DataTable dt = InserimentoDatiDAO.GetAllCantieri();
+            DataTable dt = CantieriDAO.GetAllCantieri();
             List<Cantieri> cantList = dt.DataTableToList<Cantieri>();
             grdCantieri.DataSource = cantList;
             grdCantieri.DataBind();
         }
         protected void BindGridCantieri(bool chiuso, bool riscosso)
         {
-            DataTable dt = InserimentoDatiDAO.GetAllCantieri(chiuso, riscosso);
+            DataTable dt = CantieriDAO.GetAllCantieri(chiuso, riscosso);
             List<Cantieri> cantList = dt.DataTableToList<Cantieri>();
             grdCantieri.DataSource = cantList;
             grdCantieri.DataBind();
         }
         protected void BindGridCantieriWithSearch()
         {
-            DataTable dt = InserimentoDatiDAO.FiltraCantieri(txtFiltroAnno.Text, txtFiltroCodCant.Text, txtFiltroDescr.Text, txtFiltroCliente.Text, chkFiltroChiuso.Checked, chkFiltroRiscosso.Checked);
+            DataTable dt = CantieriDAO.FiltraCantieri(txtFiltroAnno.Text, txtFiltroCodCant.Text, txtFiltroDescr.Text, txtFiltroCliente.Text, chkFiltroChiuso.Checked, chkFiltroRiscosso.Checked);
             List<Cantieri> cantList = dt.DataTableToList<Cantieri>();
             grdCantieri.DataSource = cantList;
             grdCantieri.DataBind();
         }
         protected void FillDdlClienti()
         {
-            List<Clienti> listClienti = InserimentoDatiDAO.GetClientiIdAndName();
+            List<Clienti> listClienti = ClientiDAO.GetClientiIdAndName();
 
             ddlScegliClientePerCantiere.Items.Clear();
             ddlScegliClientePerCantiere.Items.Add(new ListItem("", "-1"));
@@ -755,7 +755,7 @@ namespace GestioneCantieri
         }
         protected void EliminaCantiere(int idCant)
         {
-            bool isEliminato = InserimentoDatiDAO.EliminaCantiere(idCant);
+            bool isEliminato = CantieriDAO.EliminaCantiere(idCant);
             if (isEliminato)
             {
                 lblIsCantInserito.Text = "Cantiere eliminato con successo";
@@ -780,7 +780,7 @@ namespace GestioneCantieri
         }
         protected void PopolaCampiCantiere(int idCant, bool isControlEnabled)
         {
-            Cantieri cant = InserimentoDatiDAO.GetSingleCantiere(idCant);
+            Cantieri cant = CantieriDAO.GetSingleCantiere(idCant);
             ListItem selectedListItem = ddlScegliClientePerCantiere.Items.FindByText(cant.RagSocCli);
 
             //Rendo i textbox disabilitati
@@ -830,7 +830,7 @@ namespace GestioneCantieri
             string numCant = "";
             if (num == "")
             {
-                txtNumeroCant.Text = InserimentoDatiDAO.GetLastNumCantForYear(DateTime.Now.Year.ToString());
+                txtNumeroCant.Text = CantieriDAO.GetLastNumCantForYear(DateTime.Now.Year.ToString());
                 numCant = txtNumeroCant.Text;
             }
             else
@@ -850,7 +850,7 @@ namespace GestioneCantieri
         {
             DateTime date = DateTime.Now;
 
-            int numCant = Convert.ToInt32(InserimentoDatiDAO.GetNumCantPerAnno(txtAnnoCant.Text));
+            int numCant = Convert.ToInt32(CantieriDAO.GetNumCantPerAnno(txtAnnoCant.Text));
             int descrLength = txtDescrCodCant.Text.Trim().Length;
             char firstDescrLetter = txtDescrCodCant.Text[0];
             string lastYearDigits = date.ToString("yy");

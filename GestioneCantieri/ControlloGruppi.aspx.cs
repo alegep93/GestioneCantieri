@@ -25,19 +25,19 @@ namespace GestioneCantieri
 
         private void MostraNumeroGruppiNonControllati()
         {
-            lblNumGruppiNonControllati.Text = "Numero di gruppi da controllare: " + GestisciGruppiFruttiDAO.GetNumeroGruppiNonControllati().ToString();
+            lblNumGruppiNonControllati.Text = "Numero di gruppi da controllare: " + GruppiFruttiDAO.GetNumeroGruppiNonControllati().ToString();
         }
 
         private void BindGrid()
         {
-            List<GruppiFrutti> gruppiNonControllatiList = GestisciGruppiFruttiDAO.getGruppiNonControllati();
+            List<GruppiFrutti> gruppiNonControllatiList = GruppiFruttiDAO.getGruppiNonControllati();
             grdFruttiNonControllati.DataSource = gruppiNonControllatiList;
             grdFruttiNonControllati.DataBind();
         }
 
         protected void MostraComponentiGruppo(int idGruppo)
         {
-            lblPanelTitleGroupName.Text = GestisciGruppiFruttiDAO.getNomeGruppo(idGruppo);
+            lblPanelTitleGroupName.Text = GruppiFruttiDAO.getNomeGruppo(idGruppo);
             componentiGruppo = CompGruppoFrutDAO.getCompGruppo(idGruppo);
         }
 
@@ -55,7 +55,7 @@ namespace GestioneCantieri
             }
             else if (e.CommandName == "ControllaGruppo")
             {
-                GestisciGruppiFruttiDAO.UpdateFlagControllato(id);
+                GruppiFruttiDAO.UpdateFlagControllato(id);
                 BindGrid();
                 MostraNumeroGruppiNonControllati();
             }

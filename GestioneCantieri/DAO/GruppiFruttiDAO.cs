@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace GestioneCantieri.DAO
 {
-    public class GestisciGruppiFruttiDAO : BaseDAO
+    public class GruppiFruttiDAO : BaseDAO
     {
         public static bool CreaGruppo(string nomeGruppo, string descr)
         {
@@ -32,101 +30,6 @@ namespace GestioneCantieri.DAO
             catch (Exception ex)
             {
                 throw new Exception("Errore durante la creazione di un nuovo gruppo", ex);
-            }
-            finally { cn.Close(); }
-        }
-        public static bool InserisciFrutto(string nomeFrutto)
-        {
-            SqlConnection cn = GetConnection();
-            string sql = "";
-
-            try
-            {
-                sql = "IF NOT EXISTS(SELECT descr001 FROM TblFrutti WHERE descr001 = @pNomeFrutto) " +
-                        "INSERT INTO TblFrutti(descr001) VALUES (@pNomeFrutto) ";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pNomeFrutto", nomeFrutto));
-
-                int rowNumber = cmd.ExecuteNonQuery();
-                if (rowNumber > 0)
-                    return true;
-                else
-                    return false;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante l'inserimento di un frutto", ex);
-            }
-            finally { cn.Close(); }
-        }
-        public static List<Frutti> getFrutti()
-        {
-            SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
-            string sql = "";
-            List<Frutti> fruttiList = new List<Frutti>();
-
-            try
-            {
-                sql = "SELECT ID1,descr001 FROM TblFrutti " +
-                      "ORDER BY descr001 ASC ";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    Frutti f = new Frutti();
-                    f.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    f.Descr = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    fruttiList.Add(f);
-                }
-
-                return fruttiList;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante il recupero dei frutti", ex);
-            }
-            finally { cn.Close(); }
-        }
-        public static List<Frutti> getFruttiWithSearch(string f1, string f2, string f3)
-        {
-            SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
-            string sql = "";
-            List<Frutti> fruttiList = new List<Frutti>();
-
-            f1 = "%" + f1 + "%";
-            f2 = "%" + f2 + "%";
-            f3 = "%" + f3 + "%";
-
-            try
-            {
-                sql = "SELECT ID1,descr001 FROM TblFrutti " +
-                      "WHERE descr001 LIKE @pF1 AND descr001 LIKE @pF2 AND descr001 LIKE @pF3 " +
-                      "ORDER BY descr001 ASC ";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("@pF1", f1));
-                cmd.Parameters.Add(new SqlParameter("@pF2", f2));
-                cmd.Parameters.Add(new SqlParameter("@pF3", f3));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    Frutti f = new Frutti();
-                    f.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    f.Descr = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    fruttiList.Add(f);
-                }
-
-                return fruttiList;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante la ricerca dei frutti", ex);
             }
             finally { cn.Close(); }
         }
@@ -158,7 +61,7 @@ namespace GestioneCantieri.DAO
             }
             catch (Exception ex)
             {
-                throw new Exception("Errore durante il recupero dei frutti", ex);
+                throw new Exception("Errore durante il recupero dei gruppi", ex);
             }
             finally { cn.Close(); }
         }
@@ -442,20 +345,18 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static bool CompletaRiapriGruppo(string idGruppo, bool isOpen)
+        public static bool CompletaRiapriGruppo(string idGruppo, bool completa)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
 
             try
             {
-                if (isOpen)
-                    sql = "UPDATE TblGruppiFrutti SET Completato = 1 WHERE Id = @pIdGruppo ";
-                else
-                    sql = "UPDATE TblGruppiFrutti SET Completato = 0 WHERE Id = @pIdGruppo ";
+                sql = "UPDATE TblGruppiFrutti SET Completato = @completa WHERE Id = @pIdGruppo ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdGruppo", idGruppo));
+                cmd.Parameters.Add(new SqlParameter("@pIdGruppo", idGruppo));
+                cmd.Parameters.Add(new SqlParameter("@completa", completa));
 
                 int rowNumber = cmd.ExecuteNonQuery();
 
@@ -548,5 +449,47 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
+
+        public static List<GruppiFrutti> GetGruppiWithSearch(string filter1, string filter2, string filter3)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            string sql = "";
+            List<GruppiFrutti> gruppiFruttiList = new List<GruppiFrutti>();
+
+            filter1 = "%" + filter1 + "%";
+            filter2 = "%" + filter2 + "%";
+            filter3 = "%" + filter3 + "%";
+
+            try
+            {
+                sql = "SELECT Id,NomeGruppo,Descrizione FROM TblGruppiFrutti " +
+                      "WHERE NomeGruppo LIKE @pFilter1 AND NomeGruppo LIKE @pFilter2 AND NomeGruppo LIKE @pFilter3 " +
+                      "ORDER BY NomeGruppo ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pFilter1", filter1));
+                cmd.Parameters.Add(new SqlParameter("pFilter2", filter2));
+                cmd.Parameters.Add(new SqlParameter("pFilter3", filter3));
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    GruppiFrutti gf = new GruppiFrutti();
+                    gf.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
+                    gf.NomeGruppo = (dr.IsDBNull(1) ? null : dr.GetString(1));
+                    gf.Descr = (dr.IsDBNull(2) ? null : dr.GetString(2));
+                    gruppiFruttiList.Add(gf);
+                }
+
+                return gruppiFruttiList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei gruppi cercati", ex);
+            }
+            finally { cn.Close(); }
+        }
+        
     }
 }

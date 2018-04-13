@@ -5,11 +5,11 @@ using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.IO;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Drawing;
 
 namespace GestioneCantieri
 {
@@ -507,6 +507,7 @@ namespace GestioneCantieri
         /* EVENTI CLICK */
         protected void btnStampaDDT_Click(object sender, EventArgs e)
         {
+            lblIsNomeFileInserito.Text = "";
             if (txtNomeFile.Text != "")
             {
                 if (txtNumDDT.Text != "")

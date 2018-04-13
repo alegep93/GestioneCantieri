@@ -1,102 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace GestioneCantieri.Data
+﻿namespace GestioneCantieri.Data
 {
     public class Operai
     {
-        int idOperaio;
-        string nomeOp, descrOp, suffisso, operaio;
-        decimal costoOperaio;
+        int idOperaio = 0;
+        string nomeOp = "", descrOp = "", suffisso = "", operaio = "";
+        decimal costoOperaio = 0;
 
-        public Operai()
-        {
-            this.idOperaio = -1;
-            this.nomeOp = this.descrOp = this.suffisso = this.operaio = "";
-            this.costoOperaio = 0.0m;
-        }
-
-        public Operai(int idOperaio, string nomeOp, string descrOp, string suffisso, string operaio, decimal costoOperaio)
-        {
-            this.idOperaio = idOperaio;
-            this.nomeOp = nomeOp;
-            this.descrOp = descrOp;
-            this.suffisso = suffisso;
-            this.operaio = operaio;
-            this.costoOperaio = costoOperaio;
-        }
-
-        public string DescrOp
-        {
-            get
-            {
-                return descrOp;
-            }
-
-            set
-            {
-                descrOp = value;
-            }
-        }
-
-        public int IdOperaio
-        {
-            get
-            {
-                return idOperaio;
-            }
-
-            set
-            {
-                idOperaio = value;
-            }
-        }
-
-        public string NomeOp
-        {
-            get
-            {
-                return nomeOp;
-            }
-
-            set
-            {
-                nomeOp = value;
-            }
-        }
-
-        public string Operaio
-        {
-            get
-            {
-                return operaio;
-            }
-
-            set
-            {
-                operaio = value;
-            }
-        }
-
-        public string Suffisso
-        {
-            get
-            {
-                return suffisso;
-            }
-
-            set
-            {
-                suffisso = value;
-            }
-        }
-
-        public decimal CostoOperaio
-        {
-            get { return costoOperaio; }
-            set { costoOperaio = value; }
-        }
+        public int IdOperaio { get => idOperaio; set => idOperaio = value; }
+        public string NomeOp { get => nomeOp; set => nomeOp = value; }
+        public string DescrOp { get => descrOp; set => descrOp = value; }
+        public string Suffisso { get => suffisso; set => suffisso = value; }
+        public string Operaio { get => operaio; set => operaio = value; }
+        public decimal CostoOperaio { get => costoOperaio; set => costoOperaio = value; }
     }
 }

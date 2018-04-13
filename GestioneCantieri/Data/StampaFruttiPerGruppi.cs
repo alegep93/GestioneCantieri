@@ -1,44 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace GestioneCantieri.Data
+﻿namespace GestioneCantieri.Data
 {
     public class StampaFruttiPerGruppi
     {
-        int qta;
-        string nomeGruppo, nomeFrutto;
+        int qta = 0;
+        string nomeGruppo = "", nomeFrutto = "";
 
-        public StampaFruttiPerGruppi()
-        {
-            this.qta = -1;
-            this.nomeGruppo = this.nomeFrutto = "";
-        }
-
-        public StampaFruttiPerGruppi(int qta, string nomeGruppo, string nomeFrutto)
-        {
-            this.qta = qta;
-            this.nomeGruppo = nomeGruppo;
-            this.nomeFrutto = nomeFrutto;
-        }
-
-        public int Qta
-        {
-            get { return qta; }
-            set { qta = value; }
-        }
-
-        public string NomeGruppo
-        {
-            get { return nomeGruppo; }
-            set { nomeGruppo = value; }
-        }
-
-        public string NomeFrutto
-        {
-            get { return nomeFrutto; }
-            set { nomeFrutto = value; }
-        }
+        public int Qta { get => qta; set => qta = value; }
+        public string NomeGruppo { get => nomeGruppo; set => nomeGruppo = value; }
+        public string NomeFrutto { get => nomeFrutto; set => nomeFrutto = value; }
     }
 }

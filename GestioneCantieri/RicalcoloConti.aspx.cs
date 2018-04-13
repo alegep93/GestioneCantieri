@@ -6,8 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -198,7 +196,7 @@ namespace GestioneCantieri
         {
             decimal totale = 0m;
             MaterialiCantieri mc = new MaterialiCantieri();
-            mc = MaterialiCantieriDAO.GetDataPerIntestazione(idCant);
+            mc = CantieriDAO.GetDataPerIntestazione(idCant);
 
             //Apro lo stream verso il file PDF
             Document pdfDoc = new Document(PageSize.A4, 8f, 2f, 2f, 2f);

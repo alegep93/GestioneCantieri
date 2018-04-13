@@ -5,10 +5,6 @@ using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {
@@ -73,7 +69,7 @@ namespace GestioneCantieri
         {
             //Ricreo i passaggi della "Stampa Ricalcolo Conti" per ottenere il valore del "Totale Ricalcolo"
             string idCantiere = ddlScegliCant.SelectedItem.Value;
-            MaterialiCantieri mc = MaterialiCantieriDAO.GetDataPerIntestazione(idCantiere);
+            MaterialiCantieri mc = CantieriDAO.GetDataPerIntestazione(idCantiere);
             RicalcoloConti rc = new RicalcoloConti();
             decimal totale = 0m;
             PdfPTable pTable = rc.InitializePdfTableDDT(grdStampaMateCantPDF);

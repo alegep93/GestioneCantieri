@@ -4,11 +4,6 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {
@@ -80,7 +75,7 @@ namespace GestioneCantieri
             foreach (Cantieri c in listaCantieri)
             {
                 //Ricreo i passaggi della "Stampa Ricalcolo Conti" per ottenere il valore del "Totale Ricalcolo"
-                MaterialiCantieri mc = MaterialiCantieriDAO.GetDataPerIntestazione(c.IdCantieri.ToString());
+                MaterialiCantieri mc = CantieriDAO.GetDataPerIntestazione(c.IdCantieri.ToString());
                 RicalcoloConti rc = new RicalcoloConti();
                 decimal totale = 0m;
                 PdfPTable pTable = rc.InitializePdfTableDDT(grdStampaMateCantPDF);

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using GestioneCantieri.DAO;
 using GestioneCantieri.Data;
-using GestioneCantieri.DAO;
-using System.Data.OleDb;
-using System.Data;
-using System.IO;
+using System;
+using System.Collections.Generic;
+using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {

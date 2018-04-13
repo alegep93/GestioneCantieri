@@ -2,11 +2,8 @@
 using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Drawing;
+using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
 {
@@ -37,7 +34,7 @@ namespace GestioneCantieri
         {
             if (txtNomeGruppo.Text != "")
             {
-                bool insert = GestisciGruppiFruttiDAO.CreaGruppo(txtNomeGruppo.Text, txaDescr.Text);
+                bool insert = GruppiFruttiDAO.CreaGruppo(txtNomeGruppo.Text, txaDescr.Text);
 
                 if (insert)
                 {
@@ -116,7 +113,7 @@ namespace GestioneCantieri
         protected void btnSaveModGruppo_Click(object sender, EventArgs e)
         {
             int idGruppo = Convert.ToInt32(ddlModScegliGruppo.SelectedItem.Value);
-            bool isSaved = GestisciGruppiFruttiDAO.UpdateGruppo(idGruppo, txtModNomeGruppo.Text, txtModDescrGruppo.Text);
+            bool isSaved = GruppiFruttiDAO.UpdateGruppo(idGruppo, txtModNomeGruppo.Text, txtModDescrGruppo.Text);
             if (isSaved)
             {
                 lblSaveModGruppo.Text = "Nome gruppo modificato con successo in '" + txtModNomeGruppo.Text + "'";
@@ -144,7 +141,7 @@ namespace GestioneCantieri
                 isDeleted = CompGruppoFrutDAO.DeleteGruppo(idGruppo);
                 if (isDeleted)
                 {
-                    isDeleted = GestisciGruppiFruttiDAO.DeleteGruppo(idGruppo);
+                    isDeleted = GruppiFruttiDAO.DeleteGruppo(idGruppo);
                     if (isDeleted)
                     {
                         lblIsDelGruppo.Text = "Gruppo '" + ddlDelGruppo.SelectedItem.Text + "' eliminato con successo";
@@ -193,7 +190,7 @@ namespace GestioneCantieri
         }
         protected void btnCompletaGruppo_Click(object sender, EventArgs e)
         {
-            bool isClosed = GestisciGruppiFruttiDAO.CompletaRiapriGruppo(ddlGruppi.SelectedItem.Value, true);
+            bool isClosed = GruppiFruttiDAO.CompletaRiapriGruppo(ddlGruppi.SelectedItem.Value, true);
             if (isClosed)
             {
                 lblFruttoAggiungo.Text = "Gruppo '" + ddlGruppi.SelectedItem.Text + "' chiuso con successo";
@@ -209,7 +206,7 @@ namespace GestioneCantieri
         }
         protected void btnRiapriGruppo_Click(object sender, EventArgs e)
         {
-            bool isOpen = GestisciGruppiFruttiDAO.CompletaRiapriGruppo(ddlModScegliGruppo.SelectedItem.Value, false);
+            bool isOpen = GruppiFruttiDAO.CompletaRiapriGruppo(ddlModScegliGruppo.SelectedItem.Value, false);
             if (isOpen)
             {
                 lblSaveModGruppo.Text = "Gruppo '" + ddlModScegliGruppo.SelectedItem.Text + "' aperto con successo";
@@ -245,7 +242,7 @@ namespace GestioneCantieri
             else
             {
                 int idGruppo = Convert.ToInt32(ddlGruppi.SelectedItem.Value);
-                txaShowDescrGruppo.Text = GestisciGruppiFruttiDAO.getDescrGruppo(idGruppo);
+                txaShowDescrGruppo.Text = GruppiFruttiDAO.getDescrGruppo(idGruppo);
                 nuovoFruttoPanel.Visible = true;
                 compList = CompGruppoFrutDAO.getCompGruppo(idGruppo);
             }
@@ -258,10 +255,10 @@ namespace GestioneCantieri
                 btnSaveModGruppo.Visible = true;
                 pnlModGruppo.Visible = true;
                 txtModNomeGruppo.Text = ddlModScegliGruppo.SelectedItem.Text;
-                txtModDescrGruppo.Text = GestisciGruppiFruttiDAO.getDescrGruppo(idGruppo);
+                txtModDescrGruppo.Text = GruppiFruttiDAO.getDescrGruppo(idGruppo);
                 compList = CompGruppoFrutDAO.getCompGruppo(idGruppo);
 
-                bool isOpen = GestisciGruppiFruttiDAO.isGruppoAperto(idGruppo);
+                bool isOpen = GruppiFruttiDAO.isGruppoAperto(idGruppo);
                 if (isOpen)
                     btnRiapriGruppo.Visible = false;
                 else
@@ -274,7 +271,7 @@ namespace GestioneCantieri
             if (ddlDelNomeGruppo.SelectedItem.Value != "")
             {
                 pnlDelCompGrup.Visible = true;
-                txtDelDescrGruppo.Text = GestisciGruppiFruttiDAO.getDescrGruppo(idGruppo);
+                txtDelDescrGruppo.Text = GruppiFruttiDAO.getDescrGruppo(idGruppo);
                 fillDdlCompGruppo();
                 compList = CompGruppoFrutDAO.getCompGruppo(idGruppo);
                 btnDelCompGruppo.Visible = false;
@@ -306,7 +303,7 @@ namespace GestioneCantieri
         /* HELPERS */
         protected void FillDdlFrutti()
         {
-            List<Frutti> listFrutti = GestisciGruppiFruttiDAO.getFrutti();
+            List<Frutti> listFrutti = FruttiDAO.getFrutti();
 
             ddlFrutti.Items.Clear();
 
@@ -321,7 +318,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlGruppi()
         {
-            List<GruppiFrutti> listGruppiFrutti = GestisciGruppiFruttiDAO.getGruppi();
+            List<GruppiFrutti> listGruppiFrutti = GruppiFruttiDAO.getGruppi();
 
             ddlModScegliGruppo.Items.Clear();
             ddlDelGruppo.Items.Clear();
@@ -342,7 +339,7 @@ namespace GestioneCantieri
         }
         protected void FillDdlGruppiNonCompletati()
         {
-            List<GruppiFrutti> listGruppiFrutti = GestisciGruppiFruttiDAO.getGruppiNonCompletati();
+            List<GruppiFrutti> listGruppiFrutti = GruppiFruttiDAO.getGruppiNonCompletati();
 
             ddlGruppi.Items.Clear();
 
@@ -372,7 +369,7 @@ namespace GestioneCantieri
         }
         protected void MostraListaGruppiInseriti()
         {
-            gruppiList = GestisciGruppiFruttiDAO.getGruppiWithSearch(txtFiltroGruppi1.Text, txtFiltroGruppi2.Text, txtFiltroGruppi3.Text);
+            gruppiList = GruppiFruttiDAO.getGruppiWithSearch(txtFiltroGruppi1.Text, txtFiltroGruppi2.Text, txtFiltroGruppi3.Text);
         }
 
         protected void ddlFrutti_TextChanged(object sender, EventArgs e)

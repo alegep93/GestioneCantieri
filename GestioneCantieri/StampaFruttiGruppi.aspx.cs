@@ -2,9 +2,6 @@
 using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace GestioneCantieri
@@ -34,16 +31,16 @@ namespace GestioneCantieri
             List<StampaFruttiPerGruppi> listFrutti = new List<StampaFruttiPerGruppi>();
 
             if (ddlScegliGruppo.SelectedIndex != 0)
-                listFrutti = StampaFruttiPerGruppiDAO.GetFruttiInGruppi(ddlScegliGruppo.SelectedItem.Value);
+                listFrutti = CompGruppoFrutDAO.GetFruttiInGruppi(ddlScegliGruppo.SelectedItem.Value);
             else
-                listFrutti = StampaFruttiPerGruppiDAO.GetFruttiInGruppi(null);
+                listFrutti = CompGruppoFrutDAO.GetFruttiInGruppi(null);
 
             grdFruttiInGruppo.DataSource = listFrutti;
             grdFruttiInGruppo.DataBind();
         }
         protected void FillDdlScegliGruppo()
         {
-            List<GruppiFrutti> listGruppi = StampaFruttiPerGruppiDAO.getGruppi();
+            List<GruppiFrutti> listGruppi = GruppiFruttiDAO.getGruppi();
 
             ddlScegliGruppo.Items.Clear();
             ddlScegliGruppo.Items.Add(new ListItem("", "-1"));
