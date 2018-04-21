@@ -90,6 +90,7 @@
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Default.aspx" />
     <Content Include="GestioneCantieri.aspx" />
+    <Content Include="GestioneLocali.aspx" />
     <Content Include="GestionePagamenti.aspx" />
     <Content Include="GestisciFrutti.aspx" />
     <Content Include="GestisciGruppiFrutti.aspx" />
@@ -221,6 +222,13 @@
     </Compile>
     <Compile Include="GestioneCantieri.aspx.designer.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GestioneLocali.aspx.cs">
+      <DependentUpon>GestioneLocali.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestioneLocali.aspx.designer.cs">
+      <DependentUpon>GestioneLocali.aspx</DependentUpon>
     </Compile>
     <Compile Include="GestionePagamenti.aspx.cs">
       <DependentUpon>GestionePagamenti.aspx</DependentUpon>

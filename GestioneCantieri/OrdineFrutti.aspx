@@ -97,7 +97,7 @@
             </asp:Panel>
         </div>
 
-        <div class="row">
+        <%--<div class="row">
             <asp:Panel ID="pnlMostraGruppiInseriti" runat="server">
                 <div class="col-md-6">
                     <div class="panel panel-default">
@@ -132,6 +132,36 @@
                     </div>
                 </div>
             </asp:Panel>
+        </div>--%>
+
+        <div class="row">
+            <div class="tableContainer col-md-12 table-responsive">
+                <asp:GridView ID="grdOrdini" runat="server" ItemType="GestioneCantieri.Data.MatOrdFrut" OnRowCommand="grdOrdini_RowCommand" AutoGenerateColumns="False" CssClass="table table-striped text-center">
+                    <Columns>
+                        <asp:BoundField DataField="DescrCant" HeaderText="Cantiere" />
+                        <asp:BoundField DataField="Appartamento" HeaderText="Locale" />
+                        <asp:BoundField DataField="NomeGruppo" HeaderText="Nome Gruppo" />
+                        <asp:BoundField DataField="NomeFrutto" HeaderText="Nome Frutto" />
+                        <asp:BoundField DataField="QtaFrutti" HeaderText="Quantità Frutti" />
+                        <%--<asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:Button ID="btnVisualMatCant" CommandName="VisualMatCant" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
+                            </ItemTemplate>
+                        </asp:TemplateField>--%>
+                        <%--<asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:Button ID="btnModificaOrdine" CommandName="ModificaOrdine" CommandArgument="<%# BindItem.Id %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
+                            </ItemTemplate>
+                        </asp:TemplateField>--%>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:Button ID="btnElimiminaOrdine" CommandName="EliminaOrdine" CommandArgument="<%# BindItem.Id %>"
+                                    CssClass="btn btn-lg btn-default" runat="server" Text="Elimina" OnClientClick="return confirm('Vuoi veramente eliminare questo ordine?');" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
+                    </Columns>
+                </asp:GridView>
+            </div>
         </div>
     </div>
 </asp:Content>

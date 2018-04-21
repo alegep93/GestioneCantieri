@@ -283,30 +283,12 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblIsFruttoInserito;
         
         /// <summary>
-        /// Controllo pnlMostraGruppiInseriti.
+        /// Controllo grdOrdini.
         /// </summary>
         /// <remarks>
         /// Campo generato automaticamente.
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlMostraGruppiInseriti;
-        
-        /// <summary>
-        /// Controllo lblQtaDescr.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQtaDescr;
-        
-        /// <summary>
-        /// Controllo lblQtaDescrFrutti.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblQtaDescrFrutti;
+        protected global::System.Web.UI.WebControls.GridView grdOrdini;
     }
 }

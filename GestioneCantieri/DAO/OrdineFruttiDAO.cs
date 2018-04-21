@@ -162,6 +162,31 @@ namespace GestioneCantieri.DAO
 
             return ret;
         }
+        public static bool DeleteItem(int itemId)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+            bool ret = false;
+
+            try
+            {
+                sql = "DELETE FROM TblMatOrdFrut WHERE Id = @itemId";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@itemId", itemId));
+
+                cmd.ExecuteNonQuery();
+
+                ret = true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'eliminazione di un record da un ordine", ex);
+            }
+            finally { cn.Close(); }
+
+            return ret;
+        }
         public static List<StampaOrdFrutCantLoc> GetAllGruppiInLocale(string idCant)
         {
             SqlConnection cn = GetConnection();
@@ -356,6 +381,46 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
 
+        }
+        public static List<MatOrdFrut> GetInfoForCantiereAndLocale(string idCant, string idLocale)
+        {
+            SqlConnection cn = GetConnection();
+            List<MatOrdFrut> list = new List<MatOrdFrut>();
+            SqlDataReader dr = null;
+            try
+            {
+                string sql = "SELECT A.id, B.DescriCodCAnt, C.NomeLocale, D.NomeGruppo, E.descr001, A.QtaFrutti " +
+                             "FROM TblMatOrdFrut AS A " +
+                             "LEFT JOIN TblCantieri AS B ON A.IdCantiere = B.IdCantieri " +
+                             "LEFT JOIN TblLocali AS C ON A.IdLocale = C.IdLocali " +
+                             "LEFT JOIN TblGruppiFrutti AS D ON A.IdGruppiFrutti = D.Id " +
+                             "LEFT JOIN TblFrutti AS E ON A.IdFrutto = E.ID1 " +
+                             "WHERE B.IdCantieri = @idCantiere AND C.IdLocali = @idLocale";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("idCantiere", idCant));
+                cmd.Parameters.Add(new SqlParameter("idLocale", idLocale));
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    MatOrdFrut mof = new MatOrdFrut();
+                    mof.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
+                    mof.DescrCant = (dr.IsDBNull(1) ? "---" : dr.GetString(1));
+                    mof.Appartamento = (dr.IsDBNull(2) ? "---" : dr.GetString(2));
+                    mof.NomeGruppo = (dr.IsDBNull(3) ? "---" : dr.GetString(3));
+                    mof.NomeFrutto = (dr.IsDBNull(4) ? "---" : dr.GetString(4));
+                    mof.QtaFrutti = (dr.IsDBNull(5) ? 0 : dr.GetInt32(5));
+                    list.Add(mof);
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero delle informazioni dei gruppiFrutti per un locale di un cantiere", ex);
+            }
+            finally { cn.Close(); }
         }
     }
 }

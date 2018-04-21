@@ -17,7 +17,8 @@ namespace GestioneCantieri
             if (!IsPostBack)
             {
                 pnlInserisciDati.Visible = pnlScegliGruppo.Visible = false;
-                pnlMostraGruppiInseriti.Visible = btnInserisciGruppo.Visible = false;
+                /*pnlMostraGruppiInseriti.Visible = */
+                btnInserisciGruppo.Visible = false;
                 lblQtaFrutto.Visible = txtQtaFrutto.Visible = btnInserisciFrutto.Visible = false;
                 FillDdlScegliCantiere();
                 FillDdlScegliLocale();
@@ -55,6 +56,7 @@ namespace GestioneCantieri
             }
 
             PopolaListe();
+            BindGrid();
             ddlScegliGruppo.SelectedIndex = 0;
         }
         protected void btnInserisciFrutto_Click(object sender, EventArgs e)
@@ -83,6 +85,7 @@ namespace GestioneCantieri
                 lblIsFruttoInserito.ForeColor = System.Drawing.Color.Red;
             }
             PopolaListe();
+            BindGrid();
         }
 
         /* EVENTI TEXT-CHANGED */
@@ -96,8 +99,9 @@ namespace GestioneCantieri
             if (ddlScegliLocale.SelectedItem.Value != "")
             {
                 pnlScegliGruppo.Visible = true;
-                pnlMostraGruppiInseriti.Visible = true;
+                //pnlMostraGruppiInseriti.Visible = true;
                 PopolaListe();
+                BindGrid();
             }
         }
         //protected void txtFiltroGruppo1_TextChanged(object sender, EventArgs e)
@@ -138,6 +142,19 @@ namespace GestioneCantieri
                 lblQtaFrutto.Visible = txtQtaFrutto.Visible = btnInserisciFrutto.Visible = false;
                 PopolaListe();
             }
+        }
+
+        /* EVENTI ROW-COMMAND */
+        protected void grdOrdini_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            int id = Convert.ToInt32(e.CommandArgument.ToString());
+
+            if(e.CommandName == "EliminaOrdine")
+            {
+                OrdineFruttiDAO.DeleteItem(id);
+            }
+
+            BindGrid();
         }
 
         /* HELPERS */
@@ -201,6 +218,12 @@ namespace GestioneCantieri
             string idLocale = ddlScegliLocale.SelectedItem.Value;
             fruttiList = OrdineFruttiDAO.GetFruttiNonInGruppo(idCantiere, idLocale);
             compList = OrdineFruttiDAO.getGruppi(idCantiere, idLocale);
+        }
+        private void BindGrid()
+        {
+            List<MatOrdFrut> ordFrutList = OrdineFruttiDAO.GetInfoForCantiereAndLocale(ddlScegliCantiere.SelectedValue, ddlScegliLocale.SelectedValue);
+            grdOrdini.DataSource = ordFrutList;
+            grdOrdini.DataBind();
         }
     }
 }

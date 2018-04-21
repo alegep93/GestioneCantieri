@@ -55,6 +55,7 @@
                             <li><a href="StampaOrdFrutCantExcel.aspx">Stampa Ord Frut Cant Excel</a></li>
                         </ul>
                     </li>
+                    <li><a href="GestioneLocali.aspx">Gestione Locali</a></li>
                     <li><a href="InserimentoDati.aspx">Inserimento Dati</a></li>
                     <li><a href="GestioneCantieri.aspx">Gestione Cantieri</a></li>
                     <li><a href="GestionePagamenti.aspx">Gestione Pagamenti</a></li>

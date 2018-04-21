@@ -21,3 +21,4 @@ C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.d
 C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
 C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csprojResolveAssemblyReference.cache
 C:\gitRepository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csproj.CopyComplete
+C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csproj.CopyComplete
