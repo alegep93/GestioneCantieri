@@ -135,7 +135,7 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
-            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+            string queryFilters = "Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                                   "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                                   "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
 
@@ -151,11 +151,11 @@ namespace GestioneCantieri.DAO
                 //altrimenti faccio una where generica per tutti gli altri casi
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) " + queryFilters;
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) AND " + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) AND " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -164,11 +164,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += queryFilters;
+                    sql += "WHERE " + queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR(Data = CONVERT(Date, @pDataInizio) OR Data = CONVERT(Date, @pDataFine))) " + queryFilters;
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date, @pDataInizio) OR Data = CONVERT(Date, @pDataFine))) AND " + queryFilters;
                 }
 
                 sql += "ORDER BY Anno, Data, N_DDT, CodArt ";
@@ -272,7 +272,7 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
-            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+            string queryFilters = "Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                                   "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                                   "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
 
@@ -283,11 +283,11 @@ namespace GestioneCantieri.DAO
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" + queryFilters;
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) AND " + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) AND " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -296,11 +296,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += queryFilters;
+                    sql += "WHERE " + queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " + queryFilters;
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) AND " + queryFilters;
                 }
 
 
@@ -684,7 +684,7 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
-            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+            string queryFilters = "Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                                   "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                                   "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
 
@@ -694,11 +694,11 @@ namespace GestioneCantieri.DAO
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" + queryFilters;
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) AND " + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) AND " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -707,11 +707,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += queryFilters;
+                    sql += "WHERE " + queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " + queryFilters;
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) AND " + queryFilters;
                 }
 
 
@@ -802,7 +802,7 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
-            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+            string queryFilters = "Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                                   "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                                   "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
 
@@ -812,11 +812,11 @@ namespace GestioneCantieri.DAO
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" + queryFilters;
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) AND " + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) AND " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -825,11 +825,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += queryFilters;
+                    sql += "WHERE " + queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " + queryFilters;
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) AND " + queryFilters;
                 }
 
 
@@ -920,7 +920,7 @@ namespace GestioneCantieri.DAO
             ddt.DescriCodArt2 = "%" + ddt.DescriCodArt2 + "%";
             ddt.DescriCodArt3 = "%" + ddt.DescriCodArt3 + "%";
 
-            string queryFilters = "AND Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
+            string queryFilters = "Qta LIKE @pQta AND N_DDT LIKE @pN_DDT " +
                                   "AND CodArt LIKE @pCodArt1 AND CodArt LIKE @pCodArt2 AND CodArt LIKE @pCodArt3 " +
                                   "AND DescriCodArt LIKE @pDescriCodArt1 AND DescriCodArt LIKE @pDescriCodArt2 AND DescriCodArt LIKE @pDescriCodArt3 ";
 
@@ -930,11 +930,11 @@ namespace GestioneCantieri.DAO
 
                 if (ddt.AnnoInizio != "" && ddt.AnnoFine != "")
                 {
-                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine)" + queryFilters;
+                    sql += "WHERE (ANNO BETWEEN @pAnnoInizio AND @pAnnoFine) AND " + queryFilters;
                 }
                 else if (ddt.DataInizio != "" && ddt.DataFine != "")
                 {
-                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) " + queryFilters;
+                    sql += "WHERE (Data BETWEEN CONVERT(Date,@pDataInizio) AND CONVERT(Date,@pDataFine)) AND " + queryFilters;
                 }
                 else if (ddt.AnnoInizio == "" && ddt.AnnoFine == "" && ddt.DataInizio == "" && ddt.DataFine == "")
                 {
@@ -943,11 +943,11 @@ namespace GestioneCantieri.DAO
                     ddt.DataInizio = "2010-01-01";
                     ddt.DataFine = DateTime.Now.ToString();
 
-                    sql += queryFilters;
+                    sql += "WHERE " + queryFilters;
                 }
                 else
                 {
-                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) " + queryFilters;
+                    sql += "WHERE ((ANNO = @pAnnoInizio OR Anno = @pAnnoFine) OR (Data = CONVERT(Date,@pDataInizio) OR Data = CONVERT(Date,@pDataFine))) AND " + queryFilters;
                 }
 
 
