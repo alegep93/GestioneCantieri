@@ -88,6 +88,7 @@
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="DDT-Fornitori.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="GestioneAppunti.aspx" />
     <Content Include="GestioneCantieri.aspx" />
@@ -198,6 +199,7 @@
     <Compile Include="DAO\ClientiDAO.cs" />
     <Compile Include="DAO\CantieriDAO.cs" />
     <Compile Include="DAO\CompGruppoFrutDAO.cs" />
+    <Compile Include="DAO\DDTFornitoriDAO.cs" />
     <Compile Include="DAO\FornitoriDAO.cs" />
     <Compile Include="DAO\FruttiDAO.cs" />
     <Compile Include="DAO\LocaliDAO.cs" />
@@ -210,12 +212,20 @@
     <Compile Include="DAO\PagamentiDAO.cs" />
     <Compile Include="DAO\SpeseDAO.cs" />
     <Compile Include="DAO\StampeDAO.cs" />
+    <Compile Include="Data\DDTFornitori.cs" />
     <Compile Include="Data\StampaValoriCantieriConOpzioni.cs" />
     <Compile Include="Data\DDTMefObject.cs" />
     <Compile Include="Data\MaterialiCantieri.cs" />
     <Compile Include="Data\Pagamenti.cs" />
     <Compile Include="Data\Spese.cs" />
     <Compile Include="Data\Stampe.cs" />
+    <Compile Include="DDT-Fornitori.aspx.cs">
+      <DependentUpon>DDT-Fornitori.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DDT-Fornitori.aspx.designer.cs">
+      <DependentUpon>DDT-Fornitori.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FooterPDF\TwoColumnHeaderFooter.cs" />
     <Compile Include="GestioneAppunti.aspx.cs">
       <DependentUpon>GestioneAppunti.aspx</DependentUpon>

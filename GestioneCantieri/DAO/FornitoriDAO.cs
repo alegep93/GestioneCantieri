@@ -56,16 +56,16 @@ namespace GestioneCantieri.DAO
                 while (dr.Read())
                 {
                     Fornitori f = new Fornitori();
-                    f.IdFornitori = dr.GetInt32(0);
-                    f.RagSocForni = dr.GetString(1);
-                    f.Indirizzo = dr.GetString(2);
-                    f.Cap = dr.GetString(3);
-                    f.Città = dr.GetString(4);
-                    f.Tel1 = dr.GetInt32(5);
-                    f.Cell1 = dr.GetInt32(6);
-                    f.PartitaIva = dr.GetDouble(7);
-                    f.CodFiscale = dr.GetString(8);
-                    f.Abbreviato = dr.GetString(8);
+                    f.IdFornitori = (dr.IsDBNull(0) ? 0 : dr.GetInt32(0));
+                    f.RagSocForni = (dr.IsDBNull(1) ? "" : dr.GetString(1));
+                    f.Indirizzo = (dr.IsDBNull(2) ? "" : dr.GetString(2));
+                    f.Cap = (dr.IsDBNull(3) ? "" : dr.GetString(3));
+                    f.Città = (dr.IsDBNull(4) ? "" : dr.GetString(4));
+                    f.Tel1 = (dr.IsDBNull(5) ? 0 : dr.GetInt32(5));
+                    f.Cell1 = (dr.IsDBNull(6) ? 0 : dr.GetInt32(6));
+                    f.PartitaIva = (dr.IsDBNull(7) ? 0 : dr.GetDouble(7));
+                    f.CodFiscale = (dr.IsDBNull(8) ? "" : dr.GetString(8));
+                    f.Abbreviato = (dr.IsDBNull(9) ? "" : dr.GetString(9));
                     list.Add(f);
                 }
 
