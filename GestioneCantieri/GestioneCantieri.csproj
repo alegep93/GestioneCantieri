@@ -89,6 +89,7 @@
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Css\bootstrap-3.3.7-dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Default.aspx" />
+    <Content Include="GestioneAppunti.aspx" />
     <Content Include="GestioneCantieri.aspx" />
     <Content Include="GestioneLocali.aspx" />
     <Content Include="GestionePagamenti.aspx" />
@@ -216,6 +217,13 @@
     <Compile Include="Data\Spese.cs" />
     <Compile Include="Data\Stampe.cs" />
     <Compile Include="FooterPDF\TwoColumnHeaderFooter.cs" />
+    <Compile Include="GestioneAppunti.aspx.cs">
+      <DependentUpon>GestioneAppunti.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GestioneAppunti.aspx.designer.cs">
+      <DependentUpon>GestioneAppunti.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GestioneCantieri.aspx.cs">
       <DependentUpon>GestioneCantieri.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
