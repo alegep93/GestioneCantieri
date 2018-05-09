@@ -1,7 +1,9 @@
-﻿using GestioneCantieri.Data;
+﻿using Dapper;
+using GestioneCantieri.Data;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace GestioneCantieri.DAO
 {
@@ -62,34 +64,22 @@ namespace GestioneCantieri.DAO
         public static Spese GetDettagliSpesa(string idSpesa)
         {
             SqlConnection cn = GetConnection();
-            Spese s = new Spese();
-            SqlDataReader dr = null;
             string sql = "";
 
             try
             {
-                sql = "SELECT IdSpesa, Descrizione,Prezzo FROM TblSpese where IdSpesa = @id ";
+                sql = "SELECT IdSpesa, Descrizione, Prezzo FROM TblSpese where IdSpesa = @IdSpesa ";
+                return cn.Query<Spese>(sql, new { IdSpesa = idSpesa }).SingleOrDefault();
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("id", idSpesa));
-
-                dr = cmd.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    s.IdSpesa = (dr.IsDBNull(0) ? 0 : dr.GetInt32(0));
-                    s.Descrizione = (dr.IsDBNull(1) ? "" : dr.GetString(1));
-                    s.Prezzo = (dr.IsDBNull(2) ? 0.00m : dr.GetDecimal(2));
-                }
-
-                return s;
-                
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero delle spese", ex);
             }
-            finally { cn.Close(); dr.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
 
         //INSERT
@@ -101,13 +91,9 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "INSERT INTO TblSpese (Descrizione, Prezzo) " +
-                      "VALUES (@descr, @prezzo) ";
+                      "VALUES (@Descrizione, @Prezzo) ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("descr", s.Descrizione));
-                cmd.Parameters.Add(new SqlParameter("prezzo", s.Prezzo));
-
-                int rows = cmd.ExecuteNonQuery();
+                int rows = cn.Execute(sql, s);
 
                 if (rows > 0)
                     return true;
@@ -122,7 +108,7 @@ namespace GestioneCantieri.DAO
         }
 
         //UPDATE
-        public static bool UpdateSpesa(string idSpesa, Spese s)
+        public static bool UpdateSpesa(Spese s)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -130,15 +116,10 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblSpese " +
-                      "SET Descrizione = @descr, Prezzo = @prezzo " +
-                      "WHERE idSpesa = @id";
+                      "SET Descrizione = @Descrizione, Prezzo = @Prezzo " +
+                      "WHERE idSpesa = @idSpesa";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("id", idSpesa));
-                cmd.Parameters.Add(new SqlParameter("descr", s.Descrizione));
-                cmd.Parameters.Add(new SqlParameter("prezzo", s.Prezzo));
-
-                int rows = cmd.ExecuteNonQuery();
+                int rows = cn.Execute(sql, s);
 
                 if (rows > 0)
                     return true;
@@ -149,23 +130,23 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'aggiornamento di una spesa", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
 
         //DELETE
-        public static bool DeleteSpesa(int idSpesa)
+        public static bool DeleteSpesa(int id)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
 
             try
             {
-                sql = "DELETE FROM TblSpese WHERE idSpesa = @id";
+                sql = "DELETE FROM TblSpese WHERE idSpesa = @idSpesa";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("id", idSpesa));
-
-                int rows = cmd.ExecuteNonQuery();
+                int rows = cn.Execute(sql, new { idSpesa = id });
 
                 if (rows > 0)
                     return true;
@@ -176,7 +157,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'eliminazione di una spesa", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
     }
 }

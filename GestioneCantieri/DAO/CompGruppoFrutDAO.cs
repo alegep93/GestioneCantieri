@@ -1,7 +1,9 @@
-﻿using GestioneCantieri.Data;
+﻿using Dapper;
+using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace GestioneCantieri.DAO
 {
@@ -11,49 +13,35 @@ namespace GestioneCantieri.DAO
         public static List<CompGruppoFrut> getCompGruppo(int idGruppo)
         {
             SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
             string sql = "";
-            List<CompGruppoFrut> compList = new List<CompGruppoFrut>();
 
             try
             {
-                sql = "SELECT CGF.Id,F.descr001,Qta " +
+                sql = "SELECT CGF.Id, F.descr001 'NomeFrutto', Qta " +
                       "FROM TblCompGruppoFrut AS CGF " +
                       "JOIN TblFrutti AS F ON (CGF.IdTblFrutto = F.ID1) " +
-                      "WHERE IdTblGruppo = @pIdGruppo " +
+                      "WHERE IdTblGruppo = @IdTblGruppo " +
                       "ORDER BY CGF.Id ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdGruppo", idGruppo));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    CompGruppoFrut cgf = new CompGruppoFrut();
-                    cgf.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    cgf.NomeFrutto = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    cgf.Qta = (dr.IsDBNull(2) ? -1 : dr.GetInt32(2));
-                    compList.Add(cgf);
-                }
-
-                return compList;
+                return cn.Query<CompGruppoFrut>(sql, new { IdTblGruppo = idGruppo }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero dei componeti del gruppo", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static List<StampaFruttiPerGruppi> GetFruttiInGruppi(string idGruppo)
         {
-            List<StampaFruttiPerGruppi> list = new List<StampaFruttiPerGruppi>();
             SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
             string sql = "";
 
             try
             {
-                sql = "SELECT GF.NomeGruppo, F.descr001, CGF.Qta " +
+                sql = "SELECT GF.NomeGruppo, F.descr001 'NomeFrutto', CGF.Qta " +
                       "FROM TblCompGruppoFrut AS CGF " +
                       "JOIN TblGruppiFrutti AS GF ON(CGF.IdTblGruppo = GF.Id) " +
                       "JOIN TblFrutti AS F ON(CGF.IdTblFrutto = F.ID1) ";
@@ -64,24 +52,15 @@ namespace GestioneCantieri.DAO
                 sql += "GROUP BY GF.NomeGruppo, F.descr001, CGF.Qta " +
                        "ORDER BY GF.NomeGruppo ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    StampaFruttiPerGruppi fpg = new StampaFruttiPerGruppi();
-                    fpg.NomeGruppo = (dr.IsDBNull(0) ? null : dr.GetString(0));
-                    fpg.NomeFrutto = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    fpg.Qta = (dr.IsDBNull(2) ? -1 : dr.GetInt32(2));
-
-                    list.Add(fpg);
-                }
-
-                return list;
+                return cn.Query<StampaFruttiPerGruppi>(sql).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante la selezione dei frutti nei vari gruppi", ex);
+            }
+            finally
+            {
+                CloseResouces(cn, null);
             }
         }
 
@@ -93,14 +72,9 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblCompGruppoFrut(IdTblGruppo,IdTblFrutto,Qta) VALUES (@pGruppo,@pFrutto,@pQta) ";
+                sql = "INSERT INTO TblCompGruppoFrut(IdTblGruppo,IdTblFrutto,Qta) VALUES (@IdTblGruppo,@IdTblFrutto,@Qta) ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pGruppo", gruppo));
-                cmd.Parameters.Add(new SqlParameter("pFrutto", frutto));
-                cmd.Parameters.Add(new SqlParameter("pQta", qta));
-
-                int rowNumber = cmd.ExecuteNonQuery();
+                int rowNumber = cn.Execute(sql, new { IdTblGruppo = gruppo, IdTblFrutto = frutto, Qta = qta });
 
                 if (rowNumber > 0)
                     return true;
@@ -111,7 +85,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'inserimento di un frutto in un gruppo", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
 
         // DELETE
@@ -123,20 +100,18 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "DELETE FROM TblCompGruppoFrut WHERE IdTblGruppo = @pId";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pId", idGruppo));
-
-                cmd.ExecuteNonQuery();
-
+                sql = "DELETE FROM TblCompGruppoFrut WHERE IdTblGruppo = @IdTblGruppo";
+                cn.Execute(sql, new { IdTblGruppo = idGruppo });
                 ret = true;
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'eliminazione di un gruppo dalla CompGruppoFrut", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
 
             return ret;
         }
@@ -147,12 +122,9 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "DELETE FROM TblCompGruppoFrut WHERE Id = @pId ";
+                sql = "DELETE FROM TblCompGruppoFrut WHERE Id = @Id ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pId", idCompGruppo));
-
-                int rowNumber = cmd.ExecuteNonQuery();
+                int rowNumber = cn.Execute(sql, new { Id = idCompGruppo });
 
                 if (rowNumber > 0)
                     return true;
@@ -163,7 +135,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'eliminazione di un componente di un gruppo frutto", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
     }
 }

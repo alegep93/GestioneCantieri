@@ -1,7 +1,9 @@
-﻿using GestioneCantieri.Data;
+﻿using Dapper;
+using GestioneCantieri.Data;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace GestioneCantieri.DAO
 {
@@ -10,38 +12,25 @@ namespace GestioneCantieri.DAO
         public static Operai GetOperaio(string id)
         {
             SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
-            Operai op = new Operai();
             string sql = "";
 
             try
             {
-                sql = "SELECT IdOperaio,NomeOp,DescrOP,Suffisso,Operaio,CostoOperaio " +
+                sql = "SELECT IdOperaio,NomeOp,DescrOp,Suffisso,Operaio,CostoOperaio " +
                       "FROM TblOperaio " +
-                      "WHERE IdOperaio = @id " +
+                      "WHERE IdOperaio = @IdOperaio " +
                       "ORDER BY NomeOp ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("id", id));
-                dr = cmd.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    op.IdOperaio = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    op.NomeOp = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    op.DescrOp = (dr.IsDBNull(2) ? null : dr.GetString(2));
-                    op.Suffisso = (dr.IsDBNull(3) ? null : dr.GetString(3));
-                    op.Operaio = (dr.IsDBNull(4) ? null : dr.GetString(4));
-                    op.CostoOperaio = (dr.IsDBNull(5) ? 0.0m : dr.GetDecimal(5));
-                }
-
-                return op;
+                return cn.Query<Operai>(sql, new { IdOperaio = id }).SingleOrDefault();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero degli operai", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static DataTable GetOperai()
         {
@@ -67,7 +56,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante il recupero degli operai", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static DataTable GetAllOperai()
         {
@@ -93,43 +85,33 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante il recupero degli operai", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static Operai GetSingleOperaio(int idOperaio)
         {
             SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
-            Operai op = new Operai();
             string sql = "";
 
             try
             {
-                sql = "SELECT IdOperaio,NomeOp,DescrOP,Suffisso,Operaio,CostoOperaio " +
+                sql = "SELECT IdOperaio,NomeOp,DescrOp,Suffisso,Operaio,CostoOperaio " +
                       "FROM TblOperaio " +
-                      "WHERE IdOperaio = @pId " +
+                      "WHERE IdOperaio = @IdOperaio " +
                       "ORDER BY NomeOp ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pId", idOperaio));
-                dr = cmd.ExecuteReader();
-
-                if (dr.Read())
-                {
-                    op.IdOperaio = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    op.NomeOp = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    op.DescrOp = (dr.IsDBNull(2) ? null : dr.GetString(2));
-                    op.Suffisso = (dr.IsDBNull(3) ? null : dr.GetString(3));
-                    op.Operaio = (dr.IsDBNull(4) ? null : dr.GetString(4));
-                    op.CostoOperaio = (dr.IsDBNull(5) ? 0.0m : dr.GetDecimal(5));
-                }
-
-                return op;
+                return cn.Query<Operai>(sql, new { IdOperaio = idOperaio }).SingleOrDefault();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero di un singolo operaio", ex);
             }
-            finally { cn.Close(); dr.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static bool InserisciOperaio(string nome, string descr, string suff, string operaio, string costoOp)
         {
@@ -139,17 +121,10 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "INSERT INTO TblOperaio " +
-                      "(NomeOp, DescrOP, Suffisso, Operaio, CostoOperaio) " +
-                      "VALUES (@pNome,@pDescr,@pSuff,@pOperaio,@pCostoOp) ";
+                      "(NomeOp, DescrOp, Suffisso, Operaio, CostoOperaio) " +
+                      "VALUES (@NomeOp,@DescrOp,@Suffisso,@Operaio,@CostoOperaio) ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("@pNome", nome));
-                cmd.Parameters.Add(new SqlParameter("@pDescr", descr));
-                cmd.Parameters.Add(new SqlParameter("@pSuff", suff));
-                cmd.Parameters.Add(new SqlParameter("@pOperaio", operaio));
-                cmd.Parameters.Add(new SqlParameter("@pCostoOp", costoOp));
-
-                int ret = cmd.ExecuteNonQuery();
+                int ret = cn.Execute(sql, new { NomeOp = nome, DescrOp = descr, Suffisso = suff, Operaio = operaio, CostoOperaio = costoOp });
 
                 if (ret > 0)
                     return true;
@@ -160,7 +135,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'inserimento di un nuovo operaio", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static bool UpdateOperaio(string idOper, string nome, string descr, string suff, string oper, string costoOp)
         {
@@ -170,22 +148,14 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblOperaio " +
-                      "SET NomeOp = @pNome, " +
-                      "DescrOP = @pDescr, " +
-                      "Suffisso = @pSuff, " +
-                      "Operaio = @pOper, " +
-                      "CostoOperaio = @pCostoOp " +
-                      "WHERE IdOperaio = @pId ";
+                      "SET NomeOp = @NomeOp, " +
+                      "DescrOp = @DescrOp, " +
+                      "Suffisso = @Suffisso, " +
+                      "Operaio = @Operaio, " +
+                      "CostoOperaio = @CostoOperaio " +
+                      "WHERE IdOperaio = @IdOperaio ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pNome", nome));
-                cmd.Parameters.Add(new SqlParameter("pDescr", descr));
-                cmd.Parameters.Add(new SqlParameter("pSuff", suff));
-                cmd.Parameters.Add(new SqlParameter("pOper", oper));
-                cmd.Parameters.Add(new SqlParameter("pCostoOp", costoOp));
-                cmd.Parameters.Add(new SqlParameter("pId", idOper));
-
-                int row = cmd.ExecuteNonQuery();
+                int row = cn.Execute(sql, new { IdOperaio = idOper, NomeOp = nome, DescrOp = descr, Suffisso = suff, Operaio = oper, CostoOperaio = costoOp });
 
                 if (row > 0)
                     return true;
@@ -196,7 +166,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'update di un operaio", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static bool EliminaOperaio(int idOper)
         {
@@ -206,12 +179,9 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "DELETE FROM TblOperaio " +
-                      "WHERE IdOperaio = @pId ";
+                      "WHERE IdOperaio = @IdOperaio ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pId", idOper));
-
-                int row = cmd.ExecuteNonQuery();
+                int row = cn.Execute(sql, new { IdOperaio = idOper });
 
                 if (row > 0)
                     return true;
@@ -222,7 +192,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'eliminazione dell'operaio", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
     }
 }

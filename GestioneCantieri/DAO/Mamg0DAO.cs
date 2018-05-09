@@ -1,7 +1,9 @@
-﻿using GestioneCantieri.Data;
+﻿using Dapper;
+using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace GestioneCantieri.DAO
 {
@@ -9,47 +11,30 @@ namespace GestioneCantieri.DAO
     {
         public static List<Mamg0> getAll()
         {
-            List<Mamg0> list = new List<Mamg0>();
             string sql = "";
-            SqlDataReader dr = null;
             SqlConnection cn = GetConnection();
 
             try
             {
-                sql = "SELECT TOP 500 (AA_SIGF + AA_CODF) AS CodArt, AA_DES, AA_UM, AA_PZ, AA_PRZ, AA_SCONTO1, AA_SCONTO2, AA_SCONTO3, AA_PRZ1 " +
+                sql = "SELECT TOP 500 (AA_SIGF + AA_CODF) AS codArt, AA_DES AS 'desc', AA_UM AS unitMis, AA_PZ AS pezzo, AA_PRZ AS prezzoListino, " +
+                      "AA_SCONTO1 AS sconto1, AA_SCONTO2 AS sconto2, AA_SCONTO3 AS sconto3, AA_PRZ1 AS prezzoNetto " +
                       "FROM MAMG0 " +
                       "ORDER BY CodArt ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
-
-                while (dr.Read())
-                {
-                    Mamg0 m = new Mamg0();
-                    m.CodArt = (dr.IsDBNull(0) ? null : dr.GetString(0));
-                    m.Desc = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    m.UnitMis = (dr.IsDBNull(2) ? null : dr.GetString(2));
-                    m.Pezzo = (dr.IsDBNull(3) ? (float)0.0 : (float)dr.GetDouble(3));
-                    m.PrezzoListino = (dr.IsDBNull(4) ? (float)0.0 : (float)dr.GetDouble(4));
-                    m.Sconto1 = (dr.IsDBNull(5) ? (float)0.0 : (float)dr.GetDouble(5));
-                    m.Sconto2 = (dr.IsDBNull(6) ? (float)0.0 : (float)dr.GetDouble(6));
-                    m.Sconto3 = (dr.IsDBNull(7) ? (float)0.0 : (float)dr.GetDouble(7));
-                    m.PrezzoNetto = (dr.IsDBNull(8) ? (float)0.0 : (float)dr.GetDouble(8));
-                    list.Add(m);
-                }
-                return list;
+                return cn.Query<Mamg0>(sql).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero del listino", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static List<Mamg0> GetListino(string codArt1, string desc1)
         {
-            List<Mamg0> list = new List<Mamg0>();
             string sql = "";
-            SqlDataReader dr = null;
             SqlConnection cn = GetConnection();
 
             codArt1 = "%" + codArt1 + "%";
@@ -59,50 +44,36 @@ namespace GestioneCantieri.DAO
             {
                 if (codArt1 == "%%" && desc1 == "%%")
                 {
-                    sql = "SELECT TOP 300 (AA_SIGF + AA_CODF) AS CodArt, AA_DES, AA_UM, AA_PZ, AA_PRZ, AA_SCONTO1, AA_SCONTO2, AA_SCONTO3, AA_PRZ1 " +
+                    sql = "SELECT TOP 300 (AA_SIGF + AA_CODF) AS CodArt, AA_DES AS 'desc', AA_UM AS unitMis, AA_PZ AS pezzo, AA_PRZ AS prezzoListino, " +
+                          "AA_SCONTO1 AS sconto1, AA_SCONTO2 AS sconto2, AA_SCONTO3 AS sconto3, AA_PRZ1 AS prezzoNetto " +
                           "FROM MAMG0 " +
                           "ORDER BY CodArt ASC ";
                 }
                 else
                 {
-                    sql = "SELECT (AA_SIGF + AA_CODF) AS CodArt, AA_DES, AA_UM, AA_PZ, AA_PRZ, AA_SCONTO1, AA_SCONTO2, AA_SCONTO3, AA_PRZ1 " +
+                    sql = "SELECT (AA_SIGF + AA_CODF) AS CodArt, AA_DES AS 'desc', AA_UM AS unitMis, AA_PZ AS pezzo, AA_PRZ AS prezzoListino, " +
+                          "AA_SCONTO1 AS sconto1, AA_SCONTO2 AS sconto2, AA_SCONTO3 AS sconto3, AA_PRZ1 AS prezzoNetto " +
                           "FROM MAMG0 " +
-                          "WHERE (AA_SIGF + AA_CODF) LIKE @pCodArt1 " +
-                          "AND AA_DES LIKE @pDescriCodArt1 " +
+                          "WHERE (AA_SIGF + AA_CODF) LIKE @CodArt " +
+                          "AND AA_DES LIKE @desc " +
                           "ORDER BY CodArt ASC ";
                 }
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pCodArt1", codArt1));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", desc1));
-                dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
-
-                while (dr.Read())
-                {
-                    Mamg0 m = new Mamg0();
-                    m.CodArt = (dr.IsDBNull(0) ? null : dr.GetString(0));
-                    m.Desc = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    m.UnitMis = (dr.IsDBNull(2) ? null : dr.GetString(2));
-                    m.Pezzo = (dr.IsDBNull(3) ? (float)0.0 : (float)dr.GetDouble(3));
-                    m.PrezzoListino = (dr.IsDBNull(4) ? (float)0.0 : (float)dr.GetDouble(4));
-                    m.Sconto1 = (dr.IsDBNull(5) ? (float)0.0 : (float)dr.GetDouble(5));
-                    m.Sconto2 = (dr.IsDBNull(6) ? (float)0.0 : (float)dr.GetDouble(6));
-                    m.Sconto3 = (dr.IsDBNull(7) ? (float)0.0 : (float)dr.GetDouble(7));
-                    m.PrezzoNetto = (dr.IsDBNull(8) ? (float)0.0 : (float)dr.GetDouble(8));
-                    list.Add(m);
-                }
-                return list;
+                return cn.Query<Mamg0>(sql, new { CodArt = codArt1, desc = desc1 }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero del listino con i filtri", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static List<Mamg0> GetListino(string codArt1, string codArt2, string codArt3, string desc1, string desc2, string desc3)
         {
-            List<Mamg0> list = new List<Mamg0>();
             string sql = "";
+            List<Mamg0> list = new List<Mamg0>();
             SqlDataReader dr = null;
             SqlConnection cn = GetConnection();
 
@@ -159,7 +130,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante il recupero del listino con i filtri", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
 
         //DELETE
@@ -171,8 +145,8 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "DELETE FROM MAMG0";
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                int rows = cmd.ExecuteNonQuery();
+
+                int rows = cn.Execute(sql);
 
                 if (rows > 0)
                     return true;
@@ -183,7 +157,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'eliminazione del listino", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
     }
 }

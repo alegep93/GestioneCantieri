@@ -139,7 +139,8 @@ namespace GestioneCantieri
         protected void btnModCliente_Click(object sender, EventArgs e)
         {
             Clienti cliente = FillObjCliente();
-            bool isUpdated = ClientiDAO.UpdateCliente(hidIdClienti.Value, cliente);
+            cliente.IdCliente = Convert.ToInt32(hidIdClienti.Value);
+            bool isUpdated = ClientiDAO.UpdateCliente(cliente);
 
             if (isUpdated)
             {
@@ -213,7 +214,8 @@ namespace GestioneCantieri
         protected void btnModFornit_Click(object sender, EventArgs e)
         {
             Fornitori fornitore = FillObjFornitore();
-            bool isUpdated = FornitoriDAO.UpdateFornitore(hidIdFornit.Value, fornitore);
+            fornitore.IdFornitori = Convert.ToInt32(hidIdFornit.Value);
+            bool isUpdated = FornitoriDAO.UpdateFornitore(fornitore);
 
             if (isUpdated)
             {
@@ -443,9 +445,10 @@ namespace GestioneCantieri
         protected void btnModSpesa_Click(object sender, EventArgs e)
         {
             Spese s = new Spese();
+            s.IdSpesa = Convert.ToInt32(hidSpese.Value);
             s.Descrizione = txtSpeseDescr.Text;
             s.Prezzo = Convert.ToDecimal(txtSpesePrezzo.Text);
-            bool isUpdated = SpeseDAO.UpdateSpesa(hidSpese.Value, s);
+            bool isUpdated = SpeseDAO.UpdateSpesa(s);
 
             if (isUpdated)
             {

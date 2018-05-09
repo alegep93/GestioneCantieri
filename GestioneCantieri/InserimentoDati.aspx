@@ -512,15 +512,17 @@
                 </div>
 
                 <!-- Filtri su griglia Spese -->
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <asp:Label ID="lblFiltroSpesaDescr" runat="server" Text="Filtro Descrizione Spesa" />
-                        <asp:TextBox ID="txtFiltroSpesaDescr" CssClass="form-control" runat="server"></asp:TextBox>
+                <asp:Panel ID="pnlFiltriSpese" DefaultButton="btnFiltraGrdSpese" runat="server">
+                    <div class="col-md-12">
+                        <div class="col-md-4">
+                            <asp:Label ID="lblFiltroSpesaDescr" runat="server" Text="Filtro Descrizione Spesa" />
+                            <asp:TextBox ID="txtFiltroSpesaDescr" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-4">
+                            <asp:Button ID="btnFiltraGrdSpese" OnClick="btnFiltraGrdSpese_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Filtra Spese" Style="position: relative; top: 10px;" />
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <asp:Button ID="btnFiltraGrdSpese" OnClick="btnFiltraGrdSpese_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Filtra Spese" Style="position: relative; top: 10px;" />
-                    </div>
-                </div>
+                </asp:Panel>
 
                 <!-- Griglia di visualizzazione record Spese -->
                 <div class="col-md-12 table-container">

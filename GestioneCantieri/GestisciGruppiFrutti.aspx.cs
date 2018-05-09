@@ -374,7 +374,9 @@ namespace GestioneCantieri
 
         protected void ddlFrutti_TextChanged(object sender, EventArgs e)
         {
+            int idGruppo = Convert.ToInt32(ddlGruppi.SelectedItem.Value);
             btnInsCompgruppo.Visible = true;
+            compList = CompGruppoFrutDAO.getCompGruppo(idGruppo);
         }
     }
 }

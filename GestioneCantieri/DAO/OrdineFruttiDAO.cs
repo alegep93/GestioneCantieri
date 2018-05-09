@@ -1,8 +1,10 @@
-﻿using GestioneCantieri.Data;
+﻿using Dapper;
+using GestioneCantieri.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace GestioneCantieri.DAO
 {
@@ -16,14 +18,9 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "INSERT INTO TblMatOrdFrut(IdCantiere,IdGruppiFrutti,IdLocale) " +
-                      "VALUES (@pIdCantiere,@pIdGruppoFrutto,@pIdLocale) ";
+                      "VALUES (@IdCantiere,@IdGruppiFrutti,@IdLocale) ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("@pIdCantiere", idCantiere));
-                cmd.Parameters.Add(new SqlParameter("@pIdGruppoFrutto", idGruppoFrutto));
-                cmd.Parameters.Add(new SqlParameter("@pIdLocale", idLocale));
-
-                int rows = cmd.ExecuteNonQuery();
+                int rows = cn.Execute(sql, new { IdCantiere = idCantiere, IdGruppiFrutti = idGruppoFrutto, IdLocale = idLocale });
 
                 if (rows > 0)
                     return true;
@@ -34,7 +31,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'inserimento di un gruppo", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static bool InserisciFruttoNonInGruppo(string idCantiere, string idLocale, string idFrutto, string qtaFrutti)
         {
@@ -44,15 +44,9 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "INSERT INTO TblMatOrdFrut(IdCantiere,IdLocale,IdFrutto,QtaFrutti) " +
-                      "VALUES (@pIdCantiere,@pIdLocale,@idFrutto,@qtaFrutti) ";
+                      "VALUES (@IdCantiere,@IdLocale,@IdFrutto,@QtaFrutti) ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("@pIdCantiere", idCantiere));
-                cmd.Parameters.Add(new SqlParameter("@pIdLocale", idLocale));
-                cmd.Parameters.Add(new SqlParameter("@idFrutto", idFrutto));
-                cmd.Parameters.Add(new SqlParameter("@qtaFrutti", qtaFrutti));
-
-                int rows = cmd.ExecuteNonQuery();
+                int rows = cn.Execute(sql, new { IdCantiere = idCantiere, IdLocale = idLocale, IdFrutto = idFrutto, QtaFrutti = qtaFrutti });
 
                 if (rows > 0)
                     return true;
@@ -63,79 +57,57 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante l'inserimento di un frutto non appartenente ad un gruppo", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static List<MatOrdFrut> getGruppi(string idCantiere, string idLocale)
         {
             SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
             string sql = "";
-            List<MatOrdFrut> gruppiFruttiList = new List<MatOrdFrut>();
 
             try
             {
-                sql = "SELECT GF.NomeGruppo,GF.Descrizione " +
+                sql = "SELECT GF.NomeGruppo, GF.Descrizione " +
                       "FROM TblMatOrdFrut AS MOF " +
                       "JOIN TblGruppiFrutti AS GF ON (MOF.IdGruppiFrutti = GF.Id) " +
-                      "WHERE IdCantiere = @pIdCant AND IdLocale = @pIdLocale " +
+                      "WHERE IdCantiere = @IdCantiere AND IdLocale = @IdLocale " +
                       "ORDER BY NomeGruppo ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", idCantiere));
-                cmd.Parameters.Add(new SqlParameter("pIdLocale", idLocale));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    MatOrdFrut mof = new MatOrdFrut();
-                    mof.NomeGruppo = (dr.IsDBNull(0) ? null : dr.GetString(0));
-                    mof.Descrizione = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    gruppiFruttiList.Add(mof);
-                }
-
-                return gruppiFruttiList;
+                return cn.Query<MatOrdFrut>(sql, new { IdCantiere = idCantiere, IdLocale = idLocale }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero dei gruppi", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static List<MatOrdFrut> GetFruttiNonInGruppo(string idCant, string idLocale)
         {
             SqlConnection cn = GetConnection();
-            List<MatOrdFrut> list = new List<MatOrdFrut>();
-            SqlDataReader dr = null;
             try
             {
                 string sql = "select F.descr001, SUM(MOF.QtaFrutti) " +
                              "FROM TblMatOrdFrut AS MOF " +
                              "LEFT JOIN TblFrutti AS F ON(MOF.IdFrutto = F.ID1) " +
-                             "where IdCantiere = @pIdCant AND IdLocale = @pIdLocale AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
+                             "where IdCantiere = @IdCantiere AND IdLocale = @IdLocale AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
                              "GROUP BY F.descr001 " +
                              "ORDER BY F.descr001 ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
-                cmd.Parameters.Add(new SqlParameter("pIdLocale", idLocale));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    MatOrdFrut mof = new MatOrdFrut();
-                    mof.Descrizione = (dr.IsDBNull(0) ? "" : dr.GetString(0));
-                    mof.QtaFrutti = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
-
-                    list.Add(mof);
-                }
-
-                return list;
+                return cn.Query<MatOrdFrut>(sql, new { IdCantiere = idCant, IdLocale = idLocale }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante la stampa dei frutti in un locale.", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
         public static bool DeleteGruppo(int idGruppo)
         {
@@ -145,20 +117,18 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "DELETE FROM TblMatOrdFrut WHERE IdGruppiFrutti = @idGruppo";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("@idGruppo", idGruppo));
-
-                cmd.ExecuteNonQuery();
-
+                sql = "DELETE FROM TblMatOrdFrut WHERE IdGruppiFrutti = @IdGruppiFrutti";
+                cn.Execute(sql, new { IdGruppiFrutti = idGruppo });
                 ret = true;
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'eliminazione di un gruppo da un ordine", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
 
             return ret;
         }
@@ -170,99 +140,72 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "DELETE FROM TblMatOrdFrut WHERE Id = @itemId";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("@itemId", itemId));
-
-                cmd.ExecuteNonQuery();
-
+                sql = "DELETE FROM TblMatOrdFrut WHERE Id = @Id";
+                cn.Execute(sql, new { Id = itemId });
                 ret = true;
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante l'eliminazione di un record da un ordine", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
 
             return ret;
         }
         public static List<StampaOrdFrutCantLoc> GetAllGruppiInLocale(string idCant)
         {
             SqlConnection cn = GetConnection();
-            List<StampaOrdFrutCantLoc> list = new List<StampaOrdFrutCantLoc>();
-            SqlDataReader dr = null;
+
             try
             {
-                string sql = "SELECT L.NomeLocale, GF.NomeGruppo, COUNT(Gf.NomeGruppo) " +
+                string sql = "SELECT L.NomeLocale, GF.NomeGruppo, COUNT(Gf.NomeGruppo) AS 'Qta' " +
                              "FROM TblMatOrdFrut AS MOF " +
                              "JOIN TblLocali AS L ON(MOF.IdLocale = L.IdLocali) " +
                              "JOIN TblGruppiFrutti AS GF ON(MOF.IdGruppiFrutti = GF.Id) " +
-                             "WHERE IdCantiere = @pIdCant " +
+                             "WHERE IdCantiere = @IdCantiere " +
                              "GROUP BY L.NomeLocale, GF.NomeGruppo " +
                              "ORDER BY NomeLocale ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    StampaOrdFrutCantLoc cantLoc = new StampaOrdFrutCantLoc()
-                    {
-                        NomeLocale = (dr.IsDBNull(0) ? null : dr.GetString(0)),
-                        NomeGruppo = (dr.IsDBNull(1) ? null : dr.GetString(1)),
-                        Qta = (dr.IsDBNull(2) ? -1 : dr.GetInt32(2))
-                    };
-                    list.Add(cantLoc);
-                }
-
-                return list;
+                return cn.Query<StampaOrdFrutCantLoc>(sql, new { IdCantiere = idCant }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante la stampa dei gruppi in un locale.", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
 
         }
         public static List<StampaOrdFrutCantLoc> GetAllFruttiInLocale(string idCant)
         {
             SqlConnection cn = GetConnection();
-            List<StampaOrdFrutCantLoc> list = new List<StampaOrdFrutCantLoc>();
-            SqlDataReader dr = null;
             try
             {
-                string sql = "SELECT F.descr001, SUM(CGF.Qta) As Qta " +
+                string sql = "SELECT F.descr001 AS 'Descr001', SUM(CGF.Qta) AS Qta " +
                              "FROM TblMatOrdFrut AS MOF " +
                              "JOIN TblLocali AS L ON(MOF.IdLocale = L.IdLocali) " +
                              "JOIN TblGruppiFrutti AS GF ON(MOF.IdGruppiFrutti = GF.Id) " +
                              "JOIN TblCompGruppoFrut AS CGF ON(CGF.IdTblGruppo = GF.Id) " +
                              "JOIN TblFrutti AS F ON(CGF.IdTblFrutto = F.ID1) " +
-                             "WHERE IdCantiere = @pIdCant " +
+                             "WHERE IdCantiere = @IdCantiere " +
                              "GROUP BY F.descr001 " +
                              "ORDER BY F.descr001 ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    StampaOrdFrutCantLoc scLoc = new StampaOrdFrutCantLoc();
-                    scLoc.Descr001 = (dr.IsDBNull(0) ? null : dr.GetString(0));
-                    scLoc.Qta = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
-
-                    list.Add(scLoc);
-                }
-
-                return list;
+                return cn.Query<StampaOrdFrutCantLoc>(sql, new { IdCantiere = idCant }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante la stampa dei frutti in un locale.", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
 
         }
         public static DataTable GetAllFruttiInLocaleDataTable(string idCant)
@@ -294,92 +237,72 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante la stampa dei frutti in un locale.", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
 
         }
         public static List<StampaOrdFrutCantLoc> GetAllFruttiNonInGruppo(string idCant)
         {
             SqlConnection cn = GetConnection();
-            List<StampaOrdFrutCantLoc> list = new List<StampaOrdFrutCantLoc>();
-            SqlDataReader dr = null;
+
             try
             {
-                string sql = "SELECT F.descr001, SUM(MOF.QtaFrutti) AS Qta " +
+                string sql = "SELECT F.descr001 AS 'Descr001', SUM(MOF.QtaFrutti) AS Qta " +
                              "FROM TblMatOrdFrut AS MOF " +
                              "LEFT JOIN TblFrutti AS F ON(MOF.IdFrutto = F.ID1) " +
-                             "where IdCantiere = @pIdCant AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
+                             "where IdCantiere = @IdCantiere AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
                              "GROUP BY F.descr001 " +
                              "ORDER BY F.descr001 ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    StampaOrdFrutCantLoc scLoc = new StampaOrdFrutCantLoc();
-                    scLoc.Descr001 = (dr.IsDBNull(0) ? null : dr.GetString(0));
-                    scLoc.Qta = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
-
-                    list.Add(scLoc);
-                }
-
-                return list;
+                return cn.Query<StampaOrdFrutCantLoc>(sql, new { IdCantiere = idCant }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante la stampa dei frutti in un locale.", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
 
         }
         public static List<StampaOrdFrutCantLoc> GetFruttiPerStampaExcel(string idCant)
         {
             SqlConnection cn = GetConnection();
-            List<StampaOrdFrutCantLoc> list = new List<StampaOrdFrutCantLoc>();
-            SqlDataReader dr = null;
 
             try
             {
-                string sql = "SELECT descr, SUM(Qta) FROM (" +
+                string sql = "SELECT descr AS 'descr001', SUM(Qta) AS 'Qta' FROM (" +
                                 "SELECT F.descr001 AS descr, SUM(CGF.Qta) As Qta " +
                                 "FROM TblMatOrdFrut AS MOF " +
                                 "JOIN TblLocali AS L ON(MOF.IdLocale = L.IdLocali) " +
                                 "JOIN TblGruppiFrutti AS GF ON(MOF.IdGruppiFrutti = GF.Id) " +
                                 "JOIN TblCompGruppoFrut AS CGF ON(CGF.IdTblGruppo = GF.Id) " +
                                 "JOIN TblFrutti AS F ON(CGF.IdTblFrutto = F.ID1) " +
-                                "WHERE IdCantiere = @pIdCant " +
+                                "WHERE IdCantiere = @IdCantiere " +
                                 "GROUP BY F.descr001 " +
                                 "UNION " +
                                 "SELECT F.descr001 AS descr, SUM(MOF.QtaFrutti) AS Qta " +
                                 "FROM TblMatOrdFrut AS MOF " +
                                 "LEFT JOIN TblFrutti AS F ON MOF.IdFrutto = F.ID1 " +
-                                "WHERE IdCantiere = @pIdCant AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
+                                "WHERE IdCantiere = @IdCantiere AND MOF.idFrutto IS NOT NULL AND MOF.QtaFrutti IS NOT NULL " +
                                 "GROUP BY F.descr001" +
                              ") AS A " +
                              "GROUP BY descr " +
                              "ORDER BY descr ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("@pIdCant", idCant));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    StampaOrdFrutCantLoc scLoc = new StampaOrdFrutCantLoc();
-                    scLoc.Descr001 = (dr.IsDBNull(0) ? null : dr.GetString(0));
-                    scLoc.Qta = (dr.IsDBNull(1) ? -1 : dr.GetInt32(1));
-
-                    list.Add(scLoc);
-                }
-
-                return list;
+                return cn.Query<StampaOrdFrutCantLoc>(sql, new { IdCantiere = idCant }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante la stampa dei gruppi in un locale.", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
 
         }
         public static List<MatOrdFrut> GetInfoForCantiereAndLocale(string idCant, string idLocale)
@@ -389,38 +312,24 @@ namespace GestioneCantieri.DAO
             SqlDataReader dr = null;
             try
             {
-                string sql = "SELECT A.id, B.DescriCodCAnt, C.NomeLocale, D.NomeGruppo, E.descr001, A.QtaFrutti " +
+                string sql = "SELECT A.id, B.DescriCodCAnt 'DescrCant', C.NomeLocale 'Appartamento', D.NomeGruppo, E.descr001 'NomeFrutto', A.QtaFrutti " +
                              "FROM TblMatOrdFrut AS A " +
                              "LEFT JOIN TblCantieri AS B ON A.IdCantiere = B.IdCantieri " +
                              "LEFT JOIN TblLocali AS C ON A.IdLocale = C.IdLocali " +
                              "LEFT JOIN TblGruppiFrutti AS D ON A.IdGruppiFrutti = D.Id " +
                              "LEFT JOIN TblFrutti AS E ON A.IdFrutto = E.ID1 " +
-                             "WHERE B.IdCantieri = @idCantiere AND C.IdLocali = @idLocale";
+                             "WHERE B.IdCantieri = @IdCantieri AND C.IdLocali = @IdLocali";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("idCantiere", idCant));
-                cmd.Parameters.Add(new SqlParameter("idLocale", idLocale));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    MatOrdFrut mof = new MatOrdFrut();
-                    mof.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    mof.DescrCant = (dr.IsDBNull(1) ? "---" : dr.GetString(1));
-                    mof.Appartamento = (dr.IsDBNull(2) ? "---" : dr.GetString(2));
-                    mof.NomeGruppo = (dr.IsDBNull(3) ? "---" : dr.GetString(3));
-                    mof.NomeFrutto = (dr.IsDBNull(4) ? "---" : dr.GetString(4));
-                    mof.QtaFrutti = (dr.IsDBNull(5) ? 0 : dr.GetInt32(5));
-                    list.Add(mof);
-                }
-
-                return list;
+                return cn.Query<MatOrdFrut>(sql, new { IdCantiere = idCant, IdLocali = idLocale }).ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception("Errore durante il recupero delle informazioni dei gruppiFrutti per un locale di un cantiere", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
     }
 }

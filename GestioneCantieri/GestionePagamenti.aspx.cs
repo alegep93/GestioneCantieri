@@ -261,7 +261,8 @@ namespace GestioneCantieri
         {
             Pagamenti p = new Pagamenti();
             PopolaObjPagam(p);
-            bool isUpdated = PagamentiDAO.UpdatePagamento(hidPagamenti.Value, p);
+            p.IdPagamenti = Convert.ToInt32(hidPagamenti.Value);
+            bool isUpdated = PagamentiDAO.UpdatePagamento(p);
 
             if (isUpdated)
             {

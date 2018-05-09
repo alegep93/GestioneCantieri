@@ -30,7 +30,10 @@ namespace GestioneCantieri.DAO
             {
                 throw new Exception("Errore durante il recupero dei nomi delle stampe", ex);
             }
-            finally { cn.Close(); }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
         }
     }
 }
