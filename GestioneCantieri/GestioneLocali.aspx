@@ -42,11 +42,6 @@
                 <asp:GridView ID="grdLocali" AutoGenerateColumns="false" OnRowCommand="grdLocali_RowCommand" ItemType="GestioneCantieri.Data.Locali" runat="server" CssClass="table table-striped table-responsive">
                     <Columns>
                         <asp:BoundField HeaderText="Nome Locale" DataField="NomeLocale" />
-                        <%--<asp:TemplateField>
-                            <ItemTemplate>
-                                <asp:Button ID="btnVisualMatCant" CommandName="VisualMatCant" CommandArgument="<%# BindItem.IdMaterialiCantieri %>" CssClass="btn btn-lg btn-default" runat="server" Text="Visualizza" />
-                            </ItemTemplate>
-                        </asp:TemplateField>--%>
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:Button ID="btnModificaLocale" CommandName="ModificaLocale" CommandArgument="<%# BindItem.Id %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />

@@ -6,7 +6,7 @@
         .btn.btn-lg.btn-primary {
             position: relative;
             top: 13px;
-            width: 20%;
+            width: 180px;
         }
 
         .errorLabel {
@@ -31,15 +31,15 @@
                 </div>
                 <div class="col-md-2">
                     <asp:Label ID="lblInsProtocollo" Text="Protocollo" runat="server"></asp:Label>
-                    <asp:TextBox ID="txtInsProtocollo" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtInsProtocollo" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-2">
                     <asp:Label ID="lblInsNumeroDdt" Text="Numero DDT" runat="server"></asp:Label>
-                    <asp:TextBox ID="txtInsNumeroDdt" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtInsNumeroDdt" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-2">
                     <asp:Label ID="lblInsArticolo" Text="Articolo" runat="server"></asp:Label>
-                    <asp:TextBox ID="txtInsArticolo" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtInsArticolo" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-2">
                     <asp:Label ID="lblInsDescrForn" Text="Descr. Fornitore" runat="server"></asp:Label>
@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-md-2">
                     <asp:Label ID="lblInsQta" Text="Quantità" runat="server"></asp:Label>
-                    <asp:TextBox ID="txtInsQta" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtInsQta" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-2">
                     <asp:Label ID="lblInsPrezzoUnit" Text="Prezzo Unitario" runat="server"></asp:Label>
@@ -64,12 +64,41 @@
                 </div>
             </div>
         </div>
+        <div class="row" style="margin-top: 50px;">
+            <asp:Panel ID="pnlFiltri" DefaultButton="btnFiltra" runat="server">
+                <div class="col-md-12">
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltraFornitore" Text="Filtro Fornitore" runat="server"></asp:Label>
+                        <asp:DropDownList ID="ddlFiltraFornitore" CssClass="form-control" runat="server"></asp:DropDownList>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltraProtocollo" Text="Filtro Protocollo" runat="server"></asp:Label>
+                        <asp:TextBox ID="txtFiltraProtocollo" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltraNumeroDdt" Text="Filtro Numero DDT" runat="server"></asp:Label>
+                        <asp:TextBox ID="txtFiltraNumeroDdt" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltraArticolo" Text="Filtro Articolo" runat="server"></asp:Label>
+                        <asp:TextBox ID="txtFiltraArticolo" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Label ID="lblFiltraQta" Text="Filtro Quantità" runat="server"></asp:Label>
+                        <asp:TextBox ID="txtFiltraQta" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-2">
+                        <asp:Button ID="btnFiltra" CssClass="btn btn-lg btn-primary" OnClick="btnFiltra_Click" Text="Filtra" runat="server"></asp:Button>
+                    </div>
+                </div>
+            </asp:Panel>
+        </div>
         <asp:HiddenField ID="hfIdDDT" runat="server" />
         <div class="row">
             <div class="col-md-12 tableContainer">
                 <asp:GridView ID="grdListaDDTFornitori" runat="server" ItemType="GestioneCantieri.Data.DDTFornitori" AutoGenerateColumns="False" OnRowCommand="grdListaDDTFornitori_RowCommand" CssClass="table table-striped table-responsive text-center">
                     <Columns>
-                        <asp:BoundField DataField="IdFornitore" HeaderText="Fornitore" />
+                        <asp:BoundField DataField="RagSocFornitore" HeaderText="Ragione Sociale Fornitore" />
                         <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
                         <asp:BoundField DataField="Protocollo" HeaderText="Protocollo" />
                         <asp:BoundField DataField="NumeroDdt" HeaderText="Numero DDT" />

@@ -35,7 +35,6 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-
         public static List<Fornitori> GetFornitori()
         {
             SqlConnection cn = GetConnection();
@@ -77,7 +76,6 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-
         public static int GetIdFornitore(string ragSoc)
         {
             SqlConnection cn = GetConnection();
@@ -106,7 +104,34 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+        public static string GetRagSocFornitore(int id)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            string ragSoc = "";
+            string sql = "";
 
+            try
+            {
+                sql = "SELECT RagSocForni FROM TblForitori WHERE IdFornitori = @id";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("@id", id));
+                dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    ragSoc = dr.GetString(0);
+                }
+
+                return ragSoc;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero della Ragione Sociale del Fornitore " + id, ex);
+            }
+            finally { cn.Close(); }
+        }
         public static DataTable GetFornitori(string ragSoc)
         {
             SqlConnection cn = GetConnection();

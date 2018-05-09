@@ -8,7 +8,7 @@ namespace GestioneCantieri.DAO
 {
     public class CantieriDAO : BaseDAO
     {
-        //SELECT
+        // SELECT
         public static Cantieri GetCantiere(string id)
         {
             SqlConnection cn = GetConnection();
@@ -148,7 +148,6 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-
         public static List<Cantieri> GetCantieri(string anno, int idCliente, bool fatturato, bool chiuso, bool riscosso)
         {
             SqlConnection cn = GetConnection();
@@ -254,7 +253,6 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-
         public static DataTable GetAllCantieri()
         {
             SqlConnection cn = GetConnection();
@@ -432,6 +430,89 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
+        public static DataTable FiltraCantieri(string anno, string codCant, string descr, string cliente, bool chiuso, bool riscosso)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            anno = "%" + anno + "%";
+            codCant = "%" + codCant + "%";
+            descr = "%" + descr + "%";
+            cliente = "%" + cliente + "%";
+
+            try
+            {
+                sql = "SELECT Cant.IdCantieri, Cli.RagSocCli, Cant.CodCant, Cant.DescriCodCAnt, " +
+                      "Cant.Data, Cant.Indirizzo, Cant.Città, Cant.Ricarico, " +
+                      "Cant.PzzoManodopera, Cant.Chiuso, Cant.Riscosso, Cant.Numero, " +
+                      "Cant.ValorePreventivo, Cant.IVA, Cant.Anno, Cant.Preventivo, " +
+                      "Cant.FasciaTblCantieri, Cant.DaDividere, Cant.Diviso, Cant.Fatturato " +
+                      "FROM TblCantieri AS Cant " +
+                      "JOIN TblClienti AS Cli ON(Cant.IdTblClienti = Cli.IdCliente) " +
+                      "WHERE Anno LIKE @pAnno AND CodCant LIKE @pCodCant AND DescriCodCAnt LIKE @pDescr AND Cli.RagSocCli LIKE @pRagSocCli " +
+                      "AND Chiuso LIKE @pChiuso AND Riscosso LIKE @pRiscosso " +
+                      "ORDER BY Cant.CodCant ASC ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.Add(new SqlParameter("pAnno", anno));
+                cmd.Parameters.Add(new SqlParameter("pCodCant", codCant));
+                cmd.Parameters.Add(new SqlParameter("pDescr", descr));
+                cmd.Parameters.Add(new SqlParameter("pRagSocCli", cliente));
+                cmd.Parameters.Add(new SqlParameter("pChiuso", chiuso));
+                cmd.Parameters.Add(new SqlParameter("pRiscosso", riscosso));
+
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable table = new DataTable();
+                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+                adapter.Fill(table);
+
+                return table;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante l'applicazione dei filtri sui cantieri", ex);
+            }
+            finally { cn.Close(); }
+        }
+        
+        //Estrazione dati per creazione intestazione Conto Finale Cliente e Verifica Cantieri
+        public static MaterialiCantieri GetDataPerIntestazione(string idCant)
+        {
+            SqlConnection cn = GetConnection();
+            SqlDataReader dr = null;
+            MaterialiCantieri mc = new MaterialiCantieri();
+            string sql = "";
+
+            try
+            {
+                sql = "SELECT C.RagSocCli,B.CodCant,B.DescriCodCAnt " +
+                      "FROM TblCantieri AS B " +
+                      "LEFT JOIN TblClienti AS C ON (B.IdTblClienti = C.IdCliente) " +
+                      "WHERE B.IdCantieri = @pIdCant ";
+
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
+
+                dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    mc.RagSocCli = (dr.IsDBNull(0) ? "" : dr.GetString(0));
+                    mc.CodCant = (dr.IsDBNull(1) ? "" : dr.GetString(1));
+                    mc.DescriCodCant = (dr.IsDBNull(2) ? "" : dr.GetString(2));
+                }
+
+                return mc;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei dati per l'intestazione del conto fin. cli.", ex);
+            }
+            finally { cn.Close(); dr.Close(); }
+        }
+
+        // INSERT
         public static bool InserisciCantiere(Cantieri c)
         {
             SqlConnection cn = GetConnection();
@@ -482,50 +563,8 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
-        public static DataTable FiltraCantieri(string anno, string codCant, string descr, string cliente, bool chiuso, bool riscosso)
-        {
-            SqlConnection cn = GetConnection();
-            string sql = "";
 
-            anno = "%" + anno + "%";
-            codCant = "%" + codCant + "%";
-            descr = "%" + descr + "%";
-            cliente = "%" + cliente + "%";
-
-            try
-            {
-                sql = "SELECT Cant.IdCantieri, Cli.RagSocCli, Cant.CodCant, Cant.DescriCodCAnt, " +
-                      "Cant.Data, Cant.Indirizzo, Cant.Città, Cant.Ricarico, " +
-                      "Cant.PzzoManodopera, Cant.Chiuso, Cant.Riscosso, Cant.Numero, " +
-                      "Cant.ValorePreventivo, Cant.IVA, Cant.Anno, Cant.Preventivo, " +
-                      "Cant.FasciaTblCantieri, Cant.DaDividere, Cant.Diviso, Cant.Fatturato " +
-                      "FROM TblCantieri AS Cant " +
-                      "JOIN TblClienti AS Cli ON(Cant.IdTblClienti = Cli.IdCliente) " +
-                      "WHERE Anno LIKE @pAnno AND CodCant LIKE @pCodCant AND DescriCodCAnt LIKE @pDescr AND Cli.RagSocCli LIKE @pRagSocCli " +
-                      "AND Chiuso LIKE @pChiuso AND Riscosso LIKE @pRiscosso " +
-                      "ORDER BY Cant.CodCant ASC ";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pAnno", anno));
-                cmd.Parameters.Add(new SqlParameter("pCodCant", codCant));
-                cmd.Parameters.Add(new SqlParameter("pDescr", descr));
-                cmd.Parameters.Add(new SqlParameter("pRagSocCli", cliente));
-                cmd.Parameters.Add(new SqlParameter("pChiuso", chiuso));
-                cmd.Parameters.Add(new SqlParameter("pRiscosso", riscosso));
-
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable table = new DataTable();
-                table.Locale = System.Globalization.CultureInfo.InvariantCulture;
-                adapter.Fill(table);
-
-                return table;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante l'applicazione dei filtri sui cantieri", ex);
-            }
-            finally { cn.Close(); }
-        }
+        // UPDATE
         public static bool UpdateCantiere(string idCant, Cantieri c)
         {
             SqlConnection cn = GetConnection();
@@ -581,6 +620,8 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+
+        // DELETE
         public static bool EliminaCantiere(int idCant)
         {
             SqlConnection cn = GetConnection();
@@ -606,43 +647,6 @@ namespace GestioneCantieri.DAO
                 throw new Exception("Errore durante l'eliminazione del cantiere", ex);
             }
             finally { cn.Close(); }
-        }
-
-        //Estrazione dati per creazione intestazione Conto Finale Cliente e Verifica Cantieri
-        public static MaterialiCantieri GetDataPerIntestazione(string idCant)
-        {
-            SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
-            MaterialiCantieri mc = new MaterialiCantieri();
-            string sql = "";
-
-            try
-            {
-                sql = "SELECT C.RagSocCli,B.CodCant,B.DescriCodCAnt " +
-                      "FROM TblCantieri AS B " +
-                      "LEFT JOIN TblClienti AS C ON (B.IdTblClienti = C.IdCliente) " +
-                      "WHERE B.IdCantieri = @pIdCant ";
-
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                cmd.Parameters.Add(new SqlParameter("pIdCant", idCant));
-
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    mc.RagSocCli = (dr.IsDBNull(0) ? "" : dr.GetString(0));
-                    mc.CodCant = (dr.IsDBNull(1) ? "" : dr.GetString(1));
-                    mc.DescriCodCant = (dr.IsDBNull(2) ? "" : dr.GetString(2));
-                }
-
-                return mc;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Errore durante il recupero dei dati per l'intestazione del conto fin. cli.", ex);
-            }
-            finally { cn.Close(); dr.Close(); }
         }
     }
 }

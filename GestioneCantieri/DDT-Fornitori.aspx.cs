@@ -27,11 +27,14 @@ namespace GestioneCantieri
             List<Fornitori> listClienti = FornitoriDAO.GetFornitori();
 
             ddlScegliFornitore.Items.Clear();
+            ddlFiltraFornitore.Items.Clear();
             ddlScegliFornitore.Items.Add(new ListItem("", "-1"));
+            ddlFiltraFornitore.Items.Add(new ListItem("", "-1"));
 
             foreach (Fornitori f in listClienti)
             {
                 ddlScegliFornitore.Items.Add(new ListItem(f.RagSocForni, f.IdFornitori.ToString()));
+                ddlFiltraFornitore.Items.Add(new ListItem(f.RagSocForni, f.IdFornitori.ToString()));
             }
         }
         protected void BindGrid()
@@ -44,6 +47,7 @@ namespace GestioneCantieri
         {
             DDTFornitori ddt = new DDTFornitori();
             ddt.IdFornitore = Convert.ToInt32(ddlScegliFornitore.SelectedValue);
+            ddt.RagSocFornitore = FornitoriDAO.GetRagSocFornitore(ddt.IdFornitore);
             ddt.Data = Convert.ToDateTime(txtInsData.Text);
             ddt.Protocollo = Convert.ToInt64(txtInsProtocollo.Text);
             ddt.NumeroDdt = txtInsNumeroDdt.Text;
@@ -51,7 +55,26 @@ namespace GestioneCantieri
             ddt.DescrizioneFornitore = txtInsDescrForn.Text;
             ddt.DescrizioneMau = txtInsDescrMau.Text;
             ddt.Qta = Convert.ToInt32(txtInsQta.Text);
-            ddt.PrezzoUnitario = Convert.ToDecimal(txtInsPrezzoUnit.Text.Replace(",", "."));
+
+            try
+            {
+                ddt.PrezzoUnitario = Convert.ToDecimal(txtInsPrezzoUnit.Text.Replace(".", ","));
+            }
+            catch
+            {
+                lblError.Text = "NON è possibile scrivere lettere o caratteri speciali nel \"Prezzo Unitario\"";
+                lblError.ForeColor = Color.Red;
+            }
+            return ddt;
+        }
+        protected DDTFornitori FillObjForSearch()
+        {
+            DDTFornitori ddt = new DDTFornitori();
+            ddt.IdFornitore = ddlFiltraFornitore.SelectedValue != "" ? Convert.ToInt32(ddlFiltraFornitore.SelectedValue) : -1;
+            ddt.Protocollo = txtFiltraProtocollo.Text != "" ? Convert.ToInt64(txtFiltraProtocollo.Text) : -1;
+            ddt.NumeroDdt = txtFiltraNumeroDdt.Text != "" ? txtFiltraNumeroDdt.Text : "";
+            ddt.Articolo = txtFiltraArticolo.Text != "" ? txtFiltraArticolo.Text : "";
+            ddt.Qta = txtFiltraQta.Text != "" ? Convert.ToInt32(txtFiltraQta.Text) : -1;
             return ddt;
         }
         protected void SvuotaCampi()
@@ -100,7 +123,7 @@ namespace GestioneCantieri
                 bool isDeleted = DDTFornitoriDAO.DeleteDDTFornitore(id);
                 if (isDeleted)
                 {
-                    lblError.Text = "DDT Fornitore " + id + " eliminato con successo";
+                    lblError.Text = "DDT Fornitore con id = " + id + ", eliminato con successo";
                     lblError.ForeColor = Color.Blue;
                 }
                 else
@@ -117,39 +140,63 @@ namespace GestioneCantieri
         #region Eventi Click
         protected void btnInserisciDDT_Click(object sender, EventArgs e)
         {
+            lblError.Text = "";
             DDTFornitori ddt = FillDdtFornitoriObj();
-            bool isInserted = DDTFornitoriDAO.InsertNewFornitore(ddt);
-            if (isInserted)
-            {
-                lblError.Text = "Nuovo DDT Fornitore inserito correttamente";
-                lblError.ForeColor = Color.Blue;
-            }
-            else
-            {
-                lblError.Text = "NON è stato possibile inserire il nuovo DDT Fornitore";
-                lblError.ForeColor = Color.Red;
-            }
 
-            BindGrid();
-            SvuotaCampi();
+            if (lblError.Text == "")
+            {
+                bool isInserted = DDTFornitoriDAO.InsertNewFornitore(ddt);
+                if (isInserted)
+                {
+                    lblError.Text = "Nuovo DDT Fornitore inserito correttamente";
+                    lblError.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblError.Text = "NON è stato possibile inserire il nuovo DDT Fornitore";
+                    lblError.ForeColor = Color.Red;
+                }
+
+                BindGrid();
+                SvuotaCampi();
+            }
         }
         protected void btnModificaDDT_Click(object sender, EventArgs e)
         {
-            int id = Convert.ToInt32(hfIdDDT.Value);
+            
+            lblError.Text = "";
             DDTFornitori ddt = FillDdtFornitoriObj();
-            bool isUpdated = DDTFornitoriDAO.UpdateDDTFornitore(id, ddt);
-            if (isUpdated)
+            ddt.Id = Convert.ToInt32(hfIdDDT.Value);
+            if (lblError.Text == "")
             {
-                lblError.Text = "DDT Fornitore " + id + " aggiornato con successo";
-                lblError.ForeColor = Color.Blue;
+                bool isUpdated = DDTFornitoriDAO.UpdateDDTFornitore(ddt);
+                if (isUpdated)
+                {
+                    lblError.Text = ddt.RagSocFornitore + " aggiornato con successo";
+                    lblError.ForeColor = Color.Blue;
+                }
+                else
+                {
+                    lblError.Text = "NON è stato possibile aggiornare il record con fornitore = " + ddt.RagSocFornitore;
+                    lblError.ForeColor = Color.Red;
+                }
+                BindGrid();
+                SvuotaCampi();
+            }
+        }
+        protected void btnFiltra_Click(object sender, EventArgs e)
+        {
+            if (ddlFiltraFornitore.SelectedIndex != 0 || txtFiltraProtocollo.Text != "" || txtFiltraNumeroDdt.Text != "" || txtFiltraArticolo.Text != "" || txtFiltraQta.Text != "")
+            {
+                DDTFornitori ddt = FillObjForSearch();
+                List<DDTFornitori> ddtList = DDTFornitoriDAO.GetAllDDT(ddt);
+                grdListaDDTFornitori.DataSource = ddtList;
+                grdListaDDTFornitori.DataBind();
             }
             else
             {
-                lblError.Text = "NON è stato possibile aggiornare il DDT Fornitore con id = " + id;
-                lblError.ForeColor = Color.Red;
+                BindGrid();
             }
-            BindGrid();
-            SvuotaCampi();
         }
         #endregion
     }

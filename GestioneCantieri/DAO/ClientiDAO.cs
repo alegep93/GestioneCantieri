@@ -177,6 +177,8 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); dr.Close(); }
         }
+
+        // INSERT
         public static bool InserisciCliente(Clienti c)
         {
             SqlConnection cn = GetConnection();
@@ -214,6 +216,8 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+
+        // UPDATE
         public static bool UpdateCliente(string idCliente, Clienti c)
         {
             SqlConnection cn = GetConnection();
@@ -261,6 +265,8 @@ namespace GestioneCantieri.DAO
             }
             finally { cn.Close(); }
         }
+
+        // DELETE
         public static bool EliminaCliente(int idCliente)
         {
             SqlConnection cn = GetConnection();

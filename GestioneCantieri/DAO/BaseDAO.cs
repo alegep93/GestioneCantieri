@@ -47,7 +47,7 @@ namespace GestioneCantieri.DAO
 
             return connectionString;
         }
-        public static SqlConnection GetConnection()
+        protected static SqlConnection GetConnection()
         {
             SqlConnection cn = null;
             try
@@ -62,6 +62,17 @@ namespace GestioneCantieri.DAO
                 throw new Exception("Si è verificato un errore durante la creazione della connessione col DB", ex);
             }
             return cn;
+        }
+        protected static void CloseResouces(SqlConnection cn, SqlDataReader dr)
+        {
+            if (cn != null && cn.State != System.Data.ConnectionState.Closed)
+            {
+                cn.Close();
+            }
+            if (dr != null)
+            {
+                dr.Close();
+            }
         }
     }
 }
