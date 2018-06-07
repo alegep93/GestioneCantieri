@@ -366,8 +366,8 @@ namespace GestioneCantieri
             bool fatturato = chkFatturato.Checked;
 
             Cantieri cant = FillObjCantiere(chiuso, riscosso, preventivo, daDividere, diviso, fatturato, "");
-
-            bool isUpdated = CantieriDAO.UpdateCantiere(hidIdCant.Value, cant);
+            cant.IdCantieri = Convert.ToInt32(hidIdCant.Value);
+            bool isUpdated = CantieriDAO.UpdateCantiere(cant);
 
             if (isUpdated)
             {

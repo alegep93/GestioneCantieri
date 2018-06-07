@@ -73,8 +73,6 @@ namespace GestioneCantieri.DAO
         public static List<Mamg0> GetListino(string codArt1, string codArt2, string codArt3, string desc1, string desc2, string desc3)
         {
             string sql = "";
-            List<Mamg0> list = new List<Mamg0>();
-            SqlDataReader dr = null;
             SqlConnection cn = GetConnection();
 
             codArt1 = "%" + codArt1 + "%";
@@ -101,30 +99,7 @@ namespace GestioneCantieri.DAO
                           "ORDER BY CodArt ASC ";
                 }
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pCodArt1", codArt1));
-                cmd.Parameters.Add(new SqlParameter("pCodArt2", codArt2));
-                cmd.Parameters.Add(new SqlParameter("pCodArt3", codArt3));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt1", desc1));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt2", desc2));
-                cmd.Parameters.Add(new SqlParameter("pDescriCodArt3", desc3));
-                dr = cmd.ExecuteReader(); //Esegue il comando e lo inserisce nel DataReader
-
-                while (dr.Read())
-                {
-                    Mamg0 m = new Mamg0();
-                    m.CodArt = (dr.IsDBNull(0) ? null : dr.GetString(0));
-                    m.Desc = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    m.UnitMis = (dr.IsDBNull(2) ? null : dr.GetString(2));
-                    m.Pezzo = (dr.IsDBNull(3) ? (float)0.0 : (float)dr.GetDouble(3));
-                    m.PrezzoListino = (dr.IsDBNull(4) ? (float)0.0 : (float)dr.GetDouble(4));
-                    m.Sconto1 = (dr.IsDBNull(5) ? (float)0.0 : (float)dr.GetDouble(5));
-                    m.Sconto2 = (dr.IsDBNull(6) ? (float)0.0 : (float)dr.GetDouble(6));
-                    m.Sconto3 = (dr.IsDBNull(7) ? (float)0.0 : (float)dr.GetDouble(7));
-                    m.PrezzoNetto = (dr.IsDBNull(8) ? (float)0.0 : (float)dr.GetDouble(8));
-                    list.Add(m);
-                }
-                return list;
+                return cn.Query<Mamg0>(sql, new { pCodArt1 = codArt1, pCodArt2 = codArt2, pCodArt3 = codArt3, pDescriCodArt1 = desc1, pDescriCodArt2 = desc2, pDescriCodArt3 = desc3 }).ToList();
             }
             catch (Exception ex)
             {

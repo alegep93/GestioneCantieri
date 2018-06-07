@@ -128,8 +128,8 @@ namespace GestioneCantieri.DAO
 
                 if (rowNumber > 0)
                     return true;
-                else
-                    return false;
+
+                return false;
             }
             catch (Exception ex)
             {

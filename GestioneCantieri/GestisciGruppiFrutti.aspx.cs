@@ -369,7 +369,7 @@ namespace GestioneCantieri
         }
         protected void MostraListaGruppiInseriti()
         {
-            gruppiList = GruppiFruttiDAO.getGruppiWithSearch(txtFiltroGruppi1.Text, txtFiltroGruppi2.Text, txtFiltroGruppi3.Text);
+            gruppiList = GruppiFruttiDAO.GetGruppiWithSearch(txtFiltroGruppi1.Text, txtFiltroGruppi2.Text, txtFiltroGruppi3.Text);
         }
 
         protected void ddlFrutti_TextChanged(object sender, EventArgs e)

@@ -218,10 +218,7 @@ namespace GestioneCantieri.DAO
                 sql = "IF NOT EXISTS(SELECT IdTblClienti FROM TblCantieri where IdTblClienti = @pId) " +
                         "DELETE FROM TblClienti WHERE IdCliente = @pId ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("pId", idCliente));
-
-                int row = cmd.ExecuteNonQuery();
+                int row = cn.Execute(sql, new { pId = idCliente });
 
                 if (row > 0)
                     return true;

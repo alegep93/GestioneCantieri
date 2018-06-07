@@ -308,8 +308,7 @@ namespace GestioneCantieri.DAO
         public static List<MatOrdFrut> GetInfoForCantiereAndLocale(string idCant, string idLocale)
         {
             SqlConnection cn = GetConnection();
-            List<MatOrdFrut> list = new List<MatOrdFrut>();
-            SqlDataReader dr = null;
+
             try
             {
                 string sql = "SELECT A.id, B.DescriCodCAnt 'DescrCant', C.NomeLocale 'Appartamento', D.NomeGruppo, E.descr001 'NomeFrutto', A.QtaFrutti " +
@@ -320,7 +319,7 @@ namespace GestioneCantieri.DAO
                              "LEFT JOIN TblFrutti AS E ON A.IdFrutto = E.ID1 " +
                              "WHERE B.IdCantieri = @IdCantieri AND C.IdLocali = @IdLocali";
 
-                return cn.Query<MatOrdFrut>(sql, new { IdCantiere = idCant, IdLocali = idLocale }).ToList();
+                return cn.Query<MatOrdFrut>(sql, new { IdCantieri = idCant, IdLocali = idLocale }).ToList();
             }
             catch (Exception ex)
             {

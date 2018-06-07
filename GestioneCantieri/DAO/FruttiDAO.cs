@@ -22,11 +22,11 @@ namespace GestioneCantieri.DAO
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pNomeFrutto", nomeFrutto));
 
-                int rowNumber = cmd.ExecuteNonQuery();
+                int rowNumber = cn.Execute(sql, new { pNomeFrutto = nomeFrutto });
                 if (rowNumber > 0)
                     return true;
-                else
-                    return false;
+
+                return false;
             }
             catch (Exception ex)
             {
@@ -61,9 +61,7 @@ namespace GestioneCantieri.DAO
         public static List<Frutti> getFruttiWithSearch(string f1, string f2, string f3)
         {
             SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
             string sql = "";
-            List<Frutti> fruttiList = new List<Frutti>();
 
             f1 = "%" + f1 + "%";
             f2 = "%" + f2 + "%";
@@ -75,21 +73,7 @@ namespace GestioneCantieri.DAO
                       "WHERE descr001 LIKE @pF1 AND descr001 LIKE @pF2 AND descr001 LIKE @pF3 " +
                       "ORDER BY descr001 ASC ";
 
-                SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("@pF1", f1));
-                cmd.Parameters.Add(new SqlParameter("@pF2", f2));
-                cmd.Parameters.Add(new SqlParameter("@pF3", f3));
-                dr = cmd.ExecuteReader();
-
-                while (dr.Read())
-                {
-                    Frutti f = new Frutti();
-                    f.Id = (dr.IsDBNull(0) ? -1 : dr.GetInt32(0));
-                    f.Descr = (dr.IsDBNull(1) ? null : dr.GetString(1));
-                    fruttiList.Add(f);
-                }
-
-                return fruttiList;
+                return cn.Query<Frutti>(sql, new { pF1 = f1, pF2 = f2, pF3 = f3 }).ToList();
             }
             catch (Exception ex)
             {
