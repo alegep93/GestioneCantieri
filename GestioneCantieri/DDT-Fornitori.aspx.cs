@@ -42,6 +42,13 @@ namespace GestioneCantieri
             List<DDTFornitori> ddtFornList = DDTFornitoriDAO.GetAllDDT();
             grdListaDDTFornitori.DataSource = ddtFornList;
             grdListaDDTFornitori.DataBind();
+
+            // Popolo la cella del "Prezzo Finale"
+            for (int i = 0; i < ddtFornList.Count; i++)
+            {
+                ddtFornList[i].PrezzoFinale = Convert.ToDecimal(ddtFornList[i].Qta) * ddtFornList[i].PrezzoUnitario;
+                grdListaDDTFornitori.Rows[i].Cells[9].Text = ddtFornList[i].PrezzoFinale.ToString();
+            }
         }
         protected DDTFornitori FillDdtFornitoriObj()
         {
@@ -163,7 +170,7 @@ namespace GestioneCantieri
         }
         protected void btnModificaDDT_Click(object sender, EventArgs e)
         {
-            
+
             lblError.Text = "";
             DDTFornitori ddt = FillDdtFornitoriObj();
             ddt.Id = Convert.ToInt32(hfIdDDT.Value);

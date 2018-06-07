@@ -107,6 +107,7 @@
                         <asp:BoundField DataField="DescrizioneMau" HeaderText="Descrizione Mau" />
                         <asp:BoundField DataField="Qta" HeaderText="Quantità" />
                         <asp:BoundField DataField="PrezzoUnitario" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
+                        <asp:BoundField DataField="PrezzoFinale" HeaderText="Prezzo Finale" DataFormatString="{0:0.00}" />
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:Button ID="btnMod" CommandName="ModDDT" CommandArgument="<%# BindItem.Id %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />
