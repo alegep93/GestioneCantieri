@@ -69,7 +69,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT ID1,descr001 FROM TblFrutti " +
+                sql = "SELECT ID1 AS 'Id',descr001 AS 'Descr' FROM TblFrutti " +
                       "WHERE descr001 LIKE @pF1 AND descr001 LIKE @pF2 AND descr001 LIKE @pF3 " +
                       "ORDER BY descr001 ASC ";
 

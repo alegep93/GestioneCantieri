@@ -1316,7 +1316,7 @@ namespace GestioneCantieri
         protected void btnGestOper_Click(object sender, EventArgs e)
         {
             Operai op = OperaiDAO.GetOperaio(ddlScegliOperaio.SelectedItem.Value);
-            txtPzzoOper.Text = op.CostoOperaio.ToString("N2");
+            txtPzzoOper.Text = op != null ? op.CostoOperaio.ToString("N2") : "";
 
             lblTitoloMaschera.Text = "Gestione Operaio";
             txtTipDatCant.Text = "OPERAIO";

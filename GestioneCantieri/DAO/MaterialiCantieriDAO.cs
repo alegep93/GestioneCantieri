@@ -197,15 +197,13 @@ namespace GestioneCantieri.DAO
         public static MaterialiCantieri GetSingleMaterialeCantiere(int id)
         {
             SqlConnection cn = GetConnection();
-            SqlDataReader dr = null;
-            MaterialiCantieri mc = new MaterialiCantieri();
             string sql = "";
 
             try
             {
                 sql = "SELECT IdMaterialiCantiere,IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo, " +
                       "ricaricoSiNo,A.Data,PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,A.Acquirente,A.Fornitore, " +
-                      "NumeroBolla,ProtocolloInterno,Note,Note2,PzzoFinCli,IdTblOperaio " +
+                      "NumeroBolla,ProtocolloInterno,Note,Note2,PzzoFinCli,IdTblOperaio AS IdOperaio " +
                       "FROM TblMaterialiCantieri AS A " +
                       "LEFT JOIN TblCantieri AS B ON(A.IdTblCantieri = b.IdCantieri) " +
                       "LEFT JOIN TblOperaio AS C ON(A.Acquirente = C.IdOperaio) " +
@@ -288,7 +286,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT IdTblCantieri,PzzoUniCantiere,Qta,Visibile " +
+                sql = "SELECT SUM(PzzoUniCantiere * Qta) " +
                       "FROM TblMaterialiCantieri " +
                       "WHERE (Tipologia = 'MATERIALE' OR Tipologia = 'A CHIAMATA') AND Visibile = 1 AND Ricalcolo = 1 AND PzzoFinCli = 0 AND IdTblCantieri = @pIdCant ";
 
@@ -307,7 +305,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT IdTblCantieri,PzzoUniCantiere,Qta,Visibile " +
+                sql = "SELECT SUM(PzzoUniCantiere * Qta) " +
                       "FROM TblMaterialiCantieri " +
                       "WHERE Visibile = 0 AND IdTblCantieri = @pIdCant ";
 

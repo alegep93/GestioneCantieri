@@ -67,7 +67,7 @@ namespace GestioneCantieri.DAO
                       "FROM TblPagamenti " +
                       "WHERE IdTblCantieri = @IdTblCantieri AND ISNULL(DescriPagamenti,'') LIKE @DescriPagamenti ";
 
-                return cn.Query<Pagamenti>(sql, new { IdCantiere = idCant, DescriPagamenti = descrizione }).ToList();
+                return cn.Query<Pagamenti>(sql, new { IdTblCantieri = idCant, DescriPagamenti = descrizione }).ToList();
             }
             catch (Exception ex)
             {

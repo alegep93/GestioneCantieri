@@ -359,7 +359,7 @@ namespace GestioneCantieri.DAO
                       "LEFT JOIN TblClienti AS C ON (B.IdTblClienti = C.IdCliente) " +
                       "WHERE B.IdCantieri = @pIdCant ";
 
-                return cn.Query(sql, new { pIdCant = idCant }).SingleOrDefault();
+                return cn.Query<MaterialiCantieri>(sql, new { pIdCant = idCant }).SingleOrDefault();
             }
             catch (Exception ex)
             {
