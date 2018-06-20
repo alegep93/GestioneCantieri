@@ -47,7 +47,7 @@ namespace GestioneCantieri
             for (int i = 0; i < ddtFornList.Count; i++)
             {
                 ddtFornList[i].PrezzoUnitario = ddtFornList[i].Valore / Convert.ToDecimal(ddtFornList[i].Qta);
-                grdListaDDTFornitori.Rows[i].Cells[9].Text = ddtFornList[i].PrezzoUnitario.ToString();
+                grdListaDDTFornitori.Rows[i].Cells[9].Text = ddtFornList[i].PrezzoUnitario.ToString("N2");
             }
         }
         protected DDTFornitori FillDdtFornitoriObj()
