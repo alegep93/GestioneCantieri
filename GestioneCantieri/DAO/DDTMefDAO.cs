@@ -416,7 +416,7 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "INSERT INTO TblDDTMef (Anno,Data,N_DDT,CodArt,DescriCodArt,Qta,Importo,Acquirente,PrezzoUnitario,AnnoN_DDT) " +
-                      "VALUES (@anno,@data,@nDdt,@codArt,@descriCodArt,@qta,@importo,@acquirente,@prezzoUni,@annoNddt)";
+                      "VALUES (@Anno,@Data,@N_DDT,@CodArt,@DescriCodArt,@Qta,@Importo,@Acquirente,@PrezzoUnitario,@AnnoN_DDT)";
 
                 int rows = cn.Execute(sql, ddt);
 
@@ -442,7 +442,7 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblDDTMef SET Importo = @importo " +
-                      "WHERE Anno = @anno AND DATEPART(MONTH, data) = @mese AND N_DDT = @nDdt AND CodArt = @codArt ";
+                      "WHERE Anno = @anno AND DATEPART(MONTH, data) = @data AND N_DDT = @N_DDT AND CodArt = @CodArt ";
 
                 int rows = cn.Execute(sql, ddt);
 
@@ -494,7 +494,7 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "INSERT INTO TblDDTMefTemp (Anno,Data,N_DDT,CodArt,DescriCodArt,Qta,Importo,Acquirente,PrezzoUnitario,AnnoN_DDT) " +
-                      "VALUES (@anno,@data,@nDdt,@codArt,@descriCodArt,@qta,@importo,@acquirente,@prezzoUni,@annoNddt) ";
+                      "VALUES (@Anno,@Data,@N_DDT,@CodArt,@DescriCodArt,@Qta,@Importo,@Acquirente,@PrezzoUnitario,@AnnoN_DDT) ";
 
                 int rows = cn.Execute(sql, ddt);
 

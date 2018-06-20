@@ -53,7 +53,7 @@ namespace GestioneCantieri
             string pathFile = "";
 
 #if (DEBUG)
-            pathFile = @"C:\Users\AlessandroGeppi\Downloads";
+            pathFile = @"C:\Users\Alessandro\Downloads";
 #else
             pathFile = @"C:\MEF\ORDINI\";
 #endif
