@@ -185,7 +185,7 @@ namespace GestioneCantieri
                 if (ddt.Anno == DateTime.Now.Year && (ddt.Data.Month == DateTime.Now.Month || ddt.Data.Month == DateTime.Now.AddMonths(-1).Month))
                 {
                     // Aggiorno il prezzo di ogni DDT appartenente al mese e all'anno corrente
-                    DDTMefDAO.UpdateDdt(ddt.Anno, ddt.Data, ddt.N_ddt, ddt.CodArt);
+                    DDTMefDAO.UpdateDdt(ddt.Importo, ddt.Anno, ddt.Data, ddt.N_ddt, ddt.CodArt);
                 }
             }
 
