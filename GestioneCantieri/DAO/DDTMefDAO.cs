@@ -434,7 +434,7 @@ namespace GestioneCantieri.DAO
                 CloseResouces(cn, null);
             }
         }
-        public static bool UpdateDdt(DDTMef ddt)
+        public static bool UpdateDdt(int anno, DateTime data, int nDdt, string codArt)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -442,9 +442,9 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblDDTMef SET Importo = @importo " +
-                      "WHERE Anno = @anno AND DATEPART(MONTH, data) = @data AND N_DDT = @N_DDT AND CodArt = @CodArt ";
+                      "WHERE Anno = @anno AND DATEPART(MONTH, data) = @data AND N_DDT = @nDdt AND CodArt = @codArt ";
 
-                int rows = cn.Execute(sql, ddt);
+                int rows = cn.Execute(sql, new { anno, data, nDdt, codArt });
 
                 if (rows > 0)
                     return true;
