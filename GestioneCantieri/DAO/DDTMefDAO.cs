@@ -434,17 +434,22 @@ namespace GestioneCantieri.DAO
                 CloseResouces(cn, null);
             }
         }
-        public static bool UpdateDdt(decimal importo, int anno, DateTime data, int nDdt, string codArt)
+
+        public static bool UpdateDdt()
         {
             SqlConnection cn = GetConnection();
             string sql = "";
 
             try
             {
-                sql = "UPDATE TblDDTMef SET Importo = @importo " +
-                      "WHERE Anno = @anno AND DATEPART(MONTH, data) = @data AND N_DDT = @nDdt AND CodArt = @codArt ";
+                sql = "UPDATE A " +
+                      "SET A.Importo = B.Importo, A.PrezzoUnitario = B.PrezzoUnitario " +
+                      "FROM TblDDTMef AS A " +
+                      "INNER JOIN TblDDTMefTemp AS B ON A.Anno = B.Anno AND A.N_DDT = B.N_DDT AND A.CodArt = B.CodArt " +
+                      "WHERE A.Qta = B.Qta AND A.Importo != B.Importo ";
 
-                int rows = cn.Execute(sql, new { importo, anno, data, nDdt, codArt });
+                SqlCommand cmd = new SqlCommand(sql, cn);
+                int rows = cmd.ExecuteNonQuery();
 
                 if (rows > 0)
                     return true;
