@@ -17,7 +17,7 @@ namespace GestioneCantieri.DAO
             SqlConnection cn = GetConnection();
             try
             {
-                sql = "SELECT A.Id, B.RagSocForni 'ragSocFornitore', A.Data, A.Protocollo, A.NumeroDDT, A.Articolo, A.DescrizioneFornitore, A.DescrizioneMau, A.Qta, A.PrezzoUnitario " +
+                sql = "SELECT A.Id, B.RagSocForni 'ragSocFornitore', A.Data, A.Protocollo, A.NumeroDDT, A.Articolo, A.DescrizioneFornitore, A.DescrizioneMau, A.Qta, A.Valore " +
                       "FROM TblDDTFornitori AS A " +
                       "INNER JOIN TblForitori AS B ON A.IdFornitore = B.IdFornitori " +
                       "ORDER BY B.RagSocForni, A.Data, A.Protocollo ";
@@ -44,7 +44,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT A.Id, B.RagSocForni 'ragSocFornitore', A.Data, A.Protocollo, A.NumeroDDT, A.Articolo, A.DescrizioneFornitore, A.DescrizioneMau, A.Qta, A.PrezzoUnitario " +
+                sql = "SELECT A.Id, B.RagSocForni 'ragSocFornitore', A.Data, A.Protocollo, A.NumeroDDT, A.Articolo, A.DescrizioneFornitore, A.DescrizioneMau, A.Qta, A.Valore " +
                       "FROM TblDDTFornitori AS A " +
                       "INNER JOIN TblForitori AS B ON A.IdFornitore = B.IdFornitori " +
                       "WHERE A.NumeroDDT LIKE @NumeroDDT AND A.Articolo LIKE @Articolo ";
@@ -78,7 +78,7 @@ namespace GestioneCantieri.DAO
             SqlConnection cn = GetConnection();
             try
             {
-                sql = "SELECT Id, IdFornitore, Data, Protocollo, NumeroDDT, Articolo, DescrizioneFornitore, DescrizioneMau, Qta, PrezzoUnitario " +
+                sql = "SELECT Id, IdFornitore, Data, Protocollo, NumeroDDT, Articolo, DescrizioneFornitore, DescrizioneMau, Qta, Valore " +
                       "FROM TblDDTFornitori " +
                       "WHERE Id = @Id ";
 
@@ -102,8 +102,8 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "INSERT INTO TblDDTFornitori (IdFornitore, Data, Protocollo, NumeroDDT, Articolo, DescrizioneFornitore, DescrizioneMau, Qta, PrezzoUnitario) " +
-                      "VALUES (@IdFornitore, @Data, @Protocollo, @NumeroDDT, @Articolo, @DescrizioneFornitore, @DescrizioneMau, @Qta, @PrezzoUnitario) ";
+                sql = "INSERT INTO TblDDTFornitori (IdFornitore, Data, Protocollo, NumeroDDT, Articolo, DescrizioneFornitore, DescrizioneMau, Qta, Valore) " +
+                      "VALUES (@IdFornitore, @Data, @Protocollo, @NumeroDDT, @Articolo, @DescrizioneFornitore, @DescrizioneMau, @Qta, @Valore) ";
 
                 int rows = cn.Execute(sql, ddt);
 
@@ -131,7 +131,7 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblDDTFornitori SET IdFornitore = @IdFornitore, Data = @Data, Protocollo = @Protocollo, NumeroDDT = @NumeroDDT, Articolo = @Articolo, " +
-                      "DescrizioneFornitore = @DescrizioneFornitore, DescrizioneMau = @DescrizioneMau, Qta = @Qta, PrezzoUnitario = @PrezzoUnitario " +
+                      "DescrizioneFornitore = @DescrizioneFornitore, DescrizioneMau = @DescrizioneMau, Qta = @Qta, Valore = @Valore " +
                       "WHERE Id = @Id ";
 
                 int rows = cn.Execute(sql, ddt);

@@ -7,7 +7,7 @@ namespace GestioneCantieri.Data
         int id = 0, idFornitore=0, qta=0;
         long protocollo = 0;
         string numeroDdt = "", articolo = "", descrizioneFornitore = "", descrizioneMau = "", ragSocFornitore = "";
-        decimal prezzoUnitario = 0, prezzoFinale = 0;
+        decimal valore = 0, prezzoUnitario = 0;
         DateTime data = new DateTime();
 
         public int Id { get => id; set => id = value; }
@@ -19,8 +19,8 @@ namespace GestioneCantieri.Data
         public string DescrizioneFornitore { get => descrizioneFornitore; set => descrizioneFornitore = value; }
         public string DescrizioneMau { get => descrizioneMau; set => descrizioneMau = value; }
         public string RagSocFornitore { get => ragSocFornitore; set => ragSocFornitore = value; }
+        public decimal Valore { get => valore; set => valore = value; }
         public decimal PrezzoUnitario { get => prezzoUnitario; set => prezzoUnitario = value; }
-        public decimal PrezzoFinale { get => prezzoFinale; set => prezzoFinale = value; }
         public DateTime Data { get => data; set => data = value; }
     }
 }

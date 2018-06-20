@@ -149,7 +149,7 @@ namespace GestioneCantieri
         {
             int id = Convert.ToInt32(e.CommandArgument.ToString());
 
-            if(e.CommandName == "EliminaOrdine")
+            if (e.CommandName == "EliminaOrdine")
             {
                 OrdineFruttiDAO.DeleteItem(id);
             }

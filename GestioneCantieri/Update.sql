@@ -9,7 +9,7 @@ CREATE TABLE [dbo].[TblDDTFornitori](
 	[DescrizioneFornitore] [nvarchar](255) NULL,
 	[DescrizioneMau] [nvarchar](255) NULL,
 	[Qta] [int] NOT NULL,
-	[PrezzoUnitario] [decimal](10, 2) NOT NULL,
+	[Valore] [decimal](10, 2) NOT NULL,
  CONSTRAINT [PK_TblDDTFornitori] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC

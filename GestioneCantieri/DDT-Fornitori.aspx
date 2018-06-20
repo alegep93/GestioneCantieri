@@ -54,8 +54,8 @@
                     <asp:TextBox ID="txtInsQta" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-2">
-                    <asp:Label ID="lblInsPrezzoUnit" Text="Prezzo Unitario" runat="server"></asp:Label>
-                    <asp:TextBox ID="txtInsPrezzoUnit" CssClass="form-control" runat="server"></asp:TextBox>
+                    <asp:Label ID="lblInsValore" Text="Valore" runat="server"></asp:Label>
+                    <asp:TextBox ID="txtInsValore" CssClass="form-control" runat="server"></asp:TextBox>
                 </div>
                 <div class="col-md-6">
                     <asp:Button ID="btnInserisciDDT" CssClass="btn btn-lg btn-primary" OnClick="btnInserisciDDT_Click" Text="Inserisci" runat="server"></asp:Button>
@@ -106,8 +106,8 @@
                         <asp:BoundField DataField="DescrizioneFornitore" HeaderText="Descrizione Fornitore" />
                         <asp:BoundField DataField="DescrizioneMau" HeaderText="Descrizione Mau" />
                         <asp:BoundField DataField="Qta" HeaderText="Quantità" />
+                        <asp:BoundField DataField="Valore" HeaderText="Valore" DataFormatString="{0:0.00}" />
                         <asp:BoundField DataField="PrezzoUnitario" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
-                        <asp:BoundField DataField="PrezzoFinale" HeaderText="Prezzo Finale" DataFormatString="{0:0.00}" />
                         <asp:TemplateField>
                             <ItemTemplate>
                                 <asp:Button ID="btnMod" CommandName="ModDDT" CommandArgument="<%# BindItem.Id %>" CssClass="btn btn-lg btn-default" runat="server" Text="Modifica" />

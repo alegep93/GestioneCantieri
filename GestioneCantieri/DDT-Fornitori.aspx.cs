@@ -46,8 +46,8 @@ namespace GestioneCantieri
             // Popolo la cella del "Prezzo Finale"
             for (int i = 0; i < ddtFornList.Count; i++)
             {
-                ddtFornList[i].PrezzoFinale = Convert.ToDecimal(ddtFornList[i].Qta) * ddtFornList[i].PrezzoUnitario;
-                grdListaDDTFornitori.Rows[i].Cells[9].Text = ddtFornList[i].PrezzoFinale.ToString();
+                ddtFornList[i].PrezzoUnitario = ddtFornList[i].Valore / Convert.ToDecimal(ddtFornList[i].Qta);
+                grdListaDDTFornitori.Rows[i].Cells[9].Text = ddtFornList[i].PrezzoUnitario.ToString();
             }
         }
         protected DDTFornitori FillDdtFornitoriObj()
@@ -65,11 +65,11 @@ namespace GestioneCantieri
 
             try
             {
-                ddt.PrezzoUnitario = Convert.ToDecimal(txtInsPrezzoUnit.Text.Replace(".", ","));
+                ddt.Valore = Convert.ToDecimal(txtInsValore.Text.Replace(".", ","));
             }
             catch
             {
-                lblError.Text = "NON è possibile scrivere lettere o caratteri speciali nel \"Prezzo Unitario\"";
+                lblError.Text = "NON è possibile scrivere lettere o caratteri speciali nel \"Valore\"";
                 lblError.ForeColor = Color.Red;
             }
             return ddt;
@@ -94,7 +94,7 @@ namespace GestioneCantieri
             txtInsDescrForn.Text = "";
             txtInsDescrMau.Text = "";
             txtInsQta.Text = "";
-            txtInsPrezzoUnit.Text = "";
+            txtInsValore.Text = "";
             btnModificaDDT.Visible = false;
             btnInserisciDDT.Visible = true;
         }
@@ -111,7 +111,7 @@ namespace GestioneCantieri
             txtInsDescrForn.Text = ddt.DescrizioneFornitore.ToString();
             txtInsDescrMau.Text = ddt.DescrizioneMau.ToString();
             txtInsQta.Text = ddt.Qta.ToString();
-            txtInsPrezzoUnit.Text = ddt.PrezzoUnitario.ToString();
+            txtInsValore.Text = ddt.Valore.ToString();
         }
         #endregion
 

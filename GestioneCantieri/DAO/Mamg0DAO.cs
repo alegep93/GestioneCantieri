@@ -16,8 +16,8 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT TOP 500 (AA_SIGF + AA_CODF) AS codArt, AA_DES AS 'desc', AA_UM AS unitMis, AA_PZ AS pezzo, AA_PRZ AS prezzoListino, " +
-                      "AA_SCONTO1 AS sconto1, AA_SCONTO2 AS sconto2, AA_SCONTO3 AS sconto3, AA_PRZ1 AS prezzoNetto " +
+                sql = "SELECT TOP 500 (AA_SIGF + AA_CODF) AS CodArt, AA_DES AS 'Desc', AA_UM AS UnitMis, AA_PZ AS Pezzo, AA_PRZ AS PrezzoListino, " +
+                      "AA_SCONTO1 AS Sconto1, AA_SCONTO2 AS Sconto2, AA_SCONTO3 AS Sconto3, AA_PRZ1 AS PrezzoNetto " +
                       "FROM MAMG0 " +
                       "ORDER BY CodArt ASC ";
 
@@ -86,13 +86,15 @@ namespace GestioneCantieri.DAO
             {
                 if (codArt1 == "%%" && codArt2 == "%%" && codArt3 == "%%" && desc1 == "%%" && desc2 == "%%" && desc3 == "%%")
                 {
-                    sql = "SELECT TOP 500 (AA_SIGF + AA_CODF) AS CodArt, AA_DES, AA_UM, AA_PZ, AA_PRZ, AA_SCONTO1, AA_SCONTO2, AA_SCONTO3, AA_PRZ1 " +
+                    sql = "SELECT TOP 500 (AA_SIGF + AA_CODF) AS CodArt, AA_DES AS 'Desc', AA_UM AS UnitMis, AA_PZ AS Pezzo, AA_PRZ AS PrezzoListino, " +
+                          "AA_SCONTO1 AS Sconto1, AA_SCONTO2 AS Sconto2, AA_SCONTO3 AS Sconto3, AA_PRZ1 AS PrezzoNetto " +
                           "FROM MAMG0 " +
                           "ORDER BY CodArt ASC ";
                 }
                 else
                 {
-                    sql = "SELECT (AA_SIGF + AA_CODF) AS CodArt, AA_DES, AA_UM, AA_PZ, AA_PRZ, AA_SCONTO1, AA_SCONTO2, AA_SCONTO3, AA_PRZ1 " +
+                    sql = "SELECT (AA_SIGF + AA_CODF) AS CodArt, AA_DES AS 'Desc', AA_UM AS UnitMis, AA_PZ AS Pezzo, AA_PRZ AS PrezzoListino, " +
+                          "AA_SCONTO1 AS Sconto1, AA_SCONTO2 AS Sconto2, AA_SCONTO3 AS Sconto3, AA_PRZ1 AS PrezzoNetto " +
                           "FROM MAMG0 " +
                           "WHERE (AA_SIGF + AA_CODF) LIKE @pCodArt1 AND (AA_SIGF + AA_CODF) LIKE @pCodArt2 AND (AA_SIGF + AA_CODF) LIKE @pCodArt3 " +
                           "AND AA_DES LIKE @pDescriCodArt1 AND AA_DES LIKE @pDescriCodArt2 AND AA_DES LIKE @pDescriCodArt3 " +
