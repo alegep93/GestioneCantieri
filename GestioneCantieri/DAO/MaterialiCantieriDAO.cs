@@ -372,8 +372,8 @@ namespace GestioneCantieri.DAO
             {
                 sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo,Data, " +
                       "PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,Note2,pzzoFinCli) " +
-                      "VALUES (@pIdCant,@pDescrMat,@pQta,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@pCodArt,@pDescriCodArt,@pTipologia,@pFascia, " +
-                      "@pAcquirente,@pFornitore,@pNumBolla,@pProtocollo,@pNote,@pNote2,@pPzzoFinCli)";
+                      "VALUES (@IdTblCantieri,@DescriMateriali,@Qta,@Visibile,@Ricalcolo,@ricaricoSiNo,@Data,@PzzoUniCantiere,@CodArt,@DescriCodArt,@Tipologia,@Fascia, " +
+                      "@Acquirente,@Fornitore,@NumeroBolla,@ProtocolloInterno,@Note,@Note2,@pzzoFinCli)";
 
                 int row = cn.Execute(sql, mc);
 
@@ -397,8 +397,8 @@ namespace GestioneCantieri.DAO
             {
                 sql = "INSERT INTO TblMaterialiCantieri (IdTblCantieri,IdTblOperaio,DescriMateriali,Qta,Visibile,Ricalcolo,ricaricoSiNo,Data, " +
                       "PzzoUniCantiere,CodArt,DescriCodArt,Tipologia,Fascia,Acquirente,Fornitore,NumeroBolla,ProtocolloInterno,Note,Note2,pzzoFinCli) " +
-                      "VALUES (@pIdCant,@idOper,@pDescrMat,@pQta,@pVisibile,@pRicalcolo,@pRicarico,@pData,@pPzzoUnit,@pCodArt,@pDescriCodArt,@pTipologia,@pFascia, " +
-                      "@pAcquirente,@pFornitore,@pNumBolla,@pProtocollo,@pNote,@pNote2,@pPzzoFinCli)";
+                      "VALUES (@IdTblCantieri,@idOperaio,@DescriMateriali,@Qta,@Visibile,@Ricalcolo,@ricaricoSiNo,@Data,@PzzoUniCantiere,@CodArt,@DescriCodArt,@Tipologia,@Fascia, " +
+                      "@Acquirente,@Fornitore,@NumeroBolla,@ProtocolloInterno,@Note,@Note2,@pzzoFinCli)";
 
                 int row = cn.Execute(sql, mc);
 

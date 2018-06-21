@@ -380,9 +380,9 @@ namespace GestioneCantieri.DAO
                       "(IdTblClienti,Data,CodCant,DescriCodCAnt,Indirizzo,Città,Ricarico, " +
                       "PzzoManodopera,Chiuso,Riscosso,Numero,ValorePreventivo,IVA,Anno,Preventivo, " +
                       "FasciaTblCantieri,DaDividere,Diviso,Fatturato,CodRiferCant) " +
-                      "VALUES (@pIdTblClienti,CONVERT(date,@pData),@pCodCant,@pDescCodCant,@pIndir,@pCitta,@pRicar, " +
-                      "@pPzzoManod,@pChiuso,@pRiscosso,@pNumero,@pValPrev,@pIva,@pAnno,@pPrev,@pFasciaCant, " +
-                      "@pDaDividere,@pDiviso,@pFatturato,@pCodRiferCant) ";
+                      "VALUES (@IdTblClienti,CONVERT(date,@Data),@CodCant,@DescriCodCAnt,@Indirizzo,@Città,@Ricarico, " +
+                      "@PzzoManodopera,@Chiuso,@Riscosso,@Numero,@ValorePreventivo,@IVA,@Anno,@Preventivo,@FasciaTblCantieri, " +
+                      "@DaDividere,@Diviso,@Fatturato,@CodRiferCant) ";
 
                 int ret = cn.Execute(sql, c);
 
