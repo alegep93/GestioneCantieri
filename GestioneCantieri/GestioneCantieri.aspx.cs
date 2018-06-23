@@ -21,6 +21,8 @@ namespace GestioneCantieri
                 grdMatCant.Visible = grdRientro.Visible = false;
                 btnModMatCant.Visible = btnModRientro.Visible = false;
             }
+
+            Page.MaintainScrollPositionOnPostBack = true;
         }
 
         /* HELPERS */
@@ -962,7 +964,7 @@ namespace GestioneCantieri
             mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
             mc.Acquirente = ddlScegliAcquirente.SelectedItem.Value;
             mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
-            mc.Qta = Convert.ToDouble(txtManodopQta.Text.Replace(".",","));
+            mc.Qta = Convert.ToDouble(txtManodopQta.Text.Replace(".", ","));
             mc.Tipologia = txtTipDatCant.Text;
             mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
             mc.DescriMateriali = txtDescrManodop.Text;

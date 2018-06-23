@@ -301,6 +301,42 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.TextBox txtFiltraQta;
         
         /// <summary>
+        /// Controllo lblFiltroDescrForn.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroDescrForn;
+        
+        /// <summary>
+        /// Controllo txtFiltroDescrForn.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroDescrForn;
+        
+        /// <summary>
+        /// Controllo lblFiltroDescrMau.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroDescrMau;
+        
+        /// <summary>
+        /// Controllo txtFiltroDescrMau.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroDescrMau;
+        
+        /// <summary>
         /// Controllo btnFiltra.
         /// </summary>
         /// <remarks>

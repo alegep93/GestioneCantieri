@@ -67,27 +67,35 @@
         <div class="row" style="margin-top: 50px;">
             <asp:Panel ID="pnlFiltri" DefaultButton="btnFiltra" runat="server">
                 <div class="col-md-12">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <asp:Label ID="lblFiltraFornitore" Text="Filtro Fornitore" runat="server"></asp:Label>
                         <asp:DropDownList ID="ddlFiltraFornitore" CssClass="form-control" runat="server"></asp:DropDownList>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <asp:Label ID="lblFiltraProtocollo" Text="Filtro Protocollo" runat="server"></asp:Label>
                         <asp:TextBox ID="txtFiltraProtocollo" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <asp:Label ID="lblFiltraNumeroDdt" Text="Filtro Numero DDT" runat="server"></asp:Label>
                         <asp:TextBox ID="txtFiltraNumeroDdt" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <asp:Label ID="lblFiltraArticolo" Text="Filtro Articolo" runat="server"></asp:Label>
                         <asp:TextBox ID="txtFiltraArticolo" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <asp:Label ID="lblFiltraQta" Text="Filtro Quantità" runat="server"></asp:Label>
                         <asp:TextBox ID="txtFiltraQta" TextMode="Number" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
+                        <asp:Label ID="lblFiltroDescrForn" Text="Filtro Descr. Fornitore" runat="server"></asp:Label>
+                        <asp:TextBox ID="txtFiltroDescrForn" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3">
+                        <asp:Label ID="lblFiltroDescrMau" Text="Filtro Descr. Mau" runat="server"></asp:Label>
+                        <asp:TextBox ID="txtFiltroDescrMau" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="col-md-3">
                         <asp:Button ID="btnFiltra" CssClass="btn btn-lg btn-primary" OnClick="btnFiltra_Click" Text="Filtra" runat="server"></asp:Button>
                     </div>
                 </div>

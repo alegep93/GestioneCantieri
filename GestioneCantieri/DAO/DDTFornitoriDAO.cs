@@ -41,13 +41,15 @@ namespace GestioneCantieri.DAO
 
             filters.NumeroDdt = "%" + filters.NumeroDdt + "%";
             filters.Articolo = "%" + filters.Articolo + "%";
+            filters.DescrizioneFornitore = "%" + filters.DescrizioneFornitore + "%";
+            filters.DescrizioneMau  = "%" + filters.DescrizioneMau + "%";
 
             try
             {
                 sql = "SELECT A.Id, B.RagSocForni 'ragSocFornitore', A.Data, A.Protocollo, A.NumeroDDT, A.Articolo, A.DescrizioneFornitore, A.DescrizioneMau, A.Qta, A.Valore " +
                       "FROM TblDDTFornitori AS A " +
                       "INNER JOIN TblForitori AS B ON A.IdFornitore = B.IdFornitori " +
-                      "WHERE A.NumeroDDT LIKE @NumeroDDT AND A.Articolo LIKE @Articolo ";
+                      "WHERE A.NumeroDDT LIKE @NumeroDDT AND A.Articolo LIKE @Articolo AND A.DescrizioneFornitore LIKE @DescrizioneFornitore AND A.DescrizioneMau LIKE @DescrizioneMau ";
 
                 if (filters.IdFornitore != -1)
                     sql += "AND A.IdFornitore = @IdFornitore ";

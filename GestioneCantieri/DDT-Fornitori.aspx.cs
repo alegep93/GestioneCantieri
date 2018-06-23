@@ -82,6 +82,8 @@ namespace GestioneCantieri
             ddt.NumeroDdt = txtFiltraNumeroDdt.Text != "" ? txtFiltraNumeroDdt.Text : "";
             ddt.Articolo = txtFiltraArticolo.Text != "" ? txtFiltraArticolo.Text : "";
             ddt.Qta = txtFiltraQta.Text != "" ? Convert.ToInt32(txtFiltraQta.Text) : -1;
+            ddt.DescrizioneFornitore = txtFiltroDescrForn.Text != "" ? txtFiltroDescrForn.Text : "";
+            ddt.DescrizioneMau = txtFiltroDescrMau.Text != "" ? txtFiltroDescrMau.Text : "";
             return ddt;
         }
         protected void SvuotaCampi()
@@ -193,7 +195,7 @@ namespace GestioneCantieri
         }
         protected void btnFiltra_Click(object sender, EventArgs e)
         {
-            if (ddlFiltraFornitore.SelectedIndex != 0 || txtFiltraProtocollo.Text != "" || txtFiltraNumeroDdt.Text != "" || txtFiltraArticolo.Text != "" || txtFiltraQta.Text != "")
+            if (ddlFiltraFornitore.SelectedIndex != 0 || txtFiltraProtocollo.Text != "" || txtFiltraNumeroDdt.Text != "" || txtFiltraArticolo.Text != "" || txtFiltraQta.Text != "" || txtFiltroDescrForn.Text != "" || txtFiltroDescrMau.Text != "")
             {
                 DDTFornitori ddt = FillObjForSearch();
                 List<DDTFornitori> ddtList = DDTFornitoriDAO.GetAllDDT(ddt);

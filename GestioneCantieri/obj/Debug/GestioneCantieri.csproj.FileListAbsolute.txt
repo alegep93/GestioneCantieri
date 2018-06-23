@@ -21,8 +21,8 @@ C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\Dapper.dll
 C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\itextsharp.dll
 C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\Dapper.xml
 C:\Git Repository\GestioneCantieri\GestioneCantieri\bin\itextsharp.xml
+C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csprojAssemblyReference.cache
 C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csproj.CoreCompileInputs.cache
 C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csproj.CopyComplete
 C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.dll
 C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.pdb
-C:\Git Repository\GestioneCantieri\GestioneCantieri\obj\Debug\GestioneCantieri.csprojAssemblyReference.cache

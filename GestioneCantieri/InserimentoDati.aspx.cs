@@ -23,6 +23,8 @@ namespace GestioneCantieri
                 btnModSpesa.Visible = false;
                 PopolaCodCantAnnoNumero();
             }
+
+            Page.MaintainScrollPositionOnPostBack = true;
         }
 
         /* EVENTI CLICK */
