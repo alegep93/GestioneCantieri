@@ -397,7 +397,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "SELECT N_DDT FROM TblDDTMef WHERE N_DDT = @nDdt AND Data BETWEEN CONVERT(date, @dataInizio) AND CONVERT(date, @dataFine) ";
 
-                return cn.Query<bool>(sql, new { nDdt, dataInizio, dataFine }).SingleOrDefault();
+                return cn.Query<bool>(sql, new { nDdt, dataInizio, dataFine }).ToList().Count > 0 ? true : false;
             }
             catch (Exception ex)
             {

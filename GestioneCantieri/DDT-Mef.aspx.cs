@@ -52,7 +52,7 @@ namespace GestioneCantieri
         {
             string pathFile = "";
 
-            pathFile = @"C:\MEF\ORDINI\";
+            pathFile = @"C:\Users\Alessandro\Downloads";
 
             int idFornitore = FornitoriDAO.GetIdFornitore("Mef");
 
