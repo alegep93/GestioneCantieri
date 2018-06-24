@@ -286,7 +286,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT SUM(PzzoUniCantiere * Qta) " +
+                sql = "SELECT ISNULL(SUM(PzzoUniCantiere * Qta), 0) AS MatVis " +
                       "FROM TblMaterialiCantieri " +
                       "WHERE (Tipologia = 'MATERIALE' OR Tipologia = 'A CHIAMATA') AND Visibile = 1 AND Ricalcolo = 1 AND PzzoFinCli = 0 AND IdTblCantieri = @pIdCant ";
 
@@ -305,7 +305,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT SUM(PzzoUniCantiere * Qta) " +
+                sql = "SELECT ISNULL(SUM(PzzoUniCantiere * Qta), 0) AS MatNasc " +
                       "FROM TblMaterialiCantieri " +
                       "WHERE Visibile = 0 AND IdTblCantieri = @pIdCant ";
 
