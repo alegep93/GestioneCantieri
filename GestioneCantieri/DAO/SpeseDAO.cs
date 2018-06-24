@@ -43,7 +43,7 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "SELECT IdSpesa,Descrizione,Prezzo FROM TblSpese WHERE Descrizione LIKE @descr";
+                sql = "SELECT IdSpesa,Descrizione,Prezzo FROM TblSpese WHERE Descrizione LIKE @Descrizione";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("descr", descr));

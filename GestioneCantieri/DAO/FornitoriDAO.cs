@@ -154,6 +154,7 @@ namespace GestioneCantieri.DAO
                 CloseResouces(cn, null);
             }
         }
+
         public static bool InserisciFornitore(Fornitori f)
         {
             SqlConnection cn = GetConnection();

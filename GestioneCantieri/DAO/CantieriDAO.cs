@@ -407,17 +407,17 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "UPDATE TblCantieri " +
-                      "SET IdTblClienti = @pIdClienti, Data = CONVERT(date,@pData), " +
-                      "CodCant = @pCodCant, DescriCodCAnt = @pDescrCant, " +
-                      "Indirizzo = @pIndir, Città = @pCitta, " +
-                      "Ricarico = @pRicarico, PzzoManodopera = @pPrezzoManodop, " +
-                      "Chiuso = @pChiuso, Riscosso = @pRiscosso, " +
-                      "Numero = @pNumero, ValorePreventivo = @pValPrev, " +
-                      "IVA = @pIva, Anno = @pAnno, " +
-                      "Preventivo = @pPrev, FasciaTblCantieri = @pFascia, " +
-                      "DaDividere = @pDaDividere, Diviso = @pDiviso, " +
-                      "Fatturato = @pFatturato " +
-                      "WHERE IdCantieri = @pId ";
+                      "SET IdTblClienti = @IdTblClienti, Data = CONVERT(date,@Data), " +
+                      "CodCant = @CodCant, DescriCodCAnt = @DescriCodCAnt, " +
+                      "Indirizzo = @Indirizzo, Città = @Città, " +
+                      "Ricarico = @Ricarico, PzzoManodopera = @PzzoManodopera, " +
+                      "Chiuso = @Chiuso, Riscosso = @Riscosso, " +
+                      "Numero = @Numero, ValorePreventivo = @ValorePreventivo, " +
+                      "IVA = @IVA, Anno = @Anno, " +
+                      "Preventivo = @Preventivo, FasciaTblCantieri = @FasciaTblCantieri, " +
+                      "DaDividere = @DaDividere, Diviso = @Diviso, " +
+                      "Fatturato = @Fatturato " +
+                      "WHERE IdCantieri = @IdCantieri ";
 
                 int row = cn.Execute(sql, c);
 
@@ -442,7 +442,7 @@ namespace GestioneCantieri.DAO
             try
             {
                 sql = "DELETE FROM TblCantieri " +
-                      "WHERE IdCantieri = @pId ";
+                      "WHERE IdCantieri = @IdCantieri ";
 
                 int row = cn.Execute(sql, new { pId = idCant });
 

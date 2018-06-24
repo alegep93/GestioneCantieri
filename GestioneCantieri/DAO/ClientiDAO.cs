@@ -215,8 +215,8 @@ namespace GestioneCantieri.DAO
 
             try
             {
-                sql = "IF NOT EXISTS(SELECT IdTblClienti FROM TblCantieri where IdTblClienti = @pId) " +
-                        "DELETE FROM TblClienti WHERE IdCliente = @pId ";
+                sql = "IF NOT EXISTS(SELECT IdTblClienti FROM TblCantieri where IdTblClienti = @IdTblClienti) " +
+                        "DELETE FROM TblClienti WHERE IdCliente = @IdCliente ";
 
                 int row = cn.Execute(sql, new { pId = idCliente });
 
