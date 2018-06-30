@@ -45,7 +45,7 @@
             min-height: 40px;
         }
 
-        h2 {
+        h3 {
             margin-top: 0 !important;
         }
     </style>
@@ -81,11 +81,6 @@
                     <div class="col-md-4">
                         <asp:Button ID="btnFiltroCant" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnFiltroCant_Click" runat="server" Text="Filtra" Style="margin-right: 10px;" />
                         <asp:Button ID="btnSvuotaIntestazione" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnSvuotaIntestazione_Click" runat="server" Text="Svuota Intestazione" />
-                    </div>
-
-                    <div class="col-md-12">
-                        <asp:Button ID="btnGenetaNumBolla" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnGenetaNumBolla_Click" runat="server" Text="Genera num. bolla" />
-                        <asp:Label ID="lblErroreGeneraNumBolla" Text="" CssClass="pull-right" runat="server" style="position:relative;top:10px;right:10px;"/>
                     </div>
                 </asp:Panel>
                 <div class="col-md-offset-2 col-md-8">
@@ -125,9 +120,13 @@
                                 <asp:Label ID="lblFascia" Text="Fascia" runat="server" />
                                 <asp:TextBox ID="txtFascia" CssClass="form-control" runat="server"></asp:TextBox>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <asp:Label ID="lblProtocollo" Text="Protocollo" runat="server" />
                                 <asp:TextBox ID="txtProtocollo" CssClass="form-control" runat="server"></asp:TextBox>
+                            </div>
+                            <div class="col-md-6">
+                                <asp:Button ID="btnGenetaNumBolla" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnGenetaNumBolla_Click" runat="server" Text="Genera num. bolla" />
+                                <asp:Label ID="lblErroreGeneraNumBolla" Text="" CssClass="pull-right" runat="server" Style="position: relative; top: 10px; right: 10px;" />
                             </div>
                         </div>
                     </div>
@@ -162,39 +161,42 @@
             </asp:Panel>
 
             <div class="col-md-12 text-center">
-                <h2>
+                <h3>
                     <asp:Label ID="lblTitoloMaschera" runat="server" Text=""></asp:Label>
-                </h2>
+                </h3>
             </div>
 
             <!-- Maschera gestione materiali cantieri e Rientro -->
             <asp:Panel ID="pnlMascheraGestCant" CssClass="col-md-12" runat="server">
                 <div class="row">
-                    <div class="col-md-offset-3 col-md-8">
-                        <div class="col-md-4">
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="col-md-3">
                             <asp:Label ID="lblFiltroCod_FSS" Text="Filtro Codice Articolo" runat="server" />
                             <asp:TextBox ID="txtFiltroCodFSS" placeholder="Filtro Codice Articolo" AutoPostBack="true" OnTextChanged="txtFiltroCodFSS_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <asp:Label ID="lblFiltroAA_Des" Text="Filtro Descrizione Articolo" runat="server" />
                             <asp:TextBox ID="txtFiltroAA_Des" placeholder="Filtro Descrizione Articolo" AutoPostBack="true" OnTextChanged="txtFiltroAA_Des_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
+                        <div class="col-md-6 matCantDdl">
+                            <asp:Label ID="lblScegliListino" Text="Scegli Listino" runat="server" />
+                            <asp:DropDownList ID="ddlScegliListino" AutoPostBack="true" OnTextChanged="ddlScegliListino_TextChanged" CssClass="form-control" runat="server" />
+                        </div>
                     </div>
-                    <div class="col-md-offset-2 col-md-8 matCantDdl">
-                        <asp:Label ID="lblScegliListino" Text="Scegli Listino" runat="server" />
-                        <asp:DropDownList ID="ddlScegliListino" AutoPostBack="true" OnTextChanged="ddlScegliListino_TextChanged" CssClass="form-control" runat="server" />
-                    </div>
-                    <div class="col-md-offset-3 col-md-3 rientroDdl">
-                        <asp:Label ID="lblFiltroMatCantCodArt" Text="Filtro Cod. Art." runat="server" />
-                        <asp:TextBox ID="txtFiltroMatCantCodArt" placeholder="Filtro Cod. Art." AutoPostBack="true" OnTextChanged="txtFiltroMatCantCodArt_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-3 rientroDdl">
-                        <asp:Label ID="lblFiltroMatCantDescriCodArt" Text="Filtro Descri. Cod. Art." runat="server" />
-                        <asp:TextBox ID="txtFiltroMatCantDescriCodArt" placeholder="Filtro Descri. Cod. Art." AutoPostBack="true" OnTextChanged="txtFiltroMatCantDescriCodArt_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
-                    </div>
-                    <div class="col-md-offset-2 col-md-8 rientroDdl">
-                        <asp:Label ID="lblScegliMatCant" Text="Scegli Materiale Cantiere" runat="server" />
-                        <asp:DropDownList ID="ddlScegliMatCant" AutoPostBack="true" OnTextChanged="ddlScegliMatCant_TextChanged" CssClass="form-control" runat="server" />
+
+                    <div class="col-md-offset-1 col-md-10">
+                        <div class="col-md-3 rientroDdl">
+                            <asp:Label ID="lblFiltroMatCantCodArt" Text="Filtro Cod. Art." runat="server" />
+                            <asp:TextBox ID="txtFiltroMatCantCodArt" placeholder="Filtro Cod. Art." AutoPostBack="true" OnTextChanged="txtFiltroMatCantCodArt_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-3 rientroDdl">
+                            <asp:Label ID="lblFiltroMatCantDescriCodArt" Text="Filtro Descri. Cod. Art." runat="server" />
+                            <asp:TextBox ID="txtFiltroMatCantDescriCodArt" placeholder="Filtro Descri. Cod. Art." AutoPostBack="true" OnTextChanged="txtFiltroMatCantDescriCodArt_TextChanged" CssClass="form-control" runat="server"></asp:TextBox>
+                        </div>
+                        <div class="col-md-6 rientroDdl">
+                            <asp:Label ID="lblScegliMatCant" Text="Scegli Materiale Cantiere" runat="server" />
+                            <asp:DropDownList ID="ddlScegliMatCant" AutoPostBack="true" OnTextChanged="ddlScegliMatCant_TextChanged" CssClass="form-control" runat="server" />
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -242,7 +244,6 @@
                     </div>
                 </div>
                 <div class="row">
-                    
                 </div>
                 <div class="row">
                     <div class="col-md-2">
@@ -270,7 +271,7 @@
 
                 <asp:HiddenField ID="hidIdMatCant" runat="server" />
 
-                <asp:Panel ID="pnlFiltriMatCant" CssClass="col-md-12" runat="server">
+                <asp:Panel ID="pnlFiltriMatCant" CssClass="col-md-12" Style="margin-top: 20px;" runat="server">
                     <div class="col-md-12">
                         <div class="col-md-2">
                             <asp:Label ID="lblFiltroCodArtGrdMatCant" runat="server" Text="Filtro Cod Art"></asp:Label>
@@ -358,7 +359,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <asp:Label ID="lblManodopQta" Text="Quantità" runat="server" />
-                        <asp:TextBox ID="txtManodopQta" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtManodopQta_TextChanged"  runat="server"></asp:TextBox>
+                        <asp:TextBox ID="txtManodopQta" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtManodopQta_TextChanged" runat="server"></asp:TextBox>
                     </div>
                     <div class="col-md-4">
                         <asp:Label ID="lblPzzoManodop" Text="Prezzo Manodopera" runat="server" />
@@ -394,21 +395,20 @@
                         <asp:Label ID="lblManodopRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
                         <asp:CheckBox ID="chkManodopRicaricoSiNo" CssClass="form-control" runat="server" />
                     </div>
-                    <div class="col-md-3">
-                        <asp:Label ID="lblAggiornaValManodop" Text="Nuovo Valore Manodopera" runat="server" />
-                        <asp:TextBox ID="txtAggiornaValManodop" CssClass="form-control" runat="server"></asp:TextBox>
-                        <asp:Button ID="btnAggiornaValManodop" OnClick="btnAggiornaValManodop_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Aggiorna Valore Manodopera" />
-                    </div>
-                    <div class="col-md-3">
-                        <asp:Button ID="btnInsManodop" OnClick="btnInsManodop_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Manodopera" />
-                        <asp:Button ID="btnModManodop" OnClick="btnModManodop_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Manodopera" />
+                    <div class="col-md-2">
+                        <asp:Button ID="btnInsManodop" OnClick="btnInsManodop_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Inserisci Manodopera" />
+                        <asp:Button ID="btnModManodop" OnClick="btnModManodop_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Modifica Manodopera" />
                         <asp:Label ID="lblIsManodopInserita" Text="" CssClass="pull-right" runat="server" />
+                    </div>
+                    <div class="col-md-4">
+                        <asp:Button ID="btnAggiornaValManodop" OnClick="btnAggiornaValManodop_Click" CssClass="btn btn-lg btn-primary pull-right" style="position: relative; top: 6px;" runat="server" Text="Aggiorna Val. Manodop." />
+                        <asp:TextBox ID="txtAggiornaValManodop" placeholder="Nuovo Valore Manodopera" CssClass="form-control" style="width: 50%; float:right; position:relative; top: 10px; margin-right:10px;" runat="server"></asp:TextBox>
                     </div>
                 </div>
 
                 <asp:HiddenField ID="hidManodop" runat="server" />
 
-                <asp:Panel ID="pnlFiltriManodop" CssClass="col-md-12" runat="server">
+                <asp:Panel ID="pnlFiltriManodop" CssClass="col-md-12" style="margin-top: 20px;" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroManodopCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
@@ -506,21 +506,20 @@
                         <asp:Label ID="lblOperRicaricoSiNo" Text="Ricarico Si/No" runat="server" />
                         <asp:CheckBox ID="chkOperRicaricoSiNo" CssClass="form-control" runat="server" />
                     </div>
-                    <div class="col-md-3">
-                        <asp:Label ID="lblNuovoCostoOperaio" Text="Nuovo Costo Operaio" runat="server" />
-                        <asp:TextBox ID="txtNuovoCostoOperaio" CssClass="form-control" runat="server"></asp:TextBox>
-                        <asp:Button ID="btnNuovoCostoOperaio" OnClick="btnNuovoCostoOperaio_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Aggiorna Costo Operaio" />
-                    </div>
-                    <div class="col-md-3">
-                        <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Inserisci Operaio" />
-                        <asp:Button ID="btnModOper" OnClick="btnModOper_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Modifica Operaio" />
+                    <div class="col-md-2">
+                        <asp:Button ID="btnInsOper" OnClick="btnInsOper_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Inserisci Operaio" />
+                        <asp:Button ID="btnModOper" OnClick="btnModOper_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Modifica Operaio" />
                         <asp:Label ID="lblIsOperInserita" Text="" CssClass="pull-right" runat="server" />
+                    </div>
+                    <div class="col-md-4">
+                        <asp:Button ID="btnNuovoCostoOperaio" OnClick="btnNuovoCostoOperaio_Click" CssClass="btn btn-lg btn-primary pull-right" style="position: relative; top: 6px;" runat="server" Text="Aggiorna Costo Operaio" />
+                        <asp:TextBox ID="txtNuovoCostoOperaio" placeholder="Nuovo Costo Operaio" CssClass="form-control" style="width: 50%; float:right; position:relative; top: 10px; margin-right:10px;" runat="server"></asp:TextBox>
                     </div>
                 </div>
 
                 <asp:HiddenField ID="hidOper" runat="server" />
 
-                <asp:Panel ID="pnlFiltriOper" CssClass="col-md-12" runat="server">
+                <asp:Panel ID="pnlFiltriOper" CssClass="col-md-12" style="margin-top:20px" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroOperCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
@@ -589,7 +588,7 @@
                     <div class="col-md-12">
                         <div class="col-md-6">
                             <asp:Label ID="lblArrotQta" Text="Quantità" runat="server" />
-                            <asp:TextBox ID="txtArrotQta" CssClass="form-control"  runat="server"></asp:TextBox>
+                            <asp:TextBox ID="txtArrotQta" CssClass="form-control" runat="server"></asp:TextBox>
                         </div>
                         <div class="col-md-6">
                             <asp:Label ID="lblArrotPzzoUnit" Text="Prezzo Unitario" runat="server" />
@@ -622,7 +621,7 @@
 
                 <asp:HiddenField ID="hidArrot" runat="server" />
 
-                <asp:Panel ID="pnlFiltriArrot" CssClass="col-md-12" runat="server">
+                <asp:Panel ID="pnlFiltriArrot" CssClass="col-md-12" style="margin-top:20px" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroArrotCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
@@ -740,7 +739,7 @@
 
                 <asp:HiddenField ID="hidAChiamata" runat="server" />
 
-                <asp:Panel ID="pnlFiltriGrdAChiam" CssClass="col-md-12" runat="server">
+                <asp:Panel ID="pnlFiltriGrdAChiam" CssClass="col-md-12" style="margin-top:20px" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroAChiamCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
@@ -849,7 +848,7 @@
 
                 <asp:HiddenField ID="hidIdSpesa" runat="server" />
 
-                <asp:Panel ID="pnlFiltriGrdSpese" CssClass="col-md-12" runat="server">
+                <asp:Panel ID="pnlFiltriGrdSpese" CssClass="col-md-12" style="margin-top:20px" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroSpeseCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>

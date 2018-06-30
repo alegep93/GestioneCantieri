@@ -42,7 +42,11 @@ namespace GestioneCantieri
             List<DDTFornitori> ddtFornList = DDTFornitoriDAO.GetAllDDT();
             grdListaDDTFornitori.DataSource = ddtFornList;
             grdListaDDTFornitori.DataBind();
+            GeneraPrezzoUnitario(ddtFornList);
+        }
 
+        private void GeneraPrezzoUnitario(List<DDTFornitori> ddtFornList)
+        {
             // Popolo la cella del "Prezzo Finale"
             for (int i = 0; i < ddtFornList.Count; i++)
             {
@@ -50,6 +54,7 @@ namespace GestioneCantieri
                 grdListaDDTFornitori.Rows[i].Cells[9].Text = ddtFornList[i].PrezzoUnitario.ToString("N2");
             }
         }
+
         protected DDTFornitori FillDdtFornitoriObj()
         {
             DDTFornitori ddt = new DDTFornitori();
@@ -201,6 +206,7 @@ namespace GestioneCantieri
                 List<DDTFornitori> ddtList = DDTFornitoriDAO.GetAllDDT(ddt);
                 grdListaDDTFornitori.DataSource = ddtList;
                 grdListaDDTFornitori.DataBind();
+                GeneraPrezzoUnitario(ddtList);
             }
             else
             {

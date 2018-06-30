@@ -139,24 +139,6 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Button btnSvuotaIntestazione;
         
         /// <summary>
-        /// Controllo btnGenetaNumBolla.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGenetaNumBolla;
-        
-        /// <summary>
-        /// Controllo lblErroreGeneraNumBolla.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErroreGeneraNumBolla;
-        
-        /// <summary>
         /// Controllo lblScegliCant.
         /// </summary>
         /// <remarks>
@@ -308,6 +290,24 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtProtocollo;
+        
+        /// <summary>
+        /// Controllo btnGenetaNumBolla.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGenetaNumBolla;
+        
+        /// <summary>
+        /// Controllo lblErroreGeneraNumBolla.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblErroreGeneraNumBolla;
         
         /// <summary>
         /// Controllo lblAcquirente.
@@ -1102,33 +1102,6 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.CheckBox chkManodopRicaricoSiNo;
         
         /// <summary>
-        /// Controllo lblAggiornaValManodop.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAggiornaValManodop;
-        
-        /// <summary>
-        /// Controllo txtAggiornaValManodop.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAggiornaValManodop;
-        
-        /// <summary>
-        /// Controllo btnAggiornaValManodop.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAggiornaValManodop;
-        
-        /// <summary>
         /// Controllo btnInsManodop.
         /// </summary>
         /// <remarks>
@@ -1154,6 +1127,24 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsManodopInserita;
+        
+        /// <summary>
+        /// Controllo btnAggiornaValManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAggiornaValManodop;
+        
+        /// <summary>
+        /// Controllo txtAggiornaValManodop.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtAggiornaValManodop;
         
         /// <summary>
         /// Controllo hidManodop.
@@ -1417,33 +1408,6 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.CheckBox chkOperRicaricoSiNo;
         
         /// <summary>
-        /// Controllo lblNuovoCostoOperaio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNuovoCostoOperaio;
-        
-        /// <summary>
-        /// Controllo txtNuovoCostoOperaio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNuovoCostoOperaio;
-        
-        /// <summary>
-        /// Controllo btnNuovoCostoOperaio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generato automaticamente.
-        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnNuovoCostoOperaio;
-        
-        /// <summary>
         /// Controllo btnInsOper.
         /// </summary>
         /// <remarks>
@@ -1469,6 +1433,24 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblIsOperInserita;
+        
+        /// <summary>
+        /// Controllo btnNuovoCostoOperaio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNuovoCostoOperaio;
+        
+        /// <summary>
+        /// Controllo txtNuovoCostoOperaio.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtNuovoCostoOperaio;
         
         /// <summary>
         /// Controllo hidOper.
