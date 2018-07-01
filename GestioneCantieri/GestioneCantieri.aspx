@@ -147,7 +147,8 @@
 
                     <!-- Pulsantiera per scelta maschera -->
                     <asp:Panel ID="pnlScegliMaschera" runat="server">
-                        <div class="col-md-offset-2 col-md-8 text-center" style="padding: 20px 0;">
+                        <div class="col-md-offset-1 col-md-10 text-center" style="padding: 20px 0;">
+                            <asp:Button ID="btnMatCantFromDDT" runat="server" OnClick="btnMatCantFromDDT_Click" CssClass="btn btn-lg btn-default" Text="Materiali da DDT" />
                             <asp:Button ID="btnMatCant" runat="server" OnClick="btnMatCant_Click" CssClass="btn btn-lg btn-default" Text="Materiali Cantieri" />
                             <asp:Button ID="btnRientro" runat="server" OnClick="btnRientro_Click" CssClass="btn btn-lg btn-default" Text="Rientro Materiali" />
                             <asp:Button ID="btnManodop" runat="server" OnClick="btnManodop_Click" CssClass="btn btn-lg btn-default" Text="Manodopera" />
@@ -165,6 +166,32 @@
                     <asp:Label ID="lblTitoloMaschera" runat="server" Text=""></asp:Label>
                 </h3>
             </div>
+
+            <!-- Maschera gestione materiali da DDT -->
+            <asp:Panel ID="pnlMascheraMaterialiDaDDT" CssClass="col-md-12" runat="server">
+                <div class="row">
+                    <asp:GridView ID="grdMostraDDTDaInserire" ItemType="GestioneCantieri.Data.DDTMef" AutoGenerateColumns="false" CssClass="table table-striped text-center" runat="server">
+                        <Columns>
+                            <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
+                            <asp:BoundField DataField="N_ddt" HeaderText="N_DDT" />
+                            <asp:BoundField DataField="CodArt" HeaderText="Codice Articolo" />
+                            <asp:BoundField DataField="DescriCodArt" HeaderText="Descrizione Codice Articolo" />
+                            <asp:BoundField DataField="Qta" HeaderText="Quantità" />
+                            <asp:BoundField DataField="PrezzoUnitario" HeaderText="Prezzo Unitario" DataFormatString="{0:0.00}" />
+                            <asp:BoundField DataField="Acquirente" HeaderText="Acquirente" />
+                            <asp:TemplateField>
+                                <ItemTemplate>
+                                    <asp:CheckBox ID="chkDDTSelezionato" Checked="<%# BindItem.DaInserire %>" runat="server" />
+                                </ItemTemplate>
+                            </asp:TemplateField>
+                        </Columns>
+                    </asp:GridView>
+                </div>
+                <div class="row">
+                    <asp:Button ID="btnInsMatDaDDT" OnClick="btnInsMatDaDDT_Click" CssClass="btn btn-lg btn-primary pull-right" Text="Inserisci Materiali" runat="server" /><br />
+                    <asp:Label ID="lblInsMatDaDDT" CssClass="pull-right" runat="server"></asp:Label>
+                </div>
+            </asp:Panel>
 
             <!-- Maschera gestione materiali cantieri e Rientro -->
             <asp:Panel ID="pnlMascheraGestCant" CssClass="col-md-12" runat="server">
@@ -291,6 +318,7 @@
                         </div>
                         <div class="col-md-4">
                             <asp:Button ID="btnFiltraGrdMatCant" OnClick="btnFiltraGrdMatCant_Click" CssClass="btn btn-lg btn-primary pull-left" runat="server" Text="Filtra Record" />
+                            <asp:Label ID="lblTotaleValoreMatCant_Rientro" CssClass="pull-right" Style="color: blue; font-size: 30px;" runat="server"></asp:Label>
                         </div>
                     </div>
                 </asp:Panel>
@@ -401,14 +429,14 @@
                         <asp:Label ID="lblIsManodopInserita" Text="" CssClass="pull-right" runat="server" />
                     </div>
                     <div class="col-md-4">
-                        <asp:Button ID="btnAggiornaValManodop" OnClick="btnAggiornaValManodop_Click" CssClass="btn btn-lg btn-primary pull-right" style="position: relative; top: 6px;" runat="server" Text="Aggiorna Val. Manodop." />
-                        <asp:TextBox ID="txtAggiornaValManodop" placeholder="Nuovo Valore Manodopera" CssClass="form-control" style="width: 50%; float:right; position:relative; top: 10px; margin-right:10px;" runat="server"></asp:TextBox>
+                        <asp:Button ID="btnAggiornaValManodop" OnClick="btnAggiornaValManodop_Click" CssClass="btn btn-lg btn-primary pull-right" Style="position: relative; top: 6px;" runat="server" Text="Aggiorna Val. Manodop." />
+                        <asp:TextBox ID="txtAggiornaValManodop" placeholder="Nuovo Valore Manodopera" CssClass="form-control" Style="width: 50%; float: right; position: relative; top: 10px; margin-right: 10px;" runat="server"></asp:TextBox>
                     </div>
                 </div>
 
                 <asp:HiddenField ID="hidManodop" runat="server" />
 
-                <asp:Panel ID="pnlFiltriManodop" CssClass="col-md-12" style="margin-top: 20px;" runat="server">
+                <asp:Panel ID="pnlFiltriManodop" CssClass="col-md-12" Style="margin-top: 20px;" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroManodopCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
@@ -512,14 +540,14 @@
                         <asp:Label ID="lblIsOperInserita" Text="" CssClass="pull-right" runat="server" />
                     </div>
                     <div class="col-md-4">
-                        <asp:Button ID="btnNuovoCostoOperaio" OnClick="btnNuovoCostoOperaio_Click" CssClass="btn btn-lg btn-primary pull-right" style="position: relative; top: 6px;" runat="server" Text="Aggiorna Costo Operaio" />
-                        <asp:TextBox ID="txtNuovoCostoOperaio" placeholder="Nuovo Costo Operaio" CssClass="form-control" style="width: 50%; float:right; position:relative; top: 10px; margin-right:10px;" runat="server"></asp:TextBox>
+                        <asp:Button ID="btnNuovoCostoOperaio" OnClick="btnNuovoCostoOperaio_Click" CssClass="btn btn-lg btn-primary pull-right" Style="position: relative; top: 6px;" runat="server" Text="Aggiorna Costo Operaio" />
+                        <asp:TextBox ID="txtNuovoCostoOperaio" placeholder="Nuovo Costo Operaio" CssClass="form-control" Style="width: 50%; float: right; position: relative; top: 10px; margin-right: 10px;" runat="server"></asp:TextBox>
                     </div>
                 </div>
 
                 <asp:HiddenField ID="hidOper" runat="server" />
 
-                <asp:Panel ID="pnlFiltriOper" CssClass="col-md-12" style="margin-top:20px" runat="server">
+                <asp:Panel ID="pnlFiltriOper" CssClass="col-md-12" Style="margin-top: 20px" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroOperCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
@@ -621,7 +649,7 @@
 
                 <asp:HiddenField ID="hidArrot" runat="server" />
 
-                <asp:Panel ID="pnlFiltriArrot" CssClass="col-md-12" style="margin-top:20px" runat="server">
+                <asp:Panel ID="pnlFiltriArrot" CssClass="col-md-12" Style="margin-top: 20px" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroArrotCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
@@ -739,7 +767,7 @@
 
                 <asp:HiddenField ID="hidAChiamata" runat="server" />
 
-                <asp:Panel ID="pnlFiltriGrdAChiam" CssClass="col-md-12" style="margin-top:20px" runat="server">
+                <asp:Panel ID="pnlFiltriGrdAChiam" CssClass="col-md-12" Style="margin-top: 20px" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroAChiamCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>
@@ -848,7 +876,7 @@
 
                 <asp:HiddenField ID="hidIdSpesa" runat="server" />
 
-                <asp:Panel ID="pnlFiltriGrdSpese" CssClass="col-md-12" style="margin-top:20px" runat="server">
+                <asp:Panel ID="pnlFiltriGrdSpese" CssClass="col-md-12" Style="margin-top: 20px" runat="server">
                     <div class="col-md-offset-3 col-md-6">
                         <div class="col-md-3">
                             <asp:Label ID="lblFiltroSpeseCodArt" runat="server" Text="Filtro Cod Art"></asp:Label>

@@ -113,6 +113,28 @@ namespace GestioneCantieri.DAO
                 CloseResouces(cn, null);
             }
         }
+        public static string GetIdAcquirente(string NomeOperaio)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            try
+            {
+                sql = "SELECT IdOperaio " +
+                      "FROM TblOperaio " +
+                      "WHERE NomeOp = @NomeOp ";
+
+                return cn.Query<int>(sql, new { NomeOp = NomeOperaio }).SingleOrDefault().ToString();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero di un singolo operaio", ex);
+            }
+            finally
+            {
+                CloseResouces(cn, null);
+            }
+        }
         public static bool InserisciOperaio(string nome, string descr, string suff, string operaio, string costoOp)
         {
             SqlConnection cn = GetConnection();

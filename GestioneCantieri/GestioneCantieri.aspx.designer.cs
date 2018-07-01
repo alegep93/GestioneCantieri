@@ -373,6 +373,15 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Panel pnlScegliMaschera;
         
         /// <summary>
+        /// Controllo btnMatCantFromDDT.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnMatCantFromDDT;
+        
+        /// <summary>
         /// Controllo btnMatCant.
         /// </summary>
         /// <remarks>
@@ -443,6 +452,42 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTitoloMaschera;
+        
+        /// <summary>
+        /// Controllo pnlMascheraMaterialiDaDDT.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlMascheraMaterialiDaDDT;
+        
+        /// <summary>
+        /// Controllo grdMostraDDTDaInserire.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView grdMostraDDTDaInserire;
+        
+        /// <summary>
+        /// Controllo btnInsMatDaDDT.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnInsMatDaDDT;
+        
+        /// <summary>
+        /// Controllo lblInsMatDaDDT.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInsMatDaDDT;
         
         /// <summary>
         /// Controllo pnlMascheraGestCant.
@@ -929,6 +974,15 @@ namespace GestioneCantieri {
         /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnFiltraGrdMatCant;
+        
+        /// <summary>
+        /// Controllo lblTotaleValoreMatCant_Rientro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTotaleValoreMatCant_Rientro;
         
         /// <summary>
         /// Controllo grdMatCant.

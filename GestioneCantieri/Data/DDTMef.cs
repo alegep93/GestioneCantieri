@@ -8,6 +8,7 @@ namespace GestioneCantieri.Data
         DateTime data = new DateTime();
         string codArt = "", descriCodArt = "", acquirente = "";
         decimal importo = 0, prezzoUnitario = 0, valore = 0;
+        bool daInserire = false;
 
         public int Id { get => id; set => id = value; }
         public int Anno { get => anno; set => anno = value; }
@@ -22,5 +23,6 @@ namespace GestioneCantieri.Data
         public decimal Importo { get => importo; set => importo = value; }
         public decimal PrezzoUnitario { get => prezzoUnitario; set => prezzoUnitario = value; }
         public decimal Valore { get => valore; set => valore = value; }
+        public bool DaInserire { get => daInserire; set => daInserire = value; }
     }
 }

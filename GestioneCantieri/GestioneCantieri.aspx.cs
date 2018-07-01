@@ -16,7 +16,7 @@ namespace GestioneCantieri
             if (!IsPostBack)
             {
                 FillAllDdl();
-                ShowPanels(false, false, false, false, false, false);
+                ShowPanels(false, false, false, false, false, false, false);
                 pnlSubIntestazione.Visible = pnlMascheraGestCant.Visible = false;
                 grdMatCant.Visible = grdRientro.Visible = false;
                 btnModMatCant.Visible = btnModRientro.Visible = false;
@@ -260,8 +260,9 @@ namespace GestioneCantieri
         }
 
         //Mostra/Nasconde pannelli
-        protected void ShowPanels(bool pnlMatCant, bool pnlManodop, bool pnlOper, bool pnlArrotond, bool pnlSpese, bool pnlChiam)
+        protected void ShowPanels(bool pnlMatDaDDT, bool pnlMatCant, bool pnlManodop, bool pnlOper, bool pnlArrotond, bool pnlSpese, bool pnlChiam)
         {
+            pnlMascheraMaterialiDaDDT.Visible = pnlMatDaDDT;
             pnlMascheraGestCant.Visible = pnlMatCant;
             pnlManodopera.Visible = pnlManodop;
             pnlGestioneOperaio.Visible = pnlOper;
@@ -387,12 +388,99 @@ namespace GestioneCantieri
             if (ddlScegliDDTMef.SelectedIndex != 0)
             {
                 txtNumBolla.Enabled = false;
+                BindGridMatDaDDT();
             }
             else
             {
                 txtNumBolla.Enabled = true;
             }
         }
+
+        #region Materiali da DDT
+        /* HELPERS */
+        private void BindGridMatDaDDT()
+        {
+            if (ddlScegliDDTMef.SelectedItem != null && ddlScegliDDTMef.SelectedItem.Text != "" && ddlScegliDDTMef.SelectedIndex != 0)
+            {
+                string nDDT = ddlScegliDDTMef.SelectedItem.Text.Split('-')[1].Trim();
+                List<DDTMef> ddtList = DDTMefDAO.GetDDTByNumDDT(nDDT);
+                grdMostraDDTDaInserire.DataSource = ddtList;
+                grdMostraDDTDaInserire.DataBind();
+
+                if(ddtList.Count > 0)
+                    btnInsMatDaDDT.Enabled = true;
+            }
+        }
+        private MaterialiCantieri PopolaMcObject(int numRiga)
+        {
+            MaterialiCantieri mc = new MaterialiCantieri();
+            mc.IdTblCantieri = Convert.ToInt32(ddlScegliCant.SelectedItem.Value);
+            mc.DescriMateriali = grdMostraDDTDaInserire.Rows[numRiga].Cells[3].Text;
+            mc.Qta = Convert.ToInt32(grdMostraDDTDaInserire.Rows[numRiga].Cells[4].Text);
+            mc.Data = Convert.ToDateTime(grdMostraDDTDaInserire.Rows[numRiga].Cells[0].Text);
+            mc.PzzoUniCantiere = Convert.ToDecimal(grdMostraDDTDaInserire.Rows[numRiga].Cells[5].Text);
+            mc.CodArt = grdMostraDDTDaInserire.Rows[numRiga].Cells[2].Text;
+            mc.DescriCodArt = grdMostraDDTDaInserire.Rows[numRiga].Cells[3].Text;
+            mc.Tipologia = txtTipDatCant.Text;
+            mc.Fascia = Convert.ToInt32(txtFascia.Text);
+
+            // Recupero l'id dell'acquirente dal nome
+            string acquirente = grdMostraDDTDaInserire.Rows[numRiga].Cells[6].Text;
+            mc.Acquirente = OperaiDAO.GetIdAcquirente(acquirente);
+
+            mc.Fornitore = ddlScegliFornit.SelectedItem.Value;
+            mc.NumeroBolla = grdMostraDDTDaInserire.Rows[numRiga].Cells[1].Text;
+            mc.ProtocolloInterno = Convert.ToInt32(txtProtocollo.Text);
+            mc.Visibile = mc.Ricalcolo = mc.RicaricoSiNo = true;
+            return mc;
+        }
+
+        /* EVENTI CLICK*/
+        protected void btnMatCantFromDDT_Click(object sender, EventArgs e)
+        {
+            lblTitoloMaschera.Text = "Materiali da DDT";
+            txtTipDatCant.Text = "MATERIALE";
+            grdMostraDDTDaInserire.Visible = true;
+            ShowPanels(true, false, false, false, false, false, false);
+            grdMatCant.Visible = true;
+            grdRientro.Visible = false;
+            BindGridMatCant();
+            BindGridMatDaDDT();
+            EnableDisableControls(true, pnlMascheraMaterialiDaDDT);
+            SvuotaCampi(pnlMascheraMaterialiDaDDT);
+            ChooseFornitore("Mef");
+            HideMessageLabels();
+
+            if(grdMostraDDTDaInserire.Rows.Count == 0)
+            {
+                btnInsMatDaDDT.Enabled = false;
+            }
+        }
+        protected void btnInsMatDaDDT_Click(object sender, EventArgs e)
+        {
+            if (txtProtocollo.Text != "")
+            {
+                for (int i = 0; i < grdMostraDDTDaInserire.Rows.Count; i++)
+                {
+                    bool daInserire = ((CheckBox)grdMostraDDTDaInserire.Rows[i].FindControl("chkDDTSelezionato")).Checked;
+
+                    if (daInserire)
+                    {
+                        MaterialiCantieri mc = PopolaMcObject(i);
+                        MaterialiCantieriDAO.InserisciMaterialeCantiere(mc);
+
+                        lblInsMatDaDDT.Text = "Materiali inseriti con successo";
+                        lblInsMatDaDDT.ForeColor = Color.Blue;
+                    }
+                }
+            }
+            else
+            {
+                lblInsMatDaDDT.Text = "È necessario specificare il protocollo prima di inserire i materiali";
+                lblInsMatDaDDT.ForeColor = Color.Red;
+            }
+        }
+        #endregion
 
         #region Materiali Cantieri e Rientro
         decimal maxQtaRientro = -1;
@@ -476,6 +564,7 @@ namespace GestioneCantieri
                 txtFiltroDescriCodArtGrdMatCant.Text, txtFiltroProtocolloGrdMatCant.Text, txtFiltroFornitoreGrdMatCant.Text, "MATERIALE");
             grdMatCant.DataSource = mcList;
             grdMatCant.DataBind();
+            CalcolaTotaleValore(mcList);
         }
         protected void BindGridRientro()
         {
@@ -483,6 +572,18 @@ namespace GestioneCantieri
                 txtFiltroDescriCodArtGrdMatCant.Text, txtFiltroProtocolloGrdMatCant.Text, txtFiltroFornitoreGrdMatCant.Text, "RIENTRO");
             grdRientro.DataSource = mcList;
             grdRientro.DataBind();
+            CalcolaTotaleValore(mcList);
+        }
+        private void CalcolaTotaleValore(List<MaterialiCantieri> mcList)
+        {
+            double valore = 0;
+
+            for (int i = 0; i < mcList.Count; i++)
+            {
+                valore += Convert.ToDouble(grdMatCant.Rows[i].Cells[5].Text) * Convert.ToDouble(grdMatCant.Rows[i].Cells[6].Text);
+            }
+
+            lblTotaleValoreMatCant_Rientro.Text = "Totale Valore: " + valore.ToString("N2") + "€";
         }
 
         /* EVENTI CLICK */
@@ -640,7 +741,7 @@ namespace GestioneCantieri
             lblTitoloMaschera.Text = "Inserisci Materiali Cantieri";
             txtTipDatCant.Text = "MATERIALE";
             ShowForMatCant();
-            ShowPanels(true, false, false, false, false, false);
+            ShowPanels(false, true, false, false, false, false, false);
             grdMatCant.Visible = true;
             grdRientro.Visible = false;
             btnModMatCant.Visible = false;
@@ -656,7 +757,7 @@ namespace GestioneCantieri
             txtTipDatCant.Text = "RIENTRO";
             FillDdlScegliMatCant();
             ShowForRientro();
-            ShowPanels(true, false, false, false, false, false);
+            ShowPanels(false, true, false, false, false, false, false);
             grdMatCant.Visible = false;
             grdRientro.Visible = true;
             btnModMatCant.Visible = btnInserisciMatCant.Visible = btnModRientro.Visible = false;
@@ -1040,7 +1141,7 @@ namespace GestioneCantieri
         {
             lblTitoloMaschera.Text = "Manodopera";
             txtTipDatCant.Text = "MANODOPERA";
-            ShowPanels(false, true, false, false, false, false);
+            ShowPanels(false, false, true, false, false, false, false);
             btnInsManodop.Visible = true;
             btnModManodop.Visible = false;
             BindGridManodop();
@@ -1322,7 +1423,7 @@ namespace GestioneCantieri
 
             lblTitoloMaschera.Text = "Gestione Operaio";
             txtTipDatCant.Text = "OPERAIO";
-            ShowPanels(false, false, true, false, false, false);
+            ShowPanels(false, false, false, true, false, false, false);
             btnModOper.Visible = false;
             BindGridOper();
             EnableDisableControls(true, pnlGestioneOperaio);
@@ -1586,7 +1687,7 @@ namespace GestioneCantieri
         {
             lblTitoloMaschera.Text = "Gestione Arrotondamenti";
             txtTipDatCant.Text = "ARROTONDAMENTO";
-            ShowPanels(false, false, false, true, false, false);
+            ShowPanels(false, false, false, false, true, false, false);
             btnModArrot.Visible = false;
             BindGridArrot();
             EnableDisableControls(true, pnlGestArrotond);
@@ -1905,7 +2006,7 @@ namespace GestioneCantieri
         {
             lblTitoloMaschera.Text = "Inserisci A Chiamata";
             txtTipDatCant.Text = "A CHIAMATA";
-            ShowPanels(false, false, false, false, false, true);
+            ShowPanels(false, false, false, false, false, false, true);
             btnInsAChiam.Visible = true;
             btnModAChiam.Visible = false;
             BindGridChiamata();
@@ -2119,7 +2220,7 @@ namespace GestioneCantieri
         {
             lblTitoloMaschera.Text = "Inserisci Spese";
             txtTipDatCant.Text = "SPESE";
-            ShowPanels(false, false, false, false, true, false);
+            ShowPanels(false, false, false, false, false, true, false);
             btnInsSpesa.Visible = true;
             btnModSpesa.Visible = false;
             BindGridSpese();

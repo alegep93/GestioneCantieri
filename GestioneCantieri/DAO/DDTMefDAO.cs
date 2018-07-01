@@ -65,6 +65,26 @@ namespace GestioneCantieri.DAO
                 throw new Exception("Errore durante il recupero dei DDT Mef", ex);
             }
         }
+        public static List<DDTMef> GetDDTByNumDDT(string nDDT)
+        {
+            DDTMef ddt = new DDTMef();
+            string sql = "";
+            SqlConnection cn = GetConnection();
+
+            try
+            {
+                sql = "SELECT IdDDTMef, Anno, Data, N_DDT, CodArt, " +
+                      "DescriCodArt, Qta, Importo, Acquirente, PrezzoUnitario, AnnoN_DDT " +
+                      "FROM TblDDTMef " +
+                      "WHERE N_DDT = @N_DDT";
+
+                return cn.Query<DDTMef>(sql, new { N_DDT = nDDT }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero delle informazioni di un singolo DDT", ex);
+            }
+        }
         public static DataTable GetDDTForPDF(string dataInizio, string dataFine, string acquirente, string n_ddt)
         {
             SqlConnection cn = GetConnection();
