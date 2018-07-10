@@ -170,6 +170,12 @@
             <!-- Maschera gestione materiali da DDT -->
             <asp:Panel ID="pnlMascheraMaterialiDaDDT" CssClass="col-md-12" runat="server">
                 <div class="row">
+                    <div class="col-md-offset-2 col-md-8">
+                        <asp:Button ID="btnSelezionaTuttoTOP" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnSelezionaTutto_Click" Text="Seleziona Tutto" runat="server" />
+                        <asp:Button ID="btnDeselezionaTuttoTOP" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnDeselezionaTutto_Click" Text="Deseleziona Tutto" runat="server" />
+                    </div>
+                </div>
+                <div class="row">
                     <asp:GridView ID="grdMostraDDTDaInserire" ItemType="GestioneCantieri.Data.DDTMef" AutoGenerateColumns="false" CssClass="table table-striped text-center" runat="server">
                         <Columns>
                             <asp:BoundField DataField="Data" HeaderText="Data" DataFormatString="{0:d}" ApplyFormatInEditMode="True" />
@@ -188,6 +194,8 @@
                     </asp:GridView>
                 </div>
                 <div class="row">
+                    <asp:Button ID="btnSelezionaTuttoBOTTOM" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnSelezionaTutto_Click" Text="Seleziona Tutto" style="margin-right: 10px;" runat="server" />
+                    <asp:Button ID="btnDeselezionaTuttoBOTTOM" CssClass="btn btn-lg btn-primary pull-left" OnClick="btnDeselezionaTutto_Click" Text="Deseleziona Tutto" runat="server" />
                     <asp:Button ID="btnInsMatDaDDT" OnClick="btnInsMatDaDDT_Click" CssClass="btn btn-lg btn-primary pull-right" Text="Inserisci Materiali" runat="server" /><br />
                     <asp:Label ID="lblInsMatDaDDT" CssClass="pull-right" runat="server"></asp:Label>
                 </div>

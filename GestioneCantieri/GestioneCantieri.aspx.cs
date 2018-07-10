@@ -407,7 +407,7 @@ namespace GestioneCantieri
                 grdMostraDDTDaInserire.DataSource = ddtList;
                 grdMostraDDTDaInserire.DataBind();
 
-                if(ddtList.Count > 0)
+                if (ddtList.Count > 0)
                     btnInsMatDaDDT.Enabled = true;
             }
         }
@@ -451,7 +451,7 @@ namespace GestioneCantieri
             ChooseFornitore("Mef");
             HideMessageLabels();
 
-            if(grdMostraDDTDaInserire.Rows.Count == 0)
+            if (grdMostraDDTDaInserire.Rows.Count == 0)
             {
                 btnInsMatDaDDT.Enabled = false;
             }
@@ -478,6 +478,20 @@ namespace GestioneCantieri
             {
                 lblInsMatDaDDT.Text = "È necessario specificare il protocollo prima di inserire i materiali";
                 lblInsMatDaDDT.ForeColor = Color.Red;
+            }
+        }
+        protected void btnSelezionaTutto_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < grdMostraDDTDaInserire.Rows.Count; i++)
+            {
+                ((CheckBox)grdMostraDDTDaInserire.Rows[i].FindControl("chkDDTSelezionato")).Checked = true;
+            }
+        }
+        protected void btnDeselezionaTutto_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < grdMostraDDTDaInserire.Rows.Count; i++)
+            {
+                ((CheckBox)grdMostraDDTDaInserire.Rows[i].FindControl("chkDDTSelezionato")).Checked = false;
             }
         }
         #endregion
