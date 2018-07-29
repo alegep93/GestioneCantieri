@@ -194,6 +194,30 @@ namespace GestioneCantieri.DAO
             }
             finally { CloseResouces(cn, null); }
         }
+        public static List<MaterialiCantieri> GetMatCantPerResocontoOperaio(string dataInizio, string dataFine, string idOperaio, string codCant, bool isOperaioPagato)
+        {
+            SqlConnection cn = GetConnection();
+            string sql = "";
+
+            codCant = "%" + codCant + "%";
+
+            try
+            {
+                sql = "SELECT A.Data,C.NomeOp,B.CodCant,B.DescriCodCAnt,A.Qta,A.PzzoUniCantiere,A.OperaioPagato " +
+                      "FROM TblMaterialiCantieri AS A " +
+                      "LEFT JOIN TblCantieri AS B ON (A.IdTblCantieri = B.IdCantieri) " +
+                      "LEFT JOIN TblOperaio AS C ON (A.Acquirente = C.IdOperaio) " +
+                      "WHERE (A.Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND A.IdTblOperaio LIKE @pIdOper " +
+                      "AND B.CodCant LIKE @codCant AND (A.OperaioPagato = @isOperaioPagato OR A.OperaioPagato IS NULL)  ";
+
+                return cn.Query<MaterialiCantieri>(sql, new { pDataInizio = dataInizio, pDataFine = dataFine, pIdOper = idOperaio, isOperaioPagato, codCant }).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Errore durante il recupero dei dati per il resoconto operaio", ex);
+            }
+            finally { CloseResouces(cn, null); }
+        }
         public static MaterialiCantieri GetSingleMaterialeCantiere(int id)
         {
             SqlConnection cn = GetConnection();
@@ -424,7 +448,7 @@ namespace GestioneCantieri.DAO
             {
                 sql = "UPDATE TblMaterialiCantieri " +
                       "SET OperaioPagato = 1 " +
-                      "WHERE (Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND Acquirente = @pIdOperaio ";
+                      "WHERE (Data BETWEEN Convert(date, @pDataInizio) AND Convert(date, @pDataFine)) AND IdTblOperaio = @pIdOperaio ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
                 cmd.Parameters.Add(new SqlParameter("pDataInizio", dataInizio));

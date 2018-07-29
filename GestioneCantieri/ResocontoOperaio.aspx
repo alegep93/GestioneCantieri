@@ -39,7 +39,7 @@
     <h1>Resoconto Operaio</h1>
     <div class="container-fluid">
         <div class="row">
-            <asp:Panel ID="pnlResocontoOperaio" runat="server">
+            <asp:Panel ID="pnlResocontoOperaio" DefaultButton="btnStampaResoconto" runat="server">
                 <div class="col-md-4">
                     <asp:Label ID="lblDataDa" runat="server" Text="Data Da:"></asp:Label>
                     <asp:TextBox ID="txtDataDa" TextMode="Date" CssClass="form-control" runat="server"></asp:TextBox>
@@ -56,6 +56,22 @@
                     <asp:Button ID="btnStampaResoconto" CssClass="btn btn-lg btn-primary pull-right" OnClick="btnStampaResoconto_Click" runat="server" Text="Stampa Resoconto" />
                     <asp:Button ID="btnPagaOperaio" CssClass="btn btn-lg btn-primary pull-right btnPagaOperaio" OnClick="btnPagaOperaio_Click" runat="server" Text="Paga Operaio" />
                     <asp:Label ID="lblIsOperaioPagato" runat="server" Text=""></asp:Label>
+                </div>
+            </asp:Panel>
+        </div>
+
+        <div class="row filtriResocontoOperaio">
+            <asp:Panel ID="pnlFiltri" DefaultButton="btnFiltra" CssClass="col-md-offset-3 col-md-6" runat="server">
+                <div class="col-md-8">
+                    <asp:Label ID="lblFiltroCantiere" Text="Filtra Cantiere" runat="server"></asp:Label>
+                    <asp:TextBox ID="txtFiltroCantiere" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+                <div class="col-md-2">
+                    <asp:Label ID="lblFiltroOperaioPagato" Text="Operaio Pagato" runat="server"></asp:Label>
+                    <asp:CheckBox ID="ChkFiltroOperaioPagato" CssClass="form-control" runat="server"></asp:CheckBox>
+                </div>
+                <div class="col-md-2">
+                    <asp:Button ID="btnFiltra" Text="Filtra" CssClass="btn btn-lg btn-primary" OnClick="btnFiltra_Click" runat="server"></asp:Button>
                 </div>
             </asp:Panel>
         </div>

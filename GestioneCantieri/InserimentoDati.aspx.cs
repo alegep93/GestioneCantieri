@@ -394,7 +394,7 @@ namespace GestioneCantieri
         }
         protected void btnFiltraCant_Click(object sender, EventArgs e)
         {
-            if (!(txtFiltroAnno.Text == "" && txtFiltroCodCant.Text == "" && txtFiltroDescr.Text == "" && txtFiltroCliente.Text == "" && chkFiltroChiuso.Checked == false && chkFiltroRiscosso.Checked == false))
+            if (!(txtFiltroAnno.Text == "" && txtFiltroCodCant.Text == "" && txtFiltroDescr.Text == "" && txtFiltroCliente.Text == "" && chkFiltroChiuso.Checked == false && chkFiltroRiscosso.Checked == false && chkFiltroFatturato.Checked == false))
                 BindGridCantieriWithSearch();
             else
                 BindGridCantieri(false,false);
@@ -727,7 +727,7 @@ namespace GestioneCantieri
         }
         protected void BindGridCantieriWithSearch()
         {
-            DataTable dt = CantieriDAO.FiltraCantieri(txtFiltroAnno.Text, txtFiltroCodCant.Text, txtFiltroDescr.Text, txtFiltroCliente.Text, chkFiltroChiuso.Checked, chkFiltroRiscosso.Checked);
+            DataTable dt = CantieriDAO.FiltraCantieri(txtFiltroAnno.Text, txtFiltroCodCant.Text, txtFiltroDescr.Text, txtFiltroCliente.Text, chkFiltroChiuso.Checked, chkFiltroRiscosso.Checked, chkFiltroFatturato.Checked);
             List<Cantieri> cantList = dt.DataTableToList<Cantieri>();
             grdCantieri.DataSource = cantList;
             grdCantieri.DataBind();

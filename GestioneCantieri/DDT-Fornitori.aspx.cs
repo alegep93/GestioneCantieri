@@ -93,10 +93,10 @@ namespace GestioneCantieri
         }
         protected void SvuotaCampi()
         {
-            ddlScegliFornitore.SelectedIndex = 0;
-            txtInsData.Text = "";
-            txtInsProtocollo.Text = "";
-            txtInsNumeroDdt.Text = "";
+            //ddlScegliFornitore.SelectedIndex = 0;
+            //txtInsData.Text = "";
+            //txtInsProtocollo.Text = "";
+            //txtInsNumeroDdt.Text = "";
             txtInsArticolo.Text = "";
             txtInsDescrForn.Text = "";
             txtInsDescrMau.Text = "";

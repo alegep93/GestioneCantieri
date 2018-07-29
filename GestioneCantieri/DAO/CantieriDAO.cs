@@ -301,7 +301,7 @@ namespace GestioneCantieri.DAO
             }
             finally { CloseResouces(cn, null); }
         }
-        public static DataTable FiltraCantieri(string anno, string codCant, string descr, string cliente, bool chiuso, bool riscosso)
+        public static DataTable FiltraCantieri(string anno, string codCant, string descr, string cliente, bool chiuso, bool riscosso, bool fatturato)
         {
             SqlConnection cn = GetConnection();
             string sql = "";
@@ -321,7 +321,7 @@ namespace GestioneCantieri.DAO
                       "FROM TblCantieri AS Cant " +
                       "JOIN TblClienti AS Cli ON(Cant.IdTblClienti = Cli.IdCliente) " +
                       "WHERE Anno LIKE @pAnno AND CodCant LIKE @pCodCant AND DescriCodCAnt LIKE @pDescr AND Cli.RagSocCli LIKE @pRagSocCli " +
-                      "AND Chiuso LIKE @pChiuso AND Riscosso LIKE @pRiscosso " +
+                      "AND Chiuso LIKE @pChiuso AND Riscosso LIKE @pRiscosso AND Fatturato LIKE @pFatturato " +
                       "ORDER BY Cant.CodCant ASC ";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
@@ -331,6 +331,7 @@ namespace GestioneCantieri.DAO
                 cmd.Parameters.Add(new SqlParameter("pRagSocCli", cliente));
                 cmd.Parameters.Add(new SqlParameter("pChiuso", chiuso));
                 cmd.Parameters.Add(new SqlParameter("pRiscosso", riscosso));
+                cmd.Parameters.Add(new SqlParameter("pFatturato", fatturato));
 
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable table = new DataTable();

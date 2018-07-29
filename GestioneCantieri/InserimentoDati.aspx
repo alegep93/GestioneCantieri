@@ -430,7 +430,7 @@
                 </asp:Panel>
 
                 <asp:Panel ID="pnlFiltriCant" CssClass="col-md-12" runat="server" Style="margin-top: 20px;">
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <asp:Label ID="lblFiltroAnno" runat="server" Text="Anno"></asp:Label>
                         <asp:TextBox ID="txtFiltroAnno" CssClass="form-control" runat="server"></asp:TextBox>
                     </div>
@@ -453,6 +453,10 @@
                     <div class="col-md-1">
                         <asp:Label ID="lblFiltroRiscosso" runat="server" Text="Riscosso"></asp:Label>
                         <asp:CheckBox ID="chkFiltroRiscosso" CssClass="form-control" Checked="false" runat="server" />
+                    </div>
+                    <div class="col-md-1">
+                        <asp:Label ID="lblFiltroFatturato" runat="server" Text="Fatturato"></asp:Label>
+                        <asp:CheckBox ID="chkFiltroFatturato" CssClass="form-control" Checked="false" runat="server" />
                     </div>
                     <div class="col-md-2">
                         <asp:Button ID="btnFiltraCant" OnClick="btnFiltraCant_Click" CssClass="btn btn-lg btn-primary pull-right" runat="server" Text="Filtra" />

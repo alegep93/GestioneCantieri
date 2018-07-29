@@ -38,12 +38,16 @@ namespace GestioneCantieri
                 ddlScegliOperaio.Items.Add(new ListItem(show, op.IdOperaio.ToString()));
             }
         }
-        protected void BindGrid()
+        protected void BindGrid(bool isFiltered)
         {
             decimal valore = 0m, totValore = 0m;
             int totOre = 0;
+            List<MaterialiCantieri> matCantList = new List<MaterialiCantieri>();
 
-            List<MaterialiCantieri> matCantList = MaterialiCantieriDAO.GetMatCantPerResocontoOperaio(txtDataDa.Text, txtDataA.Text, ddlScegliOperaio.SelectedItem.Value);
+            if (!isFiltered)
+                matCantList = MaterialiCantieriDAO.GetMatCantPerResocontoOperaio(txtDataDa.Text, txtDataA.Text, ddlScegliOperaio.SelectedItem.Value);
+            else
+                matCantList = MaterialiCantieriDAO.GetMatCantPerResocontoOperaio(txtDataDa.Text, txtDataA.Text, ddlScegliOperaio.SelectedItem.Value, txtFiltroCantiere.Text, ChkFiltroOperaioPagato.Checked);
             grdResocontoOperaio.DataSource = matCantList;
             grdResocontoOperaio.DataBind();
 
@@ -61,7 +65,7 @@ namespace GestioneCantieri
 
         protected void btnStampaResoconto_Click(object sender, EventArgs e)
         {
-            BindGrid();
+            BindGrid(false);
             btnPagaOperaio.Visible = true;
         }
         protected void btnPagaOperaio_Click(object sender, EventArgs e)
@@ -79,7 +83,12 @@ namespace GestioneCantieri
                 lblIsOperaioPagato.ForeColor = Color.Red;
             }
 
-            BindGrid();
+            BindGrid(false);
+        }
+
+        protected void btnFiltra_Click(object sender, EventArgs e)
+        {
+            BindGrid(true);
         }
     }
 }

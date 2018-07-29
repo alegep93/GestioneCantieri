@@ -103,6 +103,60 @@ namespace GestioneCantieri {
         protected global::System.Web.UI.WebControls.Label lblIsOperaioPagato;
         
         /// <summary>
+        /// Controllo pnlFiltri.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlFiltri;
+        
+        /// <summary>
+        /// Controllo lblFiltroCantiere.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroCantiere;
+        
+        /// <summary>
+        /// Controllo txtFiltroCantiere.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtFiltroCantiere;
+        
+        /// <summary>
+        /// Controllo lblFiltroOperaioPagato.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFiltroOperaioPagato;
+        
+        /// <summary>
+        /// Controllo ChkFiltroOperaioPagato.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox ChkFiltroOperaioPagato;
+        
+        /// <summary>
+        /// Controllo btnFiltra.
+        /// </summary>
+        /// <remarks>
+        /// Campo generato automaticamente.
+        /// Per la modifica, spostare la dichiarazione di campo dal file di progettazione al file code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnFiltra;
+        
+        /// <summary>
         /// Controllo grdResocontoOperaio.
         /// </summary>
         /// <remarks>
