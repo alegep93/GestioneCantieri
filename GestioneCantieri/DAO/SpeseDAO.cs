@@ -46,7 +46,7 @@ namespace GestioneCantieri.DAO
                 sql = "SELECT IdSpesa,Descrizione,Prezzo FROM TblSpese WHERE Descrizione LIKE @Descrizione";
 
                 SqlCommand cmd = new SqlCommand(sql, cn);
-                cmd.Parameters.Add(new SqlParameter("descr", descr));
+                cmd.Parameters.Add(new SqlParameter("@Descrizione", descr));
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
 
                 DataTable table = new DataTable();
